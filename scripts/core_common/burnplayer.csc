@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"burnplayer", &__init__, undefined, undefined);
 }
@@ -236,11 +236,11 @@ function burn_on_postfx()
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private _burntag(localclientnum, tag, postfix)
+private function _burntag(localclientnum, tag, postfix)
 {
 	if(isdefined(self) && self hasdobj(localclientnum))
 	{
-		fxname = ("burn_" + tag) + postfix;
+		fxname = "burn_" + tag + postfix;
 		if(isdefined(level._effect[fxname]))
 		{
 			return util::playfxontag(localclientnum, level._effect[fxname], self, tag);
@@ -257,7 +257,7 @@ function private _burntag(localclientnum, tag, postfix)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private _burntagson(localclientnum, tags, var_71742e03)
+private function _burntagson(localclientnum, tags, var_71742e03)
 {
 	if(!isdefined(self))
 	{
@@ -280,8 +280,7 @@ function private _burntagson(localclientnum, tags, var_71742e03)
 			activefx[activefx.size] = self _burntag(localclientnum, tags[i], "_loop");
 		}
 	}
-	playsound(0, #"chr_ignite", self.origin);
-	burnsound = self playloopsound(#"chr_burn_loop_overlay", 0.5);
+	playsound(0, #"chr_ignite", self.origin);	burnsound = self playloopsound(#"chr_burn_loop_overlay", 0.5);
 	self thread _burntagswatchend(localclientnum, activefx, burnsound);
 	self thread _burntagswatchclear(localclientnum, activefx, burnsound);
 }
@@ -295,7 +294,7 @@ function private _burntagson(localclientnum, tags, var_71742e03)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private _burnbody(localclientnum, var_71742e03 = 0)
+private function _burnbody(localclientnum, var_71742e03 = 0)
 {
 	self endon(#"death");
 	self thread _burntagson(localclientnum, level.burntags, var_71742e03);
@@ -310,7 +309,7 @@ function private _burnbody(localclientnum, var_71742e03 = 0)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private _burntagswatchend(localclientnum, fxarray, burnsound)
+private function _burntagswatchend(localclientnum, fxarray, burnsound)
 {
 	self waittill(#"burn_off", #"death");
 	if(isdefined(self) && isdefined(burnsound))
@@ -335,7 +334,7 @@ function private _burntagswatchend(localclientnum, fxarray, burnsound)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private _burntagswatchclear(localclientnum, fxarray, burnsound)
+private function _burntagswatchclear(localclientnum, fxarray, burnsound)
 {
 	self endon(#"burn_off");
 	self waittill(#"death");

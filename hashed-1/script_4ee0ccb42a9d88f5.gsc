@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_1dafe158a70189fd;
-#using script_522aeb6ae906391e;
-#using script_59f07c660e6710a5;
+#using hashed-2\blackboard.gsc;
+#using hashed-2\ai_interface.gsc;
 #using scripts\core_common\spawner_shared.gsc;
 
 #namespace namespace_363fe686;
@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init()
+autoexec function init()
 {
 	namespace_1f694fcd::registerbrutusinterfaceattributes();
 	registerbehaviorscriptfunctions();
@@ -31,7 +31,7 @@ function autoexec init()
 	Parameters: 0
 	Flags: Private
 */
-function private function_651f04c3()
+private function function_651f04c3()
 {
 	/#
 		assert(isdefined(self.ai));
@@ -47,7 +47,7 @@ function private function_651f04c3()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_517fd069()
+private function function_517fd069()
 {
 	blackboard::createblackboardforentity(self);
 	ai::createinterfaceforentity(self);
@@ -64,7 +64,7 @@ function private function_517fd069()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_3cdbfffd(entity)
+private function function_3cdbfffd(entity)
 {
 }
 
@@ -77,7 +77,7 @@ function private function_3cdbfffd(entity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_666b2409(entity)
+private function function_666b2409(entity)
 {
 	self.__blackboard = undefined;
 	self function_517fd069();
@@ -92,7 +92,7 @@ function private function_666b2409(entity)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private registerbehaviorscriptfunctions()
+private function registerbehaviorscriptfunctions()
 {
 }
 
@@ -105,7 +105,7 @@ function private registerbehaviorscriptfunctions()
 	Parameters: 1
 	Flags: Private
 */
-function private function_f9f08bb1(message)
+private function function_f9f08bb1(message)
 {
 	/#
 		if(getdvarint(#"hash_4aefa984c0b2ea80", 0))

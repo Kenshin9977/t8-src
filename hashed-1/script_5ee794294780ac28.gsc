@@ -18,7 +18,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_37398b26e502cdde", &__init__, undefined, undefined);
 }
@@ -34,11 +34,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_2bec904229ece9ed", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_2bec904229ece9ed", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -50,14 +50,14 @@ function __init__()
 	Parameters: 1
 	Flags: Private
 */
-function private function_d1de6a85(var_49106f6b)
+private function function_d1de6a85(var_49106f6b)
 {
-	level.var_60aa7ebf = zm_trial::function_5769f26a(var_49106f6b);
+	level.var_60aa7ebf = cschashed-1\script_3c362258ff800237::function_5769f26a(var_49106f6b);
 	foreach(player in getplayers())
 	{
 		player.var_e47444a5 = [];
-		player namespace_b22c99a5::function_2190356a(0);
-		player namespace_b22c99a5::function_c2cd0cba(level.var_60aa7ebf);
+		player cschashed-1\script_3d5821d793ed4c6::function_2190356a(0);
+		player cschashed-1\script_3d5821d793ed4c6::function_c2cd0cba(level.var_60aa7ebf);
 	}
 	callback::on_ai_killed(&on_ai_killed);
 }
@@ -71,7 +71,7 @@ function private function_d1de6a85(var_49106f6b)
 	Parameters: 1
 	Flags: Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	if(!round_reset)
 	{
@@ -93,14 +93,14 @@ function private function_9e7b3f4d(round_reset)
 		}
 		if(var_696c3b4.size)
 		{
-			zm_trial::fail(#"hash_2ad223a26dff12a0", var_696c3b4);
+			cschashed-1\script_3c362258ff800237::fail(#"hash_2ad223a26dff12a0", var_696c3b4);
 		}
 	}
 	callback::remove_on_ai_killed(&on_ai_killed);
 	level.var_60aa7ebf = undefined;
 	foreach(player in getplayers())
 	{
-		player namespace_b22c99a5::function_f3aacffb();
+		player cschashed-1\script_3d5821d793ed4c6::function_f3aacffb();
 	}
 }
 
@@ -115,7 +115,7 @@ function private function_9e7b3f4d(round_reset)
 */
 function is_active()
 {
-	challenge = zm_trial::function_a36e8c38(#"hash_2bec904229ece9ed");
+	challenge = cschashed-1\script_3c362258ff800237::function_a36e8c38(#"hash_2bec904229ece9ed");
 	return isdefined(challenge);
 }
 
@@ -128,7 +128,7 @@ function is_active()
 	Parameters: 1
 	Flags: Private
 */
-function private on_ai_killed(params)
+private function on_ai_killed(params)
 {
 	if(isplayer(params.eattacker))
 	{
@@ -150,16 +150,13 @@ function private on_ai_killed(params)
 	{
 		w_root = getweapon(#"mini_turret");
 	}
+	else if(zm_utility::function_850e7499(params.weapon, 1))
+	{
+		w_root = getweapon(#"hash_c78156ba6aeda14");
+	}
 	else
 	{
-		if(zm_utility::function_850e7499(params.weapon, 1))
-		{
-			w_root = getweapon(#"hash_c78156ba6aeda14");
-		}
-		else
-		{
-			w_root = zm_weapons::function_93cd8e76(params.weapon, 1);
-		}
+		w_root = zm_weapons::function_93cd8e76(params.weapon, 1);
 	}
 	if(isdefined(level.var_a601d6a6))
 	{
@@ -178,12 +175,12 @@ function private on_ai_killed(params)
 		player.var_e47444a5[player.var_e47444a5.size] = w_root;
 		if(player.var_e47444a5.size == level.var_60aa7ebf)
 		{
-			player namespace_b22c99a5::function_63060af4(1);
+			player cschashed-1\script_3d5821d793ed4c6::function_63060af4(1);
 		}
 		else
 		{
-			player namespace_b22c99a5::function_2190356a(player.var_e47444a5.size);
-			player namespace_b22c99a5::function_c2cd0cba(level.var_60aa7ebf);
+			player cschashed-1\script_3d5821d793ed4c6::function_2190356a(player.var_e47444a5.size);
+			player cschashed-1\script_3d5821d793ed4c6::function_c2cd0cba(level.var_60aa7ebf);
 		}
 	}
 }

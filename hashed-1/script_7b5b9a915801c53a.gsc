@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"golden_knife", &__init__, &__main__, undefined);
 }
@@ -28,7 +28,7 @@ function autoexec function_89f2df9()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __init__()
+private function __init__()
 {
 	zm_melee_weapon::init(#"golden_knife", #"hash_723c17d990ece50f", 1000, "golden_knife", undefined, undefined, undefined);
 }
@@ -42,7 +42,7 @@ function private __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __main__()
+private function __main__()
 {
 }
 

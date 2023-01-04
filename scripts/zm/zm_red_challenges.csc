@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_3535cbd276d2c358;
-#using script_624a704d0f6bf28d;
+hashed-2\script_624a704d0f6bf28d.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\struct.csc;
 #using scripts\core_common\util_shared.csc;
@@ -25,8 +25,7 @@ function init()
 	}
 	clientfield::register("scriptmover", "" + #"hash_74fc30de57a0657a", 16000, 3, "int", &function_de1bffd6, 0, 0);
 	clientfield::register("scriptmover", "" + #"hash_21f5fab6a3d22093", 16000, 3, "int", &function_9ed71eeb, 0, 0);
-	clientfield::register("scriptmover", "" + #"keyline_model", 16000, 1, "int", &keyline_model, 0, 0);
-	clientfield::register("scriptmover", "" + #"hash_565760e2c7c1e5cb", 16000, 1, "int", &function_a7ee082f, 0, 0);
+	clientfield::register("scriptmover", "" + #"keyline_model", 16000, 1, "int", &keyline_model, 0, 0);	clientfield::register("scriptmover", "" + #"hash_565760e2c7c1e5cb", 16000, 1, "int", &function_a7ee082f, 0, 0);
 	clientfield::register("scriptmover", "" + #"hash_8b48433c3fe40e4", 16000, 3, "int", &function_75ac8f21, 0, 0);
 	clientfield::register("toplayer", "" + #"hash_4bde11d71410ea67", 16000, 3, "int", &function_250bbf4e, 0, 0);
 	clientfield::register("world", "" + #"hash_34bdcd0feba3d912", 16000, 1, "int", &function_4b8846c3, 0, 0);
@@ -145,7 +144,7 @@ function function_9ed71eeb(localclientnum, oldval, newval, bnewent, binitialsnap
 	}
 	v_pos = self.origin + vectorscale((0, 0, 1), 7);
 	v_dir = anglestoforward(self.angles);
-	v_pos = v_pos + (v_dir * 9);
+	v_pos = v_pos + v_dir * 9;
 	v_up = (0, 0, 1);
 	v_forward = (1, 0, 0);
 	switch(newval)
@@ -397,8 +396,8 @@ function fake_physicslaunch(target_pos, power, var_4862f668)
 	dist = distance(start_pos, target_pos);
 	time = dist / power;
 	delta = target_pos - start_pos;
-	drop = (0.5 * gravity) * (time * time);
-	velocity = (delta[0] / time, delta[1] / time, (delta[2] - drop) / time);
+	drop = 0.5 * gravity * time * time;
+	velocity = (delta[0] / time, delta[1] / time, delta[2] - drop / time);
 	self movegravity(velocity, time);
 	return time;
 }

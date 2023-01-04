@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_47fb62300ac0bd60;
+#using hashed-2\stats.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\rank_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"persistence", &__init__, undefined, undefined);
 }
@@ -140,7 +140,7 @@ function function_acac764e()
 	{
 		return;
 	}
-	newindex = (index + 1) % 10;
+	newindex = index + 1 % 10;
 	self.pers[#"hash_76fbbcf94dab5536"] = newindex;
 	self stats::set_stat(#"playerstatsbygametype", level.var_12323003, #"prevscoreindex", newindex);
 }
@@ -405,7 +405,7 @@ function challenge_complete(eventstruct)
 	var_c4e9517b = tablenumber + 1;
 	if(currentsessionmode() == 0)
 	{
-		tablename = (#"hash_34a621a5800b5b4a" + var_c4e9517b) + ".csv";
+		tablename = #"hash_34a621a5800b5b4a" + var_c4e9517b + ".csv";
 		if(var_c4e9517b == 2)
 		{
 			var_a05af556 = tablelookupcolumnforrow(tablename, row, 9);
@@ -424,7 +424,7 @@ function challenge_complete(eventstruct)
 	}
 	else
 	{
-		tablename = (#"hash_287cf26422669b76" + var_c4e9517b) + ".csv";
+		tablename = #"hash_287cf26422669b76" + var_c4e9517b + ".csv";
 	}
 	var_eb67c133 = tablelookupcolumnforrow(tablename, row, 5);
 	if(var_eb67c133 === #"hash_4a80d584aac2e7d0")
@@ -461,18 +461,15 @@ function challenge_complete(eventstruct)
 			}
 			if(getdvarint(#"scr_debugchallenges", 0) == 1)
 			{
-				iprintlnbold((((challengestring + "") + maxval) + "") + herostring);
+				iprintlnbold(challengestring + "" + maxval + "" + herostring);
 			}
-			else
+			else if(getdvarint(#"scr_debugchallenges", 0) == 2)
 			{
-				if(getdvarint(#"scr_debugchallenges", 0) == 2)
-				{
-					self iprintlnbold((((challengestring + "") + maxval) + "") + herostring);
-				}
-				else if(getdvarint(#"scr_debugchallenges", 0) == 3)
-				{
-					iprintln((((challengestring + "") + maxval) + "") + herostring);
-				}
+				self iprintlnbold(challengestring + "" + maxval + "" + herostring);
+			}
+			else if(getdvarint(#"scr_debugchallenges", 0) == 3)
+			{
+				iprintln(challengestring + "" + maxval + "" + herostring);
 			}
 		}
 	#/

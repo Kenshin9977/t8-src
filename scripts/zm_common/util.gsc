@@ -128,25 +128,22 @@ function playsoundonplayers(sound, team)
 			level.players[0] playlocalsound(sound);
 		}
 	}
-	else
+	else if(isdefined(team))
 	{
-		if(isdefined(team))
+		for(i = 0; i < level.players.size; i++)
 		{
-			for(i = 0; i < level.players.size; i++)
+			player = level.players[i];
+			if(isdefined(player.pers[#"team"]) && player.pers[#"team"] == team)
 			{
-				player = level.players[i];
-				if(isdefined(player.pers[#"team"]) && player.pers[#"team"] == team)
-				{
-					player playlocalsound(sound);
-				}
+				player playlocalsound(sound);
 			}
 		}
-		else
+	}
+	else
+	{
+		for(i = 0; i < level.players.size; i++)
 		{
-			for(i = 0; i < level.players.size; i++)
-			{
-				level.players[i] playlocalsound(sound);
-			}
+			level.players[i] playlocalsound(sound);
 		}
 	}
 }
@@ -528,7 +525,7 @@ function getotherteamsmask(skip_team)
 function getfx(fx)
 {
 	/#
-		assert(isdefined(level._effect[fx]), ("" + fx) + "");
+		assert(isdefined(level._effect[fx]), "" + fx + "");
 	#/
 	return level._effect[fx];
 }
@@ -783,9 +780,9 @@ function ispressbuild()
 	buildtype = getdvarstring(#"buildtype");
 	if(isdefined(buildtype) && buildtype == "press")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -877,7 +874,7 @@ function get_array_of_closest(org, array, excluders = [], max = array.size, maxd
 		change = 0;
 		for(i = 0; i < dist.size - 1; i++)
 		{
-			if(dist[i] <= (dist[i + 1]))
+			if(dist[i] <= dist[i + 1])
 			{
 				continue;
 			}

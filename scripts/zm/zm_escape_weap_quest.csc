@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_7228a45f434ec207;
+hashed-3\script_7228a45f434ec207.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\postfx_shared.csc;
@@ -20,7 +20,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_35f86e4c2035f69f", &__init__, undefined, undefined);
 }
@@ -41,10 +41,8 @@ function __init__()
 	clientfield::register("actor", "" + #"hash_588871862d19b97d", 1, 1, "int", &function_b543a4ed, 0, 0);
 	clientfield::register("scriptmover", "" + #"hash_2be4ce9b84bd3b58", 1, 1, "counter", &function_1f632068, 0, 0);
 	clientfield::register("actor", "" + #"hash_338ecd1287d0623b", 1, 1, "counter", &function_63eff42e, 0, 0);
-	clientfield::register("scriptmover", "" + #"tomahawk_pickup_fx", 1, n_bits, "int", &function_dfe17a5d, 0, 0);
-	clientfield::register("scriptmover", "" + #"hash_51657261e835ac7c", 1, n_bits, "int", &function_724af26a, 0, 0);
-	clientfield::register("toplayer", "" + #"tomahawk_pickup_fx", 13000, 1, "int", &function_1302ffdd, 0, 0);
-	clientfield::register("toplayer", "" + #"hash_51657261e835ac7c", 13000, 1, "int", &function_c17bd665, 0, 0);
+	clientfield::register("scriptmover", "" + #"tomahawk_pickup_fx", 1, n_bits, "int", &function_dfe17a5d, 0, 0);	clientfield::register("scriptmover", "" + #"hash_51657261e835ac7c", 1, n_bits, "int", &function_724af26a, 0, 0);
+	clientfield::register("toplayer", "" + #"tomahawk_pickup_fx", 13000, 1, "int", &function_1302ffdd, 0, 0);	clientfield::register("toplayer", "" + #"hash_51657261e835ac7c", 13000, 1, "int", &function_c17bd665, 0, 0);
 	level._effect[#"hell_portal"] = "maps/zm_escape/fx8_wolf_portal_hell";
 	level._effect[#"hell_portal_close"] = "maps/zm_escape/fx8_wolf_portal_hell_close";
 	level._effect[#"soul_charged"] = "maps/zm_escape/fx8_wolf_soul_charged";
@@ -77,28 +75,25 @@ function function_e4a48a64(localclientnum, oldval, newval, bnewent, binitialsnap
 			self.var_dd081ca4 = self playloopsound(#"hash_f80ff339436a985");
 		}
 	}
-	else
+	else if(isdefined(self.var_8eb4e749))
 	{
-		if(isdefined(self.var_8eb4e749))
+		stopfx(localclientnum, self.var_8eb4e749);
+		self.var_8eb4e749 = undefined;
+	}
+	self playsound(localclientnum, #"hash_4435f84f2c7dd54f");
+	if(isdefined(self.var_dd081ca4))
+	{
+		self stoploopsound(self.var_dd081ca4);
+	}
+	self.var_8eb4e749 = util::playfxontag(localclientnum, level._effect[#"hell_portal_close"], self, "tag_origin");
+	wait(0.5);
+	if(isdefined(self))
+	{
+		if(isdefined(self.var_78ef40db))
 		{
-			stopfx(localclientnum, self.var_8eb4e749);
-			self.var_8eb4e749 = undefined;
+			stopfx(localclientnum, self.var_78ef40db);
 		}
-		self playsound(localclientnum, #"hash_4435f84f2c7dd54f");
-		if(isdefined(self.var_dd081ca4))
-		{
-			self stoploopsound(self.var_dd081ca4);
-		}
-		self.var_8eb4e749 = util::playfxontag(localclientnum, level._effect[#"hell_portal_close"], self, "tag_origin");
-		wait(0.5);
-		if(isdefined(self))
-		{
-			if(isdefined(self.var_78ef40db))
-			{
-				stopfx(localclientnum, self.var_78ef40db);
-			}
-			self.var_78ef40db = util::playfxontag(localclientnum, level._effect[#"soul_charged"], self, "tag_origin");
-		}
+		self.var_78ef40db = util::playfxontag(localclientnum, level._effect[#"soul_charged"], self, "tag_origin");
 	}
 }
 
@@ -236,14 +231,14 @@ function function_724af26a(localclientnum, oldval, newval, bnewent, binitialsnap
 function function_1302ffdd(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
 {
 	var_4488630f = struct::get("s_tom_fx");
-	if(isdefined(self.n_tomahawk_pickup_fx))
+	if(isdefined(self.var_18331887))
 	{
-		killfx(localclientnum, self.n_tomahawk_pickup_fx);
-		self.n_tomahawk_pickup_fx = undefined;
+		killfx(localclientnum, self.var_18331887);
+		self.var_18331887 = undefined;
 	}
 	if(newval)
 	{
-		self.n_tomahawk_pickup_fx = playfx(localclientnum, level._effect[#"tomahawk_pickup"], var_4488630f.origin - vectorscale((0, 0, 1), 24));
+		self.var_18331887 = playfx(localclientnum, level._effect[#"tomahawk_pickup"], var_4488630f.origin - vectorscale((0, 0, 1), 24));
 	}
 }
 
@@ -259,14 +254,14 @@ function function_1302ffdd(localclientnum, oldval, newval, bnewent, binitialsnap
 function function_c17bd665(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
 {
 	var_4488630f = struct::get("s_tom_fx");
-	if(isdefined(self.n_tomahawk_pickup_fx))
+	if(isdefined(self.var_18331887))
 	{
-		killfx(localclientnum, self.n_tomahawk_pickup_fx);
-		self.n_tomahawk_pickup_fx = undefined;
+		killfx(localclientnum, self.var_18331887);
+		self.var_18331887 = undefined;
 	}
 	if(newval)
 	{
-		self.n_tomahawk_pickup_fx = playfx(localclientnum, level._effect[#"tomahawk_pickup_upgrade"], var_4488630f.origin - vectorscale((0, 0, 1), 24));
+		self.var_18331887 = playfx(localclientnum, level._effect[#"tomahawk_pickup_upgrade"], var_4488630f.origin - vectorscale((0, 0, 1), 24));
 	}
 }
 

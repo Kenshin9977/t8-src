@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_trap_electric", &__init__, undefined, undefined);
 }
@@ -97,18 +97,15 @@ function function_3f09b130(localclientnum, oldval, newval, bnewent, binitialsnap
 			setfxignorepause(localclientnum, self.n_shock_fx, 1);
 		}
 	}
-	else
+	else if(isdefined(self.n_shock_eyes_fx))
 	{
-		if(isdefined(self.n_shock_eyes_fx))
-		{
-			deletefx(localclientnum, self.n_shock_eyes_fx, 1);
-			self.n_shock_eyes_fx = undefined;
-		}
-		if(isdefined(self.n_shock_fx))
-		{
-			deletefx(localclientnum, self.n_shock_fx, 1);
-			self.n_shock_fx = undefined;
-		}
+		deletefx(localclientnum, self.n_shock_eyes_fx, 1);
+		self.n_shock_eyes_fx = undefined;
+	}
+	if(isdefined(self.n_shock_fx))
+	{
+		deletefx(localclientnum, self.n_shock_fx, 1);
+		self.n_shock_fx = undefined;
 	}
 }
 

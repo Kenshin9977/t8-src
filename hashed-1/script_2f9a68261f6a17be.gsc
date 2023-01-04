@@ -21,7 +21,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_41cb195ec280085c", &__init__, undefined, undefined);
 }
@@ -37,11 +37,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_149b9c514fee8fc3", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_149b9c514fee8fc3", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -53,13 +53,13 @@ function __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d1de6a85()
+private function function_d1de6a85()
 {
 	callback::function_33f0ddd3(&function_33f0ddd3);
 	foreach(player in getplayers())
 	{
-		player thread namespace_b22c99a5::function_bf710271();
-		player namespace_b22c99a5::function_7dbb1712(1);
+		player thread cschashed-1\script_3d5821d793ed4c6::function_bf710271();
+		player cschashed-1\script_3d5821d793ed4c6::function_7dbb1712(1);
 	}
 	var_ec9e2b1d = getentarray("zombie_trap", "targetname");
 	str_text = zm_utility::function_d6046228(#"hash_24a438482954901", #"hash_61d85c966dd9e83f");
@@ -82,7 +82,7 @@ function private function_d1de6a85()
 	}
 	level.var_153e9058 = 1;
 	level.var_fe2bb2ac = 1;
-	level zm_trial::function_25ee130(1);
+	level cschashed-1\script_3c362258ff800237::function_25ee130(1);
 	level thread function_70594057();
 }
 
@@ -95,16 +95,16 @@ function private function_d1de6a85()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	callback::function_824d206(&function_33f0ddd3);
 	level.var_153e9058 = undefined;
 	level.var_fe2bb2ac = undefined;
-	level zm_trial::function_25ee130(0);
+	level cschashed-1\script_3c362258ff800237::function_25ee130(0);
 	foreach(player in getplayers())
 	{
-		player thread namespace_b22c99a5::function_dc0859e();
-		player namespace_b22c99a5::function_7dbb1712(1);
+		player thread cschashed-1\script_3d5821d793ed4c6::function_dc0859e();
+		player cschashed-1\script_3d5821d793ed4c6::function_7dbb1712(1);
 	}
 	var_ec9e2b1d = getentarray("zombie_trap", "targetname");
 	str_text = zm_utility::function_d6046228(#"hash_23c1c09e94181fdb", #"hash_6e8ef1b690e98e51");
@@ -126,9 +126,9 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_33f0ddd3(s_event)
+private function function_33f0ddd3(s_event)
 {
-	if(s_event.event === "give_weapon" && !zm_loadout::function_2ff6913(s_event.weapon))
+	if(s_event.event === "give_weapon" && !cschashed-2\script_709bf7c56eb65adf::function_2ff6913(s_event.weapon))
 	{
 		self function_28602a03(s_event.weapon, 1, 1);
 		if(s_event.weapon.dualwieldweapon != level.weaponnone)
@@ -153,7 +153,7 @@ function private function_33f0ddd3(s_event)
 */
 function is_active()
 {
-	s_challenge = zm_trial::function_a36e8c38(#"hash_149b9c514fee8fc3");
+	s_challenge = cschashed-1\script_3c362258ff800237::function_a36e8c38(#"hash_149b9c514fee8fc3");
 	return isdefined(s_challenge);
 }
 

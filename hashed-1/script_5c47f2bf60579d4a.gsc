@@ -1,31 +1,31 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_24c32478acf44108;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
 #using scripts\zm_common\zm_utility.gsc;
 
-#namespace namespace_93a948d8;
+#namespace cschashed-2\script_37ef46bf4b467ade;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xA64E8F97
 	Offset: 0x130
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_62481f126a275788", &function_f0f91440, undefined, undefined);
 }
 
 /*
 	Name: function_f0f91440
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x63CF4791
 	Offset: 0x178
 	Size: 0x396
@@ -48,15 +48,15 @@ function function_f0f91440()
 	clientfield::register("actor", "" + #"hash_259cdeffe60fe48f", 1, 1, "int");
 	clientfield::register("actor", "" + #"hash_1aa3522b88c2b76f", 1, 1, "int");
 	clientfield::register("actor", "" + #"hash_5ad28d5f104a6e3b", 1, 1, "int");
-	namespace_9ff9f642::register_slowdown(#"hash_7706017a8f91f35c", 0.85, 10);
-	namespace_9ff9f642::register_slowdown(#"hash_5a1a7bceb3b8fded", 0.65, 15);
-	level.var_58e6238 = &mp_dom_flag_d_captured_byinterfaceattributes;
+	cschashed-3\script_d67878983e3d7c::register_slowdown(#"hash_7706017a8f91f35c", 0.85, 10);
+	cschashed-3\script_d67878983e3d7c::register_slowdown(#"hash_5a1a7bceb3b8fded", 0.65, 15);
+	level.var_58e6238 = &function_1db2df45;
 	level.var_f975b6ae = &function_9a01c5b0;
 }
 
 /*
 	Name: function_3eedf19c
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xB141A78A
 	Offset: 0x518
 	Size: 0xE
@@ -65,12 +65,12 @@ function function_f0f91440()
 */
 function function_3eedf19c(damage_percent)
 {
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_b65fd5ae
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xFE3C2F11
 	Offset: 0x530
 	Size: 0x1E4
@@ -119,8 +119,8 @@ function function_b65fd5ae(params)
 	}
 	if(self.archetype != #"zombie_dog")
 	{
-		self thread namespace_9ff9f642::slowdown(var_bdbde2d2);
-		self thread slow_watcher(var_bdbde2d2);
+		self thread cschashed-3\script_d67878983e3d7c::slowdown(var_bdbde2d2);
+		self thread function_aab37e9f(var_bdbde2d2);
 	}
 	if(!getdvarint(#"splitscreen_playercount", 1) > 2)
 	{
@@ -130,14 +130,14 @@ function function_b65fd5ae(params)
 
 /*
 	Name: slow_watcher
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x6C0F0C6B
 	Offset: 0x720
 	Size: 0x92
 	Parameters: 1
 	Flags: Linked
 */
-function slow_watcher(var_bdbde2d2)
+function function_aab37e9f(var_bdbde2d2)
 {
 	self notify(#"hash_7898db449656ed5a");
 	self endon(#"death", #"hash_7898db449656ed5a");
@@ -153,7 +153,7 @@ function slow_watcher(var_bdbde2d2)
 
 /*
 	Name: function_660bf66e
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x445B013A
 	Offset: 0x7C0
 	Size: 0x44
@@ -168,7 +168,7 @@ function function_660bf66e(weapon)
 
 /*
 	Name: freezegun_fired
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xB10794FB
 	Offset: 0x810
 	Size: 0xDC
@@ -194,7 +194,7 @@ function freezegun_fired(is_upgraded)
 
 /*
 	Name: freezegun_get_enemies_in_range
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x98A093C4
 	Offset: 0x8F8
 	Size: 0x51A
@@ -259,13 +259,13 @@ function freezegun_get_enemies_in_range(is_upgraded)
 			continue;
 		}
 		level.freezegun_enemies[level.freezegun_enemies.size] = ai;
-		level.freezegun_enemies_dist_ratio[level.freezegun_enemies_dist_ratio.size] = (freezegun_outer_range_squared - test_range_squared) / (freezegun_outer_range_squared - freezegun_inner_range_squared);
+		level.freezegun_enemies_dist_ratio[level.freezegun_enemies_dist_ratio.size] = freezegun_outer_range_squared - test_range_squared / freezegun_outer_range_squared - freezegun_inner_range_squared;
 	}
 }
 
 /*
 	Name: freezegun_do_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x7C6E7AEF
 	Offset: 0xE20
 	Size: 0x9C
@@ -280,7 +280,7 @@ function freezegun_do_damage(is_upgraded, player, dist_ratio)
 
 /*
 	Name: function_4aa98d7d
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xC0B0BC90
 	Offset: 0xEC8
 	Size: 0x144
@@ -304,7 +304,7 @@ function function_4aa98d7d(is_upgraded)
 
 /*
 	Name: freezegun_do_shatter
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x6086A4B7
 	Offset: 0x1018
 	Size: 0x314
@@ -346,7 +346,7 @@ function freezegun_do_shatter(params, shatter_trigger, crumple_trigger)
 
 /*
 	Name: freezegun_wait_for_shatter
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x85E25750
 	Offset: 0x1338
 	Size: 0x154
@@ -373,7 +373,7 @@ function freezegun_wait_for_shatter(params, shatter_trigger, crumple_trigger)
 
 /*
 	Name: freezegun_do_crumple
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x2D282BEA
 	Offset: 0x1498
 	Size: 0xC4
@@ -393,7 +393,7 @@ function freezegun_do_crumple(params, shatter_trigger, crumple_trigger)
 
 /*
 	Name: freezegun_wait_for_crumple
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x44E85B8
 	Offset: 0x1568
 	Size: 0x94
@@ -411,7 +411,7 @@ function freezegun_wait_for_crumple(params, shatter_trigger, crumple_trigger)
 
 /*
 	Name: freezegun_cleanup_freezegun_triggers
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xAB32AF99
 	Offset: 0x1608
 	Size: 0x9C
@@ -431,7 +431,7 @@ function freezegun_cleanup_freezegun_triggers(shatter_trigger, crumple_trigger)
 
 /*
 	Name: freezegun_run_skipped_death_events
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xC0180536
 	Offset: 0x16B0
 	Size: 0x1C
@@ -445,7 +445,7 @@ function freezegun_run_skipped_death_events()
 
 /*
 	Name: freezegun_death
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xD5BEEEEA
 	Offset: 0x16D8
 	Size: 0x8C
@@ -467,15 +467,15 @@ function freezegun_death(params)
 }
 
 /*
-	Name: mp_dom_flag_d_captured_byinterfaceattributes
-	Namespace: namespace_93a948d8
+	Name: function_1db2df45
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x3090A737
 	Offset: 0x1770
 	Size: 0x204
 	Parameters: 0
 	Flags: Linked
 */
-function mp_dom_flag_d_captured_byinterfaceattributes()
+function function_1db2df45()
 {
 	if(!getdvarint(#"splitscreen_playercount", 1) > 2)
 	{
@@ -487,7 +487,7 @@ function mp_dom_flag_d_captured_byinterfaceattributes()
 	shatter_trigger enablelinkto();
 	shatter_trigger linkto(self);
 	shatter_trigger thread function_e31780b1();
-	spawnflags = (512 | 1) | (512 | 2) | (512 | 4) | 16;
+	spawnflags = 512 | 1 | 512 | 2 | 512 | 4 | 16;
 	crumple_trigger = spawn("trigger_radius", self.origin, spawnflags, 15, 72);
 	crumple_trigger enablelinkto();
 	crumple_trigger linkto(self);
@@ -500,7 +500,7 @@ function mp_dom_flag_d_captured_byinterfaceattributes()
 
 /*
 	Name: function_9a01c5b0
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xB57CF5EC
 	Offset: 0x1980
 	Size: 0xE4
@@ -530,7 +530,7 @@ function function_9a01c5b0()
 
 /*
 	Name: function_e31780b1
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x881E127E
 	Offset: 0x1A70
 	Size: 0x54
@@ -550,7 +550,7 @@ function function_e31780b1()
 
 /*
 	Name: is_freezegun_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xD87E84D1
 	Offset: 0x1AD0
 	Size: 0x84
@@ -564,7 +564,7 @@ function is_freezegun_damage(params)
 
 /*
 	Name: is_freezegun_shatter_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x259F19E9
 	Offset: 0x1B60
 	Size: 0x68
@@ -578,7 +578,7 @@ function is_freezegun_shatter_damage(params)
 
 /*
 	Name: should_do_freezegun_death
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x930AB6FE
 	Offset: 0x1BD0
 	Size: 0x22
@@ -592,7 +592,7 @@ function should_do_freezegun_death(params)
 
 /*
 	Name: enemy_damaged_by_freezegun
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xC15B3AC4
 	Offset: 0x1C00
 	Size: 0x10
@@ -606,7 +606,7 @@ function enemy_damaged_by_freezegun()
 
 /*
 	Name: enemy_percent_damaged_by_freezegun
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x7FF89E55
 	Offset: 0x1C18
 	Size: 0x14
@@ -620,7 +620,7 @@ function enemy_percent_damaged_by_freezegun()
 
 /*
 	Name: enemy_killed_by_freezegun
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x86DD93A1
 	Offset: 0x1C38
 	Size: 0x1E
@@ -634,7 +634,7 @@ function enemy_killed_by_freezegun()
 
 /*
 	Name: freezegun_get_cylinder_radius
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x27798D27
 	Offset: 0x1C60
 	Size: 0x22
@@ -652,7 +652,7 @@ function freezegun_get_cylinder_radius(is_upgraded)
 
 /*
 	Name: freezegun_get_inner_range
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xC2EFE7F6
 	Offset: 0x1C90
 	Size: 0x22
@@ -670,7 +670,7 @@ function freezegun_get_inner_range(is_upgraded)
 
 /*
 	Name: freezegun_get_outer_range
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xA0311D2A
 	Offset: 0x1CC0
 	Size: 0x22
@@ -688,7 +688,7 @@ function freezegun_get_outer_range(is_upgraded)
 
 /*
 	Name: freezegun_get_inner_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xA63B54FE
 	Offset: 0x1CF0
 	Size: 0x22
@@ -706,7 +706,7 @@ function freezegun_get_inner_damage(is_upgraded)
 
 /*
 	Name: freezegun_get_outer_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x3938D4EB
 	Offset: 0x1D20
 	Size: 0x22
@@ -724,7 +724,7 @@ function freezegun_get_outer_damage(is_upgraded)
 
 /*
 	Name: freezegun_get_shatter_range
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x61219AAD
 	Offset: 0x1D50
 	Size: 0x22
@@ -742,7 +742,7 @@ function freezegun_get_shatter_range(is_upgraded)
 
 /*
 	Name: freezegun_get_shatter_inner_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x39F704DC
 	Offset: 0x1D80
 	Size: 0x22
@@ -760,7 +760,7 @@ function freezegun_get_shatter_inner_damage(is_upgraded)
 
 /*
 	Name: freezegun_get_shatter_outer_damage
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x19400DA4
 	Offset: 0x1DB0
 	Size: 0x22
@@ -778,7 +778,7 @@ function freezegun_get_shatter_outer_damage(is_upgraded)
 
 /*
 	Name: freezegun_debug_print
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x44E17CF8
 	Offset: 0x1DE0
 	Size: 0x8C
@@ -802,7 +802,7 @@ function freezegun_debug_print(msg, color)
 
 /*
 	Name: function_1cdfba74
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x51A337B8
 	Offset: 0x1E78
 	Size: 0xB4
@@ -825,7 +825,7 @@ function function_1cdfba74(is_upgraded)
 
 /*
 	Name: function_c61abffb
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xB5A64D1B
 	Offset: 0x1F38
 	Size: 0xB4
@@ -848,7 +848,7 @@ function function_c61abffb(is_upgraded)
 
 /*
 	Name: function_cdcf36d9
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xD46C9EB5
 	Offset: 0x1FF8
 	Size: 0x34
@@ -862,7 +862,7 @@ function function_cdcf36d9()
 
 /*
 	Name: function_1e71ac1e
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x9880D3E
 	Offset: 0x2038
 	Size: 0x2C
@@ -876,7 +876,7 @@ function function_1e71ac1e()
 
 /*
 	Name: function_aa09d4c6
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x7528112
 	Offset: 0x2070
 	Size: 0x34
@@ -890,7 +890,7 @@ function function_aa09d4c6()
 
 /*
 	Name: function_95a1c464
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x990205A0
 	Offset: 0x20B0
 	Size: 0x2C
@@ -904,7 +904,7 @@ function function_95a1c464()
 
 /*
 	Name: function_cd5a6d8
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0xA8F1A79B
 	Offset: 0x20E8
 	Size: 0x34
@@ -918,7 +918,7 @@ function function_cd5a6d8()
 
 /*
 	Name: function_7258958d
-	Namespace: namespace_93a948d8
+	Namespace: cschashed-2\script_37ef46bf4b467ade
 	Checksum: 0x54630F29
 	Offset: 0x2128
 	Size: 0x2C

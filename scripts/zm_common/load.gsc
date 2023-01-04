@@ -1,8 +1,8 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_16f6e32fce786c0d;
-#using script_3f9e0dc8454d98e1;
+#using hashed-2\weaponobjects.gsc;
+#using hashed-1\zombie_utility.gsc;
 #using script_47495939f228e438;
-#using script_53f13b381cd4251d;
+#using hashed-2\zm_bot.gsc;
 #using scripts\core_common\audio_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\dialog_shared.gsc;

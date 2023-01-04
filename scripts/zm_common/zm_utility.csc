@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_158d50d476435605;
-#using script_18a9e529264a3d29;
+hashed-2\script_158d50d476435605.csc;
+hashed-2\script_18a9e529264a3d29.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\flag_shared.csc;
 #using scripts\core_common\postfx_shared.csc;
@@ -21,7 +21,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_utility", &__init__, &__main__, undefined);
 }
@@ -97,7 +97,7 @@ function ignore_triggers(timer)
 */
 function is_encounter()
 {
-	return false;
+	return 0;
 }
 
 /*
@@ -111,7 +111,7 @@ function is_encounter()
 */
 function round_up_to_ten(score)
 {
-	new_score = score - (score % 10);
+	new_score = score - score % 10;
 	if(new_score < score)
 	{
 		new_score = new_score + 10;
@@ -131,7 +131,7 @@ function round_up_to_ten(score)
 function round_up_score(score, value)
 {
 	score = int(score);
-	new_score = score - (score % value);
+	new_score = score - score % value;
 	if(new_score < score)
 	{
 		new_score = new_score + value;
@@ -199,7 +199,7 @@ function spawn_buildkit_weapon_model(localclientnum, weapon, camo, origin, angle
 		weapon_model.angles = angles;
 	}
 	weapon_model usebuildkitweaponmodel(localclientnum, weapon, camo);
-	weapon_model activecamo::function_e40c785a(localclientnum);
+	weapon_model cschashed-2\script_158d50d476435605::function_e40c785a(localclientnum);
 	return weapon_model;
 }
 
@@ -217,9 +217,9 @@ function is_classic()
 	str_gametype = util::function_5df4294();
 	if(str_gametype == #"zclassic")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -236,9 +236,9 @@ function is_standard()
 	str_gametype = util::function_5df4294();
 	if(str_gametype == #"zstandard")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -253,11 +253,10 @@ function is_standard()
 function is_trials()
 {
 	str_gametype = util::function_5df4294();
-	if(str_gametype == #"ztrials" || level flag::exists(#"ztrial"))
-	{
-		return true;
+	if(str_gametype == #"ztrials" || level flag::exists(#"ztrial"))	{
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -274,9 +273,9 @@ function is_tutorial()
 	str_gametype = util::function_5df4294();
 	if(str_gametype == #"ztutorial")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -293,9 +292,9 @@ function is_grief()
 	str_gametype = util::function_5df4294();
 	if(str_gametype == #"zgrief")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -325,7 +324,7 @@ function is_gametype_active(a_gametypes)
 }
 
 /*
-	Name: function_e51dc2d8
+	Name: can_enable_ee
 	Namespace: zm_utility
 	Checksum: 0x14757BC2
 	Offset: 0x8F0
@@ -333,17 +332,17 @@ function is_gametype_active(a_gametypes)
 	Parameters: 0
 	Flags: Linked
 */
-function function_e51dc2d8()
+function can_enable_ee()
 {
 	if(!getdvarint(#"hash_2992299f853b2039", 0))
 	{
-		return false;
+		return 0;
 	}
 	if(level.gamedifficulty == 0)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -416,8 +415,8 @@ function drawcylinder(pos, rad, height, color)
 		debugstar(pos, 1, color);
 		for(r = 0; r < 20; r++)
 		{
-			theta = (r / 20) * 360;
-			theta2 = ((r + 1) / 20) * 360;
+			theta = r / 20 * 360;
+			theta2 = r + 1 / 20 * 360;
 			line(pos + (cos(theta) * currad, sin(theta) * currad, 0), pos + (cos(theta2) * currad, sin(theta2) * currad, 0), color, 1, 1, 100);
 			line(pos + (cos(theta) * currad, sin(theta) * currad, curheight), pos + (cos(theta2) * currad, sin(theta2) * currad, curheight), color, 1, 1, 100);
 			line(pos + (cos(theta) * currad, sin(theta) * currad, 0), pos + (cos(theta) * currad, sin(theta) * currad, curheight), color, 1, 1, 100);
@@ -475,13 +474,13 @@ function umbra_fix_trigger(localclientnum, pos, height, radius, umbra_name)
 			/#
 				drawcylinder(pos, radius, height, (0, 1, 0));
 			#/
-			return true;
+			return 1;
 		}
 	}
 	/#
 		drawcylinder(pos, radius, height, (1, 0, 0));
 	#/
-	return false;
+	return 0;
 }
 
 /*
@@ -549,8 +548,7 @@ function function_467efa7b(var_9f3fb329 = 0)
 	switch(self.archetype)
 	{
 		case "stoker":
-		case "catalyst":
-		case "gladiator":
+		case "catalyst":		case "gladiator":
 		case "nova_crawler":
 		case "zombie":
 		case "ghost":
@@ -642,7 +640,7 @@ function function_ae3780f1(localclientnum, n_fx_id, var_3ab46b9)
 */
 function function_90500af5()
 {
-	return namespace_cb7cafc3::function_90500af5();
+	return cschashed-2\script_18a9e529264a3d29::function_90500af5();
 }
 
 /*
@@ -656,7 +654,7 @@ function function_90500af5()
 */
 function function_166646a6()
 {
-	return namespace_cb7cafc3::function_166646a6();
+	return cschashed-2\script_18a9e529264a3d29::function_166646a6();
 }
 
 /*
@@ -675,7 +673,7 @@ function zm_zone_edge_marker_count(localclientnum, oldval, newval, bnewent, bini
 		v_forward = anglestoforward(self.angles);
 		v_right = anglestoright(self.angles);
 		v_spacing = (0, 0, 0);
-		self.origin = self.origin + (v_right * 6);
+		self.origin = self.origin + v_right * 6;
 		for(i = 1; i <= newval; i++)
 		{
 			var_a05a609b = playfx(localclientnum, level._effect[#"hash_7dc0459342cedaa4"], self.origin + v_spacing, v_forward);
@@ -688,7 +686,7 @@ function zm_zone_edge_marker_count(localclientnum, oldval, newval, bnewent, bini
 				self.var_dd1709dd = array(self.var_dd1709dd);
 			}
 			self.var_dd1709dd[self.var_dd1709dd.size] = var_a05a609b;
-			v_spacing = v_right * (32 * i);
+			v_spacing = v_right * 32 * i;
 		}
 	}
 	else if(isarray(self.var_dd1709dd))
@@ -887,7 +885,7 @@ function good_barricade_damaged(localclientnum)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_fe127aaf(localclientnum, var_ee6bcd51, str_fx)
+private function function_fe127aaf(localclientnum, var_ee6bcd51, str_fx)
 {
 	if(isdefined(var_ee6bcd51))
 	{

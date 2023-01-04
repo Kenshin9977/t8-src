@@ -17,7 +17,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"globallogic_audio", &__init__, undefined, undefined);
 }

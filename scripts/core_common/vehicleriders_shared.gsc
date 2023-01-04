@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_35598499769dbb3d;
+#using hashed-3\gib.gsc;
 #using scripts\core_common\animation_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -9,43 +9,6 @@
 #using scripts\core_common\spawner_shared.gsc;
 #using scripts\core_common\struct.gsc;
 #using scripts\core_common\util_shared.gsc;
-
-class class_358332cc 
-{
-
-	/*
-		Name: constructor
-		Namespace: namespace_358332cc
-		Checksum: 0x96B9AB5E
-		Offset: 0xA00
-		Size: 0x4A
-		Parameters: 0
-		Flags: Linked, 8
-	*/
-	constructor()
-	{
-		self.riders = [];
-		self.var_4301b21d = 0;
-		self.var_3acc1a95 = 0;
-		self.var_9e2a2132 = 0;
-		self.var_709c0a6f = 0;
-		self.var_dad0959b = 0;
-	}
-
-	/*
-		Name: destructor
-		Namespace: namespace_358332cc
-		Checksum: 0x80F724D1
-		Offset: 0xA58
-		Size: 0x4
-		Parameters: 0
-		Flags: Linked, 16, 128
-	*/
-	destructor()
-	{
-	}
-
-}
 
 #namespace vehicle;
 
@@ -58,7 +21,7 @@ class class_358332cc
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init()
+autoexec function init()
 {
 	function_d64f1d30();
 	callback::on_vehicle_spawned(&on_vehicle_spawned);
@@ -74,7 +37,7 @@ function autoexec init()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d64f1d30()
+private function function_d64f1d30()
 {
 	a_registered_fields = [];
 	foreach(bundle in struct::get_script_bundles("vehicleriders"))
@@ -121,9 +84,9 @@ function function_196797c9(vehicle)
 	#/
 	if(isdefined(vehicle.vehicleridersbundle))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -135,7 +98,7 @@ function function_196797c9(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_810a3de5(vehicle)
+private function function_810a3de5(vehicle)
 {
 }
 
@@ -148,7 +111,7 @@ function private function_810a3de5(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_41cf7b1d(vehicle)
+private function function_41cf7b1d(vehicle)
 {
 	/#
 		assert(isvehicle(vehicle));
@@ -160,10 +123,10 @@ function private function_41cf7b1d(vehicle)
 		position = bundle.objects[seat].position;
 		if(issubstr(position, "driver"))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -175,7 +138,7 @@ function private function_41cf7b1d(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_f7ce77b(vehicle)
+private function function_f7ce77b(vehicle)
 {
 	/#
 		assert(isvehicle(vehicle));
@@ -187,10 +150,10 @@ function private function_f7ce77b(vehicle)
 		position = bundle.objects[seat].position;
 		if(position == "passenger1")
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -202,7 +165,7 @@ function private function_f7ce77b(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_2453a4a2(vehicle)
+private function function_2453a4a2(vehicle)
 {
 	/#
 		assert(isvehicle(vehicle));
@@ -214,10 +177,10 @@ function private function_2453a4a2(vehicle)
 		position = bundle.objects[seat].position;
 		if(position == "gunner1")
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -229,7 +192,7 @@ function private function_2453a4a2(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_72b503cc(vehicle)
+private function function_72b503cc(vehicle)
 {
 	/#
 		assert(isvehicle(vehicle));
@@ -277,6 +240,58 @@ function function_999240f5(vehicle)
 	return 0;
 }
 
+#namespace namespace_358332cc;
+
+/*
+	Name: __constructor
+	Namespace: namespace_358332cc
+	Checksum: 0x96B9AB5E
+	Offset: 0xA00
+	Size: 0x4A
+	Parameters: 0
+	Flags: Linked, 8
+*/
+function __constructor()
+{
+	self.riders = [];
+	self.var_4301b21d = 0;
+	self.var_3acc1a95 = 0;
+	self.var_9e2a2132 = 0;
+	self.var_709c0a6f = 0;
+	self.var_dad0959b = 0;
+}
+
+/*
+	Name: __destructor
+	Namespace: namespace_358332cc
+	Checksum: 0x80F724D1
+	Offset: 0xA58
+	Size: 0x4
+	Parameters: 0
+	Flags: Linked, 16, 128
+*/
+function __destructor()
+{
+}
+
+#namespace vehicle;
+
+/*
+	Name: function_358332cc
+	Namespace: vehicle
+	Checksum: 0x9E288A4A
+	Offset: 0xA68
+	Size: 0x86
+	Parameters: 0
+	Flags: AutoExec, Private, 128
+*/
+private autoexec function function_358332cc()
+{
+	classes.var_358332cc[0] = spawnstruct();
+	classes.var_358332cc[0].__vtable[913321084] = &namespace_358332cc::__destructor;
+	classes.var_358332cc[0].__vtable[674154906] = &namespace_358332cc::__constructor;
+}
+
 /*
 	Name: on_vehicle_spawned
 	Namespace: vehicle
@@ -286,7 +301,7 @@ function function_999240f5(vehicle)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private on_vehicle_spawned()
+private function on_vehicle_spawned()
 {
 	/#
 		assert(isvehicle(self));
@@ -301,7 +316,9 @@ function private on_vehicle_spawned()
 	{
 		return;
 	}
-	self.var_761c973 = new class_358332cc();
+	object = new var_358332cc();
+	[[ object ]]->__constructor();
+	self.var_761c973 = object;
 	self.var_761c973.riders = [];
 	self.var_761c973.var_4301b21d = var_4301b21d;
 	self flag::init("driver_occupied", 0);
@@ -323,7 +340,7 @@ function private on_vehicle_spawned()
 	self.var_761c973.var_3acc1a95 = var_3acc1a95;
 	for(position = 1; position <= 9; position++)
 	{
-		flag::init(("crew" + position) + "_occupied", 0);
+		flag::init("crew" + position + "_occupied", 0);
 	}
 	if(isdefined(self.script_vehicleride))
 	{
@@ -345,23 +362,17 @@ function private on_vehicle_spawned()
 							{
 								seat = "crew";
 							}
+							else if(issubstr(seat, "pass"))
+							{
+								seat = "passenger1";
+							}
+							else if(issubstr(seat, "driver"))
+							{
+								seat = "driver";
+							}
 							else
 							{
-								if(issubstr(seat, "pass"))
-								{
-									seat = "passenger1";
-								}
-								else
-								{
-									if(issubstr(seat, "driver"))
-									{
-										seat = "driver";
-									}
-									else
-									{
-										seat = undefined;
-									}
-								}
+								seat = undefined;
 							}
 							if(isdefined(seat))
 							{
@@ -386,7 +397,7 @@ function private on_vehicle_spawned()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_e1008fbd(vehicle)
+private function function_e1008fbd(vehicle)
 {
 	/#
 		assert(isdefined(vehicle));
@@ -399,7 +410,7 @@ function private function_e1008fbd(vehicle)
 	#/
 	for(position = 1; position <= vehicle.var_761c973.var_3acc1a95; position++)
 	{
-		if(!vehicle flag::get(("crew" + position) + "_occupied"))
+		if(!vehicle flag::get("crew" + position + "_occupied"))
 		{
 			return "crew" + position;
 		}
@@ -416,7 +427,7 @@ function private function_e1008fbd(vehicle)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_2cec1af6(vehicle, seat)
+private function function_2cec1af6(vehicle, seat)
 {
 	flag = seat + "_occupied";
 	/#
@@ -437,7 +448,7 @@ function private function_2cec1af6(vehicle, seat)
 	Parameters: 2
 	Flags: Private
 */
-function private function_2e28cc0(vehicle, seat)
+private function function_2e28cc0(vehicle, seat)
 {
 	flag = seat + "_occupied";
 	/#
@@ -518,7 +529,7 @@ function get_warlord_bundle(assertifneeded = 1)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_e84837df(ai, vehicle)
+private function function_e84837df(ai, vehicle)
 {
 	/#
 		assert(isactor(ai));
@@ -577,7 +588,7 @@ function function_b9342b7d(ai, vehicle, seat)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_3eb6760(ai, vehicle, seat)
+private function function_3eb6760(ai, vehicle, seat)
 {
 	/#
 		assert(isdefined(vehicle));
@@ -595,7 +606,7 @@ function private function_3eb6760(ai, vehicle, seat)
 	{
 		/#
 			/#
-				assertmsg((("" + seat) + "") + function_9e72a96(ai.vehicle.vehicletype) + "");
+				assertmsg("" + seat + "" + function_9e72a96(ai.vehicle.vehicletype) + "");
 			#/
 		#/
 	}
@@ -603,7 +614,7 @@ function private function_3eb6760(ai, vehicle, seat)
 	{
 		/#
 			/#
-				assertmsg((((("" + seat) + "") + function_9e72a96(ai.vehicle.vehicletype) + "") + ai.var_ec30f5da.aligntag) + "");
+				assertmsg("" + seat + "" + function_9e72a96(ai.vehicle.vehicletype) + "" + ai.var_ec30f5da.aligntag + "");
 			#/
 		#/
 	}
@@ -629,7 +640,7 @@ function fill_riders(a_ai, vehicle, seat)
 	{
 		/#
 			/#
-				assertmsg(("" + function_9e72a96(vehicle.vehicletype)) + "");
+				assertmsg("" + function_9e72a96(vehicle.vehicletype) + "");
 			#/
 		#/
 		return;
@@ -735,7 +746,7 @@ function unload(seat)
 	{
 		/#
 			/#
-				assertmsg(("" + function_9e72a96(self.vehicletype)) + "");
+				assertmsg("" + function_9e72a96(self.vehicletype) + "");
 			#/
 		#/
 		return;
@@ -813,7 +824,7 @@ function unload(seat)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_114d7bd3(vehicle)
+private function function_114d7bd3(vehicle)
 {
 	if(!vehicle.var_761c973.var_9e2a2132)
 	{
@@ -848,7 +859,7 @@ function private function_114d7bd3(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_b56639f2(vehicle)
+private function function_b56639f2(vehicle)
 {
 	if(!vehicle.var_761c973.var_709c0a6f)
 	{
@@ -883,7 +894,7 @@ function private function_b56639f2(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_2ef91b74(vehicle)
+private function function_2ef91b74(vehicle)
 {
 	if(!vehicle.var_761c973.var_dad0959b)
 	{
@@ -918,7 +929,7 @@ function private function_2ef91b74(vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_2ca26543(vehicle)
+private function function_2ca26543(vehicle)
 {
 	/#
 		assert(isdefined(vehicle.var_761c973.var_4301b21d) && vehicle.var_761c973.var_4301b21d > 0);
@@ -1097,7 +1108,7 @@ function exit_ground(ai)
 		ai animation::set_death_anim(ai.var_ec30f5da.exitgrounddeathanim);
 	}
 	/#
-		assert(isdefined(ai.var_ec30f5da.exitgroundanim), ("" + ai.var_ec30f5da.position) + "");
+		assert(isdefined(ai.var_ec30f5da.exitgroundanim), "" + ai.var_ec30f5da.position + "");
 	#/
 	if(isdefined(ai.var_ec30f5da.exitgroundanim))
 	{
@@ -1140,7 +1151,7 @@ function remove_riders_after_wait(vehicle, a_riders_to_remove)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private handle_falling_death()
+private function handle_falling_death()
 {
 	self endon(#"landed");
 	self waittill(#"death");
@@ -1184,7 +1195,7 @@ function ragdoll_dead_exit_rider(ai)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private forward_euler_integration(e_move, v_target_landing, n_initial_speed)
+private function forward_euler_integration(e_move, v_target_landing, n_initial_speed)
 {
 	landed = 0;
 	position = self.origin;
@@ -1193,9 +1204,9 @@ function private forward_euler_integration(e_move, v_target_landing, n_initial_s
 	while(!landed)
 	{
 		previousposition = position;
-		velocity = velocity + (gravity * 0.1);
-		position = position + (velocity * 0.1);
-		if((position[2] + (velocity[2] * 0.1)) <= v_target_landing[2])
+		velocity = velocity + gravity * 0.1;
+		position = position + velocity * 0.1;
+		if(position[2] + velocity[2] * 0.1 <= v_target_landing[2])
 		{
 			landed = 1;
 			position = v_target_landing;
@@ -1231,7 +1242,7 @@ function exit_variable(ai)
 	ai thread handle_falling_death();
 	ai animation::set_death_anim(ai.var_ec30f5da.exithighdeathanim);
 	/#
-		assert(isdefined(ai.var_ec30f5da.exithighanim), ("" + ai.var_ec30f5da.position) + "");
+		assert(isdefined(ai.var_ec30f5da.exithighanim), "" + ai.var_ec30f5da.position + "");
 	#/
 	animation::play(ai.var_ec30f5da.exithighanim, ai.vehicle, ai.var_ec30f5da.aligntag, 1, 0, 0);
 	ai animation::set_death_anim(ai.var_ec30f5da.exithighloopdeathanim);
@@ -1240,11 +1251,11 @@ function exit_variable(ai)
 	n_target_height = bundle.highexitlandheight;
 	if(isdefined(ai.var_ec30f5da.dropundervehicleorigin) && ai.var_ec30f5da.dropundervehicleorigin || (isdefined(ai.dropundervehicleoriginoverride) && ai.dropundervehicleoriginoverride))
 	{
-		v_target_landing = (ai.vehicle.origin[0], ai.vehicle.origin[1], (ai.origin[2] - n_cur_height) + n_target_height);
+		v_target_landing = (ai.vehicle.origin[0], ai.vehicle.origin[1], ai.origin[2] - n_cur_height + n_target_height);
 	}
 	else
 	{
-		v_target_landing = (ai.origin[0], ai.origin[1], (ai.origin[2] - n_cur_height) + n_target_height);
+		v_target_landing = (ai.origin[0], ai.origin[1], ai.origin[2] - n_cur_height + n_target_height);
 	}
 	if(isdefined(ai.overridedropposition))
 	{
@@ -1262,7 +1273,7 @@ function exit_variable(ai)
 	ai thread exit_high_loop_anim(e_move);
 	distance = n_target_height - n_cur_height;
 	initialspeed = bundle.dropspeed;
-	n_fall_time = (initialspeed * -1) + (sqrt(pow(initialspeed, 2) - ((2 * 385.8) * distance))) / 385.8;
+	n_fall_time = initialspeed * -1 + sqrt(pow(initialspeed, 2) - 2 * 385.8 * distance) / 385.8;
 	ai notify(#"falling", {#fall_time:n_fall_time});
 	forward_euler_integration(e_move, v_target_landing, bundle.dropspeed);
 	e_move waittill(#"movedone");
@@ -1305,7 +1316,7 @@ function exit_high_loop_anim(e_parent)
 */
 function get_height(e_ignore = self)
 {
-	trace = groundtrace(self.origin + (0, 0, 10), self.origin + (vectorscale((0, 0, -1), 10000)), 0, e_ignore, 0);
+	trace = groundtrace(self.origin + (0, 0, 10), self.origin + vectorscale((0, 0, -1), 10000), 0, e_ignore, 0);
 	/#
 		recordline(self.origin + (0, 0, 10), trace[#"position"], (1, 0.5, 0), "", self);
 	#/
@@ -1326,7 +1337,7 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 	vehicle endon(#"death");
 	if(!isdefined(ai))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(seat) || seat == "undefined")
 	{
@@ -1334,16 +1345,13 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 		{
 			seat = "driver";
 		}
+		else if(vehicle.var_761c973.var_709c0a6f && !vehicle flag::get("passenger1_occupied"))
+		{
+			seat = "passenger1";
+		}
 		else
 		{
-			if(vehicle.var_761c973.var_709c0a6f && !vehicle flag::get("passenger1_occupied"))
-			{
-				seat = "passenger1";
-			}
-			else
-			{
-				seat = "crew";
-			}
+			seat = "crew";
 		}
 	}
 	/#
@@ -1362,11 +1370,11 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 					if(var_7c3e4d44)
 					{
 						/#
-							assertmsg(("" + function_9e72a96(vehicle.vehicletype)) + "");
+							assertmsg("" + function_9e72a96(vehicle.vehicletype) + "");
 						#/
 					}
 				#/
-				return false;
+				return 0;
 			}
 			function_3eb6760(ai, vehicle, "driver");
 			break;
@@ -1379,11 +1387,11 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 					if(var_7c3e4d44)
 					{
 						/#
-							assertmsg(("" + function_9e72a96(vehicle.vehicletype)) + "");
+							assertmsg("" + function_9e72a96(vehicle.vehicletype) + "");
 						#/
 					}
 				#/
-				return false;
+				return 0;
 			}
 			function_3eb6760(ai, vehicle, "passenger1");
 			break;
@@ -1396,11 +1404,11 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 					if(var_7c3e4d44)
 					{
 						/#
-							assertmsg(("" + function_9e72a96(vehicle.vehicletype)) + "");
+							assertmsg("" + function_9e72a96(vehicle.vehicletype) + "");
 						#/
 					}
 				#/
-				return false;
+				return 0;
 			}
 			function_3eb6760(ai, vehicle, "gunner1");
 			break;
@@ -1414,11 +1422,11 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 					if(var_7c3e4d44)
 					{
 						/#
-							assertmsg(("" + function_9e72a96(vehicle.vehicletype)) + "");
+							assertmsg("" + function_9e72a96(vehicle.vehicletype) + "");
 						#/
 					}
 				#/
-				return false;
+				return 0;
 			}
 			function_3eb6760(ai, vehicle, var_b11e7fca);
 			seat = var_b11e7fca;
@@ -1435,7 +1443,7 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 	{
 		/#
 			/#
-				assertmsg(((("" + seat) + "") + function_9e72a96(vehicle.vehicletype) + "") + function_e84837df(ai, vehicle));
+				assertmsg("" + seat + "" + function_9e72a96(vehicle.vehicletype) + "" + function_e84837df(ai, vehicle));
 			#/
 		#/
 		return;
@@ -1455,7 +1463,7 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 	ai flag::set("riding_vehicle");
 	ai thread animation::play(ai.var_ec30f5da.rideanim, ai.vehicle, ai.var_ec30f5da.aligntag, 1, 0.2, 0.2, 0, 0, 0, 0);
 	ai thread handle_rider_death(ai, vehicle);
-	return true;
+	return 1;
 }
 
 /*
@@ -1467,7 +1475,7 @@ function get_in(ai, vehicle, seat, var_7c3e4d44 = 1)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private handle_rider_death(ai, vehicle)
+private function handle_rider_death(ai, vehicle)
 {
 	ai endon(#"death", #"exiting_vehicle");
 	vehicle endon(#"death");
@@ -1490,7 +1498,7 @@ function private handle_rider_death(ai, vehicle)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_15dbe5e9(params)
+private function function_15dbe5e9(params)
 {
 	if(self flag::exists("riding_vehicle") && self flag::get("riding_vehicle") && isdefined(self.vehicle) && isdefined(self.var_ec30f5da) && isdefined(self.var_ec30f5da.vehicleriderdeathanim))
 	{
@@ -1508,7 +1516,7 @@ function private function_15dbe5e9(params)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private on_vehicle_killed()
+private function on_vehicle_killed()
 {
 	if(!isdefined(self.var_761c973))
 	{

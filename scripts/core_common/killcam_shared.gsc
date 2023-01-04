@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_5a63672f07149a55;
+#using hashed-1\tacticalinsertion.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\challenges_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -22,7 +22,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"killcam", &__init__, undefined, undefined);
 }
@@ -293,14 +293,14 @@ function start_deathcam()
 		self.archivetime = 0;
 		self.psoffsettime = 0;
 		self.spectatekillcam = 0;
-		return false;
+		return 0;
 	}
 	if(isdefined(self.var_e5681505) && self.var_e5681505)
 	{
-		return false;
+		return 0;
 	}
 	self thread deathcam(self);
-	return true;
+	return 1;
 }
 
 /*
@@ -513,10 +513,10 @@ function are_any_players_watching()
 		player = players[index];
 		if(isdefined(player.killcam))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -578,7 +578,7 @@ function killcam(attackernum, targetnum, killcam_entity_info, weapon, meansofdea
 	/#
 		assert(level.numplayerswaitingtoenterkillcam > -1);
 	#/
-	postdeathdelay = (float(gettime() - deathtime)) / 1000;
+	postdeathdelay = float(gettime() - deathtime) / 1000;
 	predelay = postdeathdelay + deathtimeoffset;
 	killcamentitystarttime = get_killcam_entity_info_starttime(killcam_entity_info);
 	camtime = calc_time(weapon, killcamentitystarttime, predelay, maxtime);
@@ -590,7 +590,7 @@ function killcam(attackernum, targetnum, killcam_entity_info, weapon, meansofdea
 		{
 			return;
 		}
-		if((maxtime - camtime) >= 1)
+		if(maxtime - camtime >= 1)
 		{
 			postdelay = maxtime - camtime;
 		}
@@ -608,7 +608,7 @@ function killcam(attackernum, targetnum, killcam_entity_info, weapon, meansofdea
 		self setmodellodbias(8);
 	}
 	self util::clientnotify("sndDEDe");
-	killcamstarttime = gettime() - (int(killcamoffset * 1000));
+	killcamstarttime = gettime() - int(killcamoffset * 1000);
 	self.sessionstate = "spectator";
 	self.spectatekillcam = 1;
 	self.spectatorclient = attackernum;
@@ -698,7 +698,7 @@ function set_killcam_entities(entity_info, killcamstarttime)
 {
 	for(index = 0; index < entity_info.entity_indexes.size; index++)
 	{
-		delayms = (entity_info.entity_spawntimes[index] - killcamstarttime) - 100;
+		delayms = entity_info.entity_spawntimes[index] - killcamstarttime - 100;
 		thread set_entity(entity_info.entity_indexes[index], delayms);
 		if(delayms <= 0)
 		{
@@ -735,8 +735,8 @@ function wait_killcam_time()
 function wait_final_killcam_slowdown(deathtime, starttime)
 {
 	self endon(#"disconnect", #"end_killcam");
-	secondsuntildeath = (float(deathtime - starttime)) / 1000;
-	deathtime = gettime() + (int(secondsuntildeath * 1000));
+	secondsuntildeath = float(deathtime - starttime) / 1000;
+	deathtime = gettime() + int(secondsuntildeath * 1000);
 	waitbeforedeath = 2;
 	wait(max(0, secondsuntildeath - waitbeforedeath));
 	util::setclientsysstate("levelNotify", "sndFKsl");
@@ -931,7 +931,7 @@ function spectator_killcam_cleanup(attacker)
 	attacker endon(#"disconnect");
 	waitresult = undefined;
 	waitresult = attacker waittill(#"begin_killcam");
-	waittime = max(0, (waitresult.start_time - self.deathtime) - 50);
+	waittime = max(0, waitresult.start_time - self.deathtime - 50);
 	wait(waittime);
 	self end(0);
 }
@@ -1098,14 +1098,14 @@ function final_killcam_internal(winner)
 {
 	winning_team = function_de2b637d(winner);
 	killcamsettings = level.finalkillcamsettings[winning_team];
-	postdeathdelay = (float(gettime() - killcamsettings.deathtime)) / 1000;
+	postdeathdelay = float(gettime() - killcamsettings.deathtime) / 1000;
 	predelay = postdeathdelay + killcamsettings.deathtimeoffset;
 	killcamentitystarttime = get_killcam_entity_info_starttime(killcamsettings.killcam_entity_info);
 	camtime = calc_time(killcamsettings.weapon, killcamentitystarttime, predelay, undefined);
 	postdelay = calc_post_delay();
 	killcamoffset = camtime + predelay;
-	killcamlength = (camtime + postdelay) - 0.05;
-	killcamstarttime = gettime() - (int(killcamoffset * 1000));
+	killcamlength = camtime + postdelay - 0.05;
+	killcamstarttime = gettime() - int(killcamoffset * 1000);
 	self notify(#"begin_killcam", {#start_time:gettime()});
 	util::setclientsysstate("levelNotify", "sndFKs");
 	self.sessionstate = "spectator";
@@ -1213,9 +1213,9 @@ function is_entity_weapon(weapon)
 {
 	if(weapon.statname == #"planemortar")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1234,18 +1234,15 @@ function calc_time(weapon, entitystarttime, predelay, maxtime)
 	{
 		if(is_entity_weapon(weapon))
 		{
-			camtime = (((float(gettime() - entitystarttime)) / 1000) - predelay) - 0.1;
+			camtime = float(gettime() - entitystarttime) / 1000 - predelay - 0.1;
+		}
+		else if(weapon.isgrenadeweapon)
+		{
+			camtime = level.var_a95350da;
 		}
 		else
 		{
-			if(weapon.isgrenadeweapon)
-			{
-				camtime = level.var_a95350da;
-			}
-			else
-			{
-				camtime = level.killcamtime;
-			}
+			camtime = level.killcamtime;
 		}
 	}
 	else

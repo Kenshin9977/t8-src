@@ -1,12 +1,12 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2255a7ad3edc838f;
-#using script_2dc48f46bfeac894;
-#using script_3f27a7b2232674db;
-#using script_47fb62300ac0bd60;
-#using script_545a0bac37bda541;
-#using script_56ca01b3b31455b5;
-#using script_68d2ee1489345a1d;
-#using script_6c8abe14025b47c4;
+#using hashed-3\bot.gsc;
+#using hashed-1\ability_player.gsc;
+#using hashed-1\player_role.gsc;
+#using hashed-2\stats.gsc;
+#using hashed-2\globallogic_score.gsc;
+#using hashed-2\ability_util.gsc;
+#using hashed-2\killstreaks_312.gsc;
+#using hashed-1\killstreaks.gsc;
 #using script_7133a4d461308099;
 #using scripts\core_common\bb_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -42,7 +42,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec __init__()
+autoexec function __init__()
 {
 	level.scoreevents_givekillstats = &givekillstats;
 	level.scoreevents_processassist = &function_b1a3b359;
@@ -158,9 +158,9 @@ function function_c9de50a6(player)
 		{
 			continue;
 		}
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -176,7 +176,7 @@ function function_78e7b549(scale, type, var_7da9f0c)
 {
 	var_f6ecfcf0 = self function_61f303f5(var_7da9f0c);
 	spm = self rank::getspm();
-	playerscore = int((scale * ((var_7da9f0c / 60) * spm)) * (var_f6ecfcf0 / var_7da9f0c));
+	playerscore = int(scale * var_7da9f0c / 60 * spm * var_f6ecfcf0 / var_7da9f0c);
 	self thread givematchbonus(type, playerscore);
 	self.matchbonus = playerscore;
 }
@@ -240,21 +240,7 @@ function updatematchbonusscores(outcome)
 			{
 				player function_78e7b549(winnerscale, "tie", gamelength);
 			}
-			else
-			{
-				if(isdefined(player.pers[#"team"]) && player.pers[#"team"] == winning_team)
-				{
-					player function_78e7b549(winnerscale, "win", gamelength);
-				}
-				else
-				{
-					player function_78e7b549(loserscale, "loss", gamelength);
-				}
-			}
-		}
-		else
-		{
-			if(function_c9de50a6(player))
+			else if(isdefined(player.pers[#"team"]) && player.pers[#"team"] == winning_team)
 			{
 				player function_78e7b549(winnerscale, "win", gamelength);
 			}
@@ -262,6 +248,14 @@ function updatematchbonusscores(outcome)
 			{
 				player function_78e7b549(loserscale, "loss", gamelength);
 			}
+		}
+		else if(function_c9de50a6(player))
+		{
+			player function_78e7b549(winnerscale, "win", gamelength);
+		}
+		else
+		{
+			player function_78e7b549(loserscale, "loss", gamelength);
 		}
 		player.pers[#"totalmatchbonus"] = player.pers[#"totalmatchbonus"] + player.matchbonus;
 	}
@@ -290,37 +284,28 @@ function updatecustomgamewinner(outcome)
 		{
 			player.pers[#"victory"] = 0;
 		}
-		else
+		else if(level.teambased)
 		{
-			if(level.teambased)
+			if(player.team == var_6f86cba9)
 			{
-				if(player.team == var_6f86cba9)
-				{
-					player.pers[#"victory"] = 2;
-				}
-				else
-				{
-					if(tie)
-					{
-						player.pers[#"victory"] = 1;
-					}
-					else
-					{
-						player.pers[#"victory"] = 0;
-					}
-				}
+				player.pers[#"victory"] = 2;
+			}
+			else if(tie)
+			{
+				player.pers[#"victory"] = 1;
 			}
 			else
 			{
-				if(function_c9de50a6(player))
-				{
-					player.pers[#"victory"] = 2;
-				}
-				else
-				{
-					player.pers[#"victory"] = 0;
-				}
+				player.pers[#"victory"] = 0;
 			}
+		}
+		else if(function_c9de50a6(player))
+		{
+			player.pers[#"victory"] = 2;
+		}
+		else
+		{
+			player.pers[#"victory"] = 0;
 		}
 		player.victory = player.pers[#"victory"];
 		player.pers[#"sbtimeplayed"] = player.timeplayed[#"total"];
@@ -509,7 +494,7 @@ function roundtonearestfive(score)
 	{
 		return score - rounding;
 	}
-	return score + (5 - rounding);
+	return score + 5 - rounding;
 }
 
 /*
@@ -558,7 +543,7 @@ function giveplayermomentumnotification(score, label, descvalue, countstowardram
 	score = score;
 	if(score > 0 && self hasperk(#"specialty_earnmoremomentum"))
 	{
-		score = roundtonearestfive(int((score * getdvarfloat(#"perk_killstreakmomentummultiplier", 0)) + 0.5));
+		score = roundtonearestfive(int(score * getdvarfloat(#"perk_killstreakmomentummultiplier", 0) + 0.5));
 	}
 	if(isalive(self))
 	{
@@ -636,7 +621,7 @@ function resetplayermomentumonspawn()
 		}
 		if(var_a4e87ee3)
 		{
-			new_momentum = int(self.pers[#"momentum"] * (1 - math::clamp(self function_3ef59ab3(), 0, 1)));
+			new_momentum = int(self.pers[#"momentum"] * 1 - math::clamp(self function_3ef59ab3(), 0, 1));
 			_setplayermomentum(self, new_momentum);
 			self thread resetscorechain();
 		}
@@ -951,14 +936,10 @@ function _setplayerscore(player, score, var_e21e8076, var_53c3aa0b)
 	{
 		if(isarenamode())
 		{
-			amount = (var_e21e8076 - player.pers[#"hash_6061882505788180"]) + player stats::get_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"arenavalue");
-			player stats::set_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"arenavalue", amount);
-		}
+			amount = var_e21e8076 - player.pers[#"hash_6061882505788180"] + player stats::get_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"arenavalue");			player stats::set_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"arenavalue", amount);		}
 		else
 		{
-			amount = (var_e21e8076 - player.pers[#"hash_6061882505788180"]) + player stats::get_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"statvalue");
-			player stats::set_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"statvalue", amount);
-		}
+			amount = var_e21e8076 - player.pers[#"hash_6061882505788180"] + player stats::get_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"statvalue");			player stats::set_stat(#"playerstatsbygametype", level.var_12323003, #"objective_score", #"statvalue", amount);		}
 		player.pers[#"hash_6061882505788180"] = var_e21e8076;
 		player.var_f22ee5e = player.pers[#"hash_6061882505788180"];
 	}
@@ -1278,7 +1259,7 @@ function setplayermomentumdebug()
 				}
 				if(isdefined(player.killstreak))
 				{
-					_setplayermomentum(player, int(2000 * (momentumpercent / 100)));
+					_setplayermomentum(player, int(2000 * momentumpercent / 100));
 				}
 			}
 		}
@@ -1565,16 +1546,16 @@ function areteamarraysequal(teamsa, teamsb)
 {
 	if(teamsa.size != teamsb.size)
 	{
-		return false;
+		return 0;
 	}
 	foreach(team in teamsa)
 	{
 		if(!isdefined(teamsb[team]))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1877,17 +1858,17 @@ function canupdateweaponcontractstats()
 {
 	if(getdvarint(#"enable_weapon_contract", 0) == 0)
 	{
-		return false;
+		return 0;
 	}
 	if(!level.rankedmatch && !level.arenamatch)
 	{
-		return false;
+		return 0;
 	}
 	if(function_f99d2668())
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -2136,56 +2117,53 @@ function updatewinlossstats()
 			}
 		}
 	}
+	else if(match::function_5f24faac("tie"))
+	{
+		foreach(player in players)
+		{
+			if(!isdefined(player.pers[#"team"]))
+			{
+				continue;
+			}
+			if(level.hostforcedend && player ishost())
+			{
+				continue;
+			}
+			updatetiestats(player);
+		}
+	}
 	else
 	{
-		if(match::function_5f24faac("tie"))
+		foreach(player in players)
 		{
-			foreach(player in players)
+			if(!isdefined(player.pers[#"team"]))
 			{
-				if(!isdefined(player.pers[#"team"]))
-				{
-					continue;
-				}
-				if(level.hostforcedend && player ishost())
-				{
-					continue;
-				}
-				updatetiestats(player);
+				continue;
 			}
-		}
-		else
-		{
-			foreach(player in players)
+			if(level.hostforcedend && player ishost())
 			{
-				if(!isdefined(player.pers[#"team"]))
+				continue;
+			}
+			if(match::function_5f24faac("tie"))
+			{
+				updatetiestats(player);
+				continue;
+			}
+			if(match::function_a2b53e17(player))
+			{
+				updatewinstats(player);
+				continue;
+			}
+			if(level.rankedmatch && !level.leaguematch && player.pers[#"latejoin"] === 1)
+			{
+				updatelosslatejoinstats(player);
+			}
+			if(!level.disablestattracking)
+			{
+				player stats::function_4db3fba1(#"cur_win_streak", 0);
+				if(level.var_aa5e6547 === 1)
 				{
-					continue;
-				}
-				if(level.hostforcedend && player ishost())
-				{
-					continue;
-				}
-				if(match::function_5f24faac("tie"))
-				{
-					updatetiestats(player);
-					continue;
-				}
-				if(match::function_a2b53e17(player))
-				{
-					updatewinstats(player);
-					continue;
-				}
-				if(level.rankedmatch && !level.leaguematch && player.pers[#"latejoin"] === 1)
-				{
-					updatelosslatejoinstats(player);
-				}
-				if(!level.disablestattracking)
-				{
-					player stats::function_4db3fba1(#"cur_win_streak", 0);
-					if(level.var_aa5e6547 === 1)
-					{
-						player stats::function_4db3fba1(#"hash_a06075423336d9c", 0);
-					}
+					player stats::function_4db3fba1(#"hash_a06075423336d9c", 0);
 				}
 			}
 		}
@@ -2374,7 +2352,7 @@ function trackattackeedeath(attackername, rank, xp, prestige, xuid)
 */
 function default_iskillboosting()
 {
-	return false;
+	return 0;
 }
 
 /*
@@ -2409,8 +2387,8 @@ function givekillstats(smeansofdeath, weapon, evictim, var_e7a369ea)
 	pixbeginevent(#"givekillstats");
 	if(self === var_e7a369ea)
 	{
-		self activecamo::function_896ac347(weapon, #"kills", 1);
-		self activecamo::function_1af985ba(weapon);
+		self cschashed-2\script_158d50d476435605::function_896ac347(weapon, #"kills", 1);
+		self cschashed-2\script_158d50d476435605::function_1af985ba(weapon);
 		self incpersstat(#"kills", 1, 1, 1);
 		self.kills = self getpersstat(#"kills");
 		self updatestatratio("kdratio", "kills", "deaths");
@@ -2436,14 +2414,14 @@ function givekillstats(smeansofdeath, weapon, evictim, var_e7a369ea)
 	attacker = self;
 	if(smeansofdeath === "MOD_HEAD_SHOT" && !killstreaks::is_killstreak_weapon(weapon))
 	{
-		self activecamo::function_896ac347(weapon, #"headshots", 1);
+		self cschashed-2\script_158d50d476435605::function_896ac347(weapon, #"headshots", 1);
 		attacker thread incpersstat(#"headshots", 1, 1, 0);
 		attacker.headshots = attacker.pers[#"headshots"];
 		if(isdefined(evictim))
 		{
 			evictim recordkillmodifier("headshot");
 		}
-		if((attacker.headshots % 5) == 0)
+		if(attacker.headshots % 5 == 0)
 		{
 			self contracts::function_a54e2068(#"hash_ca75e54eb5e5ef8");
 		}
@@ -2568,7 +2546,7 @@ function function_b1a3b359(killedplayer, damagedone, weapon, assist_level = unde
 	{
 		assist_level_value = 3;
 	}
-	assist_level = (assist_level + "_") + (assist_level_value * 25);
+	assist_level = assist_level + "_" + assist_level_value * 25;
 	self incpersstat(#"assists", 1, 1, 1);
 	self.assists = self getpersstat(#"assists");
 	if(isdefined(weapon))
@@ -2631,21 +2609,21 @@ function function_f38e3d84(attacker, inflictor, weapon)
 {
 	if(!isdefined(attacker) || !isdefined(attacker.team) || self util::isenemyplayer(attacker) == 0)
 	{
-		return false;
+		return 0;
 	}
 	if(self == attacker || (attacker.classname == "trigger_hurt_new" || attacker.classname == "worldspawn"))
 	{
-		return false;
+		return 0;
 	}
 	if(killstreaks::is_killstreak_weapon(weapon))
 	{
-		return false;
+		return 0;
 	}
 	if(attacker.team == #"spectator")
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -2734,7 +2712,7 @@ function function_e7b4c25c(nemesis_name, value, nemesis_rank, var_15574043, neme
 			assert(isdefined(nemesis_name), "" + self.name);
 		#/
 		/#
-			assert(isstring(nemesis_name), (("" + nemesis_name) + "") + self.name);
+			assert(isstring(nemesis_name), "" + nemesis_name + "" + self.name);
 		#/
 		self.pers[#"nemesis_name"] = nemesis_name;
 		self.pers[#"nemesis_rank"] = nemesis_rank;

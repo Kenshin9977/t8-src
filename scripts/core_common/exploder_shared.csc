@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"exploder", &__init__, undefined, undefined);
 }
@@ -500,11 +500,11 @@ function exploder_is_lightning_exploder(num)
 		{
 			if(level.lightningexploder[i] == num)
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -641,7 +641,7 @@ function cannon_effect()
 	if(!isdefined(level._effect[self.v[#"fxid"]]))
 	{
 		/#
-			assertmsg(("" + self.v[#"fxid"]) + "");
+			assertmsg("" + self.v[#"fxid"] + "");
 		#/
 		return;
 	}

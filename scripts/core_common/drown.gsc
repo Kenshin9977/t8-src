@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"drown", &__init__, undefined, undefined);
 }
@@ -187,15 +187,15 @@ function watch_player_drowning()
 			{
 				n_swimtime = int(n_swimtime * 1.5);
 			}
-			if((gettime() - self.lastwaterdamagetime) > (n_swimtime - var_c1e8fa5d) && self.drownstage == 0)
+			if(gettime() - self.lastwaterdamagetime > var_6af4d0a6 - var_c1e8fa5d && self.drownstage == 0)
 			{
 				if(isdefined(level.var_9f155bf4))
 				{
 					self thread [[level.var_9f155bf4]]("MOD_DROWN");
 				}
-				var_c1e8fa5d = var_c1e8fa5d - (int(self.playerrole.var_f0886300 * 1000));
+				var_c1e8fa5d = var_c1e8fa5d - int(self.playerrole.var_f0886300 * 1000);
 			}
-			if((gettime() - self.lastwaterdamagetime) > (n_swimtime - level.drown_pre_damage_stage_time) && self.drownstage == 0)
+			if(gettime() - self.lastwaterdamagetime > n_swimtime - level.drown_pre_damage_stage_time && self.drownstage == 0)
 			{
 				self.drownstage++;
 				self clientfield::set_to_player("drown_stage", self.drownstage);
@@ -204,11 +204,11 @@ function watch_player_drowning()
 			{
 				self.drownstage++;
 				self clientfield::set_to_player("drown_stage", self.drownstage);
-				self.lastwaterdamagetime = (gettime() - n_swimtime) + (int(self.playerrole.var_f0886300 * 1000));
+				self.lastwaterdamagetime = gettime() - var_6af4d0a6 + int(self.playerrole.var_f0886300 * 1000);
 			}
 			if(gettime() - self.lastwaterdamagetime > n_swimtime)
 			{
-				self.lastwaterdamagetime = self.lastwaterdamagetime + (int(self.playerrole.var_f0886300 * 1000));
+				self.lastwaterdamagetime = self.lastwaterdamagetime + int(self.playerrole.var_f0886300 * 1000);
 				self dodamage(self.playerrole.swimdamage, self.origin, undefined, undefined, undefined, "MOD_DROWN", 6);
 				self activate_player_health_visionset();
 				if(self.drownstage < 4)
@@ -218,24 +218,24 @@ function watch_player_drowning()
 				}
 			}
 		}
-		else
+		else if(isdefined(level.var_ee30f81d) && (isdefined(self.wasunderwater) && self.wasunderwater))
 		{
-			if(isdefined(level.var_ee30f81d) && (isdefined(self.wasunderwater) && self.wasunderwater))
+			if(self.drownstage > 0)
 			{
-				if(self.drownstage > 0)
-				{
-					thread [[level.var_ee30f81d]](self, 1);
-				}
+				thread [[level.var_ee30f81d]](self, 1);
+			}
+			else if(gettime() > (isdefined(self.var_cdefe788) ? self.var_cdefe788 : 0) + underwaterbreathtime)
+			{
 				thread [[level.var_ee30f81d]](self, 0);
 			}
-			self.drownstage = 0;
-			self clientfield::set_to_player("drown_stage", 0);
-			self.lastwaterdamagetime = self getlastoutwatertime();
-			self deactivate_player_health_visionset();
-			var_c1e8fa5d = 4000;
-			self.wasunderwater = 0;
-			return;
 		}
+		self.drownstage = 0;
+		self clientfield::set_to_player("drown_stage", 0);
+		self.lastwaterdamagetime = self getlastoutwatertime();
+		self deactivate_player_health_visionset();
+		var_c1e8fa5d = 4000;
+		self.wasunderwater = 0;
+		return;
 	}
 }
 

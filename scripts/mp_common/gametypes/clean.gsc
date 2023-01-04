@@ -1,8 +1,8 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2c49ae69cd8ce30c;
+#using hashed-1\player_36.gsc;
 #using script_38af8be38c6709ff;
-#using script_47fb62300ac0bd60;
-#using script_6c8abe14025b47c4;
+#using hashed-2\stats.gsc;
+#using hashed-1\killstreaks.gsc;
 #using script_7b8ad364b9de169e;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -36,7 +36,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"clean", &__init__, undefined, undefined);
 }
@@ -377,7 +377,7 @@ function function_b25ab1e7()
 		/#
 			level.var_9d4a9561++;
 		#/
-		var_ba985a3c registermp_multi_kill_medals_interface();
+		var_ba985a3c function_82eb0bb();
 		return var_ba985a3c;
 	}
 	/#
@@ -484,7 +484,7 @@ function function_8cb72ba4()
 		}
 		if(self.var_2581d0d oob::istouchinganyoobtrigger() || self.var_2581d0d gameobjects::is_touching_any_trigger_key_value("trigger_hurt_new", "classname", self.trigger.origin[2], self.trigger.origin[2] + 32))
 		{
-			self thread registermp_multi_kill_medals_interface();
+			self thread function_82eb0bb();
 			return;
 		}
 		self.trigger.origin = self.var_2581d0d.origin;
@@ -535,11 +535,11 @@ function function_8f7a9a20()
 	/#
 		level.var_bb42ed2++;
 	#/
-	self thread registermp_multi_kill_medals_interface();
+	self thread function_82eb0bb();
 }
 
 /*
-	Name: registermp_multi_kill_medals_interface
+	Name: function_82eb0bb
 	Namespace: clean
 	Checksum: 0x6EF7BA1D
 	Offset: 0x1D78
@@ -547,7 +547,7 @@ function function_8f7a9a20()
 	Parameters: 0
 	Flags: None
 */
-function registermp_multi_kill_medals_interface()
+function function_82eb0bb()
 {
 	/#
 		level.var_8df7db3b--;
@@ -721,7 +721,7 @@ function function_fd08eb25()
 			foreach(team, _ in level.teams)
 			{
 				setmatchflag("bomb_timer_a", 1);
-				setbombtimer("A", (gettime() + 1000) + (int(level.var_2576eaeb * 1000)));
+				setbombtimer("A", gettime() + 1000 + int(level.var_2576eaeb * 1000));
 				if(var_696c0ca5 >= 0)
 				{
 					globallogic_audio::leader_dialog("hubOffline", team);
@@ -744,7 +744,7 @@ function function_fd08eb25()
 			level.var_1940f14e show();
 		}
 		setmatchflag("bomb_timer_a", 1);
-		setbombtimer("A", (gettime() + 1000) + (int(level.cleandepositonlinetime * 1000)));
+		setbombtimer("A", gettime() + 1000 + int(level.cleandepositonlinetime * 1000));
 		foreach(team, _ in level.teams)
 		{
 			if(level.var_2576eaeb > 0)
@@ -792,14 +792,14 @@ function function_e3e1cf54(var_696c0ca5 = -1)
 	{
 		case 0:
 		{
-			return (var_696c0ca5 + 1) % level.cleandeposithubs.size;
+			return var_696c0ca5 + 1 % level.cleandeposithubs.size;
 		}
 		case 1:
 		{
 			return function_579aa766(var_696c0ca5, &registerexert_immolation_control);
 		}
 	}
-	return registerexert_immolation_control(var_696c0ca5);
+	return function_131cd67f(var_696c0ca5);
 }
 
 /*
@@ -829,7 +829,7 @@ function function_579aa766(var_696c0ca5, var_c1e8a2b7)
 	Parameters: 1
 	Flags: None
 */
-function registerexert_immolation_control(var_696c0ca5)
+function function_131cd67f(var_696c0ca5)
 {
 	if(!isdefined(level.var_49aeba07))
 	{
@@ -910,7 +910,7 @@ function function_c857e45f()
 		time = gettime();
 		foreach(player in level.players)
 		{
-			if(isdefined(player.var_916cc864) && isdefined(player.var_91be2350) && player.var_91be2350 && (time - player.var_916cc864) > (int((((float(function_60d95f53()) / 1000) + 0.25) + 0.1) * 1000)))
+			if(isdefined(player.var_916cc864) && isdefined(player.var_91be2350) && player.var_91be2350 && time - player.var_916cc864 > int(float(function_60d95f53()) / 1000 + 0.25 + 0.1 * 1000))
 			{
 				enemyteam = util::getotherteam(player.team);
 				level thread popups::displayteammessagetoteam(#"hash_7025b86816895e07", player, player.team, player.var_91be2350, undefined, 1);
@@ -925,7 +925,7 @@ function function_c857e45f()
 				}
 				player.var_91be2350 = 0;
 			}
-			if(isdefined(player.var_66521d81) && player.var_66521d81 < (gettime() - 1500))
+			if(isdefined(player.var_66521d81) && player.var_66521d81 < gettime() - 1500)
 			{
 				if(player.var_3e52c359 >= 5)
 				{
@@ -1025,7 +1025,7 @@ function function_1237ad98(player)
 	{
 		return 1;
 	}
-	return (player.var_916cc864 + (int(0.25 * 1000))) < gettime();
+	return player.var_916cc864 + int(0.25 * 1000) < gettime();
 }
 
 /*
@@ -1060,77 +1060,68 @@ function function_95cbd646(player)
 				scoreevents::processscoreevent("shamrock_friendly_collect", player);
 			}
 		}
+		else if(self.victim === player)
+		{
+			scoreevents::processscoreevent("clean_own_collect", player);
+		}
 		else
 		{
-			if(self.victim === player)
-			{
-				scoreevents::processscoreevent("clean_own_collect", player);
-			}
-			else
-			{
-				scoreevents::processscoreevent("clean_friendly_collect", player);
-			}
+			scoreevents::processscoreevent("clean_friendly_collect", player);
 		}
 		player.var_66521d81 = gettime();
 		player.var_3e52c359++;
 	}
+	else if(player.carriedtacos >= 10)
+	{
+		time = gettime();
+		if(time - player.var_129c990c > 500)
+		{
+			player playlocalsound("mpl_fracture_enemy_pickup_nope");
+			if(!isdefined(player.var_49f1d9cc))
+			{
+				player.var_49f1d9cc = 0;
+			}
+			player clientfield::set_player_uimodel("hudItems.cleanCarryFull", player.var_49f1d9cc);
+			player.var_49f1d9cc = (player.var_49f1d9cc ? 1 : 0);
+		}
+		player.var_129c990c = time;
+		return;
+	}
+	player.carriedtacos++;
+	player clientfield::set_player_uimodel("hudItems.cleanCarryCount", player.carriedtacos);
+	player function_fccce038();
+	if(player.carriedtacos < 4)
+	{
+		player playsound("mpl_fracture_enemy_pickup_s");
+	}
+	else if(player.carriedtacos < 7)
+	{
+		player playsound("mpl_fracture_enemy_pickup_m");
+	}
 	else
 	{
-		if(player.carriedtacos >= 10)
-		{
-			time = gettime();
-			if(time - player.var_129c990c > 500)
-			{
-				player playlocalsound("mpl_fracture_enemy_pickup_nope");
-				if(!isdefined(player.var_49f1d9cc))
-				{
-					player.var_49f1d9cc = 0;
-				}
-				player clientfield::set_player_uimodel("hudItems.cleanCarryFull", player.var_49f1d9cc);
-				player.var_49f1d9cc = (player.var_49f1d9cc ? 1 : 0);
-			}
-			player.var_129c990c = time;
-			return;
-		}
-		player.carriedtacos++;
-		player clientfield::set_player_uimodel("hudItems.cleanCarryCount", player.carriedtacos);
-		player function_fccce038();
-		if(player.carriedtacos < 4)
-		{
-			player playsound("mpl_fracture_enemy_pickup_s");
-		}
-		else
-		{
-			if(player.carriedtacos < 7)
-			{
-				player playsound("mpl_fracture_enemy_pickup_m");
-			}
-			else
-			{
-				player playsound("mpl_fracture_enemy_pickup_l");
-			}
-		}
+		player playsound("mpl_fracture_enemy_pickup_l");
+	}
+	if(isdefined(level.var_c5e28dc5) && level.var_c5e28dc5)
+	{
+		scoreevents::processscoreevent("shamrock_enemy_collect", player);
+	}
+	else
+	{
+		scoreevents::processscoreevent("clean_enemy_collect", player);
+	}
+	if(self.attackerteam == player.team && isdefined(self.attacker) && self.attacker != player)
+	{
 		if(isdefined(level.var_c5e28dc5) && level.var_c5e28dc5)
 		{
-			scoreevents::processscoreevent("shamrock_enemy_collect", player);
+			scoreevents::processscoreevent("shamrock_assist_collect", self.attacker);
 		}
 		else
 		{
-			scoreevents::processscoreevent("clean_enemy_collect", player);
-		}
-		if(self.attackerteam == player.team && isdefined(self.attacker) && self.attacker != player)
-		{
-			if(isdefined(level.var_c5e28dc5) && level.var_c5e28dc5)
-			{
-				scoreevents::processscoreevent("shamrock_assist_collect", self.attacker);
-			}
-			else
-			{
-				scoreevents::processscoreevent("clean_assist_collect", self.attacker);
-			}
+			scoreevents::processscoreevent("clean_assist_collect", self.attacker);
 		}
 	}
-	self registermp_multi_kill_medals_interface();
+	self function_82eb0bb();
 }
 
 /*
@@ -1151,7 +1142,7 @@ function function_bbcf6af(attacker, yawangle)
 	/#
 		dropcount = dropcount + getdvarint(#"hash_28135ad78580b035", 0);
 	#/
-	var_8a33c2ea = 360 / (dropcount + 1);
+	var_8a33c2ea = 360 / dropcount + 1;
 	for(i = 0; i < dropcount; i++)
 	{
 		taco = function_b25ab1e7();

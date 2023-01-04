@@ -20,7 +20,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"vehicle_shared", &__init__, undefined, undefined);
 }
@@ -93,7 +93,7 @@ function __init__()
 		clientfield::register("clientuimodel", "vehicle.invalidLanding", 1, 1, "int", undefined, 0, 0);
 		for(i = 0; i < 3; i++)
 		{
-			clientfield::register("clientuimodel", ("vehicle.bindingCooldown" + i) + ".cooldown", 1, 5, "float", undefined, 0, 0);
+			clientfield::register("clientuimodel", "vehicle.bindingCooldown" + i + ".cooldown", 1, 5, "float", undefined, 0, 0);
 		}
 	}
 	clientfield::register("toplayer", "toggle_dnidamagefx", 1, 1, "int", &field_toggle_dnidamagefx, 0, 0);
@@ -136,7 +136,7 @@ function add_vehicletype_callback(vehicletype, callback, data = undefined)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_dd27aacd(localclientnum, vehicletype)
+private function function_dd27aacd(localclientnum, vehicletype)
 {
 	if(isdefined(vehicletype) && isdefined(level.vehicletypecallbackarray[vehicletype]))
 	{
@@ -148,9 +148,9 @@ function private function_dd27aacd(localclientnum, vehicletype)
 		{
 			self thread [[level.vehicletypecallbackarray[vehicletype]]](localclientnum);
 		}
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -552,10 +552,10 @@ function play_boost(localclientnum, var_a7ba3864)
 			{
 				self thread function_5ce3e74e(localclientnum, var_1ca9b241);
 			}
-			self thread kill_boost(localclientnum, var_1ca9b241);
+			self thread function_81460bcd(localclientnum, var_1ca9b241);
 			if(isdefined(var_4dfb2154))
 			{
-				self thread kill_boost(localclientnum, var_4dfb2154);
+				self thread function_81460bcd(localclientnum, var_4dfb2154);
 			}
 		}
 	}
@@ -570,7 +570,7 @@ function play_boost(localclientnum, var_a7ba3864)
 	Parameters: 2
 	Flags: Linked
 */
-function kill_boost(localclientnum, var_1ca9b241)
+function function_81460bcd(localclientnum, var_1ca9b241)
 {
 	self endon(#"death");
 	wait(self.var_686515e3 + 0.5);
@@ -648,17 +648,17 @@ function aircraft_dustkick()
 		}
 		trace = bullettrace(self.origin, self.origin - (0, 0, 700 * 2), 0, self, 1);
 		distsqr = distancesquared(self.origin, trace[#"position"]);
-		if(trace[#"fraction"] < 0.01 || distsqr < (0 * 0))
+		if(trace[#"fraction"] < 0.01 || distsqr < 0 * 0)
 		{
 			wait(0.2);
 			continue;
 		}
-		else if(trace[#"fraction"] >= 1 || distsqr > (700 * 700))
+		else if(trace[#"fraction"] >= 1 || distsqr > 700 * 700)
 		{
 			wait(1);
 			continue;
 		}
-		if((0 * 0) < distsqr && distsqr < (700 * 700))
+		if(0 * 0 < distsqr && distsqr < 700 * 700)
 		{
 			surfacetype = trace[#"surfacetype"];
 			if(!isdefined(surfacetype))
@@ -744,18 +744,15 @@ function addanimtolist(animitem, liston, listoff, playwhenoff, id, maxid)
 			}
 			listoff[listoff.size] = animitem;
 		}
-		else
+		else if(!isdefined(liston))
 		{
-			if(!isdefined(liston))
-			{
-				liston = [];
-			}
-			else if(!isarray(liston))
-			{
-				liston = array(liston);
-			}
-			liston[liston.size] = animitem;
+			liston = [];
 		}
+		else if(!isarray(liston))
+		{
+			liston = array(liston);
+		}
+		liston[liston.size] = animitem;
 	}
 }
 
@@ -1055,17 +1052,17 @@ event function_ca9b286c(eventstruct)
 		var_8730ee3e = getscriptbundle(var_fd110a27);
 		if(isdefined(var_8730ee3e))
 		{
-			if(isdefined(var_8730ee3e.zmenhancedstatejukeinit) && var_8730ee3e.zmenhancedstatejukeinit)
+			if(isdefined(var_8730ee3e.var_b99b6e3c) && var_8730ee3e.zmenhancedstatejukeinit)
 			{
-				if(!isdefined(vehicle.t_sarah_foy_objective__indicator_))
+				if(!isdefined(vehicle.var_26fb6644))
 				{
-					vehicle.t_sarah_foy_objective__indicator_ = [];
+					vehicle.var_26fb6644 = [];
 				}
-				if(isdefined(vehicle.t_sarah_foy_objective__indicator_[seatindex]) && vehicle.t_sarah_foy_objective__indicator_[seatindex])
+				if(isdefined(vehicle.var_26fb6644[seatindex]) && vehicle.var_26fb6644[seatindex])
 				{
 					return;
 				}
-				vehicle.t_sarah_foy_objective__indicator_[seatindex] = 1;
+				vehicle.var_26fb6644[seatindex] = 1;
 			}
 			animation = var_8730ee3e.vehicleenteranim;
 			if(isdefined(animation))
@@ -1112,17 +1109,17 @@ event function_124469f4(eventstruct)
 			{
 				return;
 			}
-			if(isdefined(var_8730ee3e.zmenhancedstatejukeinit) && var_8730ee3e.zmenhancedstatejukeinit)
+			if(isdefined(var_8730ee3e.var_b99b6e3c) && var_8730ee3e.zmenhancedstatejukeinit)
 			{
-				if(!isdefined(vehicle.t_sarah_foy_objective__indicator_))
+				if(!isdefined(vehicle.var_26fb6644))
 				{
-					vehicle.t_sarah_foy_objective__indicator_ = [];
+					vehicle.var_26fb6644 = [];
 				}
-				if(isdefined(vehicle.t_sarah_foy_objective__indicator_[seatindex]) && vehicle.t_sarah_foy_objective__indicator_[seatindex])
+				if(isdefined(vehicle.var_26fb6644[seatindex]) && vehicle.var_26fb6644[seatindex])
 				{
 					return;
 				}
-				vehicle.t_sarah_foy_objective__indicator_[seatindex] = 1;
+				vehicle.var_26fb6644[seatindex] = 1;
 			}
 			animation = var_8730ee3e.vehicleenteranim;
 			if(isdefined(animation))
@@ -1363,7 +1360,7 @@ function function_44729756(localclientnum, duration = 8, var_5db078ba = 1)
 		return;
 	}
 	state = 1;
-	durationleft = gettime() + (int(duration * 1000));
+	durationleft = gettime() + int(duration * 1000);
 	settings = struct::get_script_bundle("vehiclecustomsettings", self.scriptbundlesettings);
 	if(!isdefined(settings) || !isdefined(settings.lightgroups_numgroups))
 	{
@@ -1468,23 +1465,17 @@ function flicker_lights(localclientnum, oldval, newval, bnewent, binitialsnap, f
 		self notify(#"hash_45365ddf9df27830");
 		self lights_off(localclientnum);
 	}
-	else
+	else if(newval == 1)
 	{
-		if(newval == 1)
-		{
-			self thread function_44729756(localclientnum);
-		}
-		else
-		{
-			if(newval == 2)
-			{
-				self thread function_44729756(localclientnum, 20);
-			}
-			else if(newval == 3)
-			{
-				self notify(#"hash_45365ddf9df27830");
-			}
-		}
+		self thread function_44729756(localclientnum);
+	}
+	else if(newval == 2)
+	{
+		self thread function_44729756(localclientnum, 20);
+	}
+	else if(newval == 3)
+	{
+		self notify(#"hash_45365ddf9df27830");
 	}
 }
 
@@ -1584,13 +1575,13 @@ function toggle_fx_bundle(localclientnum, name, turnon)
 		i = 1;
 		for(;;)
 		{
-			fx = self.settings.((name + "_fx_") + i);
+			fx = self.settings.(name + "_fx_" + i);
 			if(!isdefined(fx))
 			{
 				return;
 			}
-			tag = self.settings.((name + "_tag_") + i);
-			delay = self.settings.((name + "_delay_") + i);
+			tag = self.settings.(name + "_tag_" + i);
+			delay = self.settings.(name + "_delay_" + i);
 			self thread delayed_fx_thread(localclientnum, name, fx, tag, delay);
 			i++;
 		}
@@ -1674,7 +1665,7 @@ function field_toggle_sounds(localclientnum, oldval, newval, bnewent, binitialsn
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_dcec5385()
+private function function_dcec5385()
 {
 	self function_f753359a();
 }
@@ -1728,24 +1719,21 @@ function toggle_flir_postfxbundle(localclientnum, oldval, newval, bnewent, binit
 		}
 		update_ui_fullscreen_filter_model(localclientnum, 0);
 	}
-	else
+	else if(newval == 1)
 	{
-		if(newval == 1)
+		if(player shouldchangescreenpostfx(localclientnum))
 		{
-			if(player shouldchangescreenpostfx(localclientnum))
-			{
-				player thread postfx::playpostfxbundle(#"pstfx_infrared");
-				update_ui_fullscreen_filter_model(localclientnum, 2);
-			}
+			player thread postfx::playpostfxbundle(#"pstfx_infrared");
+			update_ui_fullscreen_filter_model(localclientnum, 2);
 		}
-		else if(newval == 2)
+	}
+	else if(newval == 2)
+	{
+		should_change = 1;
+		if(player shouldchangescreenpostfx(localclientnum))
 		{
-			should_change = 1;
-			if(player shouldchangescreenpostfx(localclientnum))
-			{
-				player thread postfx::playpostfxbundle(#"pstfx_flir");
-				update_ui_fullscreen_filter_model(localclientnum, 1);
-			}
+			player thread postfx::playpostfxbundle(#"pstfx_flir");
+			update_ui_fullscreen_filter_model(localclientnum, 1);
 		}
 	}
 }
@@ -1770,10 +1758,10 @@ function shouldchangescreenpostfx(localclientnum)
 		killcamentity = function_93e0f729(localclientnum);
 		if(isdefined(killcamentity) && killcamentity != player)
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1873,51 +1861,45 @@ function field_toggle_treadfx(localclientnum, oldval, newval, bnewent, binitials
 			self kill_treads_forever();
 			self thread aircraft_dustkick();
 		}
+		else if(isdefined(bnewent) && bnewent)
+		{
+			self.csf_no_tread = 1;
+		}
 		else
 		{
-			if(isdefined(bnewent) && bnewent)
-			{
-				self.csf_no_tread = 1;
-			}
-			else
-			{
-				self kill_treads_forever();
-			}
+			self kill_treads_forever();
+		}
+	}
+	else if(newval)
+	{
+		/#
+			println("");
+		#/
+		if(isdefined(bnewent) && bnewent)
+		{
+			/#
+				println("" + self getentitynumber());
+			#/
+			self.csf_no_tread = 1;
+		}
+		else
+		{
+			/#
+				println("" + self getentitynumber());
+			#/
+			self kill_treads_forever();
 		}
 	}
 	else
 	{
-		if(newval)
+		/#
+			println("");
+		#/
+		if(isdefined(self.csf_no_tread))
 		{
-			/#
-				println("");
-			#/
-			if(isdefined(bnewent) && bnewent)
-			{
-				/#
-					println("" + self getentitynumber());
-				#/
-				self.csf_no_tread = 1;
-			}
-			else
-			{
-				/#
-					println("" + self getentitynumber());
-				#/
-				self kill_treads_forever();
-			}
+			self.csf_no_tread = 0;
 		}
-		else
-		{
-			/#
-				println("");
-			#/
-			if(isdefined(self.csf_no_tread))
-			{
-				self.csf_no_tread = 0;
-			}
-			self kill_treads_forever();
-		}
+		self kill_treads_forever();
 	}
 }
 
@@ -1967,7 +1949,7 @@ function field_use_engine_damage_sounds(localclientnum, oldval, newval, bnewent,
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_a29f490a()
+private function function_a29f490a()
 {
 	self.var_76660b3a = self playloopsound(self.var_f0885951);
 }
@@ -1981,7 +1963,7 @@ function private function_a29f490a()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_f753359a()
+private function function_f753359a()
 {
 	if(isdefined(self.var_76660b3a))
 	{
@@ -1999,25 +1981,25 @@ function private function_f753359a()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_27b19317(localclientnum)
+private function function_27b19317(localclientnum)
 {
 	if(!self function_4add50a7())
 	{
-		return false;
+		return 0;
 	}
 	if(function_65b9eb0f(localclientnum))
 	{
-		return false;
+		return 0;
 	}
 	if(self.vehicleclass === "helicopter")
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(self.var_304cf9da) && self.var_304cf9da)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -2029,7 +2011,7 @@ function private function_27b19317(localclientnum)
 	Parameters: 7
 	Flags: Linked, Private
 */
-function private function_2d24296(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
+private function function_2d24296(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
 {
 	if(self function_27b19317(localclientnum))
 	{
@@ -2504,15 +2486,12 @@ function field_toggle_exhaustfx_handler(localclientnum, oldval, newval, bnewent,
 			self stop_exhaust(localclientnum);
 		}
 	}
-	else
+	else if(isdefined(self.csf_no_exhaust))
 	{
-		if(isdefined(self.csf_no_exhaust))
-		{
-			self.csf_no_exhaust = 0;
-		}
-		self stop_exhaust(localclientnum);
-		self play_exhaust(localclientnum);
+		self.csf_no_exhaust = 0;
 	}
+	self stop_exhaust(localclientnum);
+	self play_exhaust(localclientnum);
 }
 
 /*
@@ -2530,23 +2509,17 @@ function field_toggle_lights_handler(localclientnum, oldval, newval, bnewent, bi
 	{
 		self lights_off(localclientnum);
 	}
+	else if(newval == 2)
+	{
+		self lights_on(localclientnum, #"allies");
+	}
+	else if(newval == 3)
+	{
+		self lights_on(localclientnum, #"axis");
+	}
 	else
 	{
-		if(newval == 2)
-		{
-			self lights_on(localclientnum, #"allies");
-		}
-		else
-		{
-			if(newval == 3)
-			{
-				self lights_on(localclientnum, #"axis");
-			}
-			else
-			{
-				self lights_on(localclientnum);
-			}
-		}
+		self lights_on(localclientnum);
 	}
 }
 
@@ -2652,10 +2625,10 @@ function function_d7a2c2f(localclientnum, oldval, newval, bnewent, binitialsnap,
 */
 function start_stun_fx(localclientnum)
 {
-	stunfx = (isdefined(self.global_zm_specialty_staminup_drankdie) ? self.global_zm_specialty_staminup_drankdie : #"killstreaks/fx_agr_emp_stun");
-	_exp_special_web_dissolve = (isdefined(self.stunfxtag) ? self.stunfxtag : "tag_origin");
+	stunfx = (isdefined(self.var_d69eb978) ? self.var_d69eb978 : #"killstreaks/fx_agr_emp_stun");
+	var_7f088366 = (isdefined(self.stunfxtag) ? self.stunfxtag : "tag_origin");
 	var_6dc7131c = (isdefined(self.var_c254489e) ? self.var_c254489e : #"veh_talon_shutdown");
-	self.stun_fx = util::playfxontag(localclientnum, stunfx, self, _exp_special_web_dissolve);
+	self.stun_fx = util::playfxontag(localclientnum, stunfx, self, var_7f088366);
 	playsound(localclientnum, var_6dc7131c, self.origin);
 }
 
@@ -2713,7 +2686,7 @@ function field_update_damage_state(localclientnum, oldval, newval, bnewent, bini
 		numslots = settings.(var_c0e21df2 + "_numslots");
 		for(fxindex = 1; isdefined(numslots) && fxindex <= numslots; fxindex++)
 		{
-			addfxandtagtolists(settings.((var_c0e21df2 + "_fx") + fxindex), settings.((var_c0e21df2 + "_tag") + fxindex), fxlist, taglist, fxindex, numslots);
+			addfxandtagtolists(settings.(var_c0e21df2 + "_fx" + fxindex), settings.(var_c0e21df2 + "_tag" + fxindex), fxlist, taglist, fxindex, numslots);
 		}
 		sound = settings.(var_c0e21df2 + "_sound");
 	}
@@ -2805,16 +2778,13 @@ function field_death_spawn_dynents(localclientnum, oldval, newval, bnewent, bini
 			{
 				dynent = createdynentandlaunch(localclientnum, model, self.origin + offset, self.angles, (0, 0, 0), velocity * 0.8, fx);
 			}
+			else if(newval == 1 && isdefined(fx))
+			{
+				dynent = createdynentandlaunch(localclientnum, model, self.origin + offset, self.angles, (0, 0, 0), velocity * 0.8, fx);
+			}
 			else
 			{
-				if(newval == 1 && isdefined(fx))
-				{
-					dynent = createdynentandlaunch(localclientnum, model, self.origin + offset, self.angles, (0, 0, 0), velocity * 0.8, fx);
-				}
-				else
-				{
-					dynent = createdynentandlaunch(localclientnum, model, self.origin + offset, self.angles, (0, 0, 0), velocity * 0.8);
-				}
+				dynent = createdynentandlaunch(localclientnum, model, self.origin + offset, self.angles, (0, 0, 0), velocity * 0.8);
 			}
 			if(isdefined(dynent))
 			{
@@ -2899,7 +2869,7 @@ function field_gib_spawn_dynents(localclientnum, oldval, newval, bnewent, biniti
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec build_damage_filter_list()
+autoexec function build_damage_filter_list()
 {
 	if(!isdefined(level.vehicle_damage_filters))
 	{

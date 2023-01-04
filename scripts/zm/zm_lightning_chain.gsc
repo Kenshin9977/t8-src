@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -30,7 +30,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"lightning_chain", &init, undefined, undefined);
 }
@@ -97,7 +97,7 @@ function create_lightning_chain_params(max_arcs = 5, max_enemies_killed = 10, ra
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private on_player_connect()
+private function on_player_connect()
 {
 	self endon(#"disconnect", #"death");
 	self waittill(#"spawned_player");
@@ -131,7 +131,7 @@ function arc_damage(source_enemy, player, arc_num, params = level.default_lightn
 		player.tesla_enemies_hit = 0;
 	}
 	/#
-		zm_utility::debug_print((("" + arc_num) + "") + player.tesla_enemies_hit);
+		zm_utility::debug_print("" + arc_num + "" + player.tesla_enemies_hit);
 	#/
 	lc_flag_hit(self, 1);
 	radius_decay = params.radius_decay * arc_num;
@@ -145,7 +145,7 @@ function arc_damage(source_enemy, player, arc_num, params = level.default_lightn
 	lc_flag_hit(enemies, 1);
 	self thread lc_do_damage(source_enemy, arc_num, player, params);
 	/#
-		zm_utility::debug_print((("" + enemies.size) + "") + arc_num);
+		zm_utility::debug_print("" + enemies.size + "" + arc_num);
 	#/
 	for(i = 0; i < enemies.size; i++)
 	{
@@ -187,31 +187,31 @@ function arc_damage_ent(player, arc_num, params = level.default_lightning_chain_
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private lc_end_arc_damage(arc_num, enemies_hit_num, params)
+private function lc_end_arc_damage(arc_num, enemies_hit_num, params)
 {
 	if(arc_num >= params.max_arcs)
 	{
 		/#
 			zm_utility::debug_print("");
 		#/
-		return true;
+		return 1;
 	}
 	if(enemies_hit_num >= params.max_enemies_killed)
 	{
 		/#
 			zm_utility::debug_print("");
 		#/
-		return true;
+		return 1;
 	}
 	radius_decay = params.radius_decay * arc_num;
-	if((params.radius_start - radius_decay) <= 0)
+	if(params.radius_start - radius_decay <= 0)
 	{
 		/#
 			zm_utility::debug_print("");
 		#/
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -223,7 +223,7 @@ function private lc_end_arc_damage(arc_num, enemies_hit_num, params)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private lc_get_enemies_in_area(origin, distance, player)
+private function lc_get_enemies_in_area(origin, distance, player)
 {
 	/#
 		level thread lc_debug_arc(origin, distance);
@@ -287,7 +287,7 @@ function private lc_get_enemies_in_area(origin, distance, player)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private lc_flag_hit(enemy, hit)
+private function lc_flag_hit(enemy, hit)
 {
 	if(isdefined(enemy))
 	{
@@ -329,7 +329,7 @@ function private lc_flag_hit(enemy, hit)
 	Parameters: 4
 	Flags: Linked, Private
 */
-function private lc_do_damage(source_enemy, arc_num, player, params)
+private function lc_do_damage(source_enemy, arc_num, player, params)
 {
 	player endon(#"disconnect");
 	if(arc_num > 1)
@@ -434,7 +434,7 @@ function private lc_do_damage(source_enemy, arc_num, player, params)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_915d4fec(params, v_origin, player)
+private function function_915d4fec(params, v_origin, player)
 {
 	if(isdefined(params.var_a9255d36))
 	{
@@ -494,16 +494,13 @@ function lc_play_death_fx(arc_num, params)
 	if(params.no_fx)
 	{
 	}
+	else if(params.clientside_fx && b_can_clientside)
+	{
+		clientfield::set("lc_death_fx", n_fx);
+	}
 	else
 	{
-		if(params.clientside_fx && b_can_clientside)
-		{
-			clientfield::set("lc_death_fx", n_fx);
-		}
-		else
-		{
-			zm_net::network_safe_play_fx_on_tag("tesla_death_fx", 2, level._effect[fx], self, tag);
-		}
+		zm_net::network_safe_play_fx_on_tag("tesla_death_fx", 2, level._effect[fx], self, tag);
 	}
 	if(isdefined(self.tesla_head_gib_func) && !self.head_gibbed && params.should_kill_enemies && (!(isdefined(self.no_gib) && self.no_gib)))
 	{
@@ -575,7 +572,7 @@ function lc_play_arc_fx(target, params)
 	Parameters: 2
 	Flags: Private
 */
-function private lc_debug_arc(origin, distance)
+private function lc_debug_arc(origin, distance)
 {
 	/#
 		if(getdvarint(#"zombie_debug", 0) != 3)

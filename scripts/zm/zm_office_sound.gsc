@@ -128,16 +128,13 @@ function function_bc327ddf()
 			}
 			var_5ffc6bcc++;
 		}
+		else if(s_result.var_6831e121 == 1)
+		{
+			var_5ffc6bcc = 1;
+		}
 		else
 		{
-			if(s_result.var_6831e121 == 1)
-			{
-				var_5ffc6bcc = 1;
-			}
-			else
-			{
-				var_5ffc6bcc = 0;
-			}
+			var_5ffc6bcc = 0;
 		}
 	}
 }

@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_4445e928cf1b07c0", &__init__, undefined, undefined);
 }
@@ -31,11 +31,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"no_sprint", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"no_sprint", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -47,7 +47,7 @@ function __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d1de6a85()
+private function function_d1de6a85()
 {
 	callback::on_spawned(&function_dc856fd8);
 	foreach(player in getplayers())
@@ -68,7 +68,7 @@ function private function_d1de6a85()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	callback::remove_on_spawned(&function_dc856fd8);
 	foreach(player in getplayers())
@@ -88,7 +88,7 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_dc856fd8()
+private function function_dc856fd8()
 {
 	self notify("374b3a40e7866d07");
 	self endon("374b3a40e7866d07");
@@ -113,14 +113,14 @@ function private function_dc856fd8()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_31f500f()
+private function function_31f500f()
 {
 	self endon(#"disconnect", #"allow_sprint");
 	while(true)
 	{
 		if(isalive(self) && self sprintbuttonpressed())
 		{
-			self namespace_b22c99a5::function_97444b02();
+			self cschashed-1\script_3d5821d793ed4c6::function_97444b02();
 			while(self sprintbuttonpressed())
 			{
 				waitframe(1);

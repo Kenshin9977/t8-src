@@ -20,7 +20,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"trigger", &__init__, undefined, undefined);
 }
@@ -173,7 +173,7 @@ function get_trigger_look_target()
 		if(a_targets.size > 0)
 		{
 			/#
-				assert(a_targets.size == 1, ("" + self.origin) + "");
+				assert(a_targets.size == 1, "" + self.origin + "");
 			#/
 			e_target = a_targets[0];
 		}
@@ -224,12 +224,7 @@ function look_trigger(trigger)
 				waitframe(1);
 			}
 		}
-		else
-		{
-			/#
-				assertmsg("");
-			#/
-		}
+		assertmsg("");
 	}
 }
 
@@ -405,11 +400,11 @@ function friendly_respawn_trigger(trigger)
 	trigger endon(#"death");
 	spawners = getentarray(trigger.target, "targetname");
 	/#
-		assert(spawners.size == 1, ("" + trigger.target) + "");
+		assert(spawners.size == 1, "" + trigger.target + "");
 	#/
 	spawner = spawners[0];
 	/#
-		assert(!isdefined(spawner.script_forcecolor), ("" + spawner.origin) + "");
+		assert(!isdefined(spawner.script_forcecolor), "" + spawner.origin + "");
 	#/
 	spawners = undefined;
 	spawner endon(#"death");
@@ -491,16 +486,13 @@ function script_flag_set_touching(trigger)
 				level flag::clear(trigger.script_flag_set_on_not_touching);
 			}
 		}
-		else
+		else if(isdefined(trigger.script_flag_set_on_touching))
 		{
-			if(isdefined(trigger.script_flag_set_on_touching))
-			{
-				level flag::clear(trigger.script_flag_set_on_touching);
-			}
-			if(isdefined(trigger.script_flag_set_on_not_touching))
-			{
-				level flag::set(trigger.script_flag_set_on_not_touching);
-			}
+			level flag::clear(trigger.script_flag_set_on_touching);
+		}
+		if(isdefined(trigger.script_flag_set_on_not_touching))
+		{
+			level flag::set(trigger.script_flag_set_on_not_touching);
 		}
 	}
 }
@@ -564,7 +556,7 @@ function trigger_once(s_info)
 	{
 		/#
 			println("");
-			println((("" + self getentitynumber()) + "") + self.origin);
+			println("" + self getentitynumber() + "" + self.origin);
 			println("");
 		#/
 		self delete();
@@ -641,7 +633,7 @@ function wait_till(str_name, str_key = "targetname", e_entity, b_assert = 1)
 	{
 		triggers = getentarray(str_name, str_key);
 		/#
-			assert(!b_assert || triggers.size > 0, (("" + str_name) + "") + str_key);
+			assert(!b_assert || triggers.size > 0, "" + str_name + "" + str_key);
 		#/
 		if(triggers.size > 0)
 		{
@@ -719,41 +711,38 @@ function _trigger_wait(e_entity)
 				}
 			}
 		}
+		else if(self.classname === "trigger_damage")
+		{
+			waitresult = undefined;
+			waitresult = self waittill(#"trigger");
+			wait(self.delaynotify);
+			e_other = waitresult.activator;
+			if(isdefined(e_entity))
+			{
+				if(e_other !== e_entity)
+				{
+					continue;
+				}
+			}
+		}
 		else
 		{
-			if(self.classname === "trigger_damage")
+			waitresult = undefined;
+			waitresult = self waittill(#"trigger");
+			wait(self.delaynotify);
+			e_other = waitresult.activator;
+			if(isdefined(e_entity))
 			{
-				waitresult = undefined;
-				waitresult = self waittill(#"trigger");
-				wait(self.delaynotify);
-				e_other = waitresult.activator;
-				if(isdefined(e_entity))
+				if(isarray(e_entity))
 				{
-					if(e_other !== e_entity)
+					if(!array::is_touching(e_entity, self))
 					{
 						continue;
 					}
 				}
-			}
-			else
-			{
-				waitresult = undefined;
-				waitresult = self waittill(#"trigger");
-				wait(self.delaynotify);
-				e_other = waitresult.activator;
-				if(isdefined(e_entity))
+				else if(!e_entity istouching(self) && e_entity !== e_other)
 				{
-					if(isarray(e_entity))
-					{
-						if(!array::is_touching(e_entity, self))
-						{
-							continue;
-						}
-					}
-					else if(!e_entity istouching(self) && e_entity !== e_other)
-					{
-						continue;
-					}
+					continue;
 				}
 			}
 		}
@@ -799,7 +788,7 @@ function use(str_name, str_key = "targetname", ent = getplayers()[0], b_assert =
 			if(b_assert)
 			{
 				/#
-					assertmsg((("" + str_name) + "") + str_key);
+					assertmsg("" + str_name + "" + str_key);
 				#/
 			}
 			return;
@@ -924,7 +913,7 @@ function update_based_on_flags()
 */
 function is_look_trigger()
 {
-	return isdefined(self.spawnflags) && (self.spawnflags & 256) == 256 && !is_trigger_of_type("trigger_damage") && !is_trigger_of_type("trigger_damage_new");
+	return isdefined(self.spawnflags) && self.spawnflags & 256 == 256 && !is_trigger_of_type("trigger_damage") && !is_trigger_of_type("trigger_damage_new");
 }
 
 /*
@@ -938,7 +927,7 @@ function is_look_trigger()
 */
 function is_trigger_once()
 {
-	return isdefined(self.spawnflags) && (self.spawnflags & 1024) == 1024 || is_trigger_of_type("trigger_once", "trigger_once_new");
+	return isdefined(self.spawnflags) && self.spawnflags & 1024 == 1024 || is_trigger_of_type("trigger_once", "trigger_once_new");
 }
 
 /*
@@ -1239,17 +1228,17 @@ function ent_already_in(var_d35ff8d8)
 {
 	if(!isdefined(self._triggers))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(self._triggers[var_d35ff8d8]))
 	{
-		return false;
+		return 0;
 	}
 	if(!self._triggers[var_d35ff8d8])
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

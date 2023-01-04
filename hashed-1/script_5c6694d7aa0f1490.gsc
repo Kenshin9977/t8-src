@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_1c72973fb240f263;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_421e0a3702e22de;
 #using script_52c6c2d1a2ef1b46;
 #using script_5cd88351d6d269b1;
@@ -20,11 +20,11 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_zonemgr.gsc;
 
-#namespace namespace_13b4b4b;
+#namespace cschashed-2\script_387ae8d7955ac404;
 
 /*
 	Name: preload
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x313E7C65
 	Offset: 0x240
 	Size: 0x44
@@ -38,7 +38,7 @@ function preload()
 
 /*
 	Name: init
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0xFFA468EF
 	Offset: 0x290
 	Size: 0x64
@@ -48,12 +48,12 @@ function preload()
 function init()
 {
 	level flag::init(#"hash_2c3411c8b8b421d8");
-	namespace_85e029d3::register_drop_off(16, #"hash_18dcf44bdd7a747c", #"hash_459899940f28d8f0", &function_b5f900c3);
+	namespace_85e029d3::function_f6ecebca(16, #"hash_18dcf44bdd7a747c", #"hash_459899940f28d8f0", &function_b5f900c3);
 }
 
 /*
 	Name: function_5309464a
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x9FF08D77
 	Offset: 0x300
 	Size: 0x174
@@ -62,7 +62,7 @@ function init()
 */
 function function_5309464a(var_5ea5c94d)
 {
-	namespace_6747c550::function_7df6bb60(#"hash_2fbec633e5118bab", 11);
+	cschashed-2\script_76b36ed1b7a51ed2::function_7df6bb60(#"hash_2fbec633e5118bab", 11);
 	level.var_80c25d0a = 115;
 	if(isdefined(level.chests))
 	{
@@ -72,7 +72,7 @@ function function_5309464a(var_5ea5c94d)
 		{
 			chest zm_magicbox::hide_chest(0);
 		}
-		zm_orange::function_2336a7c8();
+		namespace_b57826b5::function_2336a7c8();
 	}
 	if(!var_5ea5c94d)
 	{
@@ -84,7 +84,7 @@ function function_5309464a(var_5ea5c94d)
 
 /*
 	Name: function_ae270d9e
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x26797BC7
 	Offset: 0x480
 	Size: 0x1C
@@ -97,7 +97,7 @@ function function_ae270d9e(var_5ea5c94d, ended_early)
 
 /*
 	Name: function_b5f900c3
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x9722BECC
 	Offset: 0x4A8
 	Size: 0x4C
@@ -115,7 +115,7 @@ function function_b5f900c3()
 
 /*
 	Name: function_39c9e020
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x8AD33E28
 	Offset: 0x500
 	Size: 0x1EC
@@ -128,7 +128,7 @@ function function_39c9e020()
 	a_str_zones = array("main_entrance", "loading_platform");
 	while(true)
 	{
-		if(namespace_509a75d1::any_player_in_zone(a_str_zones))
+		if(cschashed-3\script_e2bef0652b31f68::any_player_in_zone(a_str_zones))
 		{
 			break;
 		}
@@ -164,7 +164,7 @@ function function_39c9e020()
 
 /*
 	Name: sun_deck_watcher
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x9464413D
 	Offset: 0x6F8
 	Size: 0x64
@@ -176,7 +176,7 @@ function sun_deck_watcher()
 	level endon(#"end_game");
 	while(true)
 	{
-		if(namespace_509a75d1::any_player_in_zone("sun_deck"))
+		if(cschashed-3\script_e2bef0652b31f68::any_player_in_zone("sun_deck"))
 		{
 			break;
 		}
@@ -187,7 +187,7 @@ function sun_deck_watcher()
 
 /*
 	Name: function_d096f18f
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x53386672
 	Offset: 0x768
 	Size: 0x43C
@@ -216,7 +216,7 @@ function function_d096f18f()
 	e_mover moveto(s_start.origin, 1);
 	level thread namespace_85e029d3::function_e44c7c0c(#"hash_1a974fe7a0edddab");
 	wait(1);
-	namespace_6747c550::function_7df6bb60(#"hash_2fbec633e5118bab", 12);
+	cschashed-2\script_76b36ed1b7a51ed2::function_7df6bb60(#"hash_2fbec633e5118bab", 12);
 	e_mover moveto(e_mover.origin + vectorscale((0, 0, 1), 4000), var_6df66af8 - 1);
 	wait(var_6df66af8 - 3);
 	exploder::stop_exploder("fxexp_portal_115_start");
@@ -228,12 +228,12 @@ function function_d096f18f()
 	level thread function_bf106bdf();
 	level namespace_3263198e::function_fd24e47f(#"hash_1a974fe7a0edddab");
 	wait(1);
-	level.var_1c53964e thread namespace_509a75d1::function_6a0d675d(#"hash_635ca3634ea94ee9");
+	level.var_1c53964e thread cschashed-3\script_e2bef0652b31f68::function_6a0d675d(#"hash_635ca3634ea94ee9");
 }
 
 /*
 	Name: function_8a707841
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0xA35BFF9
 	Offset: 0xBB0
 	Size: 0xD2
@@ -256,7 +256,7 @@ function function_8a707841(n_loop_time)
 
 /*
 	Name: function_39d9b290
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x211E53E0
 	Offset: 0xC90
 	Size: 0xC4
@@ -279,7 +279,7 @@ function function_39d9b290()
 
 /*
 	Name: function_bf106bdf
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x93491629
 	Offset: 0xD60
 	Size: 0x1CC
@@ -298,14 +298,14 @@ function function_bf106bdf()
 	nd_start = getvehiclenode("portal_wisp_start", "targetname");
 	vh_wisp setspeed(20);
 	vh_wisp vehicle::get_on_and_go_path(nd_start);
-	var_68e87752 = util::spawn_model("p8_zm_ora_elemental_vessel", vh_wisp.origin + (vectorscale((0, 0, -1), 10)));
-	var_68e87752 thread namespace_bfc8ee03::rotate_forever(vectorscale((0, 1, 0), 45));
+	var_68e87752 = util::spawn_model("p8_zm_ora_elemental_vessel", vh_wisp.origin + vectorscale((0, 0, -1), 10));
+	var_68e87752 thread cschashed-3\script_20422991283c1b8::rotate_forever(vectorscale((0, 1, 0), 45));
 	var_68e87752 namespace_2e9c09b3::function_f1827cc6(&function_f140d71a, zm_utility::function_d6046228(#"hash_50d83a4f11ad9d8", #"hash_51d8e27e625c6bd4"), undefined, 128);
 }
 
 /*
 	Name: function_f140d71a
-	Namespace: namespace_13b4b4b
+	Namespace: cschashed-2\script_387ae8d7955ac404
 	Checksum: 0x6BC603E5
 	Offset: 0xF38
 	Size: 0x74

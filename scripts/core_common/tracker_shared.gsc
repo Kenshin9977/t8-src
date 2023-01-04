@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_70a43d6ba27cff6a;
-#using script_8988fdbc78d6c53;
+#using hashed-2\globallogic_player.gsc;
+#using hashed-3\weaponobjects.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -75,7 +75,7 @@ function function_c8241070(player, weapon)
 	level.var_f791a4f2.var_75492b09[player.clientid].var_2e0b3c25 = player.origin;
 	level.var_f791a4f2.var_75492b09[player.clientid].var_2672a259 = weapon;
 	level.var_f791a4f2.var_75492b09[player.clientid].var_851de005 = player;
-	level.var_f791a4f2.var_75492b09[player.clientid].expiretime = gettime() + (float(getdvarint(#"hash_6f3f10e68d2fedba", 0)) / 1000);
+	level.var_f791a4f2.var_75492b09[player.clientid].expiretime = gettime() + float(getdvarint(#"hash_6f3f10e68d2fedba", 0)) / 1000;
 }
 
 /*
@@ -96,7 +96,7 @@ function function_43084f6c(player)
 		{
 			if(var_f53fe24c function_d210981e(player.origin))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
@@ -111,11 +111,11 @@ function function_43084f6c(player)
 			}
 			if(enemy function_d210981e(player.origin))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -131,13 +131,13 @@ function function_2c77961d(player)
 {
 	if(!isdefined(level.var_f791a4f2.var_75492b09[player.clientid]))
 	{
-		return false;
+		return 0;
 	}
 	if(gettime() > level.var_f791a4f2.var_75492b09[player.clientid].expiretime)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -153,21 +153,21 @@ function function_796e0334(player)
 {
 	if(1 && globallogic_player::function_eddea888(player))
 	{
-		return true;
+		return 1;
 	}
 	if(1 && globallogic_player::function_43084f6c(player))
 	{
-		return true;
+		return 1;
 	}
 	if(1 && function_2c77961d(player))
 	{
-		return true;
+		return 1;
 	}
 	if(1 && globallogic_player::function_ce33e204(player))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*

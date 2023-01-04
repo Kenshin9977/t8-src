@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"mission", &__init__, undefined, undefined);
 }
@@ -47,7 +47,7 @@ function start(mission_index)
 	{
 		level.mission_active_flags = 0;
 	}
-	level.mission_active_flags = level.mission_active_flags | (1 << mission_index);
+	level.mission_active_flags = level.mission_active_flags | 1 << mission_index;
 	clientfield::set("mission_active_flags", level.mission_active_flags);
 	startmission(mission_index);
 }
@@ -76,9 +76,10 @@ function stop(mission_index)
 		}
 		return;
 	}
-	if((level.mission_active_flags & (1 << mission_index)) != 0)
+	if(level.mission_active_flags & 1 << mission_index != 0)
 	{
-		level.mission_active_flags = level.mission_active_flags & (~(1 << mission_index));
+		~level;
+		level.mission_active_flags = level.mission_active_flags & 1 << mission_index;
 		clientfield::set("mission_active_flags", level.mission_active_flags);
 		stopmission(mission_index);
 	}

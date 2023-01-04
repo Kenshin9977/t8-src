@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_158d50d476435605;
+hashed-2\script_158d50d476435605.csc;
 #using scripts\core_common\animation_shared.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\audio_shared.csc;
@@ -713,12 +713,7 @@ event codecallback_statechange(eventstruct)
 	{
 		[[level._systemstates[eventstruct.system].callback]](eventstruct.localclientnum, eventstruct.state);
 	}
-	else
-	{
-		/#
-			println(("" + eventstruct.system) + "");
-		#/
-	}
+	println("" + eventstruct.system + "");
 }
 
 /*
@@ -1533,7 +1528,7 @@ function spawned_weapon_type(localclientnum)
 */
 function function_cbfd8fd6(localclientnum)
 {
-	activecamo::function_cbfd8fd6(localclientnum);
+	cschashed-2\script_158d50d476435605::function_cbfd8fd6(localclientnum);
 }
 
 /*
@@ -1723,7 +1718,7 @@ event codecallback_gadgetvisionpulse_reveal(eventstruct)
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private fade_to_black_for_x_sec(startwait, blackscreenwait, fadeintime, fadeouttime, shadername)
+private function fade_to_black_for_x_sec(startwait, blackscreenwait, fadeintime, fadeouttime, shadername)
 {
 	self endon(#"disconnect");
 	wait(startwait);

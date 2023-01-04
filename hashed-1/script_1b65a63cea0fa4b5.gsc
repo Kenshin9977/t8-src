@@ -14,25 +14,25 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_zonemgr.gsc;
 
-#namespace namespace_770fd0f5;
+#namespace cschashed-1\script_7a71fa3cd7dff849;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0xB2481D58
 	Offset: 0x1F8
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_a303f67afd6f4a8", &__init__, undefined, "bgb");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x37EF422B
 	Offset: 0x240
 	Size: 0x184
@@ -57,7 +57,7 @@ function __init__()
 
 /*
 	Name: activation
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x944C64E5
 	Offset: 0x3D0
 	Size: 0x604
@@ -69,36 +69,36 @@ function activation()
 	self endon(#"disconnect");
 	self val::set(#"hash_a303f67afd6f4a8", "ignoreme");
 	self.var_25c3de32 = 1;
-	namespace_e0710ee6::function_594bb7bd(self);
+	cschashed-1\script_5a012bbb9342dbdf::function_594bb7bd(self);
 	if(ispointonnavmesh(self.origin))
 	{
 		playsoundatposition(#"zmb_bgb_abh_teleport_out", self.origin);
 	}
 	if(isdefined(level.var_5cfc800b))
 	{
-		s_respawn_point = self [[level.var_5cfc800b]]();
+		var_70e1deb9 = self [[level.var_5cfc800b]]();
 	}
 	else
 	{
-		s_respawn_point = self function_fdc3c7c4();
+		var_70e1deb9 = self function_fdc3c7c4();
 	}
-	if(!isdefined(s_respawn_point))
+	if(!isdefined(var_70e1deb9))
 	{
-		s_respawn_point = spawnstruct();
-		s_respawn_point.origin = self.origin;
-		s_respawn_point.angles = self.angles;
+		var_70e1deb9 = spawnstruct();
+		var_70e1deb9.origin = self.origin;
+		var_70e1deb9.angles = self.angles;
 		self.var_ca944973 = self.origin;
 	}
 	if(isdefined(self.var_aba36467) && self.var_aba36467)
 	{
-		e_link = util::spawn_model("tag_origin", s_respawn_point.origin, s_respawn_point.angles);
-		self setplayerangles(s_respawn_point.angles);
+		e_link = util::spawn_model("tag_origin", var_70e1deb9.origin, var_70e1deb9.angles);
+		self setplayerangles(var_70e1deb9.angles);
 		self linkto(e_link);
 	}
 	else
 	{
-		self setorigin(s_respawn_point.origin);
-		self setplayerangles(s_respawn_point.angles);
+		self setorigin(var_70e1deb9.origin);
+		self setplayerangles(var_70e1deb9.angles);
 	}
 	self val::set(#"hash_a303f67afd6f4a8", "freezecontrols", 1);
 	v_return_pos = self.origin + vectorscale((0, 0, 1), 60);
@@ -145,15 +145,15 @@ function activation()
 	self val::reset(#"hash_a303f67afd6f4a8", "ignoreme");
 	self.var_ca944973 = undefined;
 	self notify(#"hash_55489b8cb6c75352");
-	if(isdefined(s_respawn_point.var_72d2300b) && s_respawn_point.var_72d2300b)
+	if(isdefined(var_70e1deb9.var_72d2300b) && var_70e1deb9.var_72d2300b)
 	{
-		s_respawn_point struct::delete();
+		var_70e1deb9 struct::delete();
 	}
 }
 
 /*
 	Name: is_valid_target
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x7DA8175F
 	Offset: 0x9E0
 	Size: 0xAA
@@ -166,9 +166,9 @@ function is_valid_target(e_player)
 	{
 		return 0;
 	}
-	if(isdefined(level.registerquest_key_pickup_explode))
+	if(isdefined(level.var_b5c27895))
 	{
-		return [[level.registerquest_key_pickup_explode]](e_player);
+		return [[level.var_b5c27895]](e_player);
 	}
 	if(e_player != self && e_player laststand::player_is_in_laststand() && (!(isdefined(e_player.var_16735873) && e_player.var_16735873)) && !e_player zm_utility::function_ab9a9770())
 	{
@@ -179,7 +179,7 @@ function is_valid_target(e_player)
 
 /*
 	Name: validation
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0xF7FB38E0
 	Offset: 0xA98
 	Size: 0x108
@@ -213,14 +213,14 @@ function validation()
 
 /*
 	Name: function_fdc3c7c4
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0xA1EB30EE
 	Offset: 0xBA8
 	Size: 0x1FA
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_fdc3c7c4()
+private function function_fdc3c7c4()
 {
 	var_fded3d81 = [];
 	foreach(player in level.activeplayers)
@@ -243,18 +243,15 @@ function private function_fdc3c7c4()
 		arraysortclosest(var_fded3d81, self.origin);
 		var_fded3d81 = array::reverse(var_fded3d81);
 	}
-	else
+	else if(!isdefined(var_fded3d81))
 	{
-		if(!isdefined(var_fded3d81))
-		{
-			var_fded3d81 = [];
-		}
-		else if(!isarray(var_fded3d81))
-		{
-			var_fded3d81 = array(var_fded3d81);
-		}
-		var_fded3d81[var_fded3d81.size] = self;
+		var_fded3d81 = [];
 	}
+	else if(!isarray(var_fded3d81))
+	{
+		var_fded3d81 = array(var_fded3d81);
+	}
+	var_fded3d81[var_fded3d81.size] = self;
 	foreach(player in var_fded3d81)
 	{
 		s_player_respawn = self get_best_spawnpoint(player);
@@ -268,7 +265,7 @@ function private function_fdc3c7c4()
 
 /*
 	Name: get_best_spawnpoint
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x976C288F
 	Offset: 0xDB0
 	Size: 0x8D6
@@ -278,14 +275,14 @@ function private function_fdc3c7c4()
 function get_best_spawnpoint(e_player)
 {
 	v_forward = anglestoforward(e_player.angles);
-	var_8afe96c9 = e_player.origin + (v_forward * 64);
+	var_8afe96c9 = e_player.origin + v_forward * 64;
 	var_8afe96c9 = getclosestpointonnavmesh(var_8afe96c9, 100, 24);
 	var_36bf7c2c = util::spawn_model("tag_origin", var_8afe96c9);
 	var_8afe96c9 = var_36bf7c2c.origin;
 	var_40b8a6a8 = self function_22e77bc1(var_36bf7c2c, var_8afe96c9, e_player);
 	if(!var_40b8a6a8)
 	{
-		var_8afe96c9 = e_player.origin + ((v_forward * -1) * 64);
+		var_8afe96c9 = e_player.origin + v_forward * -1 * 64;
 		var_8afe96c9 = getclosestpointonnavmesh(var_8afe96c9, 128, 24);
 		var_2632943e = util::spawn_model("tag_origin", var_8afe96c9);
 		var_40b8a6a8 = self function_22e77bc1(var_36bf7c2c, var_8afe96c9, e_player);
@@ -310,9 +307,9 @@ function get_best_spawnpoint(e_player)
 	var_de1edcdb = struct::get_array("player_respawn_point", "targetname");
 	var_65500f70 = [];
 	var_ed38ae06 = [];
-	foreach(s_respawn_point in var_de1edcdb)
+	foreach(var_70e1deb9 in var_de1edcdb)
 	{
-		if(zm_utility::check_point_in_enabled_zone(s_respawn_point.origin, 1))
+		if(zm_utility::check_point_in_enabled_zone(var_70e1deb9.origin, 1))
 		{
 			if(!isdefined(var_65500f70))
 			{
@@ -322,8 +319,8 @@ function get_best_spawnpoint(e_player)
 			{
 				var_65500f70 = array(var_65500f70);
 			}
-			var_65500f70[var_65500f70.size] = s_respawn_point;
-			var_5ce8e5f9 = struct::get_array(s_respawn_point.target, "targetname");
+			var_65500f70[var_65500f70.size] = var_70e1deb9;
+			var_5ce8e5f9 = struct::get_array(var_70e1deb9.target, "targetname");
 			foreach(var_5aff2c2c in var_5ce8e5f9)
 			{
 				n_script_int = self getentitynumber() + 1;
@@ -416,7 +413,7 @@ function get_best_spawnpoint(e_player)
 
 /*
 	Name: function_22e77bc1
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x40457D
 	Offset: 0x1690
 	Size: 0x14C
@@ -431,7 +428,7 @@ function function_22e77bc1(var_36bf7c2c, var_8afe96c9, e_player)
 		{
 			var_36bf7c2c delete();
 		}
-		return false;
+		return 0;
 	}
 	if(!(isdefined(bullettracepassed(e_player geteye() + vectorscale((0, 0, 1), 10), var_8afe96c9, 0, self, e_player, 0, 1)) && bullettracepassed(e_player geteye() + vectorscale((0, 0, 1), 10), var_8afe96c9, 0, self, e_player, 0, 1)))
 	{
@@ -439,14 +436,14 @@ function function_22e77bc1(var_36bf7c2c, var_8afe96c9, e_player)
 		{
 			var_36bf7c2c delete();
 		}
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_8bec47d6
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x6CB933E3
 	Offset: 0x17E8
 	Size: 0x76
@@ -469,7 +466,7 @@ function function_8bec47d6(b_enable = 1)
 
 /*
 	Name: function_f6d8b425
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0xF5461C02
 	Offset: 0x1868
 	Size: 0xE
@@ -483,14 +480,14 @@ function function_f6d8b425(var_6a069cf8)
 
 /*
 	Name: function_87fa80cf
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x13141352
 	Offset: 0x1880
 	Size: 0x56
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_87fa80cf()
+private function function_87fa80cf()
 {
 	self notify("5a76aace912e2da5");
 	self endon("5a76aace912e2da5");
@@ -502,7 +499,7 @@ function private function_87fa80cf()
 
 /*
 	Name: on_revived
-	Namespace: namespace_770fd0f5
+	Namespace: cschashed-1\script_7a71fa3cd7dff849
 	Checksum: 0x356ADB16
 	Offset: 0x18E0
 	Size: 0x6C

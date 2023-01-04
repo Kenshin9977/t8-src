@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_68d2ee1489345a1d;
-#using script_6c8abe14025b47c4;
+#using hashed-2\killstreaks_312.gsc;
+#using hashed-1\killstreaks.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\hostmigration_shared.gsc;
 #using scripts\core_common\hud_message_shared.gsc;
@@ -22,24 +22,24 @@
 	Parameters: 2
 	Flags: None
 */
-function is_winner(outcome, var_512330f1)
+function function_2d4168be(outcome, var_512330f1)
 {
 	if(isplayer(var_512330f1))
 	{
 		if(outcome.players.size && outcome.players[0] == var_512330f1)
 		{
-			return true;
+			return 1;
 		}
 		if(isdefined(outcome.team) && outcome.team == var_512330f1.team)
 		{
-			return true;
+			return 1;
 		}
 	}
 	else if(isdefined(outcome.team) && outcome.team == var_512330f1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -107,7 +107,7 @@ function timeuntilroundend()
 {
 	if(level.gameended)
 	{
-		timepassed = (float(gettime() - level.gameendtime)) / 1000;
+		timepassed = float(gettime() - level.gameendtime) / 1000;
 		timeremaining = level.roundenddelay[3] - timepassed;
 		if(timeremaining < 0)
 		{
@@ -123,8 +123,8 @@ function timeuntilroundend()
 	{
 		return undefined;
 	}
-	timepassed = (float(gettimepassed() - level.starttime)) / 1000;
-	timeremaining = (level.timelimit * 60) - timepassed;
+	timepassed = float(gettimepassed() - level.starttime) / 1000;
+	timeremaining = level.timelimit * 60 - timepassed;
 	return timeremaining + level.roundenddelay[3];
 }
 
@@ -139,7 +139,7 @@ function timeuntilroundend()
 */
 function gettimeremaining()
 {
-	return (level.timelimit * (int(60 * 1000))) - gettimepassed();
+	return level.timelimit * int(60 * 1000) - gettimepassed();
 }
 
 /*
@@ -226,7 +226,7 @@ function assertproperplacement()
 					for(j = 0; j < numplayers; j++)
 					{
 						player = level.placement[#"all"][j];
-						println((((("" + j) + "") + player.name) + "") + player.score);
+						println("" + j + "" + player.name + "" + player.score);
 					}
 					/#
 						assertmsg("");
@@ -245,7 +245,7 @@ function assertproperplacement()
 					for(j = 0; j < numplayers; j++)
 					{
 						player = level.placement[#"all"][j];
-						println((((("" + j) + "") + player.name) + "") + player.pointstowin);
+						println("" + j + "" + player.name + "" + player.pointstowin);
 					}
 					/#
 						assertmsg("");
@@ -293,26 +293,20 @@ function playtickingsound(gametype_tick_sound)
 			time = time - 1;
 			wait(1);
 		}
+		else if(time > 4)
+		{
+			time = time - 0.5;
+			wait(0.5);
+		}
+		else if(time > 1)
+		{
+			time = time - 0.4;
+			wait(0.4);
+		}
 		else
 		{
-			if(time > 4)
-			{
-				time = time - 0.5;
-				wait(0.5);
-			}
-			else
-			{
-				if(time > 1)
-				{
-					time = time - 0.4;
-					wait(0.4);
-				}
-				else
-				{
-					time = time - 0.3;
-					wait(0.3);
-				}
-			}
+			time = time - 0.3;
+			wait(0.3);
 		}
 		hostmigration::waittillhostmigrationdone();
 	}
@@ -360,11 +354,11 @@ function gametimer()
 	{
 		if(!level.timerstopped)
 		{
-			game.timepassed = game.timepassed + (gettime() - prevtime);
+			game.timepassed = game.timepassed + gettime() - prevtime;
 		}
 		if(!level.playabletimerstopped)
 		{
-			game.playabletimepassed = game.playabletimepassed + (gettime() - prevtime);
+			game.playabletimepassed = game.playabletimepassed + gettime() - prevtime;
 		}
 		prevtime = gettime();
 		wait(1);
@@ -402,7 +396,7 @@ function disableplayerroundstartdelay()
 */
 function getroundstartdelay()
 {
-	waittime = level.roundstartexplosivedelay - (float([[level.gettimepassed]]()) / 1000);
+	waittime = level.roundstartexplosivedelay - float([[level.gettimepassed]]()) / 1000;
 	if(waittime > 0)
 	{
 		return waittime;
@@ -451,9 +445,9 @@ function gettimepassed()
 	}
 	if(level.timerstopped)
 	{
-		return (level.timerpausetime - level.starttime) - level.discardtime;
+		return level.timerpausetime - level.starttime - level.discardtime;
 	}
-	return (gettime() - level.starttime) - level.discardtime;
+	return gettime() - level.starttime - level.discardtime;
 }
 
 /*
@@ -493,7 +487,7 @@ function resumetimer()
 	}
 	level.timerstopped = 0;
 	level.playabletimerstopped = 0;
-	level.discardtime = level.discardtime + (gettime() - level.timerpausetime);
+	level.discardtime = level.discardtime + gettime() - level.timerpausetime;
 }
 
 /*
@@ -569,7 +563,7 @@ function getscoreperminute(team)
 	/#
 		assert(isplayer(self) || isdefined(team));
 	#/
-	minutespassed = (gettimepassed() / (int(60 * 1000))) + 0.0001;
+	minutespassed = gettimepassed() / int(60 * 1000) + 0.0001;
 	if(isplayer(self))
 	{
 		return globallogic_score::_getplayerscore(self) / minutespassed;
@@ -669,21 +663,21 @@ function isheadshot(weapon, shitloc, smeansofdeath, einflictor)
 {
 	if(shitloc != "head" && shitloc != "helmet")
 	{
-		return false;
+		return 0;
 	}
 	switch(smeansofdeath)
 	{
 		case "mod_melee_assassinate":
 		case "mod_melee":
 		{
-			return false;
+			return 0;
 		}
 		case "mod_impact":
 		{
 			baseweapon = weapons::getbaseweapon(weapon);
 			if(!weapon.isballisticknife && baseweapon != level.weaponspecialcrossbow && baseweapon != level.var_9e188c0b)
 			{
-				return false;
+				return 0;
 			}
 		}
 	}
@@ -691,10 +685,10 @@ function isheadshot(weapon, shitloc, smeansofdeath, einflictor)
 	{
 		if(!isdefined(einflictor) || !isdefined(einflictor.controlled) || einflictor.controlled == 0)
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -831,22 +825,22 @@ function function_8d61a6c2(var_c1e98979)
 		winner = round::function_9b24638f();
 		if(isplayer(winner))
 		{
-			print(((("" + winner getxuid()) + "") + winner.name) + "");
+			print("" + winner getxuid() + "" + winner.name + "");
 		}
 		if(isdefined(winner))
 		{
 			if(isplayer(winner))
 			{
-				log_string = (((log_string + "") + winner getxuid() + "") + winner.name) + "";
+				log_string = log_string + "" + winner getxuid() + "" + winner.name + "";
 			}
 			else
 			{
-				log_string = (log_string + "") + winner;
+				log_string = log_string + "" + winner;
 			}
 		}
 		foreach(team, str_team in level.teams)
 		{
-			log_string = (((log_string + "") + str_team) + "") + game.stat[#"teamscores"][team];
+			log_string = log_string + "" + str_team + "" + game.stat[#"teamscores"][team];
 		}
 		print(log_string);
 	#/
@@ -893,9 +887,9 @@ function print_map_errors()
 			util::error("");
 		#/
 		callback::abort_level();
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*

@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_158d50d476435605;
+hashed-2\script_158d50d476435605.csc;
 #using scripts\core_common\delete.csc;
 #using scripts\core_common\dev_shared.csc;
 #using scripts\core_common\system_shared.csc;
@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"load", &__init__, undefined, undefined);
 }
@@ -36,16 +36,13 @@ function __init__()
 	{
 		level.game_mode_suffix = "_cp";
 	}
+	else if(sessionmodeiszombiesgame())
+	{
+		level.game_mode_suffix = "_zm";
+	}
 	else
 	{
-		if(sessionmodeiszombiesgame())
-		{
-			level.game_mode_suffix = "_zm";
-		}
-		else
-		{
-			level.game_mode_suffix = "_mp";
-		}
+		level.game_mode_suffix = "_mp";
 	}
 	/#
 		level thread first_frame();

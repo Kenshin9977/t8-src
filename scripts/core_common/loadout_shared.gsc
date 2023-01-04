@@ -12,7 +12,7 @@
 */
 function is_warlord_perk(itemindex)
 {
-	return false;
+	return 0;
 }
 
 /*
@@ -28,17 +28,17 @@ function is_item_excluded(itemindex)
 {
 	if(!level.onlinegame)
 	{
-		return false;
+		return 0;
 	}
 	numexclusions = level.itemexclusions.size;
 	for(exclusionindex = 0; exclusionindex < numexclusions; exclusionindex++)
 	{
 		if(itemindex == level.itemexclusions[exclusionindex])
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -112,11 +112,11 @@ function cac_modified_vehicle_damage(victim, attacker, damage, meansofdeath, wea
 	final_damage = damage;
 	if(attacker hasperk(#"specialty_bulletdamage") && isprimarydamage(meansofdeath))
 	{
-		final_damage = (damage * (100 + level.cac_bulletdamage_data)) / 100;
+		final_damage = damage * 100 + level.cac_bulletdamage_data / 100;
 		/#
 			if(getdvarint(#"scr_perkdebug", 0))
 			{
-				println(("" + attacker.name) + "");
+				println("" + attacker.name + "");
 			}
 		#/
 	}
@@ -127,7 +127,7 @@ function cac_modified_vehicle_damage(victim, attacker, damage, meansofdeath, wea
 	/#
 		if(getdvarint(#"scr_perkdebug", 0))
 		{
-			println((((("" + (final_damage / old_damage)) + "") + old_damage) + "") + final_damage);
+			println("" + final_damage / old_damage + "" + old_damage + "" + final_damage);
 		}
 	#/
 	return int(final_damage);

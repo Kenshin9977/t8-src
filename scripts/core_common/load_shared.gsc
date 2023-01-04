@@ -22,7 +22,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"load", &__init__, undefined, undefined);
 }
@@ -85,17 +85,14 @@ function __init__()
 		level.game_mode_suffix = "_cp";
 		defaultaspectratio = 1.777778;
 	}
+	else if(sessionmodeiszombiesgame())
+	{
+		level.game_mode_suffix = "_zm";
+	}
 	else
 	{
-		if(sessionmodeiszombiesgame())
-		{
-			level.game_mode_suffix = "_zm";
-		}
-		else
-		{
-			level.game_mode_suffix = "_mp";
-			defaultaspectratio = 1.777778;
-		}
+		level.game_mode_suffix = "_mp";
+		defaultaspectratio = 1.777778;
 	}
 	level.script = util::function_53bbf9d2();
 	level.clientscripts = getdvarstring(#"cg_usingclientscripts") != "";
@@ -184,16 +181,13 @@ function level_notify_listener()
 				{
 					level notify(toks[0], {#param2:toks[2], #param1:toks[1]});
 				}
+				else if(toks.size == 2)
+				{
+					level notify(toks[0], {#param1:toks[1]});
+				}
 				else
 				{
-					if(toks.size == 2)
-					{
-						level notify(toks[0], {#param1:toks[1]});
-					}
-					else
-					{
-						level notify(toks[0]);
-					}
+					level notify(toks[0]);
 				}
 				setdvar(#"level_notify", "");
 			}
@@ -303,13 +297,13 @@ function weapon_ammo()
 				if(!isdefined(clip))
 				{
 					/#
-						assertmsg(((("" + weap.classname) + "") + weap.origin) + "");
+						assertmsg("" + weap.classname + "" + weap.origin + "");
 					#/
 				}
 				if(!isdefined(extra))
 				{
 					/#
-						assertmsg(((("" + weap.classname) + "") + weap.origin) + "");
+						assertmsg("" + weap.classname + "" + weap.origin + "");
 					#/
 				}
 				weap itemweaponsetammo(clip, extra);
@@ -472,7 +466,7 @@ function water_think()
 					{
 						continue;
 					}
-					newspeed = int(level.default_run_speed - (abs(d * 5)));
+					newspeed = int(level.default_run_speed - abs(d * 5));
 					if(newspeed < 50)
 					{
 						newspeed = 50;
@@ -597,7 +591,7 @@ function lerp_trigger_dvar_value(trigger, dvar, value, time)
 	trigger.lerping_dvar[dvar] = 1;
 	steps = time * 20;
 	curr_value = getdvarfloat(dvar, 0);
-	diff = (curr_value - value) / steps;
+	diff = curr_value - value / steps;
 	for(i = 0; i < steps; i++)
 	{
 		curr_value = curr_value - diff;
@@ -620,9 +614,9 @@ function lerp_trigger_dvar_value(trigger, dvar, value, time)
 function set_fog_progress(progress)
 {
 	anti_progress = 1 - progress;
-	startdist = (self.script_start_dist * anti_progress) + (self.script_start_dist * progress);
-	halfwaydist = (self.script_halfway_dist * anti_progress) + (self.script_halfway_dist * progress);
-	color = (self.script_color * anti_progress) + (self.script_color * progress);
+	startdist = self.script_start_dist * anti_progress + self.script_start_dist * progress;
+	halfwaydist = self.script_halfway_dist * anti_progress + self.script_halfway_dist * progress;
+	color = self.script_color * anti_progress + self.script_color * progress;
 	setvolfog(startdist, halfwaydist, self.script_halfway_height, self.script_base_height, color[0], color[1], color[2], 0.4);
 }
 
@@ -724,16 +718,13 @@ function shock_onpain()
 		{
 			continue;
 		}
-		else
+		else if(mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" || mod == "MOD_PROJECTILE_SPLASH")
 		{
-			if(mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" || mod == "MOD_PROJECTILE_SPLASH")
-			{
-				self shock_onexplosion(damage);
-			}
-			else if(getdvarstring(#"blurpain") == "on")
-			{
-				self shellshock(#"pain", 0.5);
-			}
+			self shock_onexplosion(damage);
+		}
+		else if(getdvarstring(#"blurpain") == "on")
+		{
+			self shellshock(#"pain", 0.5);
 		}
 	}
 }
@@ -756,23 +747,17 @@ function shock_onexplosion(damage)
 	{
 		time = 4;
 	}
-	else
+	else if(scaled_damage >= 50)
 	{
-		if(scaled_damage >= 50)
-		{
-			time = 3;
-		}
-		else
-		{
-			if(scaled_damage >= 25)
-			{
-				time = 2;
-			}
-			else if(scaled_damage > 10)
-			{
-				time = 1;
-			}
-		}
+		time = 3;
+	}
+	else if(scaled_damage >= 25)
+	{
+		time = 2;
+	}
+	else if(scaled_damage > 10)
+	{
+		time = 1;
 	}
 }
 

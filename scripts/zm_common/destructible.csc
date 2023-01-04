@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"destructible", &__init__, undefined, undefined);
 }
@@ -63,10 +63,10 @@ function doexplosion(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 		return;
 	}
 	physics_explosion = 0;
-	if(newval & (1 << 9))
+	if(newval & 1 << 9)
 	{
 		physics_explosion = 1;
-		newval = newval - (1 << 9);
+		newval = newval - 1 << 9;
 	}
 	physics_force = 0.3;
 	if(physics_explosion && newval > 0)

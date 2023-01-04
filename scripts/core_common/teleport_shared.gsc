@@ -88,10 +88,10 @@ function player(e_player, kvp, var_dad37549, var_b095575e = 0)
 		if(s_teleport.(str_key) === str_value && (!(isdefined(s_teleport.b_used) && s_teleport.b_used)))
 		{
 			e_player function_29305761(s_teleport, var_20212d26.var_dad37549, var_b095575e);
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -118,10 +118,10 @@ function hero(ai_hero, kvp, var_dad37549)
 		if(s_teleport.(str_key) === str_value && (!(isdefined(s_teleport.b_used) && s_teleport.b_used)))
 		{
 			ai_hero function_df1911b9(s_teleport, var_20212d26.var_dad37549);
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -151,7 +151,7 @@ function function_ff8a7a3(kvp)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_1d2a3300()
+private function function_1d2a3300()
 {
 	if(!isdefined(level.var_d941f923))
 	{
@@ -175,7 +175,7 @@ function private function_1d2a3300()
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_e6615993(kvp, var_dad37549)
+private function function_e6615993(kvp, var_dad37549)
 {
 	if(isdefined(self.script_teleport_location))
 	{
@@ -186,18 +186,15 @@ function private function_e6615993(kvp, var_dad37549)
 			var_dad37549 = self.var_3e93c0f9;
 		}
 	}
+	else if(isdefined(kvp) && isarray(kvp))
+	{
+		str_value = kvp[0];
+		str_key = kvp[1];
+	}
 	else
 	{
-		if(isdefined(kvp) && isarray(kvp))
-		{
-			str_value = kvp[0];
-			str_key = kvp[1];
-		}
-		else
-		{
-			str_value = kvp;
-			str_key = "script_teleport_location";
-		}
+		str_value = kvp;
+		str_key = "script_teleport_location";
 	}
 	if(!isdefined(var_dad37549))
 	{
@@ -222,7 +219,7 @@ function private function_e6615993(kvp, var_dad37549)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_166effac(kvp, var_dad37549)
+private function function_166effac(kvp, var_dad37549)
 {
 	var_20212d26 = self function_e6615993(kvp, var_dad37549);
 	if(!isdefined(var_20212d26))
@@ -232,7 +229,7 @@ function private function_166effac(kvp, var_dad37549)
 	str_key = var_20212d26.str_key;
 	str_value = var_20212d26.str_value;
 	var_d7586d = [];
-	foreach(s_teleport_player in level.var_d941f923)
+	foreach(var_813e23f6 in level.var_d941f923)
 	{
 		if(s_teleport_player.(str_key) === str_value)
 		{
@@ -253,7 +250,7 @@ function private function_166effac(kvp, var_dad37549)
 	var_10b2deb1 = [];
 	if(isdefined(level.heroes))
 	{
-		foreach(s_teleport_hero in level.var_c89d2304)
+		foreach(var_409e57df in level.var_c89d2304)
 		{
 			if(s_teleport_hero.(str_key) === str_value)
 			{
@@ -291,7 +288,7 @@ function private function_166effac(kvp, var_dad37549)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_29305761(s_teleport, var_dad37549, var_b095575e = 0)
+private function function_29305761(s_teleport, var_dad37549, var_b095575e = 0)
 {
 	self endon(#"death");
 	if(distancesquared(s_teleport.origin, self.origin) < var_dad37549 * var_dad37549)

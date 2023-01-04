@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
@@ -108,7 +108,7 @@ function turn_to_zombie()
 		playsoundatposition(#"evt_disappear_3d", self.origin);
 		if(!self.is_zombie)
 		{
-			playsoundatposition(((#"vox_plr_" + randomintrange(0, 4)) + "_exert_death_high_") + randomintrange(0, 4), self.origin);
+			playsoundatposition(#"vox_plr_" + randomintrange(0, 4) + "_exert_death_high_" + randomintrange(0, 4), self.origin);
 		}
 	}
 	self._can_score = 1;
@@ -439,7 +439,7 @@ function turned_enable_player_weapons()
 		{
 			self giveweapon(level.weaponbasemelee);
 		}
-		self zm_loadout::give_start_weapon(0);
+		self cschashed-2\script_709bf7c56eb65adf::give_start_weapon(0);
 	}
 	if(self hasweapon(rottweil_weapon))
 	{
@@ -450,15 +450,15 @@ function turned_enable_player_weapons()
 	{
 		self givemaxammo(level.start_weapon);
 	}
-	if(self hasweapon(self zm_loadout::get_player_lethal_grenade()))
+	if(self hasweapon(self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade()))
 	{
-		self getweaponammoclip(self zm_loadout::get_player_lethal_grenade());
+		self getweaponammoclip(self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade());
 	}
 	else
 	{
-		self giveweapon(self zm_loadout::get_player_lethal_grenade());
+		self giveweapon(self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade());
 	}
-	self setweaponammoclip(self zm_loadout::get_player_lethal_grenade(), 2);
+	self setweaponammoclip(self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade(), 2);
 }
 
 /*

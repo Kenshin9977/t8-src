@@ -17,7 +17,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"weapons_shared", &__init__, undefined, undefined);
 }
@@ -94,8 +94,7 @@ function function_867af0b()
 			{
 				continue;
 			}
-			test_mount = getdvarint(#"test_mount", 0);
-			if(test_mount == 0)
+			test_mount = getdvarint(#"test_mount", 0);			if(test_mount == 0)
 			{
 				continue;
 			}
@@ -114,8 +113,7 @@ function function_867af0b()
 			{
 				player unlink();
 			}
-			setdvar(#"test_mount", 0);
-		}
+			setdvar(#"test_mount", 0);		}
 	#/
 }
 
@@ -161,8 +159,8 @@ function function_c0101095(weapon, forward, var_62e5b78)
 	var_c346c56f = player function_a95ab787();
 	var_6b469265 = 31;
 	var_87c01c60 = vectorscale(forward, var_6b469265);
-	trace_start = (player.origin + (0, 0, var_c346c56f + 5)) + var_87c01c60;
-	trace_end = trace_start + (vectorscale((0, 0, -1), 10));
+	trace_start = player.origin + (0, 0, var_c346c56f + 5) + var_87c01c60;
+	trace_end = trace_start + vectorscale((0, 0, -1), 10);
 	var_4f64fb6b = 3;
 	trace = physicstrace(trace_start, trace_end, (var_4f64fb6b * -1, var_4f64fb6b * -1, 0), (var_4f64fb6b, var_4f64fb6b, 1), player, 1);
 	if(trace[#"fraction"] < 1)
@@ -297,42 +295,30 @@ function function_e870d33d()
 				var_6900cfa4 = settings.var_442896c4;
 				var_5035eb1b = 3;
 			}
-			else
+			else if(var_37c33d3b >= 44)
 			{
-				if(var_37c33d3b >= 44)
-				{
-					var_6900cfa4 = settings.var_442896c4;
-					var_5035eb1b = 0;
-				}
-				else
-				{
-					if(var_37c33d3b >= 40)
-					{
-						var_6900cfa4 = settings.var_e90ee08e;
-						var_5035eb1b = -4;
-					}
-					else
-					{
-						if(var_37c33d3b >= 36)
-						{
-							var_6900cfa4 = settings.var_7188ee00;
-							var_5035eb1b = -8;
-						}
-						else
-						{
-							if(var_37c33d3b >= 32)
-							{
-								var_6900cfa4 = settings.var_dffa4ad9;
-								var_5035eb1b = -12;
-							}
-							else if(var_37c33d3b >= 28)
-							{
-								var_6900cfa4 = settings.var_c93b1eb3;
-								var_5035eb1b = -16;
-							}
-						}
-					}
-				}
+				var_6900cfa4 = settings.var_442896c4;
+				var_5035eb1b = 0;
+			}
+			else if(var_37c33d3b >= 40)
+			{
+				var_6900cfa4 = settings.var_e90ee08e;
+				var_5035eb1b = -4;
+			}
+			else if(var_37c33d3b >= 36)
+			{
+				var_6900cfa4 = settings.var_7188ee00;
+				var_5035eb1b = -8;
+			}
+			else if(var_37c33d3b >= 32)
+			{
+				var_6900cfa4 = settings.var_dffa4ad9;
+				var_5035eb1b = -12;
+			}
+			else if(var_37c33d3b >= 28)
+			{
+				var_6900cfa4 = settings.var_c93b1eb3;
+				var_5035eb1b = -16;
 			}
 			if(player getstance() == "crouch" && var_37c33d3b >= 36)
 			{
@@ -364,7 +350,7 @@ function function_e870d33d()
 			var_94e17956 = 0;
 			player thread function_18a9a4e4(settings);
 			ads_fraction = player playerads();
-			var_4308b3d8 = gettime() + ((1 - ads_fraction) * current_weapon.var_e5db3b95);
+			var_4308b3d8 = gettime() + 1 - ads_fraction * current_weapon.var_e5db3b95;
 			while(player playerads() < 1)
 			{
 				if(player playerads() == 0)
@@ -915,7 +901,7 @@ function has_lockon(target)
 {
 	player = self;
 	clientnum = player getentitynumber();
-	return isdefined(target.locked_on) && target.locked_on & (1 << clientnum);
+	return isdefined(target.locked_on) && target.locked_on & 1 << clientnum;
 }
 
 /*
@@ -933,10 +919,10 @@ function function_9568854f(weapon, attachmentname)
 	{
 		if(attachment == attachmentname)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -980,16 +966,16 @@ function isheadshot(shitloc, smeansofdeath)
 {
 	if(isdefined(shitloc) && (shitloc == "head" || shitloc == "helmet"))
 	{
-		return true;
+		return 1;
 	}
 	switch(smeansofdeath)
 	{
 		case "mod_melee_assassinate":
 		case "mod_melee":
 		{
-			return false;
+			return 0;
 		}
 	}
-	return false;
+	return 0;
 }
 

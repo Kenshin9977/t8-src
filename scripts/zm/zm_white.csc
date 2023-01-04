@@ -1,26 +1,26 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_102fa70a8153e81f;
-#using script_12549eb8cb2580e4;
-#using script_14e736d5e4272b3d;
-#using script_1611421ee9b880d3;
-#using script_1de1583a62cc580f;
-#using script_23037fdea02db280;
-#using script_27a4aedb3d2a899b;
-#using script_28144a2871e71a78;
-#using script_2c454d63a96d2d0b;
-#using script_2cb5724648b5b416;
-#using script_318816742cac11da;
-#using script_3619535866efa23a;
-#using script_3a10f19f96036e97;
-#using script_3ba495e039989116;
-#using script_412188df54bb77d9;
-#using script_4c9e3a985ae04008;
-#using script_4deda6ab11ad22af;
-#using script_518e526a2898bf6d;
-#using script_5d65ba89fe134c5c;
-#using script_67051bc8c81031aa;
-#using script_784bc1aee23dbf1f;
-#using script_84f5590d2ac48f8;
+hashed-2\script_102fa70a8153e81f.csc;
+hashed-3\script_12549eb8cb2580e4.csc;
+hashed-2\script_14e736d5e4272b3d.csc;
+hashed-3\script_1611421ee9b880d3.csc;
+hashed-1\script_1de1583a62cc580f.csc;
+hashed-3\script_23037fdea02db280.csc;
+hashed-2\script_27a4aedb3d2a899b.csc;
+hashed-3\script_28144a2871e71a78.csc;
+hashed-1\script_2c454d63a96d2d0b.csc;
+hashed-1\script_2cb5724648b5b416.csc;
+hashed-3\script_318816742cac11da.csc;
+hashed-3\script_3619535866efa23a.csc;
+hashed-1\script_3a10f19f96036e97.csc;
+hashed-1\script_3ba495e039989116.csc;
+hashed-3\script_412188df54bb77d9.csc;
+hashed-1\script_4c9e3a985ae04008.csc;
+hashed-1\script_4deda6ab11ad22af.csc;
+hashed-2\script_518e526a2898bf6d.csc;
+hashed-1\script_5d65ba89fe134c5c.csc;
+hashed-3\script_67051bc8c81031aa.csc;
+hashed-2\script_784bc1aee23dbf1f.csc;
+hashed-2\script_84f5590d2ac48f8.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\lui_shared.csc;
 #using scripts\core_common\struct.csc;
@@ -45,7 +45,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec opt_in()
+autoexec function opt_in()
 {
 	level.aat_in_use = 1;
 	level.bgb_in_use = 1;
@@ -83,12 +83,12 @@ event main(eventstruct)
 	clientfield::register("world", "portal_map_fire_sale", 1, 1, "int", &portal_map_fire_sale, 0, 0);
 	clientfield::register("world", "portal_map_cul_de_sac_chest", 1, 1, "int", &portal_map_cul_de_sac_chest, 0, 0);
 	clientfield::register("world", "power_pbg_control", 1, 1, "int", &power_pbg_control, 0, 0);
-	namespace_29f39efb::init_fx();
-	namespace_29f39efb::init_clientfields();
+	cschashed-1\script_2cb5724648b5b416::init_fx();
+	cschashed-1\script_2cb5724648b5b416::init_clientfields();
 	namespace_4e1a75d3::init_fx();
 	namespace_4e1a75d3::init_clientfields();
-	namespace_92cb027a::init_fx();
-	namespace_92cb027a::init_clientfields();
+	cschashed-3\script_12549eb8cb2580e4::init_fx();
+	cschashed-3\script_12549eb8cb2580e4::init_clientfields();
 	level._uses_default_wallbuy_fx = 1;
 	level._uses_sticky_grenades = 1;
 	level._uses_taser_knuckles = 1;
@@ -97,21 +97,21 @@ event main(eventstruct)
 	level.zombiemode_using_revive_perk = 1;
 	level.zombiemode_using_sleightofhand_perk = 1;
 	level.var_d0ab70a2 = #"hash_6dcfc619b819ab4f";
-	level namespace_2eb2d493::main();
-	level namespace_7d8e6ec3::preload();
-	level namespace_5c160465::register_clientfields();
-	level namespace_1846c963::init_clientfields();
-	level namespace_a01a2431::preload();
-	level namespace_87b5173f::init();
-	level namespace_ca03bbb4::preload();
-	level namespace_3b2b9e06::preload();
-	level namespace_825eac6b::preload();
-	level namespace_90b0490e::preload();
-	level namespace_fddd83bd::init();
+	level cschashed-1\script_5d65ba89fe134c5c::main();
+	level cschashed-3\script_28144a2871e71a78::preload();
+	level cschashed-3\script_318816742cac11da::register_clientfields();
+	level cschashed-1\script_4c9e3a985ae04008::init_clientfields();
+	level cschashed-1\script_4deda6ab11ad22af::preload();
+	level cschashed-3\script_412188df54bb77d9::init();
+	level cschashed-2\script_102fa70a8153e81f::preload();
+	level cschashed-2\script_14e736d5e4272b3d::preload();
+	level cschashed-1\script_3ba495e039989116::preload();
+	level cschashed-2\script_27a4aedb3d2a899b::preload();
+	level cschashed-2\script_518e526a2898bf6d::init();
 	load::main();
 	level thread namespace_e313550c::main();
-	level thread namespace_1846c963::init();
-	level thread namespace_5c160465::init();
+	level thread cschashed-1\script_4c9e3a985ae04008::init();
+	level thread cschashed-3\script_318816742cac11da::init();
 	level thread setup_personality_character_exerts();
 	level thread function_b8da6f44();
 	zm_utility::function_beed5764("rob_zm_eyes_blue_light", #"hash_7fcc925775fa9101");

@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_63fbdc46fe0ddab1;
+hashed-2\script_63fbdc46fe0ddab1.csc;
 #using scripts\core_common\clientfield_shared.csc;
 
 #namespace namespace_159b5b5b;
@@ -28,11 +28,11 @@ function init()
 	Parameters: 7
 	Flags: Linked, Private
 */
-function private function_bb753058(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
+private function function_bb753058(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
 {
 	if(!function_65b9eb0f(localclientnum))
 	{
-		timer_model = function_c8b7588d(localclientnum);
+		var_b0871863 = function_c8b7588d(localclientnum);
 		end_time = undefined;
 		if(!binitialsnap && newval == 0 && isdefined(level.var_79795e1))
 		{
@@ -60,7 +60,7 @@ function private function_bb753058(localclientnum, oldval, newval, bnewent, bini
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_c8b7588d(localclientnum)
+private function function_c8b7588d(localclientnum)
 {
 	controller_model = getuimodelforcontroller(localclientnum);
 	return createuimodel(controller_model, "ZMHud.zmRedChallengeTimer");

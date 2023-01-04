@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_2ef1591c234e8773", &__init__, undefined, undefined);
 }
@@ -30,11 +30,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_6823bfb199f0c884", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_6823bfb199f0c884", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -46,29 +46,29 @@ function __init__()
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private function_d1de6a85(enemy_type, var_1f950d4d, var_81dcf087, var_d631185a, var_fe1bdf31)
+private function function_d1de6a85(enemy_type, var_1f950d4d, var_81dcf087, var_d631185a, var_fe1bdf31)
 {
 	level.var_1c7412f9 = enemy_type;
 	switch(getplayers().size)
 	{
 		case 1:
 		{
-			level.var_e34a018e = zm_trial::function_5769f26a(var_1f950d4d);
+			level.var_e34a018e = cschashed-1\script_3c362258ff800237::function_5769f26a(var_1f950d4d);
 			break;
 		}
 		case 2:
 		{
-			level.var_e34a018e = zm_trial::function_5769f26a(var_81dcf087);
+			level.var_e34a018e = cschashed-1\script_3c362258ff800237::function_5769f26a(var_81dcf087);
 			break;
 		}
 		case 3:
 		{
-			level.var_e34a018e = zm_trial::function_5769f26a(var_d631185a);
+			level.var_e34a018e = cschashed-1\script_3c362258ff800237::function_5769f26a(var_d631185a);
 			break;
 		}
 		case 4:
 		{
-			level.var_e34a018e = zm_trial::function_5769f26a(var_fe1bdf31);
+			level.var_e34a018e = cschashed-1\script_3c362258ff800237::function_5769f26a(var_fe1bdf31);
 			break;
 		}
 	}
@@ -86,7 +86,7 @@ function private function_d1de6a85(enemy_type, var_1f950d4d, var_81dcf087, var_d
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	namespace_c3287616::function_9bf14a10(level.var_1c7412f9, &function_a7c00976);
 	namespace_c3287616::function_510039c1(&function_51ec9e09);
@@ -106,7 +106,7 @@ function private function_9e7b3f4d(round_reset)
 */
 function is_active(str_archetype)
 {
-	challenge = zm_trial::function_a36e8c38(#"hash_6823bfb199f0c884");
+	challenge = cschashed-1\script_3c362258ff800237::function_a36e8c38(#"hash_6823bfb199f0c884");
 	if(isdefined(str_archetype))
 	{
 		return isdefined(challenge) && level.var_1c7412f9 === str_archetype;

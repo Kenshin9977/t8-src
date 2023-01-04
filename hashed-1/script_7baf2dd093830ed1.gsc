@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_27c22e1d8df4d852;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6021ce59143452c3;
 #using scripts\core_common\math_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_70d5f32b9c283313", &__init__, undefined, undefined);
 }
@@ -32,12 +32,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_547de32b173ee2a4", &function_d1de6a85, &function_9e7b3f4d);
-}
+	cschashed-1\script_3c362258ff800237::register_challenge(#"repair_boards", &function_d1de6a85, &function_9e7b3f4d);}
 
 /*
 	Name: function_d1de6a85
@@ -48,28 +47,28 @@ function __init__()
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private function_d1de6a85(var_60bdad5f, var_36c3cc24, var_4ee27b15, var_3bc46181, var_1f6e1e99)
+private function function_d1de6a85(var_60bdad5f, var_36c3cc24, var_4ee27b15, var_3bc46181, var_1f6e1e99)
 {
 	switch(level.players.size)
 	{
 		case 1:
 		{
-			self.var_28433a54 = zm_trial::function_5769f26a(var_36c3cc24);
+			self.var_28433a54 = cschashed-1\script_3c362258ff800237::function_5769f26a(var_36c3cc24);
 			break;
 		}
 		case 2:
 		{
-			self.var_28433a54 = zm_trial::function_5769f26a(var_4ee27b15);
+			self.var_28433a54 = cschashed-1\script_3c362258ff800237::function_5769f26a(var_4ee27b15);
 			break;
 		}
 		case 3:
 		{
-			self.var_28433a54 = zm_trial::function_5769f26a(var_3bc46181);
+			self.var_28433a54 = cschashed-1\script_3c362258ff800237::function_5769f26a(var_3bc46181);
 			break;
 		}
 		case 4:
 		{
-			self.var_28433a54 = zm_trial::function_5769f26a(var_1f6e1e99);
+			self.var_28433a54 = cschashed-1\script_3c362258ff800237::function_5769f26a(var_1f6e1e99);
 			break;
 		}
 	}
@@ -77,8 +76,8 @@ function private function_d1de6a85(var_60bdad5f, var_36c3cc24, var_4ee27b15, var
 	self.var_e6e7a65d = (isdefined(zombie_utility::function_d2dfacfd(#"rebuild_barrier_cap_per_round")) ? zombie_utility::function_d2dfacfd(#"rebuild_barrier_cap_per_round") : 0);
 	zombie_utility::set_zombie_var(#"rebuild_barrier_cap_per_round", self.var_28433a54);
 	self.var_a84ac7c8 = var_60bdad5f;
-	namespace_b22c99a5::function_2976fa44(self.var_358e6a29);
-	namespace_b22c99a5::function_dace284(0);
+	cschashed-1\script_3d5821d793ed4c6::function_2976fa44(self.var_358e6a29);
+	cschashed-1\script_3d5821d793ed4c6::function_dace284(0);
 	self thread function_738e3a43();
 }
 
@@ -91,16 +90,16 @@ function private function_d1de6a85(var_60bdad5f, var_36c3cc24, var_4ee27b15, var
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	if(!round_reset)
 	{
 		if(self.var_28433a54 > 0)
 		{
-			zm_trial::fail(self.var_a84ac7c8);
+			cschashed-1\script_3c362258ff800237::fail(self.var_a84ac7c8);
 		}
 	}
-	namespace_b22c99a5::function_f3dbeda7();
+	cschashed-1\script_3d5821d793ed4c6::function_f3dbeda7();
 	zombie_utility::set_zombie_var(#"rebuild_barrier_cap_per_round", self.var_e6e7a65d);
 }
 
@@ -113,7 +112,7 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_738e3a43()
+private function function_738e3a43()
 {
 	level endon(#"hash_7646638df88a3656");
 	var_812095a3 = 0;
@@ -138,7 +137,7 @@ function private function_738e3a43()
 			self.var_28433a54 = self.var_28433a54 - waitresult.points;
 		}
 		self.var_28433a54 = math::clamp(self.var_28433a54, 0, 1000);
-		namespace_b22c99a5::function_dace284(int(self.var_358e6a29 - self.var_28433a54));
+		cschashed-1\script_3d5821d793ed4c6::function_dace284(int(self.var_358e6a29 - self.var_28433a54));
 	}
 }
 

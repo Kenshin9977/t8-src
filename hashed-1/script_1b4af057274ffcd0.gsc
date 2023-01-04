@@ -1,10 +1,10 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_30e0aa25775a6927;
-#using script_31e56101095f174b;
-#using script_321486e8a7c7176f;
-#using script_39c61335d85620af;
-#using script_522aeb6ae906391e;
-#using script_aa63c66acbb23e;
+#using hashed-2\plannerblackboard.gsc;
+#using hashed-2\planner.gsc;
+#using hashed-3\plannersquad.gsc;
+#using hashed-2\planner_commander.gsc;
+#using hashed-2\blackboard.gsc;
+#using hashed-3\strategic_command.gsc;
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
 
@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_44a6f2632e19a5c3", &namespace_526571f4::__init__, undefined, undefined);
 }
@@ -35,9 +35,9 @@ function autoexec function_89f2df9()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __init__()
+private function __init__()
 {
-	plannercommanderutility::registerutilityapi(#"commanderscoreage", &_monkey_water_corvus_vo_cleared);
+	plannercommanderutility::registerutilityapi(#"commanderscoreage", &function_cb29a211);
 	plannercommanderutility::registerdaemonapi(#"hash_62f9340b8f782bd5", &function_ea95685);
 	plannercommanderutility::registerdaemonapi(#"daemonzmblockers", &function_80c4721f);
 	plannercommanderutility::registerdaemonapi(#"hash_5fb7ec66ffe3b9d2", &function_73588006);
@@ -55,7 +55,7 @@ function private __init__()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_ea95685(commander)
+private function function_ea95685(commander)
 {
 	altars = [];
 	if(isarray(level.var_76a7ad28))
@@ -74,7 +74,7 @@ function private function_ea95685(commander)
 				var_bc510a14[#"__unsafe__"] = array();
 			}
 			var_bc510a14[#"__unsafe__"][#"altar"] = altar;
-			altars[altars.size] = var_bc510a14;
+			var_a8c95395[var_a8c95395.size] = var_bc510a14;
 		}
 	}
 	blackboard::setstructblackboardattribute(commander, #"hash_789c87157aa8ed0c", altars);
@@ -89,7 +89,7 @@ function private function_ea95685(commander)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_80c4721f(commander)
+private function function_80c4721f(commander)
 {
 	blockers = [];
 	var_521da80d = array("zombie_door", "zombie_airlock_buy", "zombie_debris");
@@ -149,7 +149,7 @@ function private function_80c4721f(commander)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_73588006(commander)
+private function function_73588006(commander)
 {
 	chests = [];
 	if(isarray(level.chests))
@@ -188,7 +188,7 @@ function private function_73588006(commander)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_ccdf2c6f(commander)
+private function function_ccdf2c6f(commander)
 {
 	powerups = [];
 	if(isarray(level.active_powerups))
@@ -225,7 +225,7 @@ function private function_ccdf2c6f(commander)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_48fcded4(commander)
+private function function_48fcded4(commander)
 {
 	switches = [];
 	switchents = getentarray("use_elec_switch", "targetname");
@@ -248,8 +248,7 @@ function private function_48fcded4(commander)
 			switches[switches.size] = var_b353dc21;
 		}
 	}
-	blackboard::setstructblackboardattribute(commander, #"zm_switches", switches);
-}
+	blackboard::setstructblackboardattribute(commander, #"zm_switches", switches);}
 
 /*
 	Name: function_873b1369
@@ -260,7 +259,7 @@ function private function_48fcded4(commander)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_873b1369(commander)
+private function function_873b1369(commander)
 {
 	wallbuys = [];
 	if(isarray(level._spawned_wallbuys))
@@ -294,11 +293,10 @@ function private function_873b1369(commander)
 			wallbuys[wallbuys.size] = var_75f73822;
 		}
 	}
-	blackboard::setstructblackboardattribute(commander, #"zm_wallbuys", wallbuys);
-}
+	blackboard::setstructblackboardattribute(commander, #"zm_wallbuys", wallbuys);}
 
 /*
-	Name: _monkey_water_corvus_vo_cleared
+	Name: function_cb29a211
 	Namespace: namespace_526571f4
 	Checksum: 0xB1098E6C
 	Offset: 0x1038
@@ -306,10 +304,10 @@ function private function_873b1369(commander)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private _monkey_water_corvus_vo_cleared(commander, squad, constants)
+private function function_cb29a211(commander, squad, constants)
 {
 	/#
-		assert(isdefined(constants[#"hash_2fe4d5f6cd1c7ca8"]), ("" + "") + "");
+		assert(isdefined(constants[#"hash_2fe4d5f6cd1c7ca8"]), "" + "" + "");
 	#/
 	if(gettime() > squad.createtime + constants[#"hash_2fe4d5f6cd1c7ca8"])
 	{

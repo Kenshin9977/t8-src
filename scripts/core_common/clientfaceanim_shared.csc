@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"clientfaceanim_shared", undefined, &main, undefined);
 }
@@ -35,7 +35,7 @@ function main()
 	callback::on_spawned(&on_player_spawned);
 	callback::on_localclient_connect(&on_localclient_connect);
 	buildandvalidatefacialanimationlist(0);
-	animation::add_notetrack_func(#"clientfaceanim::deathanimshutdown", &function_d55dc6af);
+	animation::add_notetrack_func(#"hash_2316a6cbda163a5b", &function_d55dc6af);
 }
 
 /*
@@ -47,7 +47,7 @@ function main()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private on_localclient_connect(localclientnum)
+private function on_localclient_connect(localclientnum)
 {
 	thread function_cf386505(localclientnum);
 }
@@ -61,7 +61,7 @@ function private on_localclient_connect(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private on_player_spawned(localclientnum)
+private function on_player_spawned(localclientnum)
 {
 	self callback::on_shutdown(&on_player_shutdown);
 }
@@ -75,7 +75,7 @@ function private on_player_spawned(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private on_player_shutdown(localclientnum)
+private function on_player_shutdown(localclientnum)
 {
 	if(isplayer(self))
 	{
@@ -112,21 +112,21 @@ function buildandvalidatefacialanimationlist(localclientnum)
 	if(!isdefined(level.__clientfacialanimationslist))
 	{
 		level.__clientfacialanimationslist = [];
-		level.__clientfacialanimationslist[#"combat"] = array(#"ai_t8_face_hero_generic_idle_1", #"ai_t8_face_hero_generic_idle_2", #"ai_t8_face_hero_generic_idle_3");
-		level.__clientfacialanimationslist[#"combat_shoot"] = array(#"ai_t8_face_hero_aim_fire_1", #"ai_t8_face_hero_aim_fire_2");
-		level.__clientfacialanimationslist[#"death"] = array(#"ai_t8_face_hero_dth_1", #"ai_t8_face_hero_dth_2", #"ai_t8_face_hero_dth_3");
-		level.__clientfacialanimationslist[#"melee"] = array(#"ai_t8_face_hero_melee_1");
-		level.__clientfacialanimationslist[#"pain"] = array(#"ai_t8_face_hero_pain_1");
-		level.__clientfacialanimationslist[#"swimming"] = array(#"mp_t8_face_hero_swim_idle_1");
-		level.__clientfacialanimationslist[#"jumping"] = array(#"mp_t8_face_hero_jump_idle_1");
-		level.__clientfacialanimationslist[#"sliding"] = array(#"mp_t8_face_hero_slides_1");
-		level.__clientfacialanimationslist[#"sprinting"] = array(#"mp_t8_face_hero_sprint_1");
-		level.__clientfacialanimationslist[#"wallrunning"] = array(#"mp_t8_face_hero_wall_run_1");
+		level.__clientfacialanimationslist[#"combat"] = array(#"hash_183f1e41f0815236", #"hash_183f1d41f0815083", #"hash_183f1c41f0814ed0");
+		level.__clientfacialanimationslist[#"combat_shoot"] = array(#"hash_5972ddb71f356df0", #"hash_5972e0b71f357309");
+		level.__clientfacialanimationslist[#"death"] = array(#"hash_24e52cb860b2588e", #"hash_24e52bb860b256db", #"hash_24e52ab860b25528");
+		level.__clientfacialanimationslist[#"melee"] = array(#"hash_6afc71f1a820b962");
+		level.__clientfacialanimationslist[#"pain"] = array(#"hash_2d075a32eae3362e");
+		level.__clientfacialanimationslist[#"swimming"] = array(#"hash_6fa1d2bd4a127da0");
+		level.__clientfacialanimationslist[#"jumping"] = array(#"hash_5dde6974560b8720");
+		level.__clientfacialanimationslist[#"sliding"] = array(#"hash_7837591ef0e8552f");
+		level.__clientfacialanimationslist[#"sprinting"] = array(#"hash_7ab4b2f012c54551");
+		level.__clientfacialanimationslist[#"wallrunning"] = array(#"hash_767102ecb16ad39f");
 		deathanims = level.__clientfacialanimationslist[#"death"];
 		foreach(deathanim in deathanims)
 		{
 			/#
-				assert(!isanimlooping(localclientnum, deathanim), ("" + deathanim) + "");
+				assert(!isanimlooping(localclientnum, deathanim), "" + deathanim + "");
 			#/
 		}
 	}
@@ -141,7 +141,7 @@ function buildandvalidatefacialanimationlist(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private facialanimationthink_getwaittime(localclientnum)
+private function facialanimationthink_getwaittime(localclientnum)
 {
 	min_wait = 0.1;
 	max_wait = 1;
@@ -161,18 +161,15 @@ function private facialanimationthink_getwaittime(localclientnum)
 	{
 		distance_factor = 1;
 	}
+	else if(distancesq < min_wait_distance_sq)
+	{
+		distance_factor = 0;
+	}
 	else
 	{
-		if(distancesq < min_wait_distance_sq)
-		{
-			distance_factor = 0;
-		}
-		else
-		{
-			distance_factor = (distancesq - min_wait_distance_sq) / (max_wait_distance_sq - min_wait_distance_sq);
-		}
+		distance_factor = distancesq - min_wait_distance_sq / max_wait_distance_sq - min_wait_distance_sq;
 	}
-	return ((max_wait - min_wait) * distance_factor) + min_wait;
+	return max_wait - min_wait * distance_factor + min_wait;
 }
 
 /*
@@ -184,7 +181,7 @@ function private facialanimationthink_getwaittime(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_26ff990a(local_client_num)
+private function function_26ff990a(local_client_num)
 {
 	max_players = 10;
 	max_distance = 2000;
@@ -236,7 +233,7 @@ function private function_26ff990a(local_client_num)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_cf386505(local_client_num)
+private function function_cf386505(local_client_num)
 {
 	var_40425722 = 1;
 	while(true)
@@ -262,7 +259,7 @@ function private function_cf386505(local_client_num)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private updatefacialanimforplayer(localclientnum, player)
+private function updatefacialanimforplayer(localclientnum, player)
 {
 	if(!isdefined(player._currentfacestate))
 	{
@@ -293,51 +290,33 @@ function private updatefacialanimforplayer(localclientnum, player)
 	{
 		nextfacestate = #"death";
 	}
+	else if(player isplayerfiring())
+	{
+		nextfacestate = #"combat_shoot";
+	}
+	else if(player isplayersliding())
+	{
+		nextfacestate = #"sliding";
+	}
+	else if(player isplayerwallrunning())
+	{
+		nextfacestate = #"wallrunning";
+	}
+	else if(player isplayersprinting())
+	{
+		nextfacestate = #"sprinting";
+	}
+	else if(player isplayerjumping() || player isplayerdoublejumping())
+	{
+		nextfacestate = #"jumping";
+	}
+	else if(player isplayerswimming())
+	{
+		nextfacestate = #"swimming";
+	}
 	else
 	{
-		if(player isplayerfiring())
-		{
-			nextfacestate = #"combat_shoot";
-		}
-		else
-		{
-			if(player isplayersliding())
-			{
-				nextfacestate = #"sliding";
-			}
-			else
-			{
-				if(player isplayerwallrunning())
-				{
-					nextfacestate = #"wallrunning";
-				}
-				else
-				{
-					if(player isplayersprinting())
-					{
-						nextfacestate = #"sprinting";
-					}
-					else
-					{
-						if(player isplayerjumping() || player isplayerdoublejumping())
-						{
-							nextfacestate = #"jumping";
-						}
-						else
-						{
-							if(player isplayerswimming())
-							{
-								nextfacestate = #"swimming";
-							}
-							else
-							{
-								nextfacestate = #"combat";
-							}
-						}
-					}
-				}
-			}
-		}
+		nextfacestate = #"combat";
 	}
 	if(player._currentfacestate == "inactive" || currfacestate != nextfacestate)
 	{
@@ -359,7 +338,7 @@ function private updatefacialanimforplayer(localclientnum, player)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private applynewfaceanim(localclientnum, animation)
+private function applynewfaceanim(localclientnum, animation)
 {
 	clearallfacialanims(localclientnum);
 	if(isdefined(animation))
@@ -378,7 +357,7 @@ function private applynewfaceanim(localclientnum, animation)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private applydeathanim(localclientnum)
+private function applydeathanim(localclientnum)
 {
 	if(isdefined(self._currentfacestate) && self._currentfacestate == #"death")
 	{
@@ -400,7 +379,7 @@ function private applydeathanim(localclientnum)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_d55dc6af(notifystring, param3)
+private function function_d55dc6af(notifystring, param3)
 {
 	self clearallfacialanims(self.localclientnum);
 }
@@ -414,7 +393,7 @@ function private function_d55dc6af(notifystring, param3)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private clearallfacialanims(localclientnum)
+private function clearallfacialanims(localclientnum)
 {
 	if(isdefined(self._currentfaceanim) && self hasdobj(localclientnum))
 	{

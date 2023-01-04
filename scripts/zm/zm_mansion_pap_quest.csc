@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_12282e6b2cc91b42;
-#using script_1611421ee9b880d3;
-#using script_624a704d0f6bf28d;
+hashed-3\script_12282e6b2cc91b42.csc;
+hashed-3\script_1611421ee9b880d3.csc;
+hashed-2\script_624a704d0f6bf28d.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
@@ -38,18 +38,18 @@ function init_clientfields()
 	clientfield::register("toplayer", "" + #"hash_2d63a1398e98f279", 8000, 1, "int", &function_6812bd74, 0, 0);
 	clientfield::register("toplayer", "" + #"hash_ea66e39c63f5b41", 13000, 1, "int", &function_ec12026f, 0, 0);
 	clientfield::register("allplayers", "" + #"hash_49de76d6c4f95e5d", 8000, 1, "int", &function_738252b1, 0, 0);
-	if(zm_utility::is_standard() || namespace_59ff1d6c::function_901b751c(#"hash_19d48a0d4490b0a2") == 2)
+	if(zm_utility::is_standard() || cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_19d48a0d4490b0a2") == 2)
 	{
 		return;
 	}
-	namespace_617a54f4::function_d8383812(#"hash_51c79c8e74688138", 8000, #"mh_cpt1", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_51c79f8e74688651", 8000, #"mh_cpt2", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_51c79e8e7468849e", 8000, #"mh_cpt3", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_478cff8e6e2b9aad", 8000, #"lb_cpt1", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_478cfc8e6e2b9594", 8000, #"lb_cpt2", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_478cfd8e6e2b9747", 8000, #"lb_cpt3", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_3fc3ce8e6a02292e", 8000, #"cl_cpt1", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
-	namespace_617a54f4::function_d8383812(#"hash_3fc3cd8e6a02277b", 8000, #"cl_cpt2", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_51c79c8e74688138", 8000, #"mh_cpt1", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_51c79f8e74688651", 8000, #"mh_cpt2", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_51c79e8e7468849e", 8000, #"mh_cpt3", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_478cff8e6e2b9aad", 8000, #"lb_cpt1", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_478cfc8e6e2b9594", 8000, #"lb_cpt2", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_478cfd8e6e2b9747", 8000, #"lb_cpt3", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_3fc3ce8e6a02292e", 8000, #"cl_cpt1", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
+	cschashed-2\script_624a704d0f6bf28d::function_d8383812(#"hash_3fc3cd8e6a02277b", 8000, #"cl_cpt2", 400, level._effect[#"hash_51c7bc3539ed5540"], level._effect[#"hash_68213763a7707b92"], undefined, undefined, 1);
 }
 
 /*
@@ -509,7 +509,7 @@ function function_924f922d(localclientnum, oldval, newval, bnewent, binitialsnap
 					continue;
 				}
 				v_eye = e_player geteye();
-				if((abs(self.origin[2] - v_eye[2])) <= 96 && distance2dsquared(v_eye, self.origin) <= 202500)
+				if(abs(self.origin[2] - v_eye[2]) <= 96 && distance2dsquared(v_eye, self.origin) <= 202500)
 				{
 					/#
 						self thread function_3e31854(e_player);
@@ -650,7 +650,7 @@ function ghost_impact_fx(localclientnum)
 		v_end = v_start + vectorscale(anglestoforward(self.angles), 16);
 		a_trace = physicstrace(v_start, v_end, vectorscale((-1, -1, -1), 16), vectorscale((1, 1, 1), 16), self, 8);
 		v_contact = a_trace[#"position"];
-		if(a_trace[#"surfacetype"] != "none" && distance2dsquared(v_contact, var_c2b3e9bf) > (256 * 2))
+		if(a_trace[#"surfacetype"] != "none" && distance2dsquared(var_35144d9b, var_c2b3e9bf) > 256 * 2)
 		{
 			var_c2b3e9bf = v_contact;
 			v_forward = anglestoforward(self.angles);
@@ -659,10 +659,10 @@ function ghost_impact_fx(localclientnum)
 			#/
 			playfx(localclientnum, level._effect[#"hash_3fee8d30e3aef8f4"], v_contact, v_forward * -1, anglestoup(self.angles));
 		}
-		v_end = v_start + (vectorscale(anglestoforward(self.angles) * -1, 16));
+		v_end = v_start + vectorscale(anglestoforward(self.angles) * -1, 16);
 		a_trace = physicstrace(v_start, v_end, vectorscale((-1, -1, -1), 16), vectorscale((1, 1, 1), 16), self, 8);
 		v_contact = a_trace[#"position"];
-		if(a_trace[#"surfacetype"] != "none" && distance2dsquared(v_contact, var_c2b3e9bf) > (256 * 2))
+		if(a_trace[#"surfacetype"] != "none" && distance2dsquared(var_35144d9b, var_c2b3e9bf) > 256 * 2)
 		{
 			var_c2b3e9bf = v_contact;
 			v_forward = anglestoforward(self.angles);
@@ -773,7 +773,7 @@ function function_466c2fa3(str_fx, newval)
 		str_hint = function_f415205b(newval);
 		while(getdvarint(#"hash_3c4df2fe4b1618d5", 0) && isdefined(self))
 		{
-			debug2dtext((100, 800, 0), (((("" + newval) + "") + str_hint) + "") + function_9e72a96(str_fx), (1, 1, 1));
+			debug2dtext((100, 800, 0), "" + newval + "" + str_hint + "" + function_9e72a96(str_fx), (1, 1, 1));
 			waitframe(1);
 		}
 	#/
@@ -812,7 +812,7 @@ function function_5545acc1(newval)
 			foreach(i, n_step in level.var_d23472c9)
 			{
 				var_8b7c6b64 = var_8b7c6b64 + n_offset;
-				debug2dtext(v_pos + (0, var_8b7c6b64, 0), (function_9e72a96(i) + "") + n_step, (0, 1, 0));
+				debug2dtext(v_pos + (0, var_8b7c6b64, 0), function_9e72a96(i) + "" + n_step, (0, 1, 0));
 			}
 			waitframe(1);
 		}
@@ -980,8 +980,8 @@ function debug_arrow(org, ang, opcolor)
 			blue = opcolor;
 		}
 		line(org, org + forwardfar, red, 0.9);
-		line(org + forwardfar, (org + forwardclose) + rightdraw, red, 0.9);
-		line(org + forwardfar, (org + forwardclose) + leftdraw, red, 0.9);
+		line(org + forwardfar, org + forwardclose + rightdraw, red, 0.9);
+		line(org + forwardfar, org + forwardclose + leftdraw, red, 0.9);
 		line(org, org + right, blue, 0.9);
 		line(org, org + up, green, 0.9);
 	#/

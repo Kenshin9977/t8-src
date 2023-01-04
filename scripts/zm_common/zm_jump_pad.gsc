@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_jump_pad", &__init__, undefined, undefined);
 }
@@ -248,44 +248,41 @@ function jump_pad_start(ent_player, endon_condition)
 				}
 			#/
 		}
-		else
+		else if(z_dist >= 135)
 		{
-			if(z_dist >= 135)
-			{
-				z_dist = z_dist * 2.7;
-				forward_scaling = 1.3;
-				/#
-					if(getdvarint(#"jump_pad_tweaks", 0))
+			z_dist = z_dist * 2.7;
+			forward_scaling = 1.3;
+			/#
+				if(getdvarint(#"jump_pad_tweaks", 0))
+				{
+					if(getdvarstring(#"jump_pad_z_dist") != "")
 					{
-						if(getdvarstring(#"jump_pad_z_dist") != "")
-						{
-							z_dist = z_dist * getdvarfloat(#"jump_pad_z_dist", 0);
-						}
-						if(getdvarstring(#"jump_pad_forward") != "")
-						{
-							forward_scaling = getdvarfloat(#"jump_pad_forward", 0);
-						}
+						z_dist = z_dist * getdvarfloat(#"jump_pad_z_dist", 0);
 					}
-				#/
-			}
-			else if(z_dist < 0)
-			{
-				z_dist = z_dist * 2.4;
-				forward_scaling = 1;
-				/#
-					if(getdvarint(#"jump_pad_tweaks", 0))
+					if(getdvarstring(#"jump_pad_forward") != "")
 					{
-						if(getdvarstring(#"jump_pad_z_dist") != "")
-						{
-							z_dist = z_dist * getdvarfloat(#"jump_pad_z_dist", 0);
-						}
-						if(getdvarstring(#"jump_pad_forward") != "")
-						{
-							forward_scaling = getdvarfloat(#"jump_pad_forward", 0);
-						}
+						forward_scaling = getdvarfloat(#"jump_pad_forward", 0);
 					}
-				#/
-			}
+				}
+			#/
+		}
+		else if(z_dist < 0)
+		{
+			z_dist = z_dist * 2.4;
+			forward_scaling = 1;
+			/#
+				if(getdvarint(#"jump_pad_tweaks", 0))
+				{
+					if(getdvarstring(#"jump_pad_z_dist") != "")
+					{
+						z_dist = z_dist * getdvarfloat(#"jump_pad_z_dist", 0);
+					}
+					if(getdvarstring(#"jump_pad_forward") != "")
+					{
+						forward_scaling = getdvarfloat(#"jump_pad_forward", 0);
+					}
+				}
+			#/
 		}
 		n_reduction = 0.0015;
 		/#
@@ -294,7 +291,7 @@ function jump_pad_start(ent_player, endon_condition)
 				n_reduction = getdvarfloat(#"hash_16fa72c379cf8968", 0);
 			}
 		#/
-		z_velocity = ((n_reduction * 2) * z_dist) * world_gravity;
+		z_velocity = n_reduction * 2 * z_dist * world_gravity;
 		if(z_velocity < 0)
 		{
 			z_velocity = z_velocity * -1;
@@ -303,15 +300,15 @@ function jump_pad_start(ent_player, endon_condition)
 		{
 			z_dist = z_dist * -1;
 		}
-		jump_time = sqrt((2 * pad_dist) / world_gravity);
-		jump_time_2 = sqrt((2 * z_dist) / world_gravity);
+		jump_time = sqrt(2 * pad_dist / world_gravity);
+		jump_time_2 = sqrt(2 * z_dist / world_gravity);
 		jump_time = jump_time + jump_time_2;
 		if(jump_time < 0)
 		{
 			jump_time = jump_time * -1;
 		}
-		x = (jump_velocity[0] * forward_scaling) / jump_time;
-		y = (jump_velocity[1] * forward_scaling) / jump_time;
+		x = jump_velocity[0] * forward_scaling / jump_time;
+		y = jump_velocity[1] * forward_scaling / jump_time;
 		z = z_velocity / jump_time;
 		fling_this_way = (x, y, z);
 	}
@@ -439,17 +436,14 @@ function jump_pad_move(vec_direction, flt_time, struct_poi, trigger)
 			self.jump_pad_current = undefined;
 			self.jump_pad_previous = undefined;
 		}
+		else if(!isdefined(self.jump_pad_current))
+		{
+			self.jump_pad_current = trigger;
+		}
 		else
 		{
-			if(!isdefined(self.jump_pad_current))
-			{
-				self.jump_pad_current = trigger;
-			}
-			else
-			{
-				self.jump_pad_previous = self.jump_pad_current;
-				self.jump_pad_current = trigger;
-			}
+			self.jump_pad_previous = self.jump_pad_current;
+			self.jump_pad_current = trigger;
 		}
 	}
 	if(isdefined(self.poi_spot))

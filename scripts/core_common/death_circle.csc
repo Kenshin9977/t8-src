@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"death_circle", &__init__, undefined, undefined);
 }
@@ -31,7 +31,7 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	level.var_d8958e58 = isdefined(getgametypesetting(#"deathcircle")) && getgametypesetting(#"deathcircle");
+	level.var_d8958e58 = isdefined(getgametypesetting(#"hash_8d6ce9f5ce69451")) && getgametypesetting(#"hash_8d6ce9f5ce69451");
 	if(!level.var_d8958e58)
 	{
 		return;
@@ -164,7 +164,7 @@ function on_localplayer_spawned(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_382da026(localclientnum)
+private function function_382da026(localclientnum)
 {
 	self notify("1368c9cad92ba095");
 	self endon("1368c9cad92ba095");
@@ -211,7 +211,7 @@ function private function_382da026(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_7eb327bd(localclientnum)
+private function function_7eb327bd(localclientnum)
 {
 	self waittill(#"death");
 	var_ef2f4cec = level.var_32e10fc2[localclientnum];
@@ -235,7 +235,7 @@ function private function_7eb327bd(localclientnum)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_43d7470c(localclientnum, intensity = 0)
+private function function_43d7470c(localclientnum, intensity = 0)
 {
 	if(isdefined(self.var_ef215639))
 	{
@@ -258,7 +258,7 @@ function private function_43d7470c(localclientnum, intensity = 0)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_d69170b(localclientnum, intensity = 0)
+private function function_d69170b(localclientnum, intensity = 0)
 {
 	if(isdefined(self.var_f6795a59))
 	{
@@ -286,7 +286,7 @@ function private function_d69170b(localclientnum, intensity = 0)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_b8c979ec(localclientnum, intensity = 0)
+private function function_b8c979ec(localclientnum, intensity = 0)
 {
 	if(isdefined(self.var_7e948a2d))
 	{
@@ -309,7 +309,7 @@ function private function_b8c979ec(localclientnum, intensity = 0)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_7ede78e9(localclientnum, var_d017e788 = undefined, intensity = 0)
+private function function_7ede78e9(localclientnum, var_d017e788 = undefined, intensity = 0)
 {
 	self notify("7d26c6ac6cb4777b");
 	self endon("7d26c6ac6cb4777b");
@@ -347,7 +347,7 @@ function private function_7ede78e9(localclientnum, var_d017e788 = undefined, int
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_e1273acb(localclientnum, intensity = 0)
+private function function_e1273acb(localclientnum, intensity = 0)
 {
 	maxdistsq = 100000000;
 	var_4a4e047 = 0;
@@ -356,7 +356,7 @@ function private function_e1273acb(localclientnum, intensity = 0)
 	fwd = anglestoforward(angles);
 	players = getplayers(localclientnum);
 	players = arraysortclosest(players, origin);
-	rob = level.var_c465fd31[intensity];
+	var_14a2badb = level.var_c465fd31[intensity];
 	var_ba26d3a3 = level.var_7d949aad[intensity];
 	var_65837411 = level.var_213a0963[intensity];
 	foreach(player in players)
@@ -369,13 +369,13 @@ function private function_e1273acb(localclientnum, intensity = 0)
 		{
 			continue;
 		}
-		if(var_4a4e047 >= 10 || player function_21c0fa55() || player clientfield::get("outsidedeathcircle") || !isalive(player) || distance2dsquared(origin, player.origin) > maxdistsq || (vectordot(fwd, player.origin - origin)) <= 0)
+		if(var_4a4e047 >= 10 || player function_21c0fa55() || player clientfield::get("outsidedeathcircle") || !isalive(player) || distance2dsquared(origin, player.origin) > maxdistsq || vectordot(fwd, player.origin - origin) <= 0)
 		{
 			player function_de4523(localclientnum);
 			player function_9e8e1f4f(localclientnum);
 			continue;
 		}
-		player function_de4523(localclientnum, rob, var_ba26d3a3);
+		player function_de4523(localclientnum, var_14a2badb, var_ba26d3a3);
 		player function_9e8e1f4f(localclientnum, var_65837411);
 		var_4a4e047++;
 	}
@@ -390,9 +390,9 @@ function private function_e1273acb(localclientnum, intensity = 0)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_de4523(localclientnum, rob = undefined, var_ba26d3a3 = undefined)
+private function function_de4523(localclientnum, var_14a2badb = undefined, var_ba26d3a3 = undefined)
 {
-	if(self.var_eeee3972 === rob && self.var_99d5860e === var_ba26d3a3)
+	if(self.var_eeee3972 === var_14a2badb && self.var_99d5860e === var_ba26d3a3)
 	{
 		return;
 	}
@@ -410,7 +410,7 @@ function private function_de4523(localclientnum, rob = undefined, var_ba26d3a3 =
 		}
 		if(isdefined(var_ba26d3a3))
 		{
-			self function_78233d29(rob, "", "Fade", var_ba26d3a3);
+			self function_78233d29(var_14a2badb, "", "Fade", var_ba26d3a3);
 		}
 		self.var_eeee3972 = rob;
 		self.var_99d5860e = var_ba26d3a3;
@@ -426,7 +426,7 @@ function private function_de4523(localclientnum, rob = undefined, var_ba26d3a3 =
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_9e8e1f4f(localclientnum, var_65837411 = undefined)
+private function function_9e8e1f4f(localclientnum, var_65837411 = undefined)
 {
 	if(self.var_213a0963 === var_65837411)
 	{
@@ -457,7 +457,7 @@ function private function_9e8e1f4f(localclientnum, var_65837411 = undefined)
 	Parameters: 0
 	Flags: Private
 */
-function private function_63d6411e()
+private function function_63d6411e()
 {
 	self setcompassicon("");
 }
@@ -471,19 +471,19 @@ function private function_63d6411e()
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_32f7227c(deathcircle, currentradius, localclientnum)
+private function function_32f7227c(var_9766eb97, currentradius, localclientnum)
 {
 	localplayer = function_5c10bd79(localclientnum);
-	startpos = (deathcircle.origin[0], deathcircle.origin[1], 0);
+	startpos = (var_9766eb97.origin[0], var_9766eb97.origin[1], 0);
 	var_fc612cde = (0, 0, 0);
 	eyepos = startpos + vectorscale((0, 0, 1), 60);
 	if(isdefined(localplayer))
 	{
 		endpos = (localplayer.origin[0], localplayer.origin[1], 0);
-		var_fc612cde = (vectornormalize(endpos - startpos)) * currentradius;
+		var_fc612cde = vectornormalize(endpos - startpos) * currentradius;
 		eyepos = localplayer geteyeapprox();
 	}
-	var_ba5c9ce6 = deathcircle.origin + var_fc612cde;
+	var_ba5c9ce6 = var_9766eb97.origin + var_fc612cde;
 	return (var_ba5c9ce6[0], var_ba5c9ce6[1], eyepos[2]);
 }
 
@@ -496,7 +496,7 @@ function private function_32f7227c(deathcircle, currentradius, localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_a453467f(localclientnum)
+private function function_a453467f(localclientnum)
 {
 	self endon(#"death", #"hash_49f273cd81c6c0f");
 	self thread function_71f8d788();

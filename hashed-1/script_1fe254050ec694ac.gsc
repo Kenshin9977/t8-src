@@ -6,25 +6,25 @@
 #using scripts\zm_common\zm_perks.gsc;
 #using scripts\zm_common\zm_stats.gsc;
 
-#namespace namespace_2dadcb58;
+#namespace cschashed-2\script_43cf0005237c9838;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_2dadcb58
+	Namespace: cschashed-2\script_43cf0005237c9838
 	Checksum: 0xE0BDC005
 	Offset: 0xB0
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_242c2a18cea5e1", &__init__, undefined, "bgb");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_2dadcb58
+	Namespace: cschashed-2\script_43cf0005237c9838
 	Checksum: 0xEBB22844
 	Offset: 0xF8
 	Size: 0x64
@@ -42,7 +42,7 @@ function __init__()
 
 /*
 	Name: activation
-	Namespace: namespace_2dadcb58
+	Namespace: cschashed-2\script_43cf0005237c9838
 	Checksum: 0x75455573
 	Offset: 0x168
 	Size: 0x21A
@@ -54,10 +54,10 @@ function activation()
 	a_players = util::get_players();
 	foreach(player in a_players)
 	{
-		var_ac6ee9a0 = player zm_loadout::get_player_lethal_grenade();
+		var_ac6ee9a0 = player cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 		if(var_ac6ee9a0.isgadget)
 		{
-			n_slot = player gadgetgetslot(var_ac6ee9a0);
+			var_bcd1c2ff = player gadgetgetslot(var_ac6ee9a0);
 			if(var_ac6ee9a0 == getweapon(#"tomahawk_t8") || var_ac6ee9a0 == getweapon(#"tomahawk_t8_upgraded"))
 			{
 				if(!player function_36dfc05f(n_slot))
@@ -85,7 +85,7 @@ function activation()
 
 /*
 	Name: function_556e219
-	Namespace: namespace_2dadcb58
+	Namespace: cschashed-2\script_43cf0005237c9838
 	Checksum: 0xE4F7B404
 	Offset: 0x390
 	Size: 0x64

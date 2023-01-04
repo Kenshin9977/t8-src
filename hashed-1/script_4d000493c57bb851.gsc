@@ -1,12 +1,12 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_1254ac024174d9c0;
 #using script_14f4a3c583c77d4b;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_467027ea7017462b;
 #using script_52c6c2d1a2ef1b46;
 #using script_53efad19aa55a030;
 #using script_6e3c826b1814cab6;
-#using script_ab890501c40b73c;
+#using hashed-3\contracts.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -28,25 +28,24 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace zm_crafting;
+#namespace cschashed-1\script_6d85b093d74cdfdd;
 
 /*
 	Name: function_89f2df9
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x1C1A68D7
 	Offset: 0x288
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
-	system::register(#"zm_crafting", &__init__, &__main__, undefined);
-}
+	system::register(#"zm_crafting", &__init__, &__main__, undefined);}
 
 /*
 	Name: __init__
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x8E21F656
 	Offset: 0x2D8
 	Size: 0x34
@@ -62,7 +61,7 @@ function __init__()
 
 /*
 	Name: __main__
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x5DFC93AD
 	Offset: 0x318
 	Size: 0xA4
@@ -74,7 +73,7 @@ function __main__()
 	function_7a8f3cbd();
 	function_60a6c623();
 	setup_tables();
-	if(zombie_utility::function_d2dfacfd(#"hash_44737d225ec3b9d7") || namespace_59ff1d6c::function_901b751c(#"hash_2a5dc43e6de87347"))
+	if(zombie_utility::function_d2dfacfd(#"hash_44737d225ec3b9d7") || cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_2a5dc43e6de87347"))
 	{
 		level thread function_40f32480();
 	}
@@ -85,7 +84,7 @@ function __main__()
 
 /*
 	Name: function_60a6c623
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x462B6829
 	Offset: 0x3C8
 	Size: 0x98
@@ -103,7 +102,7 @@ function function_60a6c623()
 
 /*
 	Name: setup_craftfoundry
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x5B10C0C5
 	Offset: 0x468
 	Size: 0x27C
@@ -162,7 +161,7 @@ function setup_craftfoundry(craftfoundry)
 
 /*
 	Name: setup_tables
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x1DBB003
 	Offset: 0x6F0
 	Size: 0x248
@@ -180,12 +179,7 @@ function setup_tables()
 		{
 			trigger.craftfoundry = function_c1552513(var_6886faaa);
 		}
-		else
-		{
-			/#
-				assertmsg("");
-			#/
-		}
+		assertmsg("");
 		unitrigger = function_f665fde0(trigger);
 		if(!isdefined(level.var_4fe2f84d[var_6886faaa]))
 		{
@@ -212,7 +206,7 @@ function setup_tables()
 
 /*
 	Name: function_6dccf508
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x8A225B6A
 	Offset: 0x940
 	Size: 0x96
@@ -232,7 +226,7 @@ function function_6dccf508()
 
 /*
 	Name: function_c1552513
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x4532F60
 	Offset: 0x9E0
 	Size: 0x88
@@ -247,18 +241,13 @@ function function_c1552513(name)
 		craftfoundry.name = name;
 		setup_craftfoundry(craftfoundry);
 	}
-	else
-	{
-		/#
-			assertmsg("" + name);
-		#/
-	}
+	assertmsg("" + name);
 	return craftfoundry;
 }
 
 /*
 	Name: function_b18074d0
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xC458EB91
 	Offset: 0xA70
 	Size: 0x4E8
@@ -315,7 +304,7 @@ function function_b18074d0(name)
 			y = (isdefined(blueprint.var_e414062) ? float(blueprint.var_e414062) : 0);
 			z = (isdefined(blueprint.var_3c809ce0) ? float(blueprint.var_3c809ce0) : 0);
 			blueprint.v_offset = (x, y, z);
-			x = (isdefined(blueprint.prj_scr_round_pause) ? float(blueprint.prj_scr_round_pause) : 0);
+			x = (isdefined(blueprint.var_4f7a8876) ? float(blueprint.var_4f7a8876) : 0);
 			y = (isdefined(blueprint.var_11928e3b) ? float(blueprint.var_11928e3b) : 0);
 			z = (isdefined(blueprint.var_71c8b937) ? float(blueprint.var_71c8b937) : 0);
 			blueprint.v_angles = (x, y, z);
@@ -329,18 +318,13 @@ function function_b18074d0(name)
 			#/
 		}
 	}
-	else
-	{
-		/#
-			assertmsg("" + name);
-		#/
-	}
+	assertmsg("" + name);
 	return blueprint;
 }
 
 /*
 	Name: function_4c2f8683
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x281804F0
 	Offset: 0xF60
 	Size: 0x260
@@ -370,7 +354,7 @@ function function_4c2f8683(component, blueprint)
 	{
 		if(isdefined(blueprint.result.isriotshield) && blueprint.result.isriotshield)
 		{
-			if(!namespace_59ff1d6c::function_901b751c(#"zmshieldisenabled"))
+			if(!cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"zmshieldisenabled"))
 			{
 				a_items = getitemarray();
 				foreach(var_2e1f34dd in a_items)
@@ -383,12 +367,12 @@ function function_4c2f8683(component, blueprint)
 			}
 			else
 			{
-				zm_items::function_4d230236(component, &function_86531922);
+				cschashed-2\script_257d7bea5de94cbf::function_4d230236(component, &function_86531922);
 			}
 		}
 		else
 		{
-			zm_items::function_4d230236(component, &function_d56724a6);
+			cschashed-2\script_257d7bea5de94cbf::function_4d230236(component, &function_d56724a6);
 		}
 	}
 	return level.var_d95bcda9[component.name];
@@ -396,14 +380,14 @@ function function_4c2f8683(component, blueprint)
 
 /*
 	Name: function_40f32480
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xC96A13FE
 	Offset: 0x11C8
 	Size: 0xF0
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_40f32480()
+private function function_40f32480()
 {
 	level waittill(#"all_players_spawned");
 	a_items = getitemarray();
@@ -418,7 +402,7 @@ function private function_40f32480()
 
 /*
 	Name: function_728a82e0
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xC49F82A7
 	Offset: 0x12C0
 	Size: 0x5E
@@ -437,7 +421,7 @@ function function_728a82e0(blueprint)
 
 /*
 	Name: function_31d883d7
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x4321D4A7
 	Offset: 0x1328
 	Size: 0xD8
@@ -467,7 +451,7 @@ function function_31d883d7()
 
 /*
 	Name: function_4165306b
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x778183E7
 	Offset: 0x1408
 	Size: 0x1A4
@@ -516,7 +500,7 @@ function function_4165306b(player)
 
 /*
 	Name: function_6d1e4410
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x5C478BD9
 	Offset: 0x15B8
 	Size: 0x9A
@@ -527,17 +511,17 @@ function function_6d1e4410(player, blueprint)
 {
 	foreach(component in blueprint.components)
 	{
-		if(!zm_items::player_has(player, component))
+		if(!cschashed-2\script_257d7bea5de94cbf::player_has(player, component))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_6f635422
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x3FF68145
 	Offset: 0x1660
 	Size: 0xA8
@@ -548,16 +532,16 @@ function function_6f635422(player, blueprint)
 {
 	foreach(component in blueprint.components)
 	{
-		if(zm_items::player_has(player, component))
+		if(cschashed-2\script_257d7bea5de94cbf::player_has(player, component))
 		{
-			zm_items::player_take(player, component);
+			cschashed-2\script_257d7bea5de94cbf::player_take(player, component);
 		}
 	}
 }
 
 /*
 	Name: function_7a8f3cbd
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xE12F4CAA
 	Offset: 0x1710
 	Size: 0x11C
@@ -566,14 +550,14 @@ function function_6f635422(player, blueprint)
 */
 function function_7a8f3cbd()
 {
-	level.var_90237ebd = zm_progress::function_53a680b8(&function_7362ecc8, &function_8962a3bb, &function_735c3a67, &function_f7dbfdf9, &function_d95a600f, &function_73f3bb03);
-	level.var_98dad84e = zm_progress::function_53a680b8(&function_7362ecc8, &function_8962a3bb, &function_735c3a67, &function_f7dbfdf9, &function_d95a600f, &function_73f3bb03);
-	zm_progress::function_163442cb(level.var_98dad84e, level.weaponnone);
+	level.var_90237ebd = cschashed-3\script_3004011995a14fa4::function_53a680b8(&function_7362ecc8, &function_8962a3bb, &function_735c3a67, &function_f7dbfdf9, &function_d95a600f, &function_73f3bb03);
+	level.var_98dad84e = cschashed-3\script_3004011995a14fa4::function_53a680b8(&function_7362ecc8, &function_8962a3bb, &function_735c3a67, &function_f7dbfdf9, &function_d95a600f, &function_73f3bb03);
+	cschashed-3\script_3004011995a14fa4::function_163442cb(level.var_98dad84e, level.weaponnone);
 }
 
 /*
 	Name: function_7362ecc8
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xB605EE7E
 	Offset: 0x1838
 	Size: 0xA8
@@ -584,23 +568,23 @@ function function_7362ecc8(player, unitrigger)
 {
 	if(isdefined(unitrigger.locked) && unitrigger.locked)
 	{
-		return false;
+		return 0;
 	}
 	blueprints = unitrigger function_4165306b(player);
 	if(blueprints.size < 1)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(unitrigger.blueprint.locked) && unitrigger.blueprint.locked)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_8962a3bb
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xAE9AF54C
 	Offset: 0x18E8
 	Size: 0x18
@@ -609,12 +593,12 @@ function function_7362ecc8(player, unitrigger)
 */
 function function_8962a3bb(player, unitrigger)
 {
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_735c3a67
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x97BC6341
 	Offset: 0x1908
 	Size: 0x64
@@ -633,7 +617,7 @@ function function_735c3a67(player, unitrigger)
 
 /*
 	Name: function_f7dbfdf9
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xAC7522F8
 	Offset: 0x1978
 	Size: 0x54
@@ -651,7 +635,7 @@ function function_f7dbfdf9(player, unitrigger)
 
 /*
 	Name: function_d95a600f
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xB7C71F51
 	Offset: 0x19D8
 	Size: 0x54
@@ -669,7 +653,7 @@ function function_d95a600f(player, unitrigger)
 
 /*
 	Name: function_73f3bb03
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xA2D50ED7
 	Offset: 0x1A38
 	Size: 0x36
@@ -684,7 +668,7 @@ function function_73f3bb03(player, unitrigger)
 
 /*
 	Name: function_7bffa1ac
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xCDF1D140
 	Offset: 0x1A78
 	Size: 0x7C
@@ -706,7 +690,7 @@ function function_7bffa1ac(weapon)
 
 /*
 	Name: function_2d53738e
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xEF2D3B6A
 	Offset: 0x1B00
 	Size: 0x52
@@ -724,7 +708,7 @@ function function_2d53738e(weapon)
 
 /*
 	Name: function_48ce9379
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x2FFD9D3
 	Offset: 0x1B60
 	Size: 0x36
@@ -742,7 +726,7 @@ function function_48ce9379(weapon)
 
 /*
 	Name: function_126fc77c
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xEA09AB22
 	Offset: 0x1BA0
 	Size: 0x1B8
@@ -770,23 +754,20 @@ function function_126fc77c(player)
 	{
 		self sethintstringforplayer(player, self.stub.hint_string, self.stub.cost);
 	}
+	else if(isdefined(self.stub.cost) && self.stub.cost != 0)
+	{
+		self sethintstring(self.stub.hint_string, self.stub.cost);
+	}
 	else
 	{
-		if(isdefined(self.stub.cost) && self.stub.cost != 0)
-		{
-			self sethintstring(self.stub.hint_string, self.stub.cost);
-		}
-		else
-		{
-			self sethintstring(self.stub.hint_string);
-		}
+		self sethintstring(self.stub.hint_string);
 	}
 	return can_use;
 }
 
 /*
 	Name: function_f665fde0
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x976DCC53
 	Offset: 0x1D60
 	Size: 0x8A8
@@ -821,7 +802,7 @@ function function_f665fde0(trig)
 	{
 		angles = (0, 0, 0);
 	}
-	unitrigger_stub.origin = trig.origin + (anglestoright(angles) * -6);
+	unitrigger_stub.origin = trig.origin + anglestoright(angles) * -6;
 	unitrigger_stub.angles = trig.angles;
 	if(isdefined(trig.script_angles))
 	{
@@ -944,7 +925,7 @@ function function_f665fde0(trig)
 
 /*
 	Name: function_987a472
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x95225D8C
 	Offset: 0x2610
 	Size: 0x22C
@@ -983,12 +964,7 @@ function function_987a472(modelname, blueprint)
 			s_crafting.model notsolid();
 			s_crafting.model show();
 		}
-		else
-		{
-			/#
-				assertmsg("");
-			#/
-		}
+		assertmsg("");
 	}
 	else
 	{
@@ -999,14 +975,14 @@ function function_987a472(modelname, blueprint)
 
 /*
 	Name: function_356e77bd
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x477BD8B2
 	Offset: 0x2848
 	Size: 0x78
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_356e77bd()
+private function function_356e77bd()
 {
 	self endon(#"death");
 	while(isdefined(self))
@@ -1020,14 +996,14 @@ function private function_356e77bd()
 
 /*
 	Name: function_514b8f17
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xE4191AE
 	Offset: 0x28C8
 	Size: 0x108
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_514b8f17(player)
+private function function_514b8f17(player)
 {
 	self notify(#"hash_295a022a1c72a359");
 	self endon(#"hash_295a022a1c72a359", #"hash_d0ee404fc39206");
@@ -1050,7 +1026,7 @@ function private function_514b8f17(player)
 
 /*
 	Name: function_ca244624
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x69041AB7
 	Offset: 0x29D8
 	Size: 0xB8
@@ -1072,7 +1048,7 @@ function function_ca244624(var_55426150)
 
 /*
 	Name: function_d1f16587
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x46E35E1A
 	Offset: 0x2A98
 	Size: 0x1B2
@@ -1108,7 +1084,7 @@ function function_d1f16587(var_55426150, func)
 
 /*
 	Name: function_86531922
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x7E3686EA
 	Offset: 0x2C58
 	Size: 0xEC
@@ -1128,13 +1104,13 @@ function function_86531922(e_holder, var_9c95ad05)
 	self playsound(#"hash_230737b2535a3374");
 	if(var_9c95ad05.var_f56ac2bd !== "")
 	{
-		level namespace_6747c550::function_7df6bb60(hash(var_9c95ad05.var_f56ac2bd), 1);
+		level cschashed-2\script_76b36ed1b7a51ed2::function_7df6bb60(hash(var_9c95ad05.var_f56ac2bd), 1);
 	}
 }
 
 /*
 	Name: function_d56724a6
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x5796DEB1
 	Offset: 0x2D50
 	Size: 0x164
@@ -1145,7 +1121,7 @@ function function_d56724a6(e_holder, var_9c95ad05)
 {
 	if(var_9c95ad05.var_f56ac2bd !== "")
 	{
-		level namespace_6747c550::function_7df6bb60(hash(var_9c95ad05.var_f56ac2bd), 1);
+		level cschashed-2\script_76b36ed1b7a51ed2::function_7df6bb60(hash(var_9c95ad05.var_f56ac2bd), 1);
 	}
 	if(isdefined(var_9c95ad05.var_25bb96cc))
 	{
@@ -1159,29 +1135,26 @@ function function_d56724a6(e_holder, var_9c95ad05)
 	{
 		self thread zm_audio::create_and_play_dialog(#"hash_44b4edd3d705820d", var_9c95ad05.gadgetreadysoundplayer);
 	}
+	else if(isdefined(var_9c95ad05.var_62a98b13))
+	{
+		self thread zm_audio::create_and_play_dialog(#"hash_44b4edd3d705820d", var_9c95ad05.var_62a98b13);
+	}
 	else
 	{
-		if(isdefined(var_9c95ad05.var_62a98b13))
-		{
-			self thread zm_audio::create_and_play_dialog(#"hash_44b4edd3d705820d", var_9c95ad05.var_62a98b13);
-		}
-		else
-		{
-			self thread zm_audio::create_and_play_dialog(#"hash_44b4edd3d705820d", #"generic");
-		}
+		self thread zm_audio::create_and_play_dialog(#"hash_44b4edd3d705820d", #"generic");
 	}
 }
 
 /*
 	Name: function_475a63eb
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x8700E8B
 	Offset: 0x2EC0
 	Size: 0x214
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_475a63eb()
+private function function_475a63eb()
 {
 	if(!isdefined(level.var_b87dee47))
 	{
@@ -1197,14 +1170,14 @@ function private function_475a63eb()
 
 /*
 	Name: function_e1eeba22
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x39003422
 	Offset: 0x30E0
 	Size: 0xAE
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private function_e1eeba22(state, var_a3d8c117, var_ea7ebe1f, var_aee03b4c, var_cb2020d8)
+private function function_e1eeba22(state, var_a3d8c117, var_ea7ebe1f, var_aee03b4c, var_cb2020d8)
 {
 	var_90dfb0bf = spawnstruct();
 	var_90dfb0bf.name = state;
@@ -1217,14 +1190,14 @@ function private function_e1eeba22(state, var_a3d8c117, var_ea7ebe1f, var_aee03b
 
 /*
 	Name: function_35f5c90b
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x2931311D
 	Offset: 0x3198
 	Size: 0xDC
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_35f5c90b(state)
+private function function_35f5c90b(state)
 {
 	if(!isdefined(state))
 	{
@@ -1252,7 +1225,7 @@ function private function_35f5c90b(state)
 
 /*
 	Name: function_18f2be60
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xB3DEB050
 	Offset: 0x3280
 	Size: 0x174
@@ -1293,7 +1266,7 @@ function function_18f2be60(player)
 
 /*
 	Name: function_369159af
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x8FA00A3E
 	Offset: 0x3400
 	Size: 0x10C
@@ -1319,55 +1292,55 @@ function function_369159af()
 
 /*
 	Name: function_b03ccfce
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x80F724D1
 	Offset: 0x3518
 	Size: 0x4
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_b03ccfce()
+private function function_b03ccfce()
 {
 }
 
 /*
 	Name: function_f189f7f
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xABAE9005
 	Offset: 0x3528
 	Size: 0x1C
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_f189f7f(player)
+private function function_f189f7f(player)
 {
 	self.hint_string = "";
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_5a4c40a2
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xE88DA27C
 	Offset: 0x3550
 	Size: 0xC
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_5a4c40a2(player)
+private function function_5a4c40a2(player)
 {
 }
 
 /*
 	Name: function_8109ae21
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xF27584F5
 	Offset: 0x3568
 	Size: 0x3BE
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_8109ae21(player)
+private function function_8109ae21(player)
 {
 	blueprints = function_4165306b(player);
 	var_9c8338de = blueprints.size;
@@ -1396,12 +1369,12 @@ function private function_8109ae21(player)
 			self.var_c2f40a58 ghost();
 			self.var_c2f40a58.is_visible = undefined;
 		}
-		return true;
+		return 1;
 	}
 	if(isdefined(self.blueprint.locked) && self.blueprint.locked)
 	{
 		self.hint_string = "";
-		return false;
+		return 0;
 	}
 	if(blueprints.size > 1 && isdefined(self.blueprint.var_4050486a))
 	{
@@ -1433,19 +1406,19 @@ function private function_8109ae21(player)
 			self.var_c2f40a58.is_visible = undefined;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_d564a5c0
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xE4614690
 	Offset: 0x3930
 	Size: 0x102
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_d564a5c0(player)
+private function function_d564a5c0(player)
 {
 	if(self.crafted)
 	{
@@ -1483,14 +1456,14 @@ function private function_d564a5c0(player)
 
 /*
 	Name: function_f37c4bb5
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xCBEED9CD
 	Offset: 0x3A40
 	Size: 0x614
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_f37c4bb5(player)
+private function function_f37c4bb5(player)
 {
 	if(self.stub.crafted)
 	{
@@ -1510,11 +1483,11 @@ function private function_f37c4bb5(player)
 	}
 	if(silent)
 	{
-		var_6ea6e65 = zm_progress::progress_think(player, level.var_98dad84e, var_c060d2c8);
+		var_6ea6e65 = cschashed-3\script_3004011995a14fa4::progress_think(player, level.var_98dad84e, var_c060d2c8);
 	}
 	else
 	{
-		var_6ea6e65 = zm_progress::progress_think(player, level.var_90237ebd, var_c060d2c8);
+		var_6ea6e65 = cschashed-3\script_3004011995a14fa4::progress_think(player, level.var_90237ebd, var_c060d2c8);
 	}
 	self notify(#"hash_6db03c91467a21f5", {#b_completed:var_6ea6e65});
 	if(var_6ea6e65)
@@ -1537,8 +1510,7 @@ function private function_f37c4bb5(player)
 			player_crafted playsound(#"zmb_craftable_complete");
 			if(isdefined(self.stub.blueprint.name))
 			{
-				player_crafted thread zm_audio::create_and_play_dialog(#"build_complete", self.stub.blueprint.name);
-			}
+				player_crafted thread zm_audio::create_and_play_dialog(#"build_complete", self.stub.blueprint.name);			}
 		}
 		if(isdefined(self.stub.craftfoundry.var_ffe774be))
 		{
@@ -1566,7 +1538,7 @@ function private function_f37c4bb5(player)
 
 /*
 	Name: function_a187b293
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xF8544405
 	Offset: 0x4060
 	Size: 0x1FC
@@ -1610,28 +1582,28 @@ function function_a187b293(player)
 
 /*
 	Name: function_578c67bf
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xCEAE0CC2
 	Offset: 0x4268
 	Size: 0x1C
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_578c67bf()
+private function function_578c67bf()
 {
 	thread zm_unitrigger::unregister_unitrigger(self);
 }
 
 /*
 	Name: function_3c45b116
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x38F2444A
 	Offset: 0x4290
 	Size: 0x134
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_3c45b116()
+private function function_3c45b116()
 {
 	v_origin = self.origin;
 	v_angles = self.angles;
@@ -1657,20 +1629,20 @@ function private function_3c45b116()
 		v_origin = self.model.origin;
 		v_angles = self.model.angles;
 	}
-	zm_items::spawn_item(self.blueprint.var_54a97edd, v_origin, v_angles);
+	cschashed-2\script_257d7bea5de94cbf::spawn_item(self.blueprint.var_54a97edd, v_origin, v_angles);
 	thread zm_unitrigger::unregister_unitrigger(self);
 }
 
 /*
 	Name: function_230f6303
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xA920C4CF
 	Offset: 0x43D0
 	Size: 0x114
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_230f6303()
+private function function_230f6303()
 {
 	v_origin = self.origin;
 	v_angles = self.angles;
@@ -1701,26 +1673,26 @@ function private function_230f6303()
 
 /*
 	Name: function_9693e041
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x882E1E19
 	Offset: 0x44F0
 	Size: 0x464
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9693e041(player)
+private function function_9693e041(player)
 {
 	if(player function_7bffa1ac(self.blueprint.var_54a97edd))
 	{
 		self.hint_string = #"hash_718d32f9e8cea17";
 		self.cost = undefined;
-		return true;
+		return 1;
 	}
 	if(player function_2d53738e(self.blueprint.var_54a97edd))
 	{
 		if(isdefined(self.var_ad7ae074) && self.var_ad7ae074)
 		{
-			return true;
+			return 1;
 		}
 		if(isdefined(self.blueprint.var_54a97edd.isriotshield) && self.blueprint.var_54a97edd.isriotshield && isdefined(player.player_shield_reset_health) && (isdefined(player.var_d3345483) && player.var_d3345483))
 		{
@@ -1730,61 +1702,52 @@ function private function_9693e041(player)
 			var_868b4fdd = zm_utility::function_d6046228(str, var_e7ed2264);
 			var_495e9cd = zm_utility::function_d6046228(#"hash_38222048e6736323", #"hash_197687e8f04962c9");
 			self.hint_string = (isdefined(var_868b4fdd) ? var_868b4fdd : var_495e9cd);
-			_shad_turret_debug_server = 1;
+			var_5435aca = 1;
 		}
 		else
 		{
 			self.hint_string = #"hash_53fd856df9288be7";
 			self.cost = undefined;
-			return true;
+			return 1;
 		}
 	}
-	else
+	else if(!player function_2d53738e(self.blueprint.var_54a97edd) && (isdefined(self.blueprint.var_c028dcfe) && self.blueprint.var_c028dcfe && !player function_48ce9379(self.blueprint.var_54a97edd) || (isdefined(level.var_905507c3) && level.var_905507c3)))
 	{
-		if(!player function_2d53738e(self.blueprint.var_54a97edd) && (isdefined(self.blueprint.var_c028dcfe) && self.blueprint.var_c028dcfe && !player function_48ce9379(self.blueprint.var_54a97edd) || (isdefined(level.var_905507c3) && level.var_905507c3)))
-		{
-			str = self.blueprint.var_abd9b2d0;
-			var_e7ed2264 = function_c9163c5d(str);
-			var_868b4fdd = zm_utility::function_d6046228(str, var_e7ed2264);
-			self.hint_string = (isdefined(var_868b4fdd) ? var_868b4fdd : "");
-			self.cost = undefined;
-		}
-		else
-		{
-			if(namespace_497ab7da::is_active())
-			{
-				self.hint_string = #"hash_55d25caf8f7bbb2f";
-			}
-			else
-			{
-				if(!(isdefined(_shad_turret_debug_server) && _shad_turret_debug_server))
-				{
-					str = self.blueprint.var_391591d0;
-					var_e7ed2264 = function_c9163c5d(str);
-					self.hint_string = zm_utility::function_d6046228(str, var_e7ed2264);
-				}
-				self.cost = function_ceac3bf9(player);
-				if(self.cost == 0)
-				{
-					str = self.blueprint.var_abd9b2d0;
-					var_e7ed2264 = function_c9163c5d(str);
-					var_868b4fdd = zm_utility::function_d6046228(str, var_e7ed2264);
-					self.hint_string = (isdefined(var_868b4fdd) ? var_868b4fdd : "");
-					self.cost = undefined;
-				}
-			}
-		}
+		str = self.blueprint.var_abd9b2d0;
+		var_e7ed2264 = function_c9163c5d(str);
+		var_868b4fdd = zm_utility::function_d6046228(str, var_e7ed2264);
+		self.hint_string = (isdefined(var_868b4fdd) ? var_868b4fdd : "");
+		self.cost = undefined;
+	}
+	else if(cschashed-1\script_6e6840022cbf42f4::is_active())
+	{
+		self.hint_string = #"hash_55d25caf8f7bbb2f";
+	}
+	else if(!(isdefined(var_5435aca) && var_5435aca))
+	{
+		str = self.blueprint.var_391591d0;
+		var_e7ed2264 = function_c9163c5d(str);
+		self.hint_string = zm_utility::function_d6046228(str, var_e7ed2264);
+	}
+	self.cost = function_ceac3bf9(player);
+	if(self.cost == 0)
+	{
+		str = self.blueprint.var_abd9b2d0;
+		var_e7ed2264 = function_c9163c5d(str);
+		var_868b4fdd = zm_utility::function_d6046228(str, var_e7ed2264);
+		self.hint_string = (isdefined(var_868b4fdd) ? var_868b4fdd : "");
+		self.cost = undefined;
 	}
 	if(isdefined(level.var_932a1afb))
 	{
 		self [[level.var_932a1afb]](player);
 	}
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_c9163c5d
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xBC258AC3
 	Offset: 0x4960
 	Size: 0x3C
@@ -1802,7 +1765,7 @@ function function_c9163c5d(str)
 
 /*
 	Name: function_ceac3bf9
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xD10D50CC
 	Offset: 0x49A8
 	Size: 0x24A
@@ -1892,14 +1855,14 @@ function function_ceac3bf9(player, b_repaired = 0)
 
 /*
 	Name: function_86cab486
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x8B445692
 	Offset: 0x4C00
 	Size: 0xCE
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_86cab486()
+private function function_86cab486()
 {
 	if(!isdefined(self.var_76a15cfd))
 	{
@@ -1940,7 +1903,7 @@ function private function_86cab486()
 
 /*
 	Name: function_fccf9f0d
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x83E33362
 	Offset: 0x4CD8
 	Size: 0x68
@@ -1966,14 +1929,14 @@ function function_fccf9f0d()
 
 /*
 	Name: function_df8ce6e2
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x11EDE08D
 	Offset: 0x4D48
 	Size: 0x830
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_df8ce6e2(player)
+private function function_df8ce6e2(player)
 {
 	if(isdefined(level.var_f7d93c4e))
 	{
@@ -2020,105 +1983,99 @@ function private function_df8ce6e2(player)
 		self.stub.hint_string = "";
 		self sethintstring(self.stub.hint_string);
 	}
+	else if(isdefined(var_d97673ff) && var_d97673ff)
+	{
+		var_f66d1847 = self.stub function_ceac3bf9(player, 1);
+	}
 	else
+	{
+		var_f66d1847 = self.stub function_ceac3bf9(player);
+	}
+	if(isdefined(var_f66d1847) && var_f66d1847 > 0)
+	{
+		if(isdefined(self.stub.blueprint.var_c028dcfe) && self.stub.blueprint.var_c028dcfe && !player function_48ce9379(self.stub.blueprint.var_54a97edd))
+		{
+			if(!isdefined(player.var_4e90ce0c))
+			{
+				player.var_4e90ce0c = [];
+			}
+			array::add(player.var_4e90ce0c, self.stub.blueprint.var_54a97edd, 0);
+			player thread function_fccf9f0d();
+		}
+		else if(cschashed-1\script_6e6840022cbf42f4::is_active())
+		{
+			return;
+		}
+		if(player zm_score::can_player_purchase(var_f66d1847))
+		{
+			player thread function_fccf9f0d();
+			player zm_score::minus_to_player_score(var_f66d1847);
+			player zm_utility::play_sound_on_ent("purchase");
+		}
+		else
+		{
+			zm_utility::play_sound_on_ent("no_purchase");
+			player zm_audio::create_and_play_dialog(#"general", #"outofmoney");
+			return;
+		}
+	}
+	if(isdefined(self.stub.blueprint.var_fe8a5e39))
+	{
+		if(!isdefined(player.var_2f3339f0))
+		{
+			player.var_2f3339f0 = [];
+		}
+		if(!(isdefined(player.var_2f3339f0[self.stub.blueprint.var_54a97edd]) && player.var_2f3339f0[self.stub.blueprint.var_54a97edd]))
+		{
+			player thread zm_equipment::show_hint_text(self.stub.blueprint.var_fe8a5e39);
+			player.var_2f3339f0[self.stub.blueprint.var_54a97edd] = 1;
+		}
+	}
+	if(isdefined(self.stub.blueprint.var_54a97edd.isriotshield) && self.stub.blueprint.var_54a97edd.isriotshield)
 	{
 		if(isdefined(var_d97673ff) && var_d97673ff)
 		{
-			var_f66d1847 = self.stub function_ceac3bf9(player, 1);
+			player [[player.player_shield_reset_health]](undefined, 1);
 		}
-		else
+		else if(isdefined(player.hasriotshield) && player.hasriotshield && isdefined(player.weaponriotshield))
 		{
-			var_f66d1847 = self.stub function_ceac3bf9(player);
+			player zm_weapons::weapon_take(player.weaponriotshield);
 		}
-		if(isdefined(var_f66d1847) && var_f66d1847 > 0)
-		{
-			if(isdefined(self.stub.blueprint.var_c028dcfe) && self.stub.blueprint.var_c028dcfe && !player function_48ce9379(self.stub.blueprint.var_54a97edd))
-			{
-				if(!isdefined(player.var_4e90ce0c))
-				{
-					player.var_4e90ce0c = [];
-				}
-				array::add(player.var_4e90ce0c, self.stub.blueprint.var_54a97edd, 0);
-				player thread function_fccf9f0d();
-			}
-			else
-			{
-				if(namespace_497ab7da::is_active())
-				{
-					return;
-				}
-				if(player zm_score::can_player_purchase(var_f66d1847))
-				{
-					player thread function_fccf9f0d();
-					player zm_score::minus_to_player_score(var_f66d1847);
-					player zm_utility::play_sound_on_ent("purchase");
-				}
-				else
-				{
-					zm_utility::play_sound_on_ent("no_purchase");
-					player zm_audio::create_and_play_dialog(#"general", #"outofmoney");
-					return;
-				}
-			}
-		}
-		if(isdefined(self.stub.blueprint.var_fe8a5e39))
-		{
-			if(!isdefined(player.var_2f3339f0))
-			{
-				player.var_2f3339f0 = [];
-			}
-			if(!(isdefined(player.var_2f3339f0[self.stub.blueprint.var_54a97edd]) && player.var_2f3339f0[self.stub.blueprint.var_54a97edd]))
-			{
-				player thread zm_equipment::show_hint_text(self.stub.blueprint.var_fe8a5e39);
-				player.var_2f3339f0[self.stub.blueprint.var_54a97edd] = 1;
-			}
-		}
-		if(isdefined(self.stub.blueprint.var_54a97edd.isriotshield) && self.stub.blueprint.var_54a97edd.isriotshield)
-		{
-			if(isdefined(var_d97673ff) && var_d97673ff)
-			{
-				player [[player.player_shield_reset_health]](undefined, 1);
-			}
-			else if(isdefined(player.hasriotshield) && player.hasriotshield && isdefined(player.weaponriotshield))
-			{
-				player zm_weapons::weapon_take(player.weaponriotshield);
-			}
-		}
-		if(!(isdefined(var_d97673ff) && var_d97673ff))
-		{
-			player zm_weapons::weapon_give(self.stub.blueprint.var_54a97edd);
-		}
-		else
-		{
-			player playsound(#"hash_230737b2535a3374");
-		}
-		player notify(#"hash_77d44943fb143b18", {#weapon:self.stub.blueprint.var_54a97edd});
-		player zm_stats::function_c0c6ab19(#"hash_6f9f408a95b50400", 1, 1);
-		player contracts::function_5b88297d(#"hash_4a8bbc38f59c2743", 1, #"zstandard");
-		self.stub.bought = 1;
-		self.stub.hint_string = "";
-		self.stub.cost = undefined;
-		self sethintstring(self.stub.hint_string);
-		self.stub.var_ad7ae074 = 1;
-		self.stub thread function_d94efa98();
-		player zm_stats::track_craftables_pickedup(self.stub.blueprint.var_54a97edd);
-		if(isdefined(level.var_8c978b55))
-		{
-			self [[level.var_8c978b55]](player);
-		}
+	}
+	if(!(isdefined(var_d97673ff) && var_d97673ff))
+	{
+		player zm_weapons::weapon_give(self.stub.blueprint.var_54a97edd);
+	}
+	else
+	{
+		player playsound(#"hash_230737b2535a3374");
+	}
+	player notify(#"hash_77d44943fb143b18", {#weapon:self.stub.blueprint.var_54a97edd});
+	player zm_stats::function_c0c6ab19(#"hash_6f9f408a95b50400", 1, 1);
+	player contracts::function_5b88297d(#"hash_4a8bbc38f59c2743", 1, #"zstandard");
+	self.stub.bought = 1;
+	self.stub.hint_string = "";
+	self.stub.cost = undefined;
+	self sethintstring(self.stub.hint_string);
+	self.stub.var_ad7ae074 = 1;
+	self.stub thread function_d94efa98();
+	player zm_stats::track_craftables_pickedup(self.stub.blueprint.var_54a97edd);
+	if(isdefined(level.var_8c978b55))
+	{
+		self [[level.var_8c978b55]](player);
 	}
 }
 
 /*
 	Name: function_d94efa98
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x6A63CFA8
 	Offset: 0x5580
 	Size: 0x46
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d94efa98()
+private function function_d94efa98()
 {
 	self endon(#"death");
 	self notify("7ba5a8cb350587cf");
@@ -2129,14 +2086,14 @@ function private function_d94efa98()
 
 /*
 	Name: function_6e16f902
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xD4F952E7
 	Offset: 0x55D0
 	Size: 0x44
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_6e16f902()
+private function function_6e16f902()
 {
 	if(isdefined(self.model))
 	{
@@ -2147,48 +2104,48 @@ function private function_6e16f902()
 
 /*
 	Name: function_15d10d06
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x52B851A7
 	Offset: 0x5620
 	Size: 0xDE
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_15d10d06(player)
+private function function_15d10d06(player)
 {
 	if(player function_7bffa1ac(self.blueprint.var_54a97edd))
 	{
 		self.hint_string = #"hash_7b4e31b02c13ed59";
-		return true;
+		return 1;
 	}
 	if(isdefined(self.bought) && self.bought)
 	{
 		self.hint_string = #"hash_48157c44f8771b6c";
-		return true;
+		return 1;
 	}
 	str = self.blueprint.var_391591d0;
 	var_e7ed2264 = function_c9163c5d(str);
 	self.hint_string = zm_utility::function_d6046228(str, var_e7ed2264);
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_42673a26
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x6C5FB3B9
 	Offset: 0x5708
 	Size: 0x274
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_42673a26(player)
+private function function_42673a26(player)
 {
 	if(isdefined(self.stub.bought) && self.stub.bought)
 	{
 		return;
 	}
 	current_weapon = player getcurrentweapon();
-	if(zm_loadout::is_placeable_mine(current_weapon) || zm_equipment::is_equipment_that_blocks_purchase(current_weapon))
+	if(cschashed-2\script_709bf7c56eb65adf::is_placeable_mine(current_weapon) || zm_equipment::is_equipment_that_blocks_purchase(current_weapon))
 	{
 		return;
 	}
@@ -2226,7 +2183,7 @@ function private function_42673a26(player)
 
 /*
 	Name: function_3012605d
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xB1570792
 	Offset: 0x5988
 	Size: 0x144
@@ -2253,14 +2210,14 @@ function function_3012605d(unitrigger)
 			name = unitrigger.craftfoundry.displayname;
 		}
 		util::waittill_can_add_debug_command();
-		str_cmd = ((((("" + table_id) + "") + name) + "") + table_id) + "";
+		str_cmd = "" + table_id + "" + name + "" + table_id + "";
 		adddebugcommand(str_cmd);
 	#/
 }
 
 /*
 	Name: function_e197bb07
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x2DFEDEA8
 	Offset: 0x5AD8
 	Size: 0x10
@@ -2275,7 +2232,7 @@ function function_e197bb07(foundry)
 
 /*
 	Name: function_e5af6b6e
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x224D368D
 	Offset: 0x5AF0
 	Size: 0xD0
@@ -2299,7 +2256,7 @@ function function_e5af6b6e(blueprint)
 
 /*
 	Name: function_e9e4a1d0
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xF4CD06F3
 	Offset: 0x5BC8
 	Size: 0xA4
@@ -2311,14 +2268,14 @@ function function_e9e4a1d0(var_a13e8cac, component)
 	/#
 		util::waittill_can_add_debug_command();
 		name = function_a16a090d(component);
-		str_cmd = ((((("" + var_a13e8cac) + "") + name) + "") + name) + "";
+		str_cmd = "" + var_a13e8cac + "" + name + "" + name + "";
 		adddebugcommand(str_cmd);
 	#/
 }
 
 /*
 	Name: function_4765f5b3
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x46EE9660
 	Offset: 0x5C78
 	Size: 0x10
@@ -2333,7 +2290,7 @@ function function_4765f5b3(component)
 
 /*
 	Name: function_bebf36b
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0x81B388CF
 	Offset: 0x5C90
 	Size: 0xF2
@@ -2360,7 +2317,7 @@ function function_bebf36b()
 
 /*
 	Name: devgui_think
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xBAE89CA5
 	Offset: 0x5D90
 	Size: 0x276
@@ -2377,7 +2334,7 @@ function devgui_think()
 		for(i = 1; i <= 4; i++)
 		{
 			util::waittill_can_add_debug_command();
-			str_cmd = ((((("" + i) + "") + i) + "") + i) + "";
+			str_cmd = "" + i + "" + i + "" + i + "";
 			adddebugcommand(str_cmd);
 		}
 		while(true)
@@ -2403,7 +2360,7 @@ function devgui_think()
 
 /*
 	Name: function_3e29352d
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xD2D71EFB
 	Offset: 0x6010
 	Size: 0x24
@@ -2419,7 +2376,7 @@ function function_3e29352d(var_ef492be)
 
 /*
 	Name: function_fe738a08
-	Namespace: zm_crafting
+	Namespace: cschashed-1\script_6d85b093d74cdfdd
 	Checksum: 0xA1BAD28E
 	Offset: 0x6040
 	Size: 0x1E4
@@ -2435,27 +2392,27 @@ function function_fe738a08(table_id)
 		forward = anglestoforward(unitrigger.angles);
 		right = anglestoright(unitrigger.angles);
 		var_21f5823e = vectortoangles(forward * -1);
-		var_916d3dfe = origin + (48 * forward);
+		var_916d3dfe = origin + 48 * forward;
 		switch(entnum)
 		{
 			case 0:
 			{
-				var_916d3dfe = var_916d3dfe + (16 * right);
+				var_916d3dfe = var_916d3dfe + 16 * right;
 				break;
 			}
 			case 1:
 			{
-				var_916d3dfe = var_916d3dfe + (16 * forward);
+				var_916d3dfe = var_916d3dfe + 16 * forward;
 				break;
 			}
 			case 2:
 			{
-				var_916d3dfe = var_916d3dfe - (16 * right);
+				var_916d3dfe = var_916d3dfe - 16 * right;
 				break;
 			}
 			case 3:
 			{
-				var_916d3dfe = var_916d3dfe - (16 * forward);
+				var_916d3dfe = var_916d3dfe - 16 * forward;
 				break;
 			}
 		}

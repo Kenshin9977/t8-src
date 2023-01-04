@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_12282e6b2cc91b42;
-#using script_1611421ee9b880d3;
-#using script_624a704d0f6bf28d;
+hashed-3\script_12282e6b2cc91b42.csc;
+hashed-3\script_1611421ee9b880d3.csc;
+hashed-2\script_624a704d0f6bf28d.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;

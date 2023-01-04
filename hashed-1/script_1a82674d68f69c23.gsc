@@ -2,18 +2,18 @@
 #using script_399c912938783695;
 #using scripts\core_common\util_shared.gsc;
 
-#namespace zm_inventory;
+#namespace cschashed-2\script_79fbbb4d5723c197;
 
 /*
 	Name: function_cb96f01d
-	Namespace: zm_inventory
+	Namespace: cschashed-2\script_79fbbb4d5723c197
 	Checksum: 0x69529CB5
 	Offset: 0x1E8
 	Size: 0xEA
 	Parameters: 4
 	Flags: Linked, Private
 */
-function private function_cb96f01d(mappingname, var_3e666f2f, numbits, var_7f12f171)
+private function function_cb96f01d(var_325ceb7a, var_3e666f2f, numbits, var_7f12f171)
 {
 	if(!isdefined(level.var_a16c38d9[mappingname]))
 	{
@@ -27,14 +27,14 @@ function private function_cb96f01d(mappingname, var_3e666f2f, numbits, var_7f12f
 	{
 		var_3e666f2f = "ZMInventory." + var_3e666f2f;
 	}
-	level.var_a16c38d9[mappingname].var_cd35dfb2 = var_3e666f2f;
+	level.var_a16c38d9[var_325ceb7a].var_cd35dfb2 = var_3e666f2f;
 	level.var_a16c38d9[mappingname].numbits = numbits;
-	level.var_a16c38d9[mappingname].var_7f12f171 = var_7f12f171;
+	level.var_a16c38d9[var_325ceb7a].var_7f12f171 = var_7f12f171;
 }
 
 /*
 	Name: function_c7c05a13
-	Namespace: zm_inventory
+	Namespace: cschashed-2\script_79fbbb4d5723c197
 	Checksum: 0xB29280DB
 	Offset: 0x2E0
 	Size: 0x810
@@ -44,7 +44,7 @@ function private function_cb96f01d(mappingname, var_3e666f2f, numbits, var_7f12f
 function function_c7c05a13()
 {
 	level.var_a16c38d9 = [];
-	fields = namespace_cb7cafc3::function_10672567();
+	fields = cschashed-2\script_18a9e529264a3d29::function_10672567();
 	if(!isdefined(fields) || !isdefined(fields.zm_inventory))
 	{
 		return;
@@ -76,7 +76,7 @@ function function_c7c05a13()
 				item = var_21249230.var_ffb8d676[i];
 				if(isdefined(item.var_846fa8e))
 				{
-					clientfield = ("ObjProgInfo.NonlinearObjProgRingItemInfos." + (i + 1)) + ".earned";
+					clientfield = "ObjProgInfo.NonlinearObjProgRingItemInfos." + i + 1 + ".earned";
 					function_cb96f01d(item.var_846fa8e, clientfield, 1, var_21249230.var_f3d39d90);
 				}
 			}
@@ -93,7 +93,7 @@ function function_c7c05a13()
 			item = var_21249230.var_207c2ef6[i];
 			if(isdefined(item.clientfield))
 			{
-				clientfield = ("PaPItems." + (i + 1)) + ".stage";
+				clientfield = "PaPItems." + i + 1 + ".stage";
 				function_cb96f01d(item.clientfield, clientfield, 2, item.var_7db3435c);
 			}
 		}
@@ -115,12 +115,12 @@ function function_c7c05a13()
 				component = phase.components[c];
 				if(isdefined(component.clientfield))
 				{
-					var_2641997d = ("WonderWeaponItems." + index) + ".stage";
+					var_2641997d = "WonderWeaponItems." + index + ".stage";
 					function_cb96f01d(component.clientfield, var_2641997d, 3, component.var_7db3435c);
 				}
 				if(isdefined(component.var_9f618001))
 				{
-					var_9f618001 = ("WonderWeaponItems." + index) + ".numAcquired";
+					var_9f618001 = "WonderWeaponItems." + index + ".numAcquired";
 					function_cb96f01d(component.var_9f618001, var_9f618001, 2, component.var_7db3435c);
 				}
 				index++;
@@ -133,7 +133,7 @@ function function_c7c05a13()
 		{
 			if(isdefined(var_21249230.shieldpieces[p].clientfield))
 			{
-				clientfield = ("ShieldPieces." + (p + 1)) + ".stage";
+				clientfield = "ShieldPieces." + p + 1 + ".stage";
 				function_cb96f01d(var_21249230.shieldpieces[p].clientfield, clientfield, 1, var_21249230.shieldpieces[p].var_7db3435c);
 			}
 		}
@@ -145,10 +145,10 @@ function function_c7c05a13()
 			quest = var_21249230.quests[q];
 			if(isdefined(quest.var_a0ebe517))
 			{
-				var_e7e5896d = ("QuestPhaseInfos." + (q + 1)) + ".phase";
+				var_e7e5896d = "QuestPhaseInfos." + q + 1 + ".phase";
 				function_cb96f01d(var_21249230.quests[q].var_a0ebe517, var_e7e5896d, 2, var_21249230.quests[q].var_7db3435c);
 			}
-			var_d4cb13fd = "Quest" + (q + 1);
+			var_d4cb13fd = "Quest" + q + 1;
 			index = 1;
 			for(p = 0; p < quest.phases.size; p++)
 			{
@@ -157,7 +157,7 @@ function function_c7c05a13()
 				{
 					if(isdefined(phase.items[i].clientfield))
 					{
-						var_2641997d = ((var_d4cb13fd + ".") + index) + ".stage";
+						var_2641997d = var_d4cb13fd + "." + index + ".stage";
 						function_cb96f01d(phase.items[i].clientfield, var_2641997d, 2, phase.items[i].var_7db3435c);
 					}
 					index++;

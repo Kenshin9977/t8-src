@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_4c5c4a64a59247a2;
-#using script_59f07c660e6710a5;
+#using hashed-1\shared.gsc;
+#using hashed-2\ai_interface.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\colors_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
@@ -172,9 +172,9 @@ function is_dead_sentient()
 {
 	if(issentient(self) && !isalive(self))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -278,7 +278,7 @@ function waittill_dead_or_dying(guys, num, timeoutlength)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private waittill_dead_thread(ent)
+private function waittill_dead_thread(ent)
 {
 	self waittill(#"death");
 	ent.count--;
@@ -325,7 +325,7 @@ function waittill_dead_timeout(timeoutlength)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private wait_for_shoot()
+private function wait_for_shoot()
 {
 	self endon(#"stop_shoot_at_target", #"death");
 	if(isvehicle(self) || isbot(self))
@@ -641,7 +641,7 @@ function stoppainwaitinterval()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private _allowpainrestore()
+private function _allowpainrestore()
 {
 	self endon(#"death");
 	self waittill(#"painwaitintervalremove", #"painwaitinterval");
@@ -694,13 +694,13 @@ function patrol(start_path_node)
 	if(start_path_node.type === #"hash_397b1509f632dd34")
 	{
 		/#
-			errormsg = (((("" + start_path_node.targetname) + "") + int(start_path_node.origin[0]) + "") + int(start_path_node.origin[1]) + "") + int(start_path_node.origin[2]) + "";
+			errormsg = "" + start_path_node.targetname + "" + int(start_path_node.origin[0]) + "" + int(start_path_node.origin[1]) + "" + int(start_path_node.origin[2]) + "";
 			iprintln(errormsg);
 		#/
 		return;
 	}
 	/#
-		assert(start_path_node.type === #"path" || isdefined(start_path_node.scriptbundlename), ("" + start_path_node.targetname) + "");
+		assert(start_path_node.type === #"path" || isdefined(start_path_node.scriptbundlename), "" + start_path_node.targetname + "");
 	#/
 	self notify(#"go_to_spawner_target");
 	self.target = undefined;
@@ -794,16 +794,13 @@ function patrol_next_node()
 	{
 		self end_and_clean_patrol_behaviors();
 	}
+	else if(target_nodes.size != 0)
+	{
+		self.currentgoal = array::random(target_nodes);
+	}
 	else
 	{
-		if(target_nodes.size != 0)
-		{
-			self.currentgoal = array::random(target_nodes);
-		}
-		else
-		{
-			self.currentgoal = array::random(target_scenes);
-		}
+		self.currentgoal = array::random(target_scenes);
 	}
 }
 
@@ -919,9 +916,9 @@ function shouldregisterclientfieldforarchetype(archetype)
 {
 	if(isdefined(level.clientfieldaicheck) && level.clientfieldaicheck && !isarchetypeloaded(archetype))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1187,7 +1184,7 @@ function function_63734291(enemy)
 {
 	if(!isdefined(enemy))
 	{
-		return false;
+		return 0;
 	}
 	var_aba9ee4c = 1;
 	if(isdefined(self.var_ffa507cd))
@@ -1204,10 +1201,10 @@ function function_63734291(enemy)
 		if(dist_squared >= 562500)
 		{
 			enemy notify(#"hash_4853a85e5ddc4a47");
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1225,7 +1222,7 @@ function stun(duration = self.var_95d94ac4)
 	{
 		return;
 	}
-	end_time = gettime() + (int(duration * 1000));
+	end_time = gettime() + int(duration * 1000);
 	if(isdefined(self.var_3d461e6f) && self.var_3d461e6f > end_time)
 	{
 		return;
@@ -1278,16 +1275,13 @@ function function_9139c839()
 		{
 			var_51d5c26f = self.var_ae8ec545;
 		}
-		else
+		else if(isspawner(self) && isdefined(self.aitype))
 		{
-			if(isspawner(self) && isdefined(self.aitype))
-			{
-				var_51d5c26f = function_edf479a3(self.aitype);
-			}
-			else if(isvehicle(self) && isdefined(self.scriptbundlesettings))
-			{
-				var_51d5c26f = getscriptbundle(self.scriptbundlesettings).var_ae8ec545;
-			}
+			var_51d5c26f = function_edf479a3(self.aitype);
+		}
+		else if(isvehicle(self) && isdefined(self.scriptbundlesettings))
+		{
+			var_51d5c26f = getscriptbundle(self.scriptbundlesettings).var_ae8ec545;
 		}
 		if(!isdefined(var_51d5c26f))
 		{

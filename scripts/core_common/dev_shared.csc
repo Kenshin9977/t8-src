@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init()
+autoexec function init()
 {
 	/#
 		callback::on_localclient_connect(&function_b49b1b6b);
@@ -53,12 +53,12 @@ function function_b49b1b6b(localclientnum)
 				}
 				if(!isdefined(var_b49b1b6b))
 				{
-					var_b49b1b6b = util::playfxontag(localclientnum, a_effects[var_114d05f], var_39073e7a, "");
+					var_b49b1b6b = util::playfxontag(localclientnum, var_1585e0a4[var_114d05f], var_39073e7a, "");
 				}
 				v_pos = getcamposbylocalclientnum(localclientnum);
 				v_ang = getcamanglesbylocalclientnum(localclientnum);
 				v_forward = anglestoforward(v_ang);
-				var_39073e7a.origin = v_pos + (v_forward * n_dist);
+				var_39073e7a.origin = v_pos + v_forward * n_dist;
 				var_39073e7a.angles = v_ang;
 			}
 			else if(isdefined(var_39073e7a))

@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_256b8879317373de;
+#using hashed-2\player_201.gsc;
 #using scripts\core_common\animation_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\flagsys_shared.gsc;
@@ -18,7 +18,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"values", &__init__, undefined, undefined);
 }
@@ -97,7 +97,7 @@ function register(str_name, var_3509ed3e, call_on = "$self", func, vararg)
 	if(isinarray(a_registered, hash(str_name)))
 	{
 		/#
-			assertmsg(("" + str_name) + "");
+			assertmsg("" + str_name + "");
 		#/
 		return;
 	}
@@ -119,19 +119,19 @@ function register(str_name, var_3509ed3e, call_on = "$self", func, vararg)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private assert_registered(str_name)
+private function assert_registered(str_name)
 {
 	/#
 		a_registered = getarraykeys(level.values);
 		if(!isinarray(a_registered, hash(str_name)))
 		{
 			/#
-				assertmsg(("" + str_name) + "");
+				assertmsg("" + str_name + "");
 			#/
-			return false;
+			return 0;
 		}
 	#/
-	return true;
+	return 1;
 }
 
 /*
@@ -260,7 +260,7 @@ function nuke(str_name)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private _push_value(str_id, str_name, value)
+private function _push_value(str_id, str_name, value)
 {
 	_remove_value(str_id, str_name);
 	if(!isdefined(self.values))
@@ -283,7 +283,7 @@ function private _push_value(str_id, str_name, value)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private _remove_value(str_id, str_name)
+private function _remove_value(str_id, str_name)
 {
 	if(!isdefined(self))
 	{
@@ -320,7 +320,7 @@ function private _remove_value(str_id, str_name)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private _set_value(str_name, value)
+private function _set_value(str_name, value)
 {
 	s_value = level.values[str_name];
 	if(isdefined(s_value) && isdefined(s_value.func))
@@ -343,7 +343,7 @@ function private _set_value(str_name, value)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private _set_default(str_name)
+private function _set_default(str_name)
 {
 	s_value = level.values[str_name];
 	if(isdefined(s_value.default_value))
@@ -370,7 +370,7 @@ function private _set_default(str_name)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private _replace_values(a_args, value)
+private function _replace_values(a_args, value)
 {
 	a_args = array::replace(a_args, "$self", self);
 	a_args = array::replace(a_args, "$value", value);
@@ -386,7 +386,7 @@ function private _replace_values(a_args, value)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private set_takedamage(b_value = 1)
+private function set_takedamage(b_value = 1)
 {
 	if(isplayer(self))
 	{
@@ -442,7 +442,7 @@ function function_d5397f5b()
 	Parameters: 0
 	Flags: Private
 */
-function private validate_takedamage()
+private function validate_takedamage()
 {
 	if(isplayer(self))
 	{
@@ -460,7 +460,7 @@ function private validate_takedamage()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private set_takeweapons(b_value = 1)
+private function set_takeweapons(b_value = 1)
 {
 	if(b_value)
 	{
@@ -476,16 +476,13 @@ function private set_takeweapons(b_value = 1)
 			}
 		}
 	}
+	else if(isplayer(self))
+	{
+		self player::give_back_weapons();
+	}
 	else
 	{
-		if(isplayer(self))
-		{
-			self player::give_back_weapons();
-		}
-		else
-		{
-			self animation::attach_weapon();
-		}
+		self animation::attach_weapon();
 	}
 }
 
@@ -498,7 +495,7 @@ function private set_takeweapons(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private set_disableweapons(b_value = 1)
+private function set_disableweapons(b_value = 1)
 {
 	if(b_value)
 	{
@@ -519,7 +516,7 @@ function private set_disableweapons(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9492c418(b_value = 1)
+private function function_9492c418(b_value = 1)
 {
 	if(b_value)
 	{
@@ -540,7 +537,7 @@ function private function_9492c418(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private set_ignoreme(b_value = 1)
+private function set_ignoreme(b_value = 1)
 {
 	if(b_value)
 	{
@@ -553,16 +550,13 @@ function private set_ignoreme(b_value = 1)
 			self.ignoreme = 1;
 		}
 	}
+	else if(function_ffa5b184(self))
+	{
+		self.var_becd4d91 = 0;
+	}
 	else
 	{
-		if(function_ffa5b184(self))
-		{
-			self.var_becd4d91 = 0;
-		}
-		else
-		{
-			self.ignoreme = 0;
-		}
+		self.ignoreme = 0;
 	}
 }
 
@@ -575,7 +569,7 @@ function private set_ignoreme(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_8210793d(b_value = 1)
+private function function_8210793d(b_value = 1)
 {
 	if(isplayer(self))
 	{
@@ -592,7 +586,7 @@ function private function_8210793d(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_b981952a(b_value = 1)
+private function function_b981952a(b_value = 1)
 {
 	if(b_value)
 	{
@@ -620,7 +614,7 @@ function private function_b981952a(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_a8c51b69(b_value = 1)
+private function function_a8c51b69(b_value = 1)
 {
 	if(b_value)
 	{
@@ -641,7 +635,7 @@ function private function_a8c51b69(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_a89d2031(b_value = 1)
+private function function_a89d2031(b_value = 1)
 {
 	if(b_value)
 	{
@@ -662,7 +656,7 @@ function private function_a89d2031(b_value = 1)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_ee2e556b(b_value = 1)
+private function function_ee2e556b(b_value = 1)
 {
 	if(b_value)
 	{
@@ -683,14 +677,14 @@ function private function_ee2e556b(b_value = 1)
 	Parameters: 4
 	Flags: Private, Variadic
 */
-function private validate(str_name, call_on, func, vararg)
+private function validate(str_name, call_on, func, vararg)
 {
 	/#
 		a_registered = getarraykeys(level.values);
 		if(!isinarray(a_registered, hash(str_name)))
 		{
 			/#
-				assertmsg(("" + str_name) + "");
+				assertmsg("" + str_name + "");
 			#/
 			return;
 		}
@@ -711,7 +705,7 @@ function private validate(str_name, call_on, func, vararg)
 	Parameters: 3
 	Flags: Private
 */
-function private _validate_value(str_name, value, b_assert)
+private function _validate_value(str_name, value, b_assert)
 {
 	/#
 		if(!isdefined(b_assert))
@@ -732,7 +726,7 @@ function private _validate_value(str_name, value, b_assert)
 		if(b_assert)
 		{
 			/#
-				assert(b_match, ((((("" + function_9e72a96(str_name)) + "") + current_value) + "") + value) + "");
+				assert(b_match, "" + function_9e72a96(str_name) + "" + current_value + "" + value + "");
 			#/
 		}
 		return b_match;
@@ -748,7 +742,7 @@ function private _validate_value(str_name, value, b_assert)
 	Parameters: 0
 	Flags: Private
 */
-function private debug_values()
+private function debug_values()
 {
 	/#
 		level flagsys::init_dvar("");
@@ -762,26 +756,23 @@ function private debug_values()
 				hud_ent = level.host;
 				str_label = "";
 			}
+			else if(strisnumber(str_debug_values_entity))
+			{
+				hud_ent = getentbynum(int(str_debug_values_entity));
+				str_label = "" + str_debug_values_entity;
+			}
 			else
 			{
-				if(strisnumber(str_debug_values_entity))
+				str_value = str_debug_values_entity;
+				str_key = "";
+				if(issubstr(str_value, ""))
 				{
-					hud_ent = getentbynum(int(str_debug_values_entity));
-					str_label = "" + str_debug_values_entity;
+					a_toks = strtok(str_value, "");
+					str_value = a_toks[0];
+					str_key = a_toks[1];
 				}
-				else
-				{
-					str_value = str_debug_values_entity;
-					str_key = "";
-					if(issubstr(str_value, ""))
-					{
-						a_toks = strtok(str_value, "");
-						str_value = a_toks[0];
-						str_key = a_toks[1];
-					}
-					hud_ent = getent(str_value, str_key, 1);
-					str_label = (str_value + "") + str_key;
-				}
+				hud_ent = getent(str_value, str_key, 1);
+				str_label = str_value + "" + str_key;
 			}
 			debug2dtext((200, 100, 0), str_label, (1, 1, 1), 1, (0, 0, 0), 0.5, 0.8, 1);
 			if(!isdefined(hud_ent) || !isdefined(hud_ent.values))
@@ -847,14 +838,14 @@ function display_value(index, str_name, str_id, value, b_valid, on_hud)
 			str_value = string::rjust(str_name, 20);
 			if(isdefined(value))
 			{
-				str_value = str_value + ("" + value);
+				str_value = str_value + "" + value;
 			}
-			str_value = str_value + ("" + (string::ljust((isdefined(str_id) ? "" + str_id : ""), 30)));
+			str_value = str_value + "" + string::ljust((isdefined(str_id) ? "" + str_id : ""), 30);
 		}
 		color = (b_valid ? (1, 1, 1) : (1, 0, 0));
 		if(on_hud)
 		{
-			debug2dtext((200, 100 + (index * 20), 0), str_value, color, 1, (0, 0, 0), 0.5, 0.8, 1);
+			debug2dtext((200, 100 + index * 20, 0), str_value, color, 1, (0, 0, 0), 0.5, 0.8, 1);
 		}
 		print3d(self.origin - (0, 0, index * 8), str_value, color, 1, 0.3, 1);
 	#/

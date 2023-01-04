@@ -20,7 +20,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"out_of_bounds", &__init__, undefined, undefined);
 }
@@ -46,25 +46,22 @@ function __init__()
 		level.oob_max_distance_before_black = getdvarint(#"oob_max_distance_before_black", 100000);
 		level.oob_time_remaining_before_black = getdvarint(#"oob_time_remaining_before_black", -1);
 	}
+	else if(function_f99d2668())
+	{
+		level.oob_timekeep_ms = getdvarint(#"oob_timekeep_ms", 3000);
+		level.oob_timelimit_ms = getdvarint(#"oob_timelimit_ms", 10000);
+		level.oob_damage_interval_ms = getdvarint(#"oob_damage_interval_ms", 3000);
+		level.oob_damage_per_interval = getdvarint(#"oob_damage_per_interval", 999);
+		level.oob_max_distance_before_black = getdvarint(#"oob_max_distance_before_black", 100000);
+		level.oob_time_remaining_before_black = getdvarint(#"oob_time_remaining_before_black", -1);
+	}
 	else
 	{
-		if(function_f99d2668())
-		{
-			level.oob_timekeep_ms = getdvarint(#"oob_timekeep_ms", 3000);
-			level.oob_timelimit_ms = getdvarint(#"oob_timelimit_ms", 10000);
-			level.oob_damage_interval_ms = getdvarint(#"oob_damage_interval_ms", 3000);
-			level.oob_damage_per_interval = getdvarint(#"oob_damage_per_interval", 999);
-			level.oob_max_distance_before_black = getdvarint(#"oob_max_distance_before_black", 100000);
-			level.oob_time_remaining_before_black = getdvarint(#"oob_time_remaining_before_black", -1);
-		}
-		else
-		{
-			level.oob_timelimit_ms = getdvarint(#"oob_timelimit_ms", 6000);
-			level.oob_damage_interval_ms = getdvarint(#"oob_damage_interval_ms", 1000);
-			level.oob_damage_per_interval = getdvarint(#"oob_damage_per_interval", 5);
-			level.oob_max_distance_before_black = getdvarint(#"oob_max_distance_before_black", 400);
-			level.oob_time_remaining_before_black = getdvarint(#"oob_time_remaining_before_black", 1000);
-		}
+		level.oob_timelimit_ms = getdvarint(#"oob_timelimit_ms", 6000);
+		level.oob_damage_interval_ms = getdvarint(#"oob_damage_interval_ms", 1000);
+		level.oob_damage_per_interval = getdvarint(#"oob_damage_per_interval", 5);
+		level.oob_max_distance_before_black = getdvarint(#"oob_max_distance_before_black", 400);
+		level.oob_time_remaining_before_black = getdvarint(#"oob_time_remaining_before_black", 1000);
 	}
 	level.oob_damage_interval_sec = float(level.oob_damage_interval_ms) / 1000;
 	var_4eb37b66 = getentarray("trigger_out_of_bounds", "classname");
@@ -207,10 +204,10 @@ function chr_party(point)
 		}
 		if(istouching(point, trigger))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -314,24 +311,21 @@ function waitforplayertouch()
 		{
 			player = entity;
 		}
-		else
+		else if(isvehicle(entity) && isalive(entity))
 		{
-			if(isvehicle(entity) && isalive(entity))
-			{
-				player = entity getseatoccupant(0);
-				if(!isdefined(player) || !isplayer(player))
-				{
-					continue;
-				}
-				if(isdefined(entity.var_50e3187f) && entity.var_50e3187f)
-				{
-					continue;
-				}
-			}
-			else
+			player = entity getseatoccupant(0);
+			if(!isdefined(player) || !isplayer(player))
 			{
 				continue;
 			}
+			if(isdefined(entity.var_50e3187f) && entity.var_50e3187f)
+			{
+				continue;
+			}
+		}
+		else
+		{
+			continue;
 		}
 		if(player function_65b20())
 		{
@@ -358,9 +352,9 @@ function function_11c959d9(entity)
 {
 	player = self;
 	player notify(#"oob_enter");
-	if(isdefined(level.oob_timekeep_ms) && isdefined(player.last_oob_timekeep_ms) && isdefined(player.last_oob_duration_ms) && (gettime() - player.last_oob_timekeep_ms) < level.oob_timekeep_ms)
+	if(isdefined(level.oob_timekeep_ms) && isdefined(player.last_oob_timekeep_ms) && isdefined(player.last_oob_duration_ms) && gettime() - player.last_oob_timekeep_ms < level.oob_timekeep_ms)
 	{
-		player.oob_start_time = gettime() - (level.oob_timelimit_ms - player.last_oob_duration_ms);
+		player.oob_start_time = gettime() - level.oob_timelimit_ms - player.last_oob_duration_ms;
 	}
 	else
 	{
@@ -421,17 +415,17 @@ function function_65b20()
 {
 	if(self scene::is_igc_active())
 	{
-		return true;
+		return 1;
 	}
 	if(isdefined(self.oobdisabled) && self.oobdisabled)
 	{
-		return true;
+		return 1;
 	}
 	if(level flag::exists("draft_complete") && !level flag::get("draft_complete"))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -479,7 +473,7 @@ function updatevisualeffects(entity)
 	timeremaining = 0;
 	if(isdefined(level.oob_timelimit_ms) && isdefined(self.oob_start_time))
 	{
-		timeremaining = level.oob_timelimit_ms - (gettime() - self.oob_start_time);
+		timeremaining = level.oob_timelimit_ms - gettime() - self.oob_start_time;
 	}
 	if(entity.var_c5d65381 === 1 && isplayer(self) && !self isremotecontrolling() && isvehicle(entity))
 	{
@@ -498,12 +492,12 @@ function updatevisualeffects(entity)
 		{
 			self.oob_lasteffectvalue = getdistancefromlastvalidplayerloc(entity);
 		}
-		time_val = 1 - (timeremaining / level.oob_time_remaining_before_black);
+		time_val = 1 - timeremaining / level.oob_time_remaining_before_black;
 		if(time_val > 1)
 		{
 			time_val = 1;
 		}
-		oob_effectvalue = self.oob_lasteffectvalue + ((1 - self.oob_lasteffectvalue) * time_val);
+		oob_effectvalue = self.oob_lasteffectvalue + 1 - self.oob_lasteffectvalue * time_val;
 	}
 	else
 	{
@@ -650,7 +644,7 @@ function watchforhostmigration(entity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private disableplayeroob(disabled)
+private function disableplayeroob(disabled)
 {
 	if(disabled)
 	{

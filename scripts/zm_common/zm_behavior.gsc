@@ -1,16 +1,16 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3aa0f32b70d4f7cb;
-#using script_3f9e0dc8454d98e1;
-#using script_41fe08c37d53a635;
-#using script_489b835a247c990e;
-#using script_4bf952f6ba31bb17;
-#using script_4d85e8de54b02198;
-#using script_522aeb6ae906391e;
-#using script_6809bf766eba194a;
+#using hashed-1\behaviortreenetworkutility.gsc;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-2\destructserverutils.gsc;
+#using hashed-2\aiutility.gsc;
+#using hashed-1\animationstatenetwork.gsc;
+#using hashed-1\animationstatenetwork_91.gsc;
+#using hashed-2\blackboard.gsc;
+#using hashed-3\aiutility_428.gsc;
 #using script_7e59d7bba853fe4b;
-#using script_bd2b8aaa388dcce;
-#using script_caf007e2a98afa2;
-#using script_db06eb511bd9b36;
+#using hashed-3\zombiebehavior.gsc;
+#using hashed-3\animationstatenetworkutility.gsc;
+#using hashed-3\zm_cleanup.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -40,7 +40,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_behavior", &__init__, &__main__, undefined);
 }
@@ -94,7 +94,7 @@ function __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_a5188320()
+private function function_a5188320()
 {
 	self pushplayer(0);
 	self collidewithactors(0);
@@ -116,7 +116,7 @@ function private function_a5188320()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_c15c6e44()
+private function function_c15c6e44()
 {
 	self endon(#"death");
 	self waittill(#"completed_emerging_into_playable_area");
@@ -132,7 +132,7 @@ function private function_c15c6e44()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __main__()
+private function __main__()
 {
 	array::thread_all(level.zombie_spawners, &spawner::add_spawn_function, &function_57d3b5eb);
 }
@@ -155,7 +155,7 @@ function function_57d3b5eb()
 	}
 	else
 	{
-		self zm_cleanup::function_aa5726f2();
+		self namespace_57ff8cbb::function_aa5726f2();
 	}
 	self zm_utility::init_zombie_run_cycle();
 	self thread zm_spawner::zombie_think();
@@ -198,7 +198,7 @@ function function_57d3b5eb()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private initzmbehaviorsandasm()
+private function initzmbehaviorsandasm()
 {
 	/#
 		assert(isscriptfunctionptr(&shouldmovecondition));
@@ -696,79 +696,67 @@ function zombiefindflesh(behaviortreeentity)
 		}
 		behaviortreeentity setgoal(goalpos);
 	}
-	else
+	else if(isdefined(behaviortreeentity.enemyoverride) && isdefined(behaviortreeentity.enemyoverride[1]))
 	{
-		if(isdefined(behaviortreeentity.enemyoverride) && isdefined(behaviortreeentity.enemyoverride[1]))
+		behaviortreeentity.has_exit_point = undefined;
+		goalpos = behaviortreeentity.enemyoverride[0];
+		if(!isdefined(zombie_poi))
 		{
-			behaviortreeentity.has_exit_point = undefined;
-			goalpos = behaviortreeentity.enemyoverride[0];
-			if(!isdefined(zombie_poi))
+			aiprofile_beginentry("zombiefindflesh-enemyoverride");
+			queryresult = positionquery_source_navigation(goalpos, 0, 48, 36, 4);
+			aiprofile_endentry();
+			foreach(point in queryresult.data)
 			{
-				aiprofile_beginentry("zombiefindflesh-enemyoverride");
-				queryresult = positionquery_source_navigation(goalpos, 0, 48, 36, 4);
-				aiprofile_endentry();
-				foreach(point in queryresult.data)
-				{
-					goalpos = point.origin;
-					break;
-				}
+				goalpos = point.origin;
+				break;
 			}
-			behaviortreeentity setgoal(goalpos);
+		}
+		behaviortreeentity setgoal(goalpos);
+	}
+	else if(isdefined(behaviortreeentity.attackable) && !designated_target)
+	{
+		if(isdefined(behaviortreeentity.attackable_slot))
+		{
+			if(isdefined(behaviortreeentity.attackable_goal_radius))
+			{
+				behaviortreeentity.goalradius = behaviortreeentity.attackable_goal_radius;
+			}
+			nav_mesh = getclosestpointonnavmesh(behaviortreeentity.attackable_slot.origin, 64);
+			if(isdefined(nav_mesh))
+			{
+				behaviortreeentity setgoal(nav_mesh);
+			}
+			else
+			{
+				behaviortreeentity setgoal(behaviortreeentity.attackable_slot.origin);
+			}
+		}
+	}
+	else if(isdefined(behaviortreeentity.favoriteenemy))
+	{
+		behaviortreeentity.has_exit_point = undefined;
+		behaviortreeentity val::reset(#"hash_62fca810699077f3", "ignoreall");
+		if(isdefined(level.enemy_location_override_func))
+		{
+			goalpos = [[level.enemy_location_override_func]](behaviortreeentity, behaviortreeentity.favoriteenemy);
+			if(isdefined(goalpos))
+			{
+				behaviortreeentity setgoal(goalpos);
+			}
+			else
+			{
+				behaviortreeentity zombieupdategoal();
+			}
+		}
+		else if(isdefined(behaviortreeentity.is_rat_test) && behaviortreeentity.is_rat_test)
+		{
+		}
+		else if(zombieshouldmoveawaycondition(behaviortreeentity))
+		{
 		}
 		else
 		{
-			if(isdefined(behaviortreeentity.attackable) && !designated_target)
-			{
-				if(isdefined(behaviortreeentity.attackable_slot))
-				{
-					if(isdefined(behaviortreeentity.attackable_goal_radius))
-					{
-						behaviortreeentity.goalradius = behaviortreeentity.attackable_goal_radius;
-					}
-					nav_mesh = getclosestpointonnavmesh(behaviortreeentity.attackable_slot.origin, 64);
-					if(isdefined(nav_mesh))
-					{
-						behaviortreeentity setgoal(nav_mesh);
-					}
-					else
-					{
-						behaviortreeentity setgoal(behaviortreeentity.attackable_slot.origin);
-					}
-				}
-			}
-			else if(isdefined(behaviortreeentity.favoriteenemy))
-			{
-				behaviortreeentity.has_exit_point = undefined;
-				behaviortreeentity val::reset(#"hash_62fca810699077f3", "ignoreall");
-				if(isdefined(level.enemy_location_override_func))
-				{
-					goalpos = [[level.enemy_location_override_func]](behaviortreeentity, behaviortreeentity.favoriteenemy);
-					if(isdefined(goalpos))
-					{
-						behaviortreeentity setgoal(goalpos);
-					}
-					else
-					{
-						behaviortreeentity zombieupdategoal();
-					}
-				}
-				else
-				{
-					if(isdefined(behaviortreeentity.is_rat_test) && behaviortreeentity.is_rat_test)
-					{
-					}
-					else
-					{
-						if(zombieshouldmoveawaycondition(behaviortreeentity))
-						{
-						}
-						else
-						{
-							behaviortreeentity zombieupdategoal();
-						}
-					}
-				}
-			}
+			behaviortreeentity zombieupdategoal();
 		}
 	}
 	if(players.size > 1)
@@ -926,17 +914,14 @@ function zombieupdategoal()
 		{
 			shouldrepath = 1;
 		}
-		else
+		else if(distancesquared(self.origin, self.favoriteenemy.origin) <= zigzag_activation_distance * zigzag_activation_distance)
 		{
-			if(distancesquared(self.origin, self.favoriteenemy.origin) <= (zigzag_activation_distance * zigzag_activation_distance))
-			{
-				shouldrepath = 1;
-			}
-			else if(isdefined(pathgoalpos))
-			{
-				distancetogoalsqr = distancesquared(self.origin, pathgoalpos);
-				shouldrepath = distancetogoalsqr < (72 * 72);
-			}
+			shouldrepath = 1;
+		}
+		else if(isdefined(pathgoalpos))
+		{
+			distancetogoalsqr = distancesquared(self.origin, pathgoalpos);
+			shouldrepath = distancetogoalsqr < 72 * 72;
 		}
 	}
 	if(isdefined(level.validate_on_navmesh) && level.validate_on_navmesh)
@@ -965,7 +950,7 @@ function zombieupdategoal()
 	{
 		if(isplayer(self.favoriteenemy))
 		{
-			goalent = namespace_e0710ee6::function_a2e8fd7b(self, self.favoriteenemy);
+			goalent = cschashed-1\script_5a012bbb9342dbdf::function_a2e8fd7b(self, self.favoriteenemy);
 			if(isdefined(goalent.last_valid_position))
 			{
 				goalpos = getclosestpointonnavmesh(goalent.last_valid_position, 64, self getpathfindingradius());
@@ -1033,7 +1018,7 @@ function zombieupdategoal()
 							for(index = 1; index < path.size; index++)
 							{
 								recordline(path[index - 1], path[index], (1, 0.5, 0), "", self);
-								record3dtext(abs((path[index - 1][2]) - path[index][2]), path[index - 1], (1, 0, 0));
+								record3dtext(abs(path[index - 1][2] - path[index][2]), path[index - 1], (1, 0, 0));
 							}
 						}
 					#/
@@ -1045,21 +1030,21 @@ function zombieupdategoal()
 					segmentlength = 0;
 					for(index = 1; index < path.size; index++)
 					{
-						if(isdefined(level.var_562c8f67) && (abs((path[index - 1][2]) - path[index][2])) > level.var_562c8f67)
+						if(isdefined(level.var_562c8f67) && abs(path[index - 1][2] - path[index][2]) > level.var_562c8f67)
 						{
 							break;
 						}
 						currentseglength = distance(path[index - 1], path[index]);
-						var_570a7c72 = (segmentlength + currentseglength) > deviationdistance;
-						if(index == (path.size - 1) && !var_570a7c72)
+						var_570a7c72 = segmentlength + currentseglength > deviationdistance;
+						if(index == path.size - 1 && !var_570a7c72)
 						{
-							deviationdistance = (segmentlength + currentseglength) - 1;
+							deviationdistance = segmentlength + currentseglength - 1;
 							var_eb1c6f1c = 1;
 						}
 						if(var_570a7c72 || var_eb1c6f1c)
 						{
 							remaininglength = deviationdistance - segmentlength;
-							seedposition = (path[index - 1]) + ((vectornormalize(path[index] - (path[index - 1]))) * remaininglength);
+							seedposition = path[index - 1] + vectornormalize(path[index] - path[index - 1]) * remaininglength;
 							/#
 								recordcircle(seedposition, 2, (1, 0.5, 0), "", self);
 							#/
@@ -1128,17 +1113,14 @@ function zombieupdategoalcode()
 		{
 			shouldrepath = 1;
 		}
-		else
+		else if(distancesquared(self.origin, self.enemy.origin) <= 200 * 200)
 		{
-			if(distancesquared(self.origin, self.enemy.origin) <= (200 * 200))
-			{
-				shouldrepath = 1;
-			}
-			else if(isdefined(self.pathgoalpos))
-			{
-				distancetogoalsqr = distancesquared(self.origin, self.pathgoalpos);
-				shouldrepath = distancetogoalsqr < (72 * 72);
-			}
+			shouldrepath = 1;
+		}
+		else if(isdefined(self.pathgoalpos))
+		{
+			distancetogoalsqr = distancesquared(self.origin, self.pathgoalpos);
+			shouldrepath = distancetogoalsqr < 72 * 72;
 		}
 	}
 	if(isdefined(self.keep_moving) && self.keep_moving)
@@ -1183,7 +1165,7 @@ function zombieupdategoalcode()
 					if(segmentlength + currentseglength > deviationdistance)
 					{
 						remaininglength = deviationdistance - segmentlength;
-						seedposition = (path[index - 1]) + ((vectornormalize(path[index] - (path[index - 1]))) * remaininglength);
+						seedposition = path[index - 1] + vectornormalize(path[index] - path[index - 1]) * remaininglength;
 						/#
 							recordcircle(seedposition, 2, (1, 0.5, 0), "", self);
 						#/
@@ -1243,7 +1225,7 @@ function zombieenteredplayable(behaviortreeentity)
 			{
 				behaviortreeentity zm_spawner::zombie_complete_emerging_into_playable_area();
 			}
-			return true;
+			return 1;
 		}
 	}
 	if(zm_utility::function_c85ebbbc())
@@ -1260,11 +1242,11 @@ function zombieenteredplayable(behaviortreeentity)
 				{
 					behaviortreeentity zm_spawner::zombie_complete_emerging_into_playable_area();
 				}
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1280,13 +1262,13 @@ function shouldmovecondition(behaviortreeentity)
 {
 	if(behaviortreeentity haspath())
 	{
-		return true;
+		return 1;
 	}
 	if(isdefined(behaviortreeentity.keep_moving) && behaviortreeentity.keep_moving)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1316,9 +1298,9 @@ function waskilledbyteslacondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.tesla_death) && behaviortreeentity.tesla_death)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1420,9 +1402,9 @@ function zombieisbeinggrappled(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.grapple_is_fatal) && behaviortreeentity.grapple_is_fatal)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1438,9 +1420,9 @@ function zombieshouldknockdown(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.knockdown) && behaviortreeentity.knockdown)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1456,9 +1438,9 @@ function zombieispushed(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.pushed) && behaviortreeentity.pushed)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1502,7 +1484,7 @@ function zombieknockdownactionstart(behaviortreeentity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_c8939973(behaviortreeentity)
+private function function_c8939973(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.missinglegs) && behaviortreeentity.missinglegs)
 	{
@@ -1520,7 +1502,7 @@ function private function_c8939973(behaviortreeentity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private zombiegetupactionterminate(behaviortreeentity)
+private function zombiegetupactionterminate(behaviortreeentity)
 {
 	behaviortreeentity.knockdown = 0;
 	behaviortreeentity collidewithactors(1);
@@ -1535,7 +1517,7 @@ function private zombiegetupactionterminate(behaviortreeentity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private zombiepushedactionstart(behaviortreeentity)
+private function zombiepushedactionstart(behaviortreeentity)
 {
 	behaviortreeentity collidewithactors(0);
 	behaviortreeentity setblackboardattribute("_push_direction", behaviortreeentity.push_direction);
@@ -1550,7 +1532,7 @@ function private zombiepushedactionstart(behaviortreeentity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private zombiepushedactionterminate(behaviortreeentity)
+private function zombiepushedactionterminate(behaviortreeentity)
 {
 	behaviortreeentity collidewithactors(1);
 	behaviortreeentity.pushed = 0;
@@ -1569,9 +1551,9 @@ function zombieshouldstun(behaviortreeentity)
 {
 	if(behaviortreeentity ai::is_stunned() && (!(isdefined(behaviortreeentity.tesla_death) && behaviortreeentity.tesla_death)))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1684,7 +1666,7 @@ function zombietraverseaction(behaviortreeentity, asmstatename)
 */
 function zombietraverseactionterminate(behaviortreeentity, asmstatename)
 {
-	aiutility::wpn_debug_bot_joinleave(behaviortreeentity, asmstatename);
+	aiutility::function_81e82ba9(behaviortreeentity, asmstatename);
 	if(behaviortreeentity asmgetstatus() == "asm_status_complete")
 	{
 		behaviortreeentity.no_powerups = behaviortreeentity.old_powerups;
@@ -1716,9 +1698,9 @@ function zombiegottoentrancecondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.got_to_entrance) && behaviortreeentity.got_to_entrance)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1734,9 +1716,9 @@ function zombiegottoattackspotcondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.at_entrance_tear_spot) && behaviortreeentity.at_entrance_tear_spot)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1752,9 +1734,9 @@ function zombiehasattackspotalreadycondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.attacking_spot_index) && behaviortreeentity.attacking_spot_index >= 0)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1776,12 +1758,12 @@ function zombieshouldtearcondition(behaviortreeentity)
 			{
 				if(!zm_utility::all_chunks_destroyed(behaviortreeentity.first_node, behaviortreeentity.first_node.barrier_chunks))
 				{
-					return true;
+					return 1;
 				}
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1797,7 +1779,7 @@ function zombieshouldattackthroughboardscondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.missinglegs) && behaviortreeentity.missinglegs)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(behaviortreeentity.first_node.zbarrier))
 	{
@@ -1810,7 +1792,7 @@ function zombieshouldattackthroughboardscondition(behaviortreeentity)
 			}
 			if(isdefined(chunks) && chunks.size > 0)
 			{
-				return false;
+				return 0;
 			}
 		}
 	}
@@ -1832,9 +1814,9 @@ function zombieshouldattackthroughboardscondition(behaviortreeentity)
 	}
 	if(!attack || freq < randomint(100))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1850,15 +1832,15 @@ function zombieshouldtauntcondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.missinglegs) && behaviortreeentity.missinglegs)
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(behaviortreeentity.first_node.zbarrier))
 	{
-		return false;
+		return 0;
 	}
 	if(!behaviortreeentity.first_node.zbarrier zbarriersupportszombietaunts())
 	{
-		return false;
+		return 0;
 	}
 	if(getdvarstring(#"zombie_taunt_freq") == "")
 	{
@@ -1867,9 +1849,9 @@ function zombieshouldtauntcondition(behaviortreeentity)
 	freq = getdvarint(#"zombie_taunt_freq", 0);
 	if(freq >= randomint(100))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1889,11 +1871,11 @@ function zombieshouldenterplayablecondition(behaviortreeentity)
 		{
 			if(!isdefined(behaviortreeentity.attacking_spot) || (isdefined(behaviortreeentity.at_entrance_tear_spot) && behaviortreeentity.at_entrance_tear_spot) && (!(isdefined(behaviortreeentity.completed_emerging_into_playable_area) && behaviortreeentity.completed_emerging_into_playable_area)))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1909,9 +1891,9 @@ function ischunkvalidcondition(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.chunk))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1927,9 +1909,9 @@ function inplayablearea(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.completed_emerging_into_playable_area) && behaviortreeentity.completed_emerging_into_playable_area)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1945,9 +1927,9 @@ function shouldskipteardown(behaviortreeentity)
 {
 	if(behaviortreeentity zm_spawner::should_skip_teardown(behaviortreeentity.find_flesh_struct_string))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1964,14 +1946,14 @@ function zombieisthinkdone(behaviortreeentity)
 	/#
 		if(isdefined(behaviortreeentity.is_rat_test) && behaviortreeentity.is_rat_test)
 		{
-			return false;
+			return 0;
 		}
 	#/
 	if(isdefined(behaviortreeentity.zombie_think_done) && behaviortreeentity.zombie_think_done)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2071,13 +2053,13 @@ function updateattackspotservice(behaviortreeentity)
 {
 	if(isdefined(behaviortreeentity.marked_for_death) && behaviortreeentity.marked_for_death || behaviortreeentity.health < 0)
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(behaviortreeentity.attacking_spot))
 	{
 		if(!behaviortreeentity zm_spawner::get_attack_spot(behaviortreeentity.first_node))
 		{
-			return false;
+			return 0;
 		}
 	}
 	if(isdefined(behaviortreeentity.attacking_spot))
@@ -2088,9 +2070,9 @@ function updateattackspotservice(behaviortreeentity)
 		{
 			behaviortreeentity.at_entrance_tear_spot = 1;
 		}
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2110,7 +2092,7 @@ function findnodesservice(behaviortreeentity)
 	{
 		if(behaviortreeentity.find_flesh_struct_string == "find_flesh")
 		{
-			return false;
+			return 0;
 		}
 		for(i = 0; i < level.exterior_goals.size; i++)
 		{
@@ -2129,7 +2111,7 @@ function findnodesservice(behaviortreeentity)
 		}
 		behaviortreeentity.entrance_nodes[behaviortreeentity.entrance_nodes.size] = node;
 		/#
-			assert(isdefined(node), ("" + behaviortreeentity.find_flesh_struct_string) + "");
+			assert(isdefined(node), "" + behaviortreeentity.find_flesh_struct_string + "");
 		#/
 		behaviortreeentity.first_node = node;
 		goal_pos = getclosestpointonnavmesh(node.origin, 128, self getpathfindingradius());
@@ -2138,7 +2120,7 @@ function findnodesservice(behaviortreeentity)
 		{
 			behaviortreeentity.got_to_entrance = 1;
 		}
-		return true;
+		return 1;
 	}
 }
 
@@ -2156,17 +2138,17 @@ function zombieattackableobjectservice(behaviortreeentity)
 	if(!behaviortreeentity ai::has_behavior_attribute("use_attackable") || !behaviortreeentity ai::get_behavior_attribute("use_attackable"))
 	{
 		behaviortreeentity.attackable = undefined;
-		return false;
+		return 0;
 	}
 	if(isdefined(behaviortreeentity.missinglegs) && behaviortreeentity.missinglegs)
 	{
 		behaviortreeentity.attackable = undefined;
-		return false;
+		return 0;
 	}
 	if(isdefined(behaviortreeentity.aat_turned) && behaviortreeentity.aat_turned)
 	{
 		behaviortreeentity.attackable = undefined;
-		return false;
+		return 0;
 	}
 	if(!isdefined(behaviortreeentity.attackable))
 	{
@@ -2529,7 +2511,7 @@ function barricadeentermocompstart(entity, mocompanim, mocompanimblendouttime, m
 	}
 	if(isdefined(entity.mocomp_barricade_offset))
 	{
-		origin = origin + (anglestoforward(angles) * entity.mocomp_barricade_offset);
+		origin = origin + anglestoforward(angles) * entity.mocomp_barricade_offset;
 	}
 	entity forceteleport(origin, angles, 1);
 	entity animmode("noclip", 0);
@@ -2599,7 +2581,7 @@ function barricadeentermocompnozstart(entity, mocompanim, mocompanimblendouttime
 	}
 	if(isdefined(entity.mocomp_barricade_offset))
 	{
-		origin = origin + (anglestoforward(angles) * entity.mocomp_barricade_offset);
+		origin = origin + anglestoforward(angles) * entity.mocomp_barricade_offset;
 	}
 	entity forceteleport(origin, angles, 1);
 	entity animmode("noclip", 0);
@@ -2692,11 +2674,11 @@ function notetrackboardmelee(animationentity)
 			}
 			playerdistsq = distance2dsquared(animationentity.player_targets[i].origin, animationentity.origin);
 			heightdiff = abs(animationentity.player_targets[i].origin[2] - animationentity.origin[2]);
-			if(playerdistsq < meleedistsq && (heightdiff * heightdiff) < meleedistsq)
+			if(playerdistsq < meleedistsq && heightdiff * heightdiff < meleedistsq)
 			{
 				playertriggerdistsq = distance2dsquared(animationentity.player_targets[i].origin, animationentity.first_node.trigger_location.origin);
 				heightdiff = abs(animationentity.player_targets[i].origin[2] - animationentity.first_node.trigger_location.origin[2]);
-				if(playertriggerdistsq < triggerdistsq && (heightdiff * heightdiff) < triggerdistsq)
+				if(playertriggerdistsq < triggerdistsq && heightdiff * heightdiff < triggerdistsq)
 				{
 					animationentity.player_targets[i] playsoundtoplayer(#"hash_75318bcffca7ff06", animationentity.player_targets[i]);
 					animationentity.player_targets[i] dodamage(animationentity.meleeweapon.meleedamage, animationentity.origin, self, self, "none", "MOD_MELEE");
@@ -2809,14 +2791,11 @@ function zombieupdateblackholebombpullstate(entity)
 	{
 		entity._black_hole_bomb_collapse_death = 1;
 	}
+	else if(dist_to_bomb < 1048576)
+	{
+	}
 	else
 	{
-		if(dist_to_bomb < 1048576)
-		{
-		}
-		else
-		{
-		}
 	}
 }
 
@@ -2846,7 +2825,7 @@ function zombieblackholebombpullupdate(entity, asmstatename)
 	{
 		entity.v_zombie_custom_goal_pos = entity.damageorigin;
 	}
-	if(!(isdefined(entity.missinglegs) && entity.missinglegs) && (gettime() - entity.pulltime) > 1000)
+	if(!(isdefined(entity.missinglegs) && entity.missinglegs) && gettime() - entity.pulltime > 1000)
 	{
 		distsq = distance2dsquared(entity.origin, entity.pullorigin);
 		if(distsq < 144)
@@ -2900,9 +2879,9 @@ function zombiekilledwhilegettingpulled(entity)
 {
 	if(!(isdefined(self.missinglegs) && self.missinglegs) && (isdefined(entity.interdimensional_gun_kill) && entity.interdimensional_gun_kill) && (!(isdefined(entity._black_hole_bomb_collapse_death) && entity._black_hole_bomb_collapse_death)))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2918,9 +2897,9 @@ function zombiekilledbyblackholebombcondition(entity)
 {
 	if(isdefined(entity._black_hole_bomb_collapse_death) && entity._black_hole_bomb_collapse_death)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2936,9 +2915,9 @@ function function_38fec26f(entity)
 {
 	if(isdefined(entity.freezegun_death) && entity.freezegun_death)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*

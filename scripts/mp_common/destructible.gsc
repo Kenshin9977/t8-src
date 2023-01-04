@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"destructible", &__init__, undefined, undefined);
 }
@@ -65,11 +65,11 @@ function __init__()
 function physics_explosion_and_rumble(origin, radius, physics_explosion)
 {
 	/#
-		assert(radius <= (pow(2, 10) - 1));
+		assert(radius <= pow(2, 10) - 1);
 	#/
 	if(isdefined(physics_explosion) && physics_explosion)
 	{
-		radius = radius + (1 << 9);
+		radius = radius + 1 << 9;
 	}
 	self clientfield::set("start_destructible_explosion", radius);
 }
@@ -94,16 +94,13 @@ function event_callback(destructible_event, attacker, weapon, piece_index, point
 		{
 			explosion_radius = 150;
 		}
+		else if(explosion_radius == "lg")
+		{
+			explosion_radius = 450;
+		}
 		else
 		{
-			if(explosion_radius == "lg")
-			{
-				explosion_radius = 450;
-			}
-			else
-			{
-				explosion_radius = int(explosion_radius);
-			}
+			explosion_radius = int(explosion_radius);
 		}
 		destructible_event = "explode_complex";
 	}
@@ -115,16 +112,13 @@ function event_callback(destructible_event, attacker, weapon, piece_index, point
 		{
 			explosion_radius = 150;
 		}
+		else if(explosion_radius_type == "large")
+		{
+			explosion_radius = 450;
+		}
 		else
 		{
-			if(explosion_radius_type == "large")
-			{
-				explosion_radius = 450;
-			}
-			else
-			{
-				explosion_radius = 300;
-			}
+			explosion_radius = 300;
 		}
 	}
 	if(issubstr(destructible_event, "simple_timed_explosion"))

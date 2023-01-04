@@ -1,11 +1,11 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_3657077a08b7f19e;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_58c342edd81589fb;
 #using script_6e3c826b1814cab6;
 #using script_7e59d7bba853fe4b;
 #using script_ab862743b3070a;
-#using script_db06eb511bd9b36;
+#using hashed-3\zm_cleanup.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\spawner_shared.gsc;
@@ -28,17 +28,16 @@
 */
 function main()
 {
-	namespace_c3287616::register_archetype(#"zombie_electric", &function_5df3e3dd, &function_c7e59327, &function_27695a82, 5);
-	zm_score::function_e5d6e6dd(#"zombie_electric", zombie_utility::function_d2dfacfd(#"hash_6f24d1fbe8a09727"));
-	zm_cleanup::function_cdf5a512(#"zombie", &function_a2f2a9a3);
+	namespace_c3287616::register_archetype(#"zombie_electric", &function_5df3e3dd, &function_c7e59327, &function_27695a82, 5);	zm_score::function_e5d6e6dd(#"hash_1c5b32be3f2c9b67", zombie_utility::function_d2dfacfd(#"hash_6f24d1fbe8a09727"));
+	namespace_57ff8cbb::function_cdf5a512(#"zombie", &function_a2f2a9a3);
 	level.var_621701e5 = array(getent("zombie_electric_spawner", "script_noteworthy"));
 	array::thread_all(level.var_621701e5, &spawner::add_spawn_function, &zm_behavior::function_57d3b5eb);
 	level.var_1c921b2b = 0;
 	if(zm_utility::is_classic())
 	{
-		if(namespace_59ff1d6c::function_901b751c(#"hash_5f8aca8340761fce") != 0)
+		if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_5f8aca8340761fce") != 0)
 		{
-			namespace_c402654::function_aec3446d(0);
+			cschashed-1\script_5fb8da2731850d9e::function_aec3446d(0);
 			level.var_2f14be05 = 15;
 			namespace_c3287616::function_376e51ef(#"zombie_dog", level.var_2f14be05);
 		}
@@ -46,8 +45,7 @@ function main()
 	}
 	if(zm_utility::is_trials())
 	{
-		namespace_32192f7::function_95c1dd81(#"zombie_electric", &function_c7e59327);
-		namespace_32192f7::function_95c1dd81(#"zombie_dog", &function_82e6d4e0);
+		namespace_32192f7::function_95c1dd81(#"zombie_electric", &function_c7e59327);		namespace_32192f7::function_95c1dd81(#"zombie_dog", &function_82e6d4e0);
 		namespace_c3287616::function_376e51ef(#"zombie_dog", 15);
 		level thread function_2eb8970d();
 	}
@@ -65,10 +63,9 @@ function main()
 function function_2eb8970d()
 {
 	level waittill(#"power_on2");
-	if(namespace_59ff1d6c::function_901b751c(#"zmenhancedstate") != 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"zmenhancedstate") != 0)
 	{
-		namespace_c3287616::function_376e51ef(#"zombie_electric", level.round_number);
-	}
+		namespace_c3287616::function_376e51ef(#"zombie_electric", level.round_number);	}
 }
 
 /*
@@ -87,16 +84,13 @@ function function_5df3e3dd(var_dbce0c44)
 	{
 		var_ce0732c6 = 0.1;
 	}
+	else if(level.round_number < 30)
+	{
+		var_ce0732c6 = 0.15;
+	}
 	else
 	{
-		if(level.round_number < 30)
-		{
-			var_ce0732c6 = 0.15;
-		}
-		else
-		{
-			var_ce0732c6 = 0.2;
-		}
+		var_ce0732c6 = 0.2;
 	}
 	return min(var_8cf00d40, int(ceil(level.zombie_total * var_ce0732c6)));
 }
@@ -132,7 +126,7 @@ function function_27695a82()
 	ai = zombie_utility::spawn_zombie(spawner, spawner.targetname, spawn_point, level.round_number + level.var_1c921b2b);
 	if(isdefined(ai))
 	{
-		ai thread namespace_3263198e::function_865209df(#"electric_zombie", #"hash_73e5e9787832fc70");
+		ai thread namespace_3263198e::function_865209df(#"hash_262f7795c6c1e961", #"hash_73e5e9787832fc70");
 	}
 	return ai;
 }
@@ -155,9 +149,9 @@ function function_c7e59327()
 		{
 			level.zombie_total--;
 		}
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -171,12 +165,12 @@ function function_c7e59327()
 */
 function function_82e6d4e0()
 {
-	ai = namespace_c402654::function_62db7b1c();
+	ai = cschashed-1\script_5fb8da2731850d9e::function_62db7b1c();
 	if(isdefined(ai))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -190,9 +184,8 @@ function function_82e6d4e0()
 */
 function function_a2f2a9a3()
 {
-	if(self.var_9fde8624 !== #"zombie_electric")
-	{
-		return false;
+	if(self.entity_type !== #"zombie_electric")	{
+		return 0;
 	}
 	a_s_spawn_locs = level.zm_loc_types[#"zombie_location"];
 	var_91562d8c = [];
@@ -230,26 +223,23 @@ function function_a2f2a9a3()
 	{
 		var_d7eff26a = zm_spawner::function_20e7d186(var_91562d8c);
 	}
+	else if(var_f2a95155.size)
+	{
+		var_d7eff26a = zm_spawner::function_20e7d186(var_f2a95155);
+	}
 	else
 	{
-		if(var_f2a95155.size)
-		{
-			var_d7eff26a = zm_spawner::function_20e7d186(var_f2a95155);
-		}
-		else
-		{
-			return false;
-		}
+		return 0;
 	}
 	if(isdefined(self) && isentity(self))
 	{
 		self thread clientfield::set("zm_ai/zombie_electric_fx_clientfield", 0);
-		self namespace_e0710ee6::function_a8dc3363(var_d7eff26a);
+		self cschashed-1\script_5a012bbb9342dbdf::function_a8dc3363(var_d7eff26a);
 		if(isdefined(self))
 		{
 			self thread clientfield::set("zm_ai/zombie_electric_fx_clientfield", 1);
 		}
 	}
-	return true;
+	return 1;
 }
 

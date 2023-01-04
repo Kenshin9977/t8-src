@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_4ee0ccb42a9d88f5;
-#using script_59f07c660e6710a5;
+#using hashed-2\ai_interface.gsc;
 
 #namespace namespace_1f694fcd;
 

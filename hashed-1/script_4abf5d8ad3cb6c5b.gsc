@@ -6,11 +6,12 @@
 #using script_28bfe6df1650ab79;
 #using script_2c5e325003fa52e2;
 #using script_3110b4b6b21db11f;
+#using hashed-2\zm_bgb_anywhere_but_here.gsc;
 #using script_3605d6b6522b3f7a;
 #using script_3657077a08b7f19e;
 #using script_3b2485bc23c27132;
 #using script_3d07a022f5c96f45;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_4109fe9f86c53247;
 #using script_445395629d822a9;
 #using script_4491b82ef72751cd;
@@ -36,17 +37,16 @@
 #using scripts\core_common\scene_shared.gsc;
 #using scripts\core_common\struct.gsc;
 #using scripts\core_common\values_shared.gsc;
-#using scripts\zm_common\bgbs\zm_bgb_anywhere_but_here.gsc;
 #using scripts\zm_common\zm_bgb.gsc;
 #using scripts\zm_common\zm_player.gsc;
 #using scripts\zm_common\zm_powerups.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_78baa66c;
+#namespace cschashed-2\script_29ccb18ac19d72ef;
 
 /*
 	Name: preload
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0xFEF028B3
 	Offset: 0x248
 	Size: 0xDE
@@ -64,7 +64,7 @@ function preload()
 
 /*
 	Name: main
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x23B058A
 	Offset: 0x330
 	Size: 0x83C
@@ -154,8 +154,7 @@ function main()
 				var_59bd23de notsolid();
 			}
 			setlightingstate(0);
-			level clientfield::set("" + #"lava_control", 0);
-			level clientfield::set("" + #"hash_5e69ee96304ec40b", 0);
+			level clientfield::set("" + #"lava_control", 0);			level clientfield::set("" + #"hash_5e69ee96304ec40b", 0);
 			level.var_71435e8 = 0;
 			level flag::clear(#"hash_198bc172b5af7f25");
 			level flag::clear(#"hash_69a9d00e65ee6c40");
@@ -170,7 +169,7 @@ function main()
 				waitframe(2);
 				player notify(#"hash_53bfad7081c69dee");
 				player.var_7dc2d507 = 0;
-				player namespace_18db89ed::function_46c3bbf7();
+				player cschashed-3\script_520360b6c44baa8b::function_46c3bbf7();
 				player clientfield::set("" + #"hash_55543319943057f1", 0);
 				player clientfield::set_to_player("" + #"hash_5160727729fd57a2", 0);
 				player clientfield::set_to_player("" + #"hash_603fc9d210bdbc4d", 1);
@@ -183,7 +182,7 @@ function main()
 				}
 				player clientfield::set_to_player("" + #"hash_13f1aaee7ebf9986", 0);
 				waitframe(2);
-				player thread namespace_18db89ed::function_ea0c7ed8();
+				player thread cschashed-3\script_520360b6c44baa8b::function_ea0c7ed8();
 			}
 			player allowmelee(1);
 		}
@@ -192,7 +191,7 @@ function main()
 
 /*
 	Name: function_ff59ba7a
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x60E10458
 	Offset: 0xB78
 	Size: 0x17C
@@ -206,10 +205,10 @@ function function_ff59ba7a(is_game_over)
 	{
 		if(isdefined(player.var_3b55baa1) && isdefined(player.var_e01bb56) && player namespace_f93d2fa1::function_75a76099())
 		{
-			player zm_loadout::set_player_lethal_grenade(player.var_3b55baa1);
+			player cschashed-2\script_709bf7c56eb65adf::set_player_lethal_grenade(player.var_3b55baa1);
 			player zm_weapons::weapon_give(player.var_3b55baa1, 1, 0);
-			n_slot = player gadgetgetslot(player.var_3b55baa1);
-			player gadgetpowerset(n_slot, player.var_e01bb56);
+			var_bcd1c2ff = player gadgetgetslot(player.var_3b55baa1);
+			player gadgetpowerset(var_bcd1c2ff, player.var_e01bb56);
 			player.var_3b55baa1 = undefined;
 			player.var_e01bb56 = undefined;
 			player notify(#"hash_2ef9a0f78a628812");
@@ -219,7 +218,7 @@ function function_ff59ba7a(is_game_over)
 
 /*
 	Name: function_b4bd25ef
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x8E2B10A2
 	Offset: 0xD00
 	Size: 0x794
@@ -298,11 +297,11 @@ function function_b4bd25ef()
 							self unlockweapon(weapon);
 						}
 					}
-					level zm_trial::function_cd75b690(0);
+					level cschashed-1\script_3c362258ff800237::function_cd75b690(0);
 				}
 				else
 				{
-					level zm_trial::function_cd75b690(1);
+					level cschashed-1\script_3c362258ff800237::function_cd75b690(1);
 				}
 			}
 			break;
@@ -346,11 +345,11 @@ function function_b4bd25ef()
 			{
 				self unlockweapon(weapon);
 			}
-			self namespace_b22c99a5::function_73ff0096();
+			self cschashed-1\script_3d5821d793ed4c6::function_73ff0096();
 			break;
 		}
 	}
-	self bgb_pack::function_ac9cb612(0);
+	self cschashed-1\script_3d4e88c949caf53e::function_ac9cb612(0);
 	self.var_be3224e6 = 0;
 	self bgb::resume_weapon_cycling();
 	self enableoffhandweapons();
@@ -359,7 +358,7 @@ function function_b4bd25ef()
 
 /*
 	Name: function_ff0b7907
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x4442EF2F
 	Offset: 0x14A0
 	Size: 0x2D4
@@ -373,8 +372,7 @@ function function_ff0b7907()
 	level thread lui::screen_flash(0.2, 0.5, 1, 0.8, "white");
 	wait(0.2);
 	setlightingstate(1);
-	level clientfield::set("" + #"lava_control", 1);
-	level clientfield::set("" + #"hash_5e69ee96304ec40b", 1);
+	level clientfield::set("" + #"lava_control", 1);	level clientfield::set("" + #"hash_5e69ee96304ec40b", 1);
 	if(!level flag::get(#"hash_4466889733a90df2"))
 	{
 		level flag::set(#"hash_4466889733a90df2");
@@ -386,7 +384,7 @@ function function_ff0b7907()
 		level.var_71435e8 = 1;
 		if(level.var_43c25ad2 !== 1)
 		{
-			array::thread_all(level.var_35e33dbe, &namespace_bfc8ee03::function_a8fd16d0);
+			array::thread_all(level.var_35e33dbe, &cschashed-3\script_20422991283c1b8::function_a8fd16d0);
 			level.var_43c25ad2 = 1;
 		}
 		level flag::set(#"hash_198bc172b5af7f25");
@@ -397,7 +395,7 @@ function function_ff0b7907()
 
 /*
 	Name: function_7206d28
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x64DB86F8
 	Offset: 0x1780
 	Size: 0x1BC
@@ -412,7 +410,7 @@ function function_7206d28()
 	{
 		self notify(#"hash_53bfad7081c69dee");
 		self.var_7dc2d507 = 0;
-		self namespace_18db89ed::function_46c3bbf7();
+		self cschashed-3\script_520360b6c44baa8b::function_46c3bbf7();
 		self clientfield::set("" + #"hash_55543319943057f1", 0);
 		self clientfield::set_to_player("" + #"hash_5160727729fd57a2", 0);
 		self clientfield::set_to_player("" + #"hash_603fc9d210bdbc4d", 1);
@@ -430,7 +428,7 @@ function function_7206d28()
 
 /*
 	Name: function_b93ad88d
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0xA8C9B9ED
 	Offset: 0x1948
 	Size: 0x66
@@ -447,7 +445,7 @@ function function_b93ad88d()
 
 /*
 	Name: function_53a1ecb9
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x74F7F77C
 	Offset: 0x19B8
 	Size: 0x7C
@@ -467,7 +465,7 @@ function function_53a1ecb9()
 
 /*
 	Name: function_b0779ef4
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x791891D6
 	Offset: 0x1A40
 	Size: 0x23C
@@ -510,7 +508,7 @@ function function_b0779ef4()
 
 /*
 	Name: function_8532d13f
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0xD85ED267
 	Offset: 0x1C88
 	Size: 0xFC
@@ -533,14 +531,14 @@ function function_8532d13f()
 
 /*
 	Name: function_dcebc908
-	Namespace: namespace_78baa66c
+	Namespace: cschashed-2\script_29ccb18ac19d72ef
 	Checksum: 0x5ECA80FA
 	Offset: 0x1D90
 	Size: 0xB8
 	Parameters: 10
 	Flags: Private
 */
-function private function_dcebc908(einflictor, eattacker, idamage, idflags, smeansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime)
+private function function_dcebc908(einflictor, eattacker, idamage, idflags, smeansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime)
 {
 	if(isdefined(eattacker) && (isdefined(eattacker.var_e1cad99d) && eattacker.var_e1cad99d))
 	{

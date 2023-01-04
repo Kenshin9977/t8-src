@@ -12,7 +12,7 @@
 	Parameters: 2
 	Flags: Linked
 */
-function initweakpoints(entity, var_97e1b97d)
+function function_b8cf6ebd(entity, var_97e1b97d)
 {
 	var_5ace757d = getscriptbundle(var_97e1b97d);
 	if(!isdefined(var_5ace757d) || !isdefined(var_5ace757d.weakpoints))
@@ -112,7 +112,7 @@ function function_73ab4754(entity, point, var_6b0c6fac)
 				{
 					tagorigin = entity gettagorigin(var_f16c2276);
 					distsq = distancesquared(point, tagorigin);
-					if(distsq <= (var_dd54fdb1.var_b7fbe51b * var_dd54fdb1.var_b7fbe51b) && var_833f593 > distsq)
+					if(distsq <= var_dd54fdb1.var_b7fbe51b * var_dd54fdb1.var_b7fbe51b && var_833f593 > distsq)
 					{
 						var_e2b4fa2b = var_dd54fdb1;
 						var_833f593 = distsq;
@@ -153,7 +153,7 @@ function function_6bb685f0(entity, point, var_6b0c6fac)
 				{
 					tagorigin = entity gettagorigin(var_f16c2276);
 					distsq = distancesquared(point, tagorigin);
-					if(distsq <= (var_dd54fdb1.var_b7fbe51b * var_dd54fdb1.var_b7fbe51b))
+					if(distsq <= var_dd54fdb1.var_b7fbe51b * var_dd54fdb1.var_b7fbe51b)
 					{
 						return var_dd54fdb1;
 					}

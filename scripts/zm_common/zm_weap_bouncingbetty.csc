@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_70aa5f5f0b09ad1a;
+hashed-2\script_70aa5f5f0b09ad1a.csc;
 #using scripts\core_common\system_shared.csc;
 
 #namespace bouncingbetty;
@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"bouncingbetty", &__init__, undefined, undefined);
 }

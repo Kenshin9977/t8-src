@@ -56,14 +56,11 @@ function create_effect(type, fxid)
 	{
 		ent = spawnstruct();
 	}
-	else
+	else if(!isdefined(level._fake_createfx_struct))
 	{
-		if(!isdefined(level._fake_createfx_struct))
-		{
-			level._fake_createfx_struct = spawnstruct();
-		}
-		ent = level._fake_createfx_struct;
+		level._fake_createfx_struct = spawnstruct();
 	}
+	ent = level._fake_createfx_struct;
 	level.createfxent[level.createfxent.size] = ent;
 	ent.v = [];
 	ent.v[#"type"] = type;
@@ -163,16 +160,13 @@ function _play_fx_delete(ent, time_to_delete_or_notify = -1)
 	{
 		ent util::waittill_either("death", time_to_delete_or_notify);
 	}
+	else if(time_to_delete_or_notify > 0)
+	{
+		ent waittill_timeout(time_to_delete_or_notify, #"death");
+	}
 	else
 	{
-		if(time_to_delete_or_notify > 0)
-		{
-			ent waittilltimeout(time_to_delete_or_notify, #"death");
-		}
-		else
-		{
-			ent waittill(#"death");
-		}
+		ent waittill(#"death");
 	}
 	if(isdefined(self))
 	{

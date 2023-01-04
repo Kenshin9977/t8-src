@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_8988fdbc78d6c53;
+#using hashed-3\weaponobjects.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\damage.gsc;
@@ -85,7 +85,7 @@ function startmicrowave()
 	{
 		turret.trigger delete();
 	}
-	turret.trigger = spawn("trigger_radius", turret.origin + (0, 0, 750 * -1), ((4096 | 16384) | level.aitriggerspawnflags) | level.vehicletriggerspawnflags, 750, 750 * 2);
+	turret.trigger = spawn("trigger_radius", turret.origin + (0, 0, 750 * -1), 4096 | 16384 | level.aitriggerspawnflags | level.vehicletriggerspawnflags, 750, 750 * 2);
 	turret thread turretthink();
 	/#
 		turret thread turretdebugwatch();
@@ -301,31 +301,28 @@ function microwaveentity(entity)
 		{
 			if(time - (isdefined(entity.microwaveshellshockandviewkicktime) ? entity.microwaveshellshockandviewkicktime : 0) > 950)
 			{
-				if((entity.microwaveeffect % 2) == 1)
+				if(entity.microwaveeffect % 2 == 1)
 				{
-					if(distancesquared(entity.origin, turret.origin) > ((750 * 2) / 3) * ((750 * 2) / 3))
+					if(distancesquared(entity.origin, turret.origin) > 750 * 2 / 3 * 750 * 2 / 3)
 					{
 						entity shellshock(#"mp_radiation_low", 1.5 * shellshockscalar);
 						entity viewkick(int(25 * viewkickscalar), turret.origin);
 					}
+					else if(distancesquared(entity.origin, turret.origin) > 750 * 1 / 3 * 750 * 1 / 3)
+					{
+						entity shellshock(#"mp_radiation_med", 1.5 * shellshockscalar);
+						entity viewkick(int(50 * viewkickscalar), turret.origin);
+					}
 					else
 					{
-						if(distancesquared(entity.origin, turret.origin) > ((750 * 1) / 3) * ((750 * 1) / 3))
-						{
-							entity shellshock(#"mp_radiation_med", 1.5 * shellshockscalar);
-							entity viewkick(int(50 * viewkickscalar), turret.origin);
-						}
-						else
-						{
-							entity shellshock(#"mp_radiation_high", 1.5 * shellshockscalar);
-							entity viewkick(int(75 * viewkickscalar), turret.origin);
-						}
+						entity shellshock(#"mp_radiation_high", 1.5 * shellshockscalar);
+						entity viewkick(int(75 * viewkickscalar), turret.origin);
 					}
 					entity.microwaveshellshockandviewkicktime = time;
 				}
 			}
 		}
-		if(isplayer(entity) && (entity.microwaveeffect % 3) == 2)
+		if(isplayer(entity) && entity.microwaveeffect % 3 == 2)
 		{
 			scoreevents::processscoreevent(#"hpm_suppress", turret.owner, entity, turretweapon);
 		}
@@ -347,35 +344,35 @@ function microwaveturretaffectsentity(entity)
 	turret = self;
 	if(!isalive(entity))
 	{
-		return false;
+		return 0;
 	}
 	if(!isplayer(entity) && !isai(entity))
 	{
-		return false;
+		return 0;
 	}
 	if(entity.ignoreme === 1)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(turret.carried) && turret.carried)
 	{
-		return false;
+		return 0;
 	}
 	if(turret weaponobjects::isstunned())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(turret.owner) && entity == turret.owner)
 	{
-		return false;
+		return 0;
 	}
 	if(!damage::friendlyfirecheck(turret.owner, entity, 0))
 	{
-		return false;
+		return 0;
 	}
 	if(distancesquared(entity.origin, turret.origin) > 750 * 750)
 	{
-		return false;
+		return 0;
 	}
 	angles = turret gettagangles("tag_flash");
 	origin = turret gettagorigin("tag_flash");
@@ -385,12 +382,12 @@ function microwaveturretaffectsentity(entity)
 	dot = vectordot(entdirection, forward);
 	if(dot < cos(15))
 	{
-		return false;
+		return 0;
 	}
 	if(entity damageconetrace(origin, turret, forward) <= 0)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 

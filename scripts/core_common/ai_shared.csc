@@ -12,7 +12,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec main()
+autoexec function main()
 {
 	level._customactorcbfunc = &ai::spawned_callback;
 }
@@ -156,9 +156,9 @@ function shouldregisterclientfieldforarchetype(archetype)
 {
 	if(isdefined(level.clientfieldaicheck) && level.clientfieldaicheck && !isarchetypeloaded(archetype))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -222,7 +222,7 @@ function function_71919555(var_45302432, fieldname, archetype)
 	{
 		if(isdefined(archetype))
 		{
-			return level.var_e3a467cf[var_45302432].((archetype + "_") + fieldname);
+			return level.var_e3a467cf[var_45302432].(archetype + "_" + fieldname);
 		}
 		return level.var_e3a467cf[var_45302432].(fieldname);
 	}

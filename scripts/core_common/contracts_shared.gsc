@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_47fb62300ac0bd60;
+#using hashed-2\stats.gsc;
 #using scripts\core_common\gamestate.gsc;
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_411235ee3f5d491c", undefined, undefined, undefined);
 }
@@ -272,21 +272,21 @@ function is_contract_active(var_38280f2f)
 {
 	if(!isdefined(var_38280f2f))
 	{
-		return false;
+		return 0;
 	}
 	if(!isplayer(self))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(self.pers[#"contracts"]))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(self.pers[#"contracts"][var_38280f2f]))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -490,7 +490,7 @@ function function_33bab9aa()
 					var_61525c00.target_value = 8;
 					var_61525c00.var_59cb904f = 0;
 					player function_5e1c4d33(var_61525c00);
-					iprintln(((("" + var_f029d0d7) + "") + player.name) + "");
+					iprintln("" + var_f029d0d7 + "" + player.name + "");
 				}
 			}
 			setdvar(#"hash_4e7103a8bd2b97f6", "");
@@ -678,45 +678,42 @@ function function_78083139()
 			var_4b67585c = var_5ceb23d0.var_be5bf249 - var_5ceb23d0.var_1bd1ecbb;
 			var_2de8a050 = var_5ceb23d0.var_be5bf249 - var_5ceb23d0.var_c7d05ecd;
 		}
+		else if(sessionmodeiszombiesgame())
+		{
+			var_ad6e6421 = player.pers[#"time_played_total"];
+			var_5463bb33 = var_ad6e6421;
+		}
 		else
 		{
-			if(sessionmodeiszombiesgame())
+			var_ad6e6421 = undefined;
+			if(isdefined(level.var_f202fa67) && [[level.var_f202fa67]](var_38280f2f))
 			{
-				var_ad6e6421 = player.pers[#"time_played_total"];
-				var_5463bb33 = var_ad6e6421;
-			}
-			else
-			{
-				var_ad6e6421 = undefined;
-				if(isdefined(level.var_f202fa67) && [[level.var_f202fa67]](var_38280f2f))
+				if(isdefined(player.var_c619a827))
 				{
-					if(isdefined(player.var_c619a827))
-					{
-						var_ad6e6421 = player.var_c619a827 - player.pers[#"hash_5651f00c6c1790a4"];
-					}
-				}
-				else if(!isdefined(level.var_e3551fe4) || ![[level.var_e3551fe4]](var_38280f2f))
-				{
-					if(isdefined(player.var_56bd2c02))
-					{
-						var_ad6e6421 = player.var_56bd2c02 - player.pers[#"hash_5651f00c6c1790a4"];
-					}
-				}
-				time_played_total = player stats::function_441050ca(#"time_played_total");
-				var_9d12108c = 0;
-				if(isdefined(player) && isdefined(player.team) && isdefined(player.timeplayed) && isdefined(player.timeplayed[player.team]))
-				{
-					var_9d12108c = player.timeplayed[player.team];
-				}
-				var_5463bb33 = (time_played_total - player.pers[#"hash_5651f00c6c1790a4"]) + var_9d12108c;
-				if(!isdefined(var_ad6e6421))
-				{
-					var_ad6e6421 = var_5463bb33;
+					var_ad6e6421 = player.var_c619a827 - player.pers[#"hash_5651f00c6c1790a4"];
 				}
 			}
-			var_4b67585c = var_ad6e6421 - var_5ceb23d0.var_1bd1ecbb;
-			var_2de8a050 = var_5463bb33 - var_5ceb23d0.var_c7d05ecd;
+			else if(!isdefined(level.var_e3551fe4) || ![[level.var_e3551fe4]](var_38280f2f))
+			{
+				if(isdefined(player.var_56bd2c02))
+				{
+					var_ad6e6421 = player.var_56bd2c02 - player.pers[#"hash_5651f00c6c1790a4"];
+				}
+			}
+			time_played_total = player stats::function_441050ca(#"time_played_total");
+			var_9d12108c = 0;
+			if(isdefined(player) && isdefined(player.team) && isdefined(player.timeplayed) && isdefined(player.timeplayed[player.team]))
+			{
+				var_9d12108c = player.timeplayed[player.team];
+			}
+			var_5463bb33 = time_played_total - player.pers[#"hash_5651f00c6c1790a4"] + var_9d12108c;
+			if(!isdefined(var_ad6e6421))
+			{
+				var_ad6e6421 = var_5463bb33;
+			}
 		}
+		var_4b67585c = var_ad6e6421 - var_5ceb23d0.var_1bd1ecbb;
+		var_2de8a050 = var_5463bb33 - var_5ceb23d0.var_c7d05ecd;
 		if(delta <= 0 && var_4b67585c <= 0 && var_2de8a050 <= 0)
 		{
 			continue;
@@ -741,7 +738,7 @@ function function_78083139()
 			if(getdvarint(#"scr_contract_debug", 0) > 0)
 			{
 				var_7b6acdb1 = (var_9224acc ? "" : "");
-				iprintln(((((((("" + function_9e72a96(var_38280f2f)) + "") + delta) + "") + var_4b67585c) + "") + var_2de8a050) + var_7b6acdb1);
+				iprintln("" + function_9e72a96(var_38280f2f) + "" + delta + "" + var_4b67585c + "" + var_2de8a050 + var_7b6acdb1);
 			}
 		#/
 		flags = player function_507247e8(var_9224acc);

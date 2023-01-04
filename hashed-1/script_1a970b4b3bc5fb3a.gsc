@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6a3f43063dfd1bdc;
-#using script_6c5b51f98cd04fa3;
+#using hashed-1\zm_sq.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\exploder_shared.gsc;
@@ -14,11 +14,11 @@
 #using scripts\zm_common\zm_unitrigger.gsc;
 #using scripts\zm_common\zm_utility.gsc;
 
-#namespace namespace_1a68a5da;
+#namespace cschashed-2\script_763e5f4b26b4d8ce;
 
 /*
 	Name: preload
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0x80F724D1
 	Offset: 0x1A0
 	Size: 0x4
@@ -31,7 +31,7 @@ function preload()
 
 /*
 	Name: main
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0x9CD7167E
 	Offset: 0x1B0
 	Size: 0x15A
@@ -54,7 +54,7 @@ function main()
 
 /*
 	Name: function_13dda28a
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0x7DF324
 	Offset: 0x318
 	Size: 0x94
@@ -75,7 +75,7 @@ function function_13dda28a(var_5ea5c94d)
 
 /*
 	Name: function_a874e5d0
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0x41D83BD9
 	Offset: 0x3B8
 	Size: 0x104
@@ -101,7 +101,7 @@ function function_a874e5d0(var_5ea5c94d, ended_early)
 
 /*
 	Name: function_1ad84248
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0xB6B28BBA
 	Offset: 0x4C8
 	Size: 0x436
@@ -197,7 +197,7 @@ function function_1ad84248()
 
 /*
 	Name: function_561d9cff
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0x8CA7C505
 	Offset: 0x908
 	Size: 0x5DC
@@ -235,7 +235,7 @@ function function_561d9cff()
 	level flag::set(#"hash_e8247a060147428");
 	exploder::stop_exploder("fxexp_narr_campfire");
 	exploder::exploder("fxexp_narr_campfire_blue");
-	namespace_509a75d1::function_314447b(1, 1);
+	cschashed-3\script_e2bef0652b31f68::function_314447b(1, 1);
 	level flag::set(#"hold_round_end");
 	level.sndvoxoverride = 1;
 	wait(5);
@@ -273,7 +273,7 @@ function function_561d9cff()
 	wait(n_wait);
 	level.sndvoxoverride = undefined;
 	level flag::clear(#"hold_round_end");
-	namespace_509a75d1::function_314447b(0);
+	cschashed-3\script_e2bef0652b31f68::function_314447b(0);
 	exploder::stop_exploder("fxexp_narr_campfire_blue");
 	exploder::exploder("fxexp_narr_campfire");
 	level flag::clear(#"hash_e8247a060147428");
@@ -292,7 +292,7 @@ function function_561d9cff()
 
 /*
 	Name: function_af39e9d5
-	Namespace: namespace_1a68a5da
+	Namespace: cschashed-2\script_763e5f4b26b4d8ce
 	Checksum: 0xA1D434F
 	Offset: 0xEF0
 	Size: 0x170

@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init()
+autoexec function init()
 {
 	function_d64f1d30();
 }
@@ -28,7 +28,7 @@ function autoexec init()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d64f1d30()
+private function function_d64f1d30()
 {
 	a_registered_fields = [];
 	foreach(bundle in struct::get_script_bundles("vehicleriders"))
@@ -78,26 +78,20 @@ function play_vehicle_anim(localclientnum, oldval, newval, bnewent, binitialsnap
 		str_pos = getsubstr(fieldname, 0, fieldname.size - 6);
 		str_action = "enter";
 	}
-	else
+	else if(strendswith(fieldname, "_exit"))
 	{
-		if(strendswith(fieldname, "_exit"))
-		{
-			str_pos = getsubstr(fieldname, 0, fieldname.size - 5);
-			str_action = "exit";
-		}
-		else
-		{
-			if(strendswith(fieldname, "_close"))
-			{
-				str_pos = getsubstr(fieldname, 0, fieldname.size - 6);
-				str_action = "close";
-			}
-			else if(strendswith(fieldname, "_death"))
-			{
-				str_pos = getsubstr(fieldname, 0, fieldname.size - 6);
-				str_action = "death";
-			}
-		}
+		str_pos = getsubstr(fieldname, 0, fieldname.size - 5);
+		str_action = "exit";
+	}
+	else if(strendswith(fieldname, "_close"))
+	{
+		str_pos = getsubstr(fieldname, 0, fieldname.size - 6);
+		str_action = "close";
+	}
+	else if(strendswith(fieldname, "_death"))
+	{
+		str_pos = getsubstr(fieldname, 0, fieldname.size - 6);
+		str_action = "death";
 	}
 	str_vh_anim = undefined;
 	foreach(s_rider in s_bundle.objects)

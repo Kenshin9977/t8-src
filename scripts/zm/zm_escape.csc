@@ -1,28 +1,28 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_11c9779550732489;
-#using script_1611421ee9b880d3;
-#using script_1de1583a62cc580f;
-#using script_20bca15cf8b82d6b;
-#using script_23037fdea02db280;
-#using script_27ba6748d83412fd;
-#using script_28d5e820ed15e2a7;
-#using script_2c454d63a96d2d0b;
-#using script_3619535866efa23a;
-#using script_3a10f19f96036e97;
-#using script_3c345dd878d144b7;
-#using script_3d09dc1e349814c;
-#using script_43de70169069c6ab;
-#using script_4f8f41168a7c3ea8;
-#using script_5db30ea2f37108d;
-#using script_5e109f38777fc309;
-#using script_5fb8da2731850d9e;
-#using script_67051bc8c81031aa;
-#using script_673ffe64518b7ffb;
-#using script_675455e5e6c0c5ad;
-#using script_6a0e50bc15d725a9;
-#using script_711bbbba637da80;
-#using script_76b36ed1b7a51ed2;
-#using script_784bc1aee23dbf1f;
+hashed-2\script_11c9779550732489.csc;
+hashed-3\script_1611421ee9b880d3.csc;
+hashed-1\script_1de1583a62cc580f.csc;
+hashed-2\script_20bca15cf8b82d6b.csc;
+hashed-3\script_23037fdea02db280.csc;
+hashed-2\script_27ba6748d83412fd.csc;
+hashed-2\script_28d5e820ed15e2a7.csc;
+hashed-1\script_2c454d63a96d2d0b.csc;
+hashed-3\script_3619535866efa23a.csc;
+hashed-1\script_3a10f19f96036e97.csc;
+hashed-1\script_3c345dd878d144b7.csc;
+hashed-1\script_3d09dc1e349814c.csc;
+hashed-2\script_43de70169069c6ab.csc;
+hashed-1\script_4f8f41168a7c3ea8.csc;
+hashed-1\script_5db30ea2f37108d.csc;
+hashed-1\script_5e109f38777fc309.csc;
+hashed-1\script_5fb8da2731850d9e.csc;
+hashed-3\script_67051bc8c81031aa.csc;
+hashed-2\script_673ffe64518b7ffb.csc;
+hashed-3\script_675455e5e6c0c5ad.csc;
+hashed-1\script_6a0e50bc15d725a9.csc;
+hashed-2\script_711bbbba637da80.csc;
+hashed-2\script_76b36ed1b7a51ed2.csc;
+hashed-2\script_784bc1aee23dbf1f.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\exploder_shared.csc;
 #using scripts\core_common\struct.csc;
@@ -50,7 +50,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec opt_in()
+autoexec function opt_in()
 {
 	level.aat_in_use = 1;
 	level.bgb_in_use = 1;
@@ -83,12 +83,12 @@ event main(eventstruct)
 	clientfield::register("allplayers", "" + #"hash_500a87b29014ef02", 1, 1, "int", &function_5e901c8c, 0, 1);
 	clientfield::register("toplayer", "" + #"hash_237e298fc7414687", 1, 1, "int", &function_b06125f0, 0, 1);
 	clientfield::register("vehicle", "" + #"hash_4fe04b8fa56a05c6", 1, 1, "int", &function_4b10227f, 0, 1);
-	namespace_f2502da8::init_clientfields();
-	namespace_9d58c1cd::init_clientfields();
+	cschashed-2\script_673ffe64518b7ffb::init_clientfields();
+	cschashed-2\script_43de70169069c6ab::init_clientfields();
 	namespace_54386dac::init_clientfields();
-	namespace_69ddf44f::init();
-	namespace_1063645::init_clientfields();
-	namespace_b99141ed::init_clientfields();
+	cschashed-2\script_28d5e820ed15e2a7::init();
+	cschashed-3\script_675455e5e6c0c5ad::init_clientfields();
+	cschashed-1\script_3c345dd878d144b7::init_clientfields();
 	zm_utility::function_beed5764("rob_zm_eyes_red", #"zm_ai/fx8_zombie_eye_glow_red");
 	level._effect[#"headshot"] = #"zombie/fx_bul_flesh_head_fatal_zmb";
 	level._effect[#"headshot_nochunks"] = #"zombie/fx_bul_flesh_head_nochunks_zmb";
@@ -97,7 +97,7 @@ event main(eventstruct)
 	level._effect[#"hash_4d2e5c87bde94856"] = #"hash_4948d849a833ddd5";
 	level._effect[#"hash_6dcb1f6ae15079d5"] = #"hash_52f9d9bb5648c0f3";
 	level._effect[#"hash_4fe04b8fa56a05c6"] = #"hash_45dbe6888cf8a19c";
-	namespace_f2502da8::init_fx();
+	cschashed-2\script_673ffe64518b7ffb::init_fx();
 	level._uses_default_wallbuy_fx = 1;
 	level._uses_sticky_grenades = 1;
 	level._uses_taser_knuckles = 1;
@@ -108,7 +108,7 @@ event main(eventstruct)
 	level._effect[#"hash_3f4d31da2ef72dbe"] = #"hash_2b008afec3e70add";
 	level._effect[#"switch_sparks"] = #"hash_26f37488feec03c3";
 	level.var_5603a802 = "pstfx_zm_hellhole";
-	namespace_9d58c1cd::init();
+	cschashed-2\script_43de70169069c6ab::init();
 	pap_quest::init();
 	load::main();
 	level thread setup_personality_character_exerts();
@@ -243,7 +243,7 @@ function function_516663f8(localclientnum, oldval, newval, bnewent, binitialsnap
 	Parameters: 1
 	Flags: Private
 */
-function private function_37c86e6e(localclientnum)
+private function function_37c86e6e(localclientnum)
 {
 	level endon(#"hash_46a6202f04dd1722");
 	s_sound_origin = struct::get("s_b_64_sound");
@@ -283,7 +283,7 @@ function function_d8b90aba(localclientnum, oldval, newval, bnewent, binitialsnap
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_b2b92c61(localclientnum)
+private function function_b2b92c61(localclientnum)
 {
 	level endon(#"hash_63732bb5f380f042");
 	while(true)
@@ -394,28 +394,20 @@ function function_9290b227()
 		/#
 			if(getdvarint(#"debug_audio", 0) > 0)
 			{
-				println(("" + loopers.size) + "");
+				println("" + loopers.size + "");
 			}
 		#/
 		for(i = 0; i < loopers.size; i++)
 		{
 			loopers[i] thread soundloopthink();
 			delay = delay + 1;
-			if((delay % 20) == 0)
+			if(delay % 20 == 0)
 			{
 				waitframe(1);
 			}
 		}
 	}
-	else
-	{
-		/#
-			println("");
-		#/
-		if(getdvarint(#"debug_audio", 0) > 0)
-		{
-		}
-	}
+	println("");
 }
 
 /*

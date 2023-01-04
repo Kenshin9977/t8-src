@@ -18,7 +18,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"duplicate_render", &__init__, undefined, undefined);
 }
@@ -108,31 +108,25 @@ function set_dr_filter(filterset, name, priority, require_flags, refuse_flags, d
 	{
 		filter.require = [];
 	}
+	else if(isarray(require_flags))
+	{
+		filter.require = require_flags;
+	}
 	else
 	{
-		if(isarray(require_flags))
-		{
-			filter.require = require_flags;
-		}
-		else
-		{
-			filter.require = strtok(require_flags, ",");
-		}
+		filter.require = strtok(require_flags, ",");
 	}
 	if(!isdefined(refuse_flags))
 	{
 		filter.refuse = [];
 	}
+	else if(isarray(refuse_flags))
+	{
+		filter.refuse = refuse_flags;
+	}
 	else
 	{
-		if(isarray(refuse_flags))
-		{
-			filter.refuse = refuse_flags;
-		}
-		else
-		{
-			filter.refuse = strtok(refuse_flags, ",");
-		}
+		filter.refuse = strtok(refuse_flags, ",");
 	}
 	filter.types = [];
 	filter.values = [];
@@ -284,7 +278,7 @@ function set_dr_flag_not_array(toset, setto = 1)
 	}
 	if(setto == self.flag[toset])
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(setto) && setto)
 	{
@@ -294,7 +288,7 @@ function set_dr_flag_not_array(toset, setto = 1)
 	{
 		self flag::clear(toset);
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -325,7 +319,7 @@ function set_dr_flag(toset, setto = 1)
 	}
 	if(setto == self.flag[toset])
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(setto) && setto)
 	{
@@ -335,7 +329,7 @@ function set_dr_flag(toset, setto = 1)
 	{
 		self flag::clear(toset);
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -465,17 +459,17 @@ function can_use_filter(filter)
 	{
 		if(!self flagsys::get(filter.require[i]))
 		{
-			return false;
+			return 0;
 		}
 	}
 	for(i = 0; i < filter.refuse.size; i++)
 	{
 		if(self flagsys::get(filter.refuse[i]))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -509,9 +503,9 @@ function apply_filter(localclientnum, filter, filterset = "framebuffer")
 			}
 			else if(isdefined(self.model))
 			{
-				name = name + ("" + self.model);
+				name = name + "" + self.model;
 			}
-			msg = (((("" + filter.name) + "") + name) + "") + filterset;
+			msg = "" + filter.name + "" + name + "" + filterset;
 			println(msg);
 		}
 	#/
@@ -703,13 +697,13 @@ function show_friendly_outlines(local_client_num)
 {
 	if(!(isdefined(level.friendlycontentoutlines) && level.friendlycontentoutlines))
 	{
-		return false;
+		return 0;
 	}
 	if(shoutcaster::is_shoutcaster(local_client_num))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -727,16 +721,13 @@ function set_entity_draft_unselected(localclientnum, on_off)
 	{
 		rob = #"hash_79892e1d5a8f9f33";
 	}
+	else if(util::function_26489405())
+	{
+		rob = #"hash_5418181592b8b61a";
+	}
 	else
 	{
-		if(util::function_26489405())
-		{
-			rob = #"hash_5418181592b8b61a";
-		}
-		else
-		{
-			rob = #"hash_68bd6efcb1324e3";
-		}
+		rob = #"hash_68bd6efcb1324e3";
 	}
 	if(isdefined(on_off) && on_off)
 	{

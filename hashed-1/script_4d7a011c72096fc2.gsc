@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_20d7669868834bae;
-#using script_59f07c660e6710a5;
+#using hashed-2\ai_interface.gsc;
 
 #namespace namespace_4b75060d;
 
@@ -15,6 +15,6 @@
 */
 function registerstokerinterfaceattributes()
 {
-	ai::registermatchedinterface(#"stoker", #"gravity", "normal", array("low", "normal"), &namespace_a5d36e4::function_e4ef4e27);
+	ai::registermatchedinterface(#"stoker", #"gravity", "normal", array("low", "normal"), &cschashed-3\script_453112987d96211a::function_e4ef4e27);
 }
 

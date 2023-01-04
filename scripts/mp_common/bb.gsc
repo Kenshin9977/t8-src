@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"bb", &__init__, undefined, undefined);
 }
@@ -229,7 +229,7 @@ function function_6661621a()
 	var_1a7851a3.killstreak1 = (self.killstreak.size > 0 ? hash(self.killstreak[0]) : 0);
 	var_1a7851a3.killstreak2 = (self.killstreak.size > 1 ? hash(self.killstreak[1]) : 0);
 	var_1a7851a3.killstreak3 = (self.killstreak.size > 2 ? hash(self.killstreak[2]) : 0);
-	talents = self function_4a9f1384(self.class_num);
+	var_7e21e375 = self function_4a9f1384(self.class_num);
 	var_1a7851a3.var_942f949 = (talents.size > 0 ? talents[0] : 0);
 	var_1a7851a3.var_f788d5d5 = (talents.size > 1 ? talents[1] : 0);
 	var_1a7851a3.var_9e81a3e0 = (talents.size > 2 ? talents[2] : 0);

@@ -132,7 +132,7 @@ function defcon_sign_setup()
 			}
 			level thread defcon_sign_lights();
 			level flag::set("defcon_active");
-			namespace_a701220b::function_c71dfad1(1);
+			cschashed-2\script_356ad5dd4af06a33::function_c71dfad1(1);
 			if(level.zombie_vars[#"zombie_powerup_bonfire_sale_on"] == 0 || !level flag::get("bonfire_reset"))
 			{
 				level thread play_defcon5_alarms();
@@ -231,7 +231,7 @@ function play_defcon5_alarms()
 {
 	var_566c062 = struct::get_array("defcon_alarms");
 	var_674c8f1b = [];
-	foreach(s_alarm in var_566c062)
+	foreach(var_494ac784 in var_566c062)
 	{
 		var_9844b012 = spawn("script_origin", s_alarm.origin);
 		var_9844b012 playloopsound(s_alarm.script_sound, 0.25);
@@ -298,7 +298,7 @@ function start_defcon_countdown()
 	level.defcon_level = 1;
 	level flag::clear("defcon_active");
 	level.defcon_activated = 0;
-	namespace_a701220b::function_c71dfad1(0);
+	cschashed-2\script_356ad5dd4af06a33::function_c71dfad1(0);
 	level flag::clear("bonfire_reset");
 	level notify(#"defcon_reset");
 }
@@ -384,24 +384,24 @@ function pentagon_ignore_spawner(spawner)
 	{
 		if(spawner.targetname == "conference_level2_spawns")
 		{
-			return true;
+			return 1;
 		}
 	}
 	if(level flag::get("no_warroom_elevator_spawning"))
 	{
 		if(spawner.targetname == "war_room_zone_elevator_spawns")
 		{
-			return true;
+			return 1;
 		}
 	}
 	if(level flag::get("no_labs_elevator_spawning"))
 	{
 		if(spawner.targetname == "labs_elevator_spawns")
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -530,14 +530,14 @@ function is_packroom_clear()
 	{
 		if(e_player istouching(level.pack_door_slam))
 		{
-			return false;
+			return 0;
 		}
 	}
-	if(namespace_a701220b::function_2143dc13())
+	if(cschashed-2\script_356ad5dd4af06a33::function_2143dc13())
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -620,7 +620,7 @@ function function_d2f6cecb()
 		}
 		level thread defcon_sign_lights();
 		level flag::set("");
-		namespace_a701220b::function_c71dfad1(1);
+		cschashed-2\script_356ad5dd4af06a33::function_c71dfad1(1);
 		if(level.zombie_vars[#"zombie_powerup_bonfire_sale_on"] == 0 || !level flag::get(""))
 		{
 			level thread play_defcon5_alarms();

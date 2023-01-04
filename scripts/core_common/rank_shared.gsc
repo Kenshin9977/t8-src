@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_47fb62300ac0bd60;
+#using hashed-2\stats.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\math_shared.gsc;
 #using scripts\core_common\rank_shared.gsc;
@@ -18,7 +18,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"rank", &__init__, undefined, undefined);
 }
@@ -61,16 +61,13 @@ function init()
 	{
 		level.xpscale = getdvarfloat(#"scr_xpscalecp", 0);
 	}
+	else if(sessionmodeiszombiesgame())
+	{
+		level.xpscale = getdvarfloat(#"scr_xpscalezm", 0);
+	}
 	else
 	{
-		if(sessionmodeiszombiesgame())
-		{
-			level.xpscale = getdvarfloat(#"scr_xpscalezm", 0);
-		}
-		else
-		{
-			level.xpscale = getdvarfloat(#"scr_xpscalemp", 0);
-		}
+		level.xpscale = getdvarfloat(#"scr_xpscalemp", 0);
 	}
 	initscoreinfo();
 	level.maxrank = int(function_a2f05227());
@@ -130,7 +127,7 @@ function initscoreinfo()
 			var_f49811d1 = tablelookupcolumnforrow(scoreinfotablename, row, 21);
 			var_604c21c7 = tablelookupcolumnforrow(scoreinfotablename, row, 22);
 			var_65181181 = int((isdefined(tablelookupcolumnforrow(scoreinfotablename, row, 24)) ? tablelookupcolumnforrow(scoreinfotablename, row, 24) : 0));
-			registerscoreinfo(type, row, lp, xp, sp, hs, res, var_e775f7ed, dp, is_objective, label, medalname, var_812e5448, var_b6593614, var_1a39d14, var_bdbfb0e, var_a434fd2d, var_f49811d1, var_604c21c7, var_65181181);
+			registerscoreinfo(type, row, lp, xp, sp, hs, res, var_e775f7ed, dp, var_4a624cbe, label, medalname, var_812e5448, var_b6593614, var_1a39d14, var_bdbfb0e, var_a434fd2d, var_f49811d1, var_604c21c7, var_65181181);
 			if(!isdefined(game.scoreinfoinitialized))
 			{
 				setddlstat = tablelookupcolumnforrow(scoreinfotablename, row, 12);
@@ -180,9 +177,9 @@ function getrankxpcapped(inrankxp)
 	Parameters: 20
 	Flags: Linked
 */
-function registerscoreinfo(type, row, lp, xp, sp, hs, res, var_e775f7ed, dp, is_obj, label, medalname, var_812e5448, var_b6593614, var_1a39d14, var_bdbfb0e, var_a434fd2d, var_f49811d1, var_604c21c7, var_65181181)
+function registerscoreinfo(type, row, lp, xp, sp, hs, res, var_e775f7ed, dp, var_80e3db90, label, medalname, var_812e5448, var_b6593614, var_1a39d14, var_bdbfb0e, var_a434fd2d, var_f49811d1, var_604c21c7, var_65181181)
 {
-	overridedvar = (("scr_" + level.gametype) + "_score_") + type;
+	overridedvar = "scr_" + level.gametype + "_score_" + type;
 	if(getdvarstring(overridedvar) != "")
 	{
 		value = getdvarint(overridedvar, 0);
@@ -280,25 +277,22 @@ function registerscoreinfo(type, row, lp, xp, sp, hs, res, var_e775f7ed, dp, is_
 			level.scoreinfo[type][#"hash_691aeaca4a1866e3"] = var_65181181;
 		}
 	}
-	else
+	else if(sessionmodeiscampaigngame())
 	{
-		if(sessionmodeiscampaigngame())
+		if(isdefined(res) && res)
 		{
-			if(isdefined(res) && res)
-			{
-				level.scoreinfo[type][#"res"] = res;
-			}
+			level.scoreinfo[type][#"res"] = res;
 		}
-		else if(sessionmodeiszombiesgame())
+	}
+	else if(sessionmodeiszombiesgame())
+	{
+		if(isdefined(res) && res)
 		{
-			if(isdefined(res) && res)
-			{
-				level.scoreinfo[type][#"res"] = res;
-			}
-			if(isdefined(label))
-			{
-				level.scoreinfo[type][#"label"] = label;
-			}
+			level.scoreinfo[type][#"res"] = res;
+		}
+		if(isdefined(label))
+		{
+			level.scoreinfo[type][#"label"] = label;
 		}
 	}
 }
@@ -458,9 +452,9 @@ function shouldskipmomentumdisplay(type)
 {
 	if(isdefined(level.disablemomentum) && level.disablemomentum)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -519,9 +513,9 @@ function function_f7b5d9fa(type)
 	playerrole = function_4de41611();
 	if(isdefined(level.scoreinfo[type]))
 	{
-		return true;
+		return (isdefined(level.scoreinfo[type][#"hash_49b115fae591f06a"]) ? level.scoreinfo[type][#"hash_49b115fae591f06a"] : 0);
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -582,21 +576,21 @@ function shouldkickbyrank()
 {
 	if(self ishost())
 	{
-		return false;
+		return 0;
 	}
 	if(level.rankcap > 0 && self.pers[#"rank"] > level.rankcap)
 	{
-		return true;
+		return 1;
 	}
 	if(level.rankcap > 0 && level.minprestige == 0 && self.pers[#"plevel"] > 0)
 	{
-		return true;
+		return 1;
 	}
 	if(level.minprestige > self.pers[#"plevel"])
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -710,7 +704,7 @@ function on_player_connect()
 	self.rankupdatetotal = 0;
 	self.cur_ranknum = rankid;
 	/#
-		assert(isdefined(self.cur_ranknum), ("" + rankid) + "");
+		assert(isdefined(self.cur_ranknum), "" + rankid + "");
 	#/
 	prestige = self stats::function_441050ca(#"plevel", 1);
 	if(!isdefined(prestige))
@@ -788,10 +782,10 @@ function atleastoneplayeroneachteam()
 	{
 		if(!level.playercount[team])
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -823,7 +817,7 @@ function updaterank()
 	newrankid = self getrank();
 	if(newrankid == self.pers[#"rank"])
 	{
-		return false;
+		return 0;
 	}
 	oldrank = self.pers[#"rank"];
 	rankid = self.pers[#"rank"];
@@ -836,10 +830,10 @@ function updaterank()
 		rankid++;
 	}
 	/#
-		print((((("" + oldrank) + "") + newrankid) + "") + self stats::function_441050ca(#"time_played_total"));
+		print("" + oldrank + "" + newrankid + "" + self stats::function_441050ca(#"time_played_total"));
 	#/
 	self setrank(newrankid);
-	return true;
+	return 1;
 }
 
 /*
@@ -894,7 +888,7 @@ function getitemindex(refstring)
 {
 	itemindex = getitemindexfromref(refstring);
 	/#
-		assert(itemindex > 0, (("" + refstring) + "") + itemindex);
+		assert(itemindex > 0, "" + refstring + "" + itemindex);
 	#/
 	return itemindex;
 }
@@ -952,7 +946,7 @@ function getspm()
 	{
 		ranklevel = self getrank() + 1;
 	}
-	return (3 + (ranklevel * 0.5)) * 10;
+	return 3 + ranklevel * 0.5 * 10;
 }
 
 /*

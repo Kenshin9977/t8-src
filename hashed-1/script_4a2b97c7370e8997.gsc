@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_2fe76bf0f69f1761", &__init__, undefined, undefined);
 }
@@ -31,11 +31,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_13a41fe1a6435995", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_13a41fe1a6435995", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -47,7 +47,7 @@ function __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d1de6a85()
+private function function_d1de6a85()
 {
 	self function_3b7e62cf();
 	self function_28dce407();
@@ -62,7 +62,7 @@ function private function_d1de6a85()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	self function_72c09628();
 	self function_8209b7a5();
@@ -77,7 +77,7 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_3b7e62cf()
+private function function_3b7e62cf()
 {
 	elevator1 = getent("elevator1", "targetname");
 	elevator2 = getent("elevator2", "targetname");
@@ -94,7 +94,7 @@ function private function_3b7e62cf()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_98c1b6be()
+private function function_98c1b6be()
 {
 	if(self.active === 1)
 	{
@@ -113,9 +113,9 @@ function private function_98c1b6be()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_28dce407()
+private function function_28dce407()
 {
-	namespace_a701220b::function_a6bb56f6();
+	cschashed-2\script_356ad5dd4af06a33::function_a6bb56f6();
 }
 
 /*
@@ -127,7 +127,7 @@ function private function_28dce407()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_72c09628()
+private function function_72c09628()
 {
 	elevator1 = getent("elevator1", "targetname");
 	elevator2 = getent("elevator2", "targetname");
@@ -146,8 +146,8 @@ function private function_72c09628()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_8209b7a5()
+private function function_8209b7a5()
 {
-	namespace_a701220b::function_cc9b97b0();
+	cschashed-2\script_356ad5dd4af06a33::function_cc9b97b0();
 }
 

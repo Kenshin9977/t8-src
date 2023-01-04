@@ -17,7 +17,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_629e41f2458d532b", &__init__, undefined, undefined);
 }
@@ -33,11 +33,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_4afdb00097a95776", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_4afdb00097a95776", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -49,7 +49,7 @@ function __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d1de6a85()
+private function function_d1de6a85()
 {
 	level.var_e60b8c3a = undefined;
 	level thread function_a543a954();
@@ -64,12 +64,12 @@ function private function_d1de6a85()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
-	namespace_b22c99a5::function_f3dbeda7();
+	cschashed-1\script_3d5821d793ed4c6::function_f3dbeda7();
 	if(!round_reset && (!(isdefined(level.var_e60b8c3a) && level.var_e60b8c3a)))
 	{
-		zm_trial::fail(#"hash_12f3fd15a168901");
+		cschashed-1\script_3c362258ff800237::fail(#"hash_12f3fd15a168901");
 	}
 	level.var_e60b8c3a = undefined;
 }
@@ -83,11 +83,11 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_a543a954()
+private function function_a543a954()
 {
 	level endon(#"hash_7646638df88a3656");
 	level waittill(#"hash_5dc448a84a24492", #"hash_38c04d24b5213b00");
 	level.var_e60b8c3a = 1;
-	namespace_b22c99a5::function_7d32b7d0(1);
+	cschashed-1\script_3d5821d793ed4c6::function_7d32b7d0(1);
 }
 

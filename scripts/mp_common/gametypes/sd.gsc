@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2c49ae69cd8ce30c;
+#using hashed-1\player_36.gsc;
 #using script_38af8be38c6709ff;
-#using script_47fb62300ac0bd60;
+#using hashed-2\stats.gsc;
 #using script_4c8dba49908aecc2;
 #using script_7b8ad364b9de169e;
 #using scripts\core_common\challenges_shared.gsc;
@@ -98,7 +98,7 @@ event main(eventstruct)
 	globallogic_spawn::addsupportedspawnpointtype("sd");
 	if(util::function_8570168d())
 	{
-		namespace_9096c917::init();
+		cschashed-2\script_28a20e497bd69c36::init();
 	}
 	level.var_1aef539f = &function_a800815;
 }
@@ -181,7 +181,7 @@ function sd_getteamkillscore(einflictor, attacker, smeansofdeath, weapon)
 */
 function onroundswitch()
 {
-	if(game.stat[#"teamscores"][#"allies"] == (level.roundwinlimit - 1) && game.stat[#"teamscores"][#"axis"] == (level.roundwinlimit - 1))
+	if(game.stat[#"teamscores"][#"allies"] == level.roundwinlimit - 1 && game.stat[#"teamscores"][#"axis"] == level.roundwinlimit - 1)
 	{
 		aheadteam = getbetterteam();
 		if(aheadteam != game.defenders)
@@ -387,8 +387,8 @@ function function_610d3790(einflictor, victim, idamage, weapon)
 	if(inbombzone && isplayer(attacker) && attacker.pers[#"team"] != victim.pers[#"team"])
 	{
 		attacker challenges::function_2f462ffd(victim, weapon, einflictor, currentobjective);
-		attacker.pers[#"objectiveekia"]++;
-		attacker.objectiveekia = attacker.pers[#"objectiveekia"];
+		attacker.pers[#"hash_73786dd8290616a2"]++;
+		attacker.var_e7229608 = attacker.pers[#"hash_73786dd8290616a2"];
 		attacker.pers[#"objectives"]++;
 		attacker.objectives = attacker.pers[#"objectives"];
 		if(game.defenders == victim.pers[#"team"])
@@ -398,18 +398,15 @@ function function_610d3790(einflictor, victim, idamage, weapon)
 			victim recordkillmodifier("defending");
 			scoreevents::processscoreevent(#"killed_defender", attacker, victim, weapon);
 		}
-		else
+		else if(isdefined(attacker.pers[#"defends"]))
 		{
-			if(isdefined(attacker.pers[#"defends"]))
-			{
-				attacker.pers[#"defends"]++;
-				attacker.defends = attacker.pers[#"defends"];
-			}
-			attacker medals::defenseglobalcount();
-			attacker thread challenges::killedbaseoffender(currentobjective, weapon, einflictor);
-			victim recordkillmodifier("assaulting");
-			scoreevents::processscoreevent(#"killed_attacker", attacker, victim, weapon);
+			attacker.pers[#"defends"]++;
+			attacker.defends = attacker.pers[#"defends"];
 		}
+		attacker medals::defenseglobalcount();
+		attacker thread challenges::killedbaseoffender(currentobjective, weapon, einflictor);
+		victim recordkillmodifier("assaulting");
+		scoreevents::processscoreevent(#"killed_attacker", attacker, victim, weapon);
 	}
 	if(isplayer(attacker) && attacker.pers[#"team"] != victim.pers[#"team"] && isdefined(victim.isbombcarrier) && victim.isbombcarrier == 1)
 	{
@@ -444,9 +441,9 @@ function function_a800815(victim, attacker)
 {
 	if(victim.isplanting === 1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -463,8 +460,7 @@ function onplayerkilled(einflictor, attacker, idamage, smeansofdeath, weapon, vd
 	clientfield::set_player_uimodel("hudItems.playerLivesCount", level.numlives - self.var_a7d7e50a);
 	if(isdefined(self) && isdefined(attacker) && attacker != self && isplayer(attacker) && attacker.team != self.team)
 	{
-		scoreevents::processscoreevent(#"eliminated_enemy", attacker, self, weapon);
-		attacker contracts::function_fd9fb79b(#"hash_7ea5ab346a8be398");
+		scoreevents::processscoreevent(#"eliminated_enemy", attacker, self, weapon);		attacker contracts::function_fd9fb79b(#"hash_7ea5ab346a8be398");
 		if(isdefined(self.lastmansd) && self.lastmansd == 1)
 		{
 			attacker stats::function_dad108fa(#"hash_f7fc3ff160a3ac5", 1);
@@ -511,24 +507,21 @@ function ondeadevent(team)
 			globallogic::function_a3e3bd39(game.defenders, 6);
 		}
 	}
-	else
+	else if(team == game.attackers)
 	{
-		if(team == game.attackers)
+		enemyteam = util::get_enemy_team(team);
+		challenges::last_man_defeat_3_enemies(enemyteam);
+		if(level.bombplanted)
 		{
-			enemyteam = util::get_enemy_team(team);
-			challenges::last_man_defeat_3_enemies(enemyteam);
-			if(level.bombplanted)
-			{
-				return;
-			}
-			globallogic::function_a3e3bd39(game.defenders, 6);
+			return;
 		}
-		else if(team == game.defenders)
-		{
-			enemyteam = util::get_enemy_team(team);
-			challenges::last_man_defeat_3_enemies(enemyteam);
-			globallogic::function_a3e3bd39(game.attackers, 6);
-		}
+		globallogic::function_a3e3bd39(game.defenders, 6);
+	}
+	else if(team == game.defenders)
+	{
+		enemyteam = util::get_enemy_team(team);
+		challenges::last_man_defeat_3_enemies(enemyteam);
+		globallogic::function_a3e3bd39(game.attackers, 6);
 	}
 }
 
@@ -697,7 +690,7 @@ function bombs()
 		level.sdbomb.onpickup = &onpickup;
 		level.sdbomb.ondrop = &ondrop;
 		level.sdbomb.var_22389d70 = 0;
-		var_a319c814 = getgametypesetting(#"carrier_manualdrop");
+		var_a319c814 = getgametypesetting(#"hash_f19f478050cc11b");
 		if(var_a319c814 === 1)
 		{
 			level.sdbomb gameobjects::function_a8c842d6(1, 1);
@@ -784,7 +777,7 @@ function bombs()
 		/#
 			assert(isdefined(bombzone.bombdefusetrig));
 		#/
-		bombzone.bombdefusetrig.origin = bombzone.bombdefusetrig.origin + (vectorscale((0, 0, -1), 10000));
+		bombzone.bombdefusetrig.origin = bombzone.bombdefusetrig.origin + vectorscale((0, 0, -1), 10000);
 		bombzone.bombdefusetrig.label = label;
 	}
 	for(index = 0; index < level.bombzones.size; index++)
@@ -1010,7 +1003,7 @@ function onuseplantobject(player)
 		level.bombzones[index] gameobjects::disable_object();
 		level.bombzones[index].waypoint gameobjects::disable_object();
 	}
-	thread sound::play_on_players(("mus_sd_planted" + "_") + level.teampostfix[player.pers[#"team"]]);
+	thread sound::play_on_players("mus_sd_planted" + "_" + level.teampostfix[player.pers[#"team"]]);
 	player notify(#"bomb_planted");
 	level thread popups::displayteammessagetoall(#"hash_12473d7e6ed6e752", player);
 	if(isdefined(player.pers[#"plants"]))
@@ -1033,7 +1026,7 @@ function onuseplantobject(player)
 	potm::bookmark(#"event", gettime(), player);
 	player stats::function_bb7eedf0(#"plants", 1);
 	player stats::function_dad108fa(#"hash_6ed8aab88512306b", 1);
-	player globallogic_score::incpersstat(#"objectivescore", 1, 0, 1);
+	player globallogic_score::incpersstat(#"hash_282813eec7b5b9ca", 1, 0, 1);
 	globallogic_audio::leader_dialog("bombPlanted");
 	scoreevents::processscoreevent(#"planted_bomb", player, undefined, undefined);
 	player recordgameevent("plant");
@@ -1211,17 +1204,17 @@ function bombplanted(destroyedobj, player)
 	level thread bombplantedmusicdelay();
 	level.tickingobject = destroyedobj.visuals[0];
 	level.timelimitoverride = 1;
-	setgameendtime(gettime() + (int(level.bombtimer * 1000)));
+	setgameendtime(gettime() + int(level.bombtimer * 1000));
 	label = destroyedobj gameobjects::get_label();
 	setmatchflag("bomb_timer" + label, 1);
 	if(label == "_a")
 	{
-		setbombtimer("A", gettime() + (int(level.bombtimer * 1000)));
+		setbombtimer("A", gettime() + int(level.bombtimer * 1000));
 		setmatchflag("bomb_timer_a", 1);
 	}
 	else
 	{
-		setbombtimer("B", gettime() + (int(level.bombtimer * 1000)));
+		setbombtimer("B", gettime() + int(level.bombtimer * 1000));
 		setmatchflag("bomb_timer_b", 1);
 	}
 	bb::function_95a5b5c2("sd_bombplant", label, team, player.origin);
@@ -1236,14 +1229,14 @@ function bombplanted(destroyedobj, player)
 	else
 	{
 		/#
-			level.players[index].carryicon hud::destroyelem();
-		#/
-		for(index = 0; index < level.players.size; index++)
-		{
-			if(isdefined(level.players[index].carryicon))
+			for(index = 0; index < level.players.size; index++)
 			{
+				if(isdefined(level.players[index].carryicon))
+				{
+					level.players[index].carryicon hud::destroyelem();
+				}
 			}
-		}
+		#/
 		trace = bullettrace(player.origin + vectorscale((0, 0, 1), 20), player.origin - vectorscale((0, 0, 1), 2000), 0, player);
 		tempangle = randomfloat(360);
 		forward = (cos(tempangle), sin(tempangle), 0);
@@ -1403,7 +1396,7 @@ function bombdefused(defusedobject, player)
 	Parameters: 0
 	Flags: Private
 */
-function private set_ui_team()
+private function set_ui_team()
 {
 	wait(0.05);
 	if(game.attackers == #"allies")
@@ -1430,24 +1423,24 @@ function sd_iskillboosting()
 	roundsplayed = util::getroundsplayed();
 	if(level.playerkillsmax == 0)
 	{
-		return false;
+		return 0;
 	}
-	if(game.totalkills > level.totalkillsmax * (roundsplayed + 1))
+	if(game.totalkills > level.totalkillsmax * roundsplayed + 1)
 	{
-		return true;
+		return 1;
 	}
-	if(self.kills > level.playerkillsmax * (roundsplayed + 1))
+	if(self.kills > level.playerkillsmax * roundsplayed + 1)
 	{
-		return true;
+		return 1;
 	}
 	if(level.teambased && (self.team == #"allies" || self.team == #"axis"))
 	{
-		if(game.totalkillsteam[self.team] > level.playerkillsmax * (roundsplayed + 1))
+		if(game.totalkillsteam[self.team] > level.playerkillsmax * roundsplayed + 1)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*

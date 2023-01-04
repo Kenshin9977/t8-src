@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"shellshock", &__init__, undefined, undefined);
 }
@@ -67,23 +67,17 @@ function on_damage(cause, damage, weapon)
 		{
 			time = 4;
 		}
-		else
+		else if(damage >= 50)
 		{
-			if(damage >= 50)
-			{
-				time = 3;
-			}
-			else
-			{
-				if(damage >= 25)
-				{
-					time = 2;
-				}
-				else if(damage > 10)
-				{
-					time = 2;
-				}
-			}
+			time = 3;
+		}
+		else if(damage >= 25)
+		{
+			time = 2;
+		}
+		else if(damage > 10)
+		{
+			time = 2;
 		}
 		if(time)
 		{

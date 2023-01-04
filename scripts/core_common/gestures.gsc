@@ -12,7 +12,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"gestures", undefined, &main, undefined);
 }
@@ -200,38 +200,38 @@ function function_8cc27b6d(var_ee58f129)
 	var_45e6768d = function_e198bde3(var_ee58f129);
 	if(!function_7a600918(var_45e6768d))
 	{
-		return false;
+		return 0;
 	}
 	weapon = self getcurrentweapon();
 	if(isdefined(self.var_89b32012) && self.var_89b32012)
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(weapon) || level.weaponnone == weapon)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(weapon.var_d2751f9d) && weapon.var_d2751f9d)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(weapon.var_554be9f7) && weapon.var_554be9f7 && self isfiring())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.var_5ccfbb37) && isdefined(level.var_5ccfbb37[var_45e6768d]) && isdefined(level.var_5ccfbb37[var_45e6768d].weapons) && isdefined(level.var_5ccfbb37[var_45e6768d].weapons[weapon.rootweapon]) && (isdefined(level.var_5ccfbb37[var_45e6768d].weapons[weapon.rootweapon].var_fa9d3758) && level.var_5ccfbb37[var_45e6768d].weapons[weapon.rootweapon].var_fa9d3758))
 	{
-		return false;
+		return 0;
 	}
 	if(weapon.isdualwield && isdefined(level.var_5ccfbb37) && isdefined(level.var_5ccfbb37[var_45e6768d]) && (isdefined(level.var_5ccfbb37[var_45e6768d].var_93380a93) && level.var_5ccfbb37[var_45e6768d].var_93380a93))
 	{
-		return false;
+		return 0;
 	}
 	if(self function_55acff10())
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -359,7 +359,7 @@ function function_f3e2696f(ent, weapon, weapon_options, timeout, var_1e89628f, v
 	while(true)
 	{
 		result = undefined;
-		result = self waittilltimeout(timeout, #"grenade_pullback", #"hash_7b6a55a9b65e3194", #"offhand_end");
+		result = self waittill_timeout(timeout, #"grenade_pullback", #"hash_7b6a55a9b65e3194", #"offhand_end");
 		if(result._notify == #"timeout")
 		{
 			break;
@@ -370,25 +370,22 @@ function function_f3e2696f(ent, weapon, weapon_options, timeout, var_1e89628f, v
 			{
 				break;
 			}
-			else
+			else if(result._notify == #"grenade_pullback")
 			{
-				if(result._notify == #"grenade_pullback")
+				var_f3b15ce0 = 1;
+				if(isdefined(var_1e89628f))
 				{
-					var_f3b15ce0 = 1;
-					if(isdefined(var_1e89628f))
-					{
-						self [[var_1e89628f]](ent);
-					}
-					continue;
+					self [[var_1e89628f]](ent);
 				}
-				else if(result._notify == #"hash_7b6a55a9b65e3194")
+				continue;
+			}
+			else if(result._notify == #"hash_7b6a55a9b65e3194")
+			{
+				if(isdefined(var_1d78d31))
 				{
-					if(isdefined(var_1d78d31))
-					{
-						self [[var_1d78d31]](ent);
-					}
-					return;
+					self [[var_1d78d31]](ent);
 				}
+				return;
 			}
 		}
 	}

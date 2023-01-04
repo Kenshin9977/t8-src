@@ -15,7 +15,7 @@
 */
 function function_f1827cc6(var_3d455c82, var_4b1985dd, var_b4bbefe4, n_radius = 64, var_c12c30aa = 0)
 {
-	if(zm_utility::function_e51dc2d8() || !var_c12c30aa)
+	if(zm_utility::can_enable_ee() || !var_c12c30aa)
 	{
 		if(!isdefined(var_4b1985dd))
 		{
@@ -38,7 +38,7 @@ function function_f1827cc6(var_3d455c82, var_4b1985dd, var_b4bbefe4, n_radius = 
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_95fad035()
+private function function_95fad035()
 {
 	self endon(#"death");
 	while(true)
@@ -80,7 +80,7 @@ function function_d6812b9d()
 */
 function function_e8661563(func_callback, var_c12c30aa = 0)
 {
-	if(var_c12c30aa && !zm_utility::function_e51dc2d8())
+	if(var_c12c30aa && !zm_utility::can_enable_ee())
 	{
 		return;
 	}
@@ -98,7 +98,7 @@ function function_e8661563(func_callback, var_c12c30aa = 0)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_8769717c()
+private function function_8769717c()
 {
 	self endon(#"death");
 	waitresult = undefined;

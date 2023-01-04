@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_2595527427ea71eb;
+#using hashed-3\zm_trial_timer.gsc;
 #using script_27c22e1d8df4d852;
 #using script_6021ce59143452c3;
 #using scripts\core_common\flag_shared.gsc;
@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_5bdca5e9d7130244", &__init__, undefined, undefined);
 }
@@ -35,11 +35,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"reset_loadout", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"reset_loadout", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -51,7 +51,7 @@ function __init__()
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_d1de6a85(var_30dbb2e5, var_f2c84b6b)
+private function function_d1de6a85(var_30dbb2e5, var_f2c84b6b)
 {
 	self.var_f2c84b6b = var_f2c84b6b;
 	self.var_30dbb2e5 = var_30dbb2e5;
@@ -86,7 +86,7 @@ function private function_d1de6a85(var_30dbb2e5, var_f2c84b6b)
 */
 function is_active(var_61ee083c = 0)
 {
-	s_challenge = zm_trial::function_a36e8c38(#"reset_loadout");
+	s_challenge = cschashed-1\script_3c362258ff800237::function_a36e8c38(#"reset_loadout");
 	if(var_61ee083c)
 	{
 		if(isdefined(s_challenge) && isdefined(s_challenge.var_f2c84b6b))
@@ -107,7 +107,7 @@ function is_active(var_61ee083c = 0)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_af55104(var_f2c84b6b)
+private function function_af55104(var_f2c84b6b)
 {
 	self notify("31521b89b82403a5");
 	self endon("31521b89b82403a5");
@@ -123,13 +123,13 @@ function private function_af55104(var_f2c84b6b)
 	a_weapons = self getweaponslist(0);
 	foreach(weapon in a_weapons)
 	{
-		if(zm_loadout::is_hero_weapon(weapon))
+		if(cschashed-2\script_709bf7c56eb65adf::is_hero_weapon(weapon))
 		{
 			n_slot = self gadgetgetslot(weapon);
 			self gadgetpowerset(n_slot, 0);
 			continue;
 		}
-		if(zm_loadout::is_lethal_grenade(weapon))
+		if(cschashed-2\script_709bf7c56eb65adf::is_lethal_grenade(weapon))
 		{
 			n_slot = self gadgetgetslot(weapon);
 			if(weapon == getweapon(#"tomahawk_t8") || weapon == getweapon(#"tomahawk_t8_upgraded"))
@@ -171,7 +171,7 @@ function private function_af55104(var_f2c84b6b)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private reset_loadout(var_96288bc8 = 0)
+private function reset_loadout(var_96288bc8 = 0)
 {
 	self notify("48ec1afa4e1f3b29");
 	self endon("48ec1afa4e1f3b29");
@@ -196,11 +196,11 @@ function private reset_loadout(var_96288bc8 = 0)
 		self zm_weapons::weapon_give(level.weaponzmfists, 1);
 		if(isdefined(level.var_7f7fd2ac))
 		{
-			level waittill(#"enable_equipment", #"hash_7646638df88a3656");
+			level waittill(#"hash_27c0f37184262bcd", #"hash_7646638df88a3656");
 		}
 	}
-	self zm_loadout::give_start_weapon(1);
-	self zm_loadout::init_player_offhand_weapons();
+	self cschashed-2\script_709bf7c56eb65adf::give_start_weapon(1);
+	self cschashed-2\script_709bf7c56eb65adf::init_player_offhand_weapons();
 	for(slot = 0; slot < 3; slot++)
 	{
 		if(isdefined(self._gadgets_player[slot]))
@@ -219,7 +219,7 @@ function private reset_loadout(var_96288bc8 = 0)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	if(self.var_30dbb2e5 === "zombie_fists")
 	{
@@ -236,18 +236,18 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_d1dabace(n_time = 30)
+private function function_d1dabace(n_time = 30)
 {
 	level endon(#"hash_7646638df88a3656", #"end_game");
 	level.var_236b9f7a = &function_37fe3e07;
 	level.func_override_wallbuy_prompt = &function_3d4fea64;
 	level.func_magicbox_update_prompt_use_override = &function_bf591b5a;
-	level.var_7f7fd2ac = gettime() + (int(n_time * 1000));
+	level.var_7f7fd2ac = gettime() + int(n_time * 1000);
 	wait(12);
-	level.var_7f7fd2ac = gettime() + (int(n_time * 1000));
+	level.var_7f7fd2ac = gettime() + int(n_time * 1000);
 	foreach(player in getplayers())
 	{
-		player namespace_b22c99a5::function_128378c9(n_time);
+		player cschashed-1\script_3d5821d793ed4c6::function_128378c9(n_time);
 		player.var_838c00de = 1;
 	}
 	wait(n_time);
@@ -263,16 +263,15 @@ function private function_d1dabace(n_time = 30)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_59d771f7()
+private function function_59d771f7()
 {
-	level notify(#"enable_equipment");
-	level.var_236b9f7a = undefined;
+	level notify(#"enable_equipment");	level.var_236b9f7a = undefined;
 	level.func_override_wallbuy_prompt = undefined;
 	level.var_7f7fd2ac = undefined;
 	level.func_magicbox_update_prompt_use_override = undefined;
 	foreach(player in getplayers())
 	{
-		player namespace_b22c99a5::function_885fb2c8();
+		player cschashed-1\script_3d5821d793ed4c6::function_885fb2c8();
 		player.var_838c00de = undefined;
 	}
 }
@@ -288,7 +287,7 @@ function private function_59d771f7()
 */
 function function_37fe3e07(e_player, var_957235ca)
 {
-	return true;
+	return 1;
 }
 
 /*
@@ -302,7 +301,7 @@ function function_37fe3e07(e_player, var_957235ca)
 */
 function function_3d4fea64(e_player, player_has_weapon)
 {
-	return false;
+	return 0;
 }
 
 /*
@@ -316,6 +315,6 @@ function function_3d4fea64(e_player, player_has_weapon)
 */
 function function_bf591b5a(e_player)
 {
-	return false;
+	return 0;
 }
 

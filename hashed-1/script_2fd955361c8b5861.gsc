@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_708634f09dc66b3;
-#using script_79a7e1c31a3e8cc;
-#using script_8988fdbc78d6c53;
+#using hashed-3\proximity_grenade_431.gsc;
+#using hashed-2\deployable.gsc;
+#using hashed-3\weaponobjects.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\entityheadicons_shared.gsc;
@@ -32,7 +32,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"claymore_zm", &__init__, undefined, undefined);
 }
@@ -70,9 +70,9 @@ function function_4ed6fbd5(v_origin, v_angles, player)
 {
 	if(!zm_utility::check_point_in_playable_area(v_origin))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -251,7 +251,7 @@ function claymore_detonation(e_planter)
 	self endon(#"death");
 	self zm_utility::waittill_not_moving();
 	detonateradius = 96;
-	damagearea = spawn("trigger_radius", self.origin, (512 | 1) + 8, detonateradius, detonateradius * 2);
+	damagearea = spawn("trigger_radius", self.origin, 512 | 1 + 8, detonateradius, detonateradius * 2);
 	damagearea setexcludeteamfortrigger(self.owner.team);
 	damagearea enablelinkto();
 	damagearea linkto(self);
@@ -317,7 +317,7 @@ function claymore_detonation(e_planter)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private should_trigger_claymore(e_mine)
+private function should_trigger_claymore(e_mine)
 {
 	n_detonation_dot = cos(70);
 	pos = self.origin + vectorscale((0, 0, 1), 32);
@@ -342,7 +342,7 @@ function private should_trigger_claymore(e_mine)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private delete_mines_on_death(player, ent)
+private function delete_mines_on_death(player, ent)
 {
 	self waittill(#"death");
 	if(isdefined(player))

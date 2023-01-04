@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"postfx_bundle", &__init__, undefined, undefined);
 }
@@ -143,7 +143,7 @@ function function_764eb053()
 			}
 			if(newspawn || showmodel == 1 && isdefined(ent))
 			{
-				ent.origin = (self.origin + vectorscale((0, 0, 1), 70)) + (anglestoforward(self.angles) * 250);
+				ent.origin = self.origin + vectorscale((0, 0, 1), 70) + anglestoforward(self.angles) * 250;
 			}
 			bundlename = getdvarstring(#"hash_3e6eca38278b4ff6", "");
 			if(bundlename != var_e0f0fb1d && isdefined(ent))

@@ -1,9 +1,9 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2dc48f46bfeac894;
-#using script_47fb62300ac0bd60;
-#using script_545a0bac37bda541;
-#using script_56ca01b3b31455b5;
-#using script_57f7003580bb15e0;
+#using hashed-1\ability_player.gsc;
+#using hashed-2\stats.gsc;
+#using hashed-2\globallogic_score.gsc;
+#using hashed-2\ability_util.gsc;
+#using hashed-2\status_effect.gsc;
 #using script_7133a4d461308099;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\contracts_shared.gsc;
@@ -23,7 +23,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"challenges_shared", &__init__, undefined, undefined);
 }
@@ -193,7 +193,7 @@ function addflyswatterstat(weapon, aircraft)
 	{
 		self.destroyedaircrafttime = [];
 	}
-	if(isdefined(self.destroyedaircrafttime[weapon]) && (gettime() - self.destroyedaircrafttime[weapon]) < 10000)
+	if(isdefined(self.destroyedaircrafttime[weapon]) && gettime() - self.destroyedaircrafttime[weapon] < 10000)
 	{
 		self stats::function_e24eec31(weapon, #"destroyed_2aircraft_quickly", 1);
 		self.destroyedaircrafttime[weapon] = undefined;
@@ -218,14 +218,14 @@ function canprocesschallenges()
 	/#
 		if(getdvarint(#"scr_debug_challenges", 0))
 		{
-			return true;
+			return 1;
 		}
 	#/
 	if(level.rankedmatch || level.arenamatch || sessionmodeiscampaigngame())
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -360,7 +360,7 @@ function isdamagefromplayercontrolledaitank(eattacker, einflictor, weapon)
 			{
 				if(eattacker.remoteweapon == einflictor)
 				{
-					return true;
+					return 1;
 				}
 			}
 		}
@@ -369,10 +369,10 @@ function isdamagefromplayercontrolledaitank(eattacker, einflictor, weapon)
 	{
 		if(isdefined(einflictor) && !isdefined(einflictor.from_ai))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -394,12 +394,12 @@ function isdamagefromplayercontrolledsentry(eattacker, einflictor, weapon)
 			{
 				if(isdefined(einflictor.controlled) && einflictor.controlled)
 				{
-					return true;
+					return 1;
 				}
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -428,14 +428,14 @@ function perkkills(victim, isstunned, time)
 	}
 	if(player hasperk(#"specialty_longersprint"))
 	{
-		if(isdefined(player.lastsprinttime) && (gettime() - player.lastsprinttime) < 2500)
+		if(isdefined(player.lastsprinttime) && gettime() - player.lastsprinttime < 2500)
 		{
 			player stats::function_dad108fa(#"perk_longersprint", 1);
 		}
 	}
 	if(player hasperk(#"specialty_fastmantle"))
 	{
-		if(isdefined(player.lastsprinttime) && (gettime() - player.lastsprinttime) < 2500 && player playerads() >= 1)
+		if(isdefined(player.lastsprinttime) && gettime() - player.lastsprinttime < 2500 && player playerads() >= 1)
 		{
 			player stats::function_dad108fa(#"perk_fastmantle_kills", 1);
 		}
@@ -657,7 +657,7 @@ function ishighestscoringplayer(player)
 {
 	if(!isdefined(player.score) || player.score < 1)
 	{
-		return false;
+		return 0;
 	}
 	players = level.players;
 	if(level.teambased)
@@ -689,10 +689,10 @@ function ishighestscoringplayer(player)
 		}
 		if(players[i].score >= highscore)
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1009,7 +1009,7 @@ function function_90185171(totaltimeplayed, credits, var_e1020153)
 	var_dbb56f7e = getdvarint(#"hash_4574f0b1608d9ea8", 0);
 	if(var_dbb56f7e && player function_875e4dbc() && totaltimeplayed > 0)
 	{
-		timeoffset = ((getdvarint(#"hash_59e760d0f14ae13b", 0) * 60) * 60) * 24;
+		timeoffset = getdvarint(#"hash_59e760d0f14ae13b", 0) * 60 * 60 * 24;
 		timemultiplier = getdvarfloat(#"hash_2956967233bebd4f", 1);
 		var_bf107145 = totaltimeplayed;
 		if(timemultiplier > 1)
@@ -1080,7 +1080,7 @@ function function_90185171(totaltimeplayed, credits, var_e1020153)
 					{
 						self.pers[#"controllerparticipationendgameresult"] = 0;
 						/#
-							println(((((player.name + "") + var_7be1e671) + "") + level.var_8e1c2aa1) + "");
+							println(player.name + "" + var_7be1e671 + "" + level.var_8e1c2aa1 + "");
 						#/
 						return;
 					}
@@ -1090,35 +1090,35 @@ function function_90185171(totaltimeplayed, credits, var_e1020153)
 		}
 		if(getdvarint(#"hash_522a538e0f11b88e", 1))
 		{
-			credit_multiplier = max(player function_c52bcf79(), getdvarfloat(#"hash_3ff4f2f1f645d6f0", 1));
+			var_52dbb41e = max(player function_c52bcf79(), getdvarfloat(#"hash_3ff4f2f1f645d6f0", 1));
 			credits = credits * credit_multiplier;
 			var_3595e9d5 = player stats::function_ff8f4f17(#"hash_680995704209a5b1");
 			if(isdefined(var_3595e9d5) && var_3595e9d5 > 0)
 			{
 				var_3595e9d5 = min(var_3595e9d5, getdvarint(#"hash_20997c814ed4b7ed", 25));
-				credits = credits + (credits * (var_3595e9d5 / 100));
+				credits = credits + credits * var_3595e9d5 / 100;
 				/#
-					println((("" + player.name) + "") + var_3595e9d5);
+					println("" + player.name + "" + var_3595e9d5);
 				#/
 			}
 			var_15a07618 = player stats::function_ff8f4f17(#"hash_46bff228e40d37d7");
 			if(isdefined(var_15a07618) && var_15a07618 > 0)
 			{
-				credits = credits + (credits * (var_15a07618 / 100));
+				credits = credits + credits * var_15a07618 / 100;
 				/#
-					println((("" + player.name) + "") + var_15a07618);
+					println("" + player.name + "" + var_15a07618);
 				#/
 			}
 			var_1cd516f6 = player stats::function_ff8f4f17(#"hash_2d1bca92ffa133e6");
 			if(isdefined(var_1cd516f6) && var_1cd516f6 > 0)
 			{
-				credits = credits + (credits * (var_1cd516f6 / 100));
+				credits = credits + credits * var_1cd516f6 / 100;
 				/#
-					println((("" + player.name) + "") + var_1cd516f6);
+					println("" + player.name + "" + var_1cd516f6);
 				#/
 			}
 			/#
-				println((((((("" + player.name) + "") + totaltimeplayed) + "") + credits) + "") + var_e1020153);
+				println("" + player.name + "" + totaltimeplayed + "" + credits + "" + var_e1020153);
 			#/
 			if(player function_875e4dbc())
 			{
@@ -1213,7 +1213,7 @@ function function_659f7dc(var_1ef5a3ba, var_3e853b2e, var_25ad32e1)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_d6f929d6()
+private function function_d6f929d6()
 {
 	wait(2);
 	level.var_4f654f3a = 1;
@@ -1317,7 +1317,7 @@ function function_354f257f()
 {
 	if(!isdefined(self))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(self.pers[#"controllerparticipationchecksskipped"]))
 	{
@@ -1326,7 +1326,7 @@ function function_354f257f()
 	if(self.sessionstate != "playing" || (isdefined(self.var_4c45f505) && self.var_4c45f505))
 	{
 		self.pers[#"controllerparticipationchecksskipped"]++;
-		return false;
+		return 0;
 	}
 	self.pers[#"controllerparticipationchecks"]++;
 	var_51ba979b = #"failure";
@@ -1367,7 +1367,7 @@ function function_354f257f()
 			}
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1510,19 +1510,16 @@ function destroyscorestreak(weapon, playercontrolled, groundbased, countaskillst
 			self stats::function_dad108fa(#"destroy_scorestreak_with_dart", 1);
 		}
 	}
+	else if(weapon.var_b76e0a09)
+	{
+		self stats::function_dad108fa(#"destroy_scorestreak_with_specialist", 1);
+	}
 	else
 	{
-		if(weapon.var_b76e0a09)
+		weaponclass = util::getweaponclass(weapon);
+		if(isdefined(weaponclass) && weaponclass == #"weapon_launcher")
 		{
-			self stats::function_dad108fa(#"destroy_scorestreak_with_specialist", 1);
-		}
-		else
-		{
-			weaponclass = util::getweaponclass(weapon);
-			if(isdefined(weaponclass) && weaponclass == #"weapon_launcher")
-			{
-				self stats::function_dad108fa(#"hash_be93d1227e6db1", 1);
-			}
+			self stats::function_dad108fa(#"hash_be93d1227e6db1", 1);
 		}
 	}
 	if(!isdefined(playercontrolled) || playercontrolled == 0)
@@ -1712,7 +1709,7 @@ function capturedobjective(capturetime, objective)
 	}
 	else
 	{
-		heroabilitywasactiverecently = isdefined(self.heroabilityactive) || (isdefined(self.heroabilitydectivatetime) && self.heroabilitydectivatetime > (gettime() - 3000));
+		heroabilitywasactiverecently = isdefined(self.heroabilityactive) || (isdefined(self.heroabilitydectivatetime) && self.heroabilitydectivatetime > gettime() - 3000);
 		if(heroabilitywasactiverecently && isdefined(self.heroability) && self.heroability.name == "gadget_camo")
 		{
 			scoreevents::processscoreevent(#"optic_camo_capture_objective", self);
@@ -1931,20 +1928,20 @@ function endedearly(winner, tie)
 {
 	if(level.hostforcedend)
 	{
-		return true;
+		return 1;
 	}
 	if(!isdefined(winner))
 	{
-		return true;
+		return 1;
 	}
 	if(level.teambased)
 	{
 		if(tie)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1989,10 +1986,10 @@ function didloserfailchallenge(winner, challenge)
 		}
 		if(game.challenge[team][challenge])
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -2489,16 +2486,13 @@ function destroyedaircraft(attacker, weapon, playercontrolled, lethal = 1)
 		{
 			attacker stats::function_dad108fa(#"destroy_aircraft_with_emp", 1);
 		}
-		else
+		else if(weapon.name == #"missile_drone_projectile" || weapon.name == #"missile_drone")
 		{
-			if(weapon.name == #"missile_drone_projectile" || weapon.name == #"missile_drone")
-			{
-				attacker stats::function_dad108fa(#"destroy_aircraft_with_missile_drone", 1);
-			}
-			else if(weapon.isbulletweapon)
-			{
-				attacker stats::function_dad108fa(#"shoot_aircraft", 1);
-			}
+			attacker stats::function_dad108fa(#"destroy_aircraft_with_missile_drone", 1);
+		}
+		else if(weapon.isbulletweapon)
+		{
+			attacker stats::function_dad108fa(#"shoot_aircraft", 1);
 		}
 	}
 	if(attacker util::has_blind_eye_perk_purchased_and_equipped())
@@ -2552,7 +2546,7 @@ function killstreakten()
 	}
 	for(numspecialties = 0; numspecialties < level.maxspecialties; numspecialties++)
 	{
-		perk = self getloadoutitem(self.class_num, "specialty" + (numspecialties + 1));
+		perk = self getloadoutitem(self.class_num, "specialty" + numspecialties + 1);
 		if(perk != 0)
 		{
 			return;
@@ -2667,7 +2661,7 @@ function playerkilled(einflictor, attacker, idamage, smeansofdeath, weapon, shit
 		}
 	}
 	victimentnum = victim getentitynumber();
-	waslockingon = waslockingon & (1 << victimentnum);
+	waslockingon = waslockingon & 1 << victimentnum;
 	if(waslockingon != 0)
 	{
 		data.waslockingon = 1;
@@ -2857,8 +2851,8 @@ function playerkilled(einflictor, attacker, idamage, smeansofdeath, weapon, shit
 		data.attackeristhief = attacker.isthief === 1;
 		data.attackerisroulette = attacker.isroulette === 1;
 		data.var_911b9b40 = attacker isremotecontrolling();
-		data.var_be469b25 = attacker isgrappling() || (isdefined(attacker.var_700a5910) && (attacker.var_700a5910 + 2000) > gettime());
-		data.var_5fa4aeed = isdefined(victim.lastattackedshieldtime) && (victim.lastattackedshieldtime + 500) > gettime();
+		data.var_be469b25 = attacker isgrappling() || (isdefined(attacker.var_700a5910) && attacker.var_700a5910 + 2000 > gettime());
+		data.var_5fa4aeed = isdefined(victim.lastattackedshieldtime) && victim.lastattackedshieldtime + 500 > gettime();
 		data.attacker_jump_begin = attacker.challenge_jump_begin;
 		data.attacker_jump_end = attacker.challenge_jump_end;
 		data.attacker_swimming_begin = attacker.challenge_swimming_begin;
@@ -3078,9 +3072,9 @@ function weaponisknife(weapon)
 {
 	if(weapon == level.weaponbasemelee || weapon == level.weaponbasemeleeheld || weapon.rootweapon.statname == level.weaponballisticknife.statname)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -3104,37 +3098,25 @@ function eventreceived(eventname)
 			{
 				self stats::function_d40764f3(#"killstreak_10", 1);
 			}
-			else
+			else if(eventname == "killstreak_15")
 			{
-				if(eventname == "killstreak_15")
-				{
-					self stats::function_d40764f3(#"killstreak_15", 1);
-				}
-				else
-				{
-					if(eventname == "killstreak_20")
-					{
-						self stats::function_d40764f3(#"killstreak_20", 1);
-					}
-					else
-					{
-						if(eventname == "multikill_3")
-						{
-							self stats::function_d40764f3(#"multikill_3", 1);
-						}
-						else
-						{
-							if(eventname == "kill_enemy_who_killed_teammate")
-							{
-								self stats::function_d40764f3(#"kill_enemy_who_killed_teammate", 1);
-							}
-							else if(eventname == "kill_enemy_injuring_teammate")
-							{
-								self stats::function_d40764f3(#"kill_enemy_injuring_teammate", 1);
-							}
-						}
-					}
-				}
+				self stats::function_d40764f3(#"killstreak_15", 1);
+			}
+			else if(eventname == "killstreak_20")
+			{
+				self stats::function_d40764f3(#"killstreak_20", 1);
+			}
+			else if(eventname == "multikill_3")
+			{
+				self stats::function_d40764f3(#"multikill_3", 1);
+			}
+			else if(eventname == "kill_enemy_who_killed_teammate")
+			{
+				self stats::function_d40764f3(#"kill_enemy_who_killed_teammate", 1);
+			}
+			else if(eventname == "kill_enemy_injuring_teammate")
+			{
+				self stats::function_d40764f3(#"kill_enemy_injuring_teammate", 1);
 			}
 			break;
 		}
@@ -3144,23 +3126,17 @@ function eventreceived(eventname)
 			{
 				self stats::function_d40764f3(#"killstreak_10", 1);
 			}
-			else
+			else if(eventname == "killstreak_15")
 			{
-				if(eventname == "killstreak_15")
-				{
-					self stats::function_d40764f3(#"killstreak_15", 1);
-				}
-				else
-				{
-					if(eventname == "killstreak_20")
-					{
-						self stats::function_d40764f3(#"killstreak_20", 1);
-					}
-					else if(eventname == "killstreak_30")
-					{
-						self stats::function_d40764f3(#"killstreak_30", 1);
-					}
-				}
+				self stats::function_d40764f3(#"killstreak_15", 1);
+			}
+			else if(eventname == "killstreak_20")
+			{
+				self stats::function_d40764f3(#"killstreak_20", 1);
+			}
+			else if(eventname == "killstreak_30")
+			{
+				self stats::function_d40764f3(#"killstreak_30", 1);
 			}
 			break;
 		}
@@ -3170,23 +3146,17 @@ function eventreceived(eventname)
 			{
 				self stats::function_d40764f3(#"defused_bomb_last_man_alive", 1);
 			}
-			else
+			else if(eventname == "elimination_and_last_player_alive")
 			{
-				if(eventname == "elimination_and_last_player_alive")
-				{
-					self stats::function_d40764f3(#"elimination_and_last_player_alive", 1);
-				}
-				else
-				{
-					if(eventname == "killed_bomb_planter")
-					{
-						self stats::function_d40764f3(#"killed_bomb_planter", 1);
-					}
-					else if(eventname == "killed_bomb_defuser")
-					{
-						self stats::function_d40764f3(#"killed_bomb_defuser", 1);
-					}
-				}
+				self stats::function_d40764f3(#"elimination_and_last_player_alive", 1);
+			}
+			else if(eventname == "killed_bomb_planter")
+			{
+				self stats::function_d40764f3(#"killed_bomb_planter", 1);
+			}
+			else if(eventname == "killed_bomb_defuser")
+			{
+				self stats::function_d40764f3(#"killed_bomb_defuser", 1);
 			}
 			break;
 		}

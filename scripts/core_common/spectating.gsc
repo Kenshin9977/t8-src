@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_256b8879317373de;
+#using hashed-2\player_201.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\laststand_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"spectating", &__init__, undefined, undefined);
 }
@@ -134,10 +134,10 @@ function other_local_player_still_alive()
 		}
 		if(isalive(level.players[index]))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -197,17 +197,14 @@ function set_permissions()
 				self allowspectateallteams(1);
 				self allowspectateteam(#"none", 1);
 			}
+			else if(isdefined(team) && isdefined(level.teams[team]))
+			{
+				self allowspectateteam(team, 1);
+				self allowspectateteam(#"none", 0);
+			}
 			else
 			{
-				if(isdefined(team) && isdefined(level.teams[team]))
-				{
-					self allowspectateteam(team, 1);
-					self allowspectateteam(#"none", 0);
-				}
-				else
-				{
-					self allowspectateteam(#"none", 0);
-				}
+				self allowspectateteam(#"none", 0);
 			}
 			break;
 		}
@@ -366,9 +363,9 @@ function function_7d15f599()
 	livesleft = !(level.numlives && !self.pers[#"lives"]);
 	if(!level.alivecount[self.team] && !livesleft)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -396,7 +393,7 @@ function function_23c5f4f2()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_493d2e03(team)
+private function function_493d2e03(team)
 {
 	if(!self function_7d15f599())
 	{
@@ -526,16 +523,13 @@ function function_b7c8d984(attacker, var_1178af52)
 	{
 		var_be8a6dc7 = attacker;
 	}
-	else
+	else if(isdefined(teammate))
 	{
-		if(isdefined(teammate))
-		{
-			var_be8a6dc7 = teammate;
-		}
-		else if(var_1178af52)
-		{
-			var_be8a6dc7 = attacker;
-		}
+		var_be8a6dc7 = teammate;
+	}
+	else if(var_1178af52)
+	{
+		var_be8a6dc7 = attacker;
 	}
 	return var_be8a6dc7;
 }

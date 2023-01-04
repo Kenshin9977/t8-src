@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2255a7ad3edc838f;
-#using script_366ff0bb9cb7adb1;
+#using hashed-3\bot.gsc;
+#using hashed-2\bot_chain.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\bots\bot_action.gsc;
 #using scripts\core_common\struct.gsc;
@@ -124,7 +124,7 @@ function function_cf70f2fe(startstruct)
 	if(isstring(startstruct))
 	{
 		/#
-			assert(isdefined(struct::get(startstruct)), ("" + "") + startstruct);
+			assert(isdefined(struct::get(startstruct)), "" + "" + startstruct);
 		#/
 	}
 	if(!isbot(self))

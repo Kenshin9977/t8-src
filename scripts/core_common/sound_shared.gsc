@@ -282,25 +282,22 @@ function play_on_players(sound, team)
 			level.players[0] playlocalsound(sound);
 		}
 	}
-	else
+	else if(isdefined(team))
 	{
-		if(isdefined(team))
+		for(i = 0; i < level.players.size; i++)
 		{
-			for(i = 0; i < level.players.size; i++)
+			player = level.players[i];
+			if(isdefined(player.pers[#"team"]) && player.pers[#"team"] == team)
 			{
-				player = level.players[i];
-				if(isdefined(player.pers[#"team"]) && player.pers[#"team"] == team)
-				{
-					player playlocalsound(sound);
-				}
+				player playlocalsound(sound);
 			}
 		}
-		else
+	}
+	else
+	{
+		for(i = 0; i < level.players.size; i++)
 		{
-			for(i = 0; i < level.players.size; i++)
-			{
-				level.players[i] playlocalsound(sound);
-			}
+			level.players[i] playlocalsound(sound);
 		}
 	}
 }

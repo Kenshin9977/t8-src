@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -25,7 +25,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_daily_challenges", &__init__, &__main__, undefined);
 }
@@ -243,8 +243,7 @@ function death_check_for_challenge_updates(e_attacker)
 			#/
 			break;
 		}
-		case "catalyst":
-		{
+		case "catalyst":		{
 			e_attacker zm_stats::increment_challenge_stat(#"hash_73286b5cdcfd7b5e");
 			/#
 				debug_print("");
@@ -319,7 +318,7 @@ function death_check_for_challenge_updates(e_attacker)
 			debug_print("");
 		#/
 	}
-	if(zm_loadout::is_lethal_grenade(w_damage))
+	if(cschashed-2\script_709bf7c56eb65adf::is_lethal_grenade(w_damage))
 	{
 		e_attacker zm_stats::increment_challenge_stat(#"hash_5f9b7801af13f397");
 		/#
@@ -334,22 +333,19 @@ function death_check_for_challenge_updates(e_attacker)
 		#/
 		var_27b9587 = zm_weapons::get_base_weapon(w_damage);
 	}
+	else if(zm_weapons::is_weapon_upgraded(w_damage))
+	{
+		e_attacker zm_stats::increment_challenge_stat(#"zm_daily_kills_packed");
+		/#
+			debug_print("");
+		#/
+		var_27b9587 = zm_weapons::get_base_weapon(w_damage);
+	}
 	else
 	{
-		if(zm_weapons::is_weapon_upgraded(w_damage))
-		{
-			e_attacker zm_stats::increment_challenge_stat(#"zm_daily_kills_packed");
-			/#
-				debug_print("");
-			#/
-			var_27b9587 = zm_weapons::get_base_weapon(w_damage);
-		}
-		else
-		{
-			var_27b9587 = zm_weapons::function_386dacbc(w_damage);
-		}
+		var_27b9587 = zm_weapons::function_386dacbc(w_damage);
 	}
-	if(zm_loadout::is_hero_weapon(w_damage))
+	if(cschashed-2\script_709bf7c56eb65adf::is_hero_weapon(w_damage))
 	{
 		e_attacker zm_stats::increment_challenge_stat(#"hash_730e40ef22de352");
 		/#
@@ -580,7 +576,7 @@ function increment_windows_repaired(s_barrier)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private rebuild_timer()
+private function rebuild_timer()
 {
 	self endon(#"disconnect");
 	self.b_dc_rebuild_timer_active = 1;
@@ -754,8 +750,8 @@ function is_daily_challenge(n_challenge_index)
 	n_row = tablelookuprownum(#"hash_492a37b72e9cab84", 0, n_challenge_index);
 	if(n_row > -1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 

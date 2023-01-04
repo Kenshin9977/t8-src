@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
-#using script_7e63597649100b1c;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-1\zombie_shared.gsc;
 #using scripts\core_common\laststand_shared.gsc;
 #using scripts\core_common\struct.gsc;
 #using scripts\core_common\util_shared.gsc;
@@ -90,16 +90,13 @@ function setup_deathfunc(func_name)
 	{
 		self.deathfunction = func_name;
 	}
+	else if(isdefined(level.custom_faller_death))
+	{
+		self.deathfunction = level.custom_faller_death;
+	}
 	else
 	{
-		if(isdefined(level.custom_faller_death))
-		{
-			self.deathfunction = level.custom_faller_death;
-		}
-		else
-		{
-			self.deathfunction = &zombie_fall_death_func;
-		}
+		self.deathfunction = &zombie_fall_death_func;
 	}
 }
 
@@ -189,34 +186,25 @@ function zombie_faller_do_fall()
 				self.zombie_faller_should_drop = 1;
 			}
 		}
+		else if(self zombie_faller_always_drop())
+		{
+			self.zombie_faller_should_drop = 1;
+			break;
+		}
+		else if(gettime() >= self.zombie_faller_wait_start + 20000)
+		{
+			self.zombie_faller_should_drop = 1;
+			break;
+		}
+		else if(self zombie_faller_drop_not_occupied())
+		{
+			self.zombie_faller_should_drop = 1;
+			break;
+		}
 		else
 		{
-			if(self zombie_faller_always_drop())
-			{
-				self.zombie_faller_should_drop = 1;
-				break;
-			}
-			else
-			{
-				if(gettime() >= (self.zombie_faller_wait_start + 20000))
-				{
-					self.zombie_faller_should_drop = 1;
-					break;
-				}
-				else
-				{
-					if(self zombie_faller_drop_not_occupied())
-					{
-						self.zombie_faller_should_drop = 1;
-						break;
-					}
-					else
-					{
-						self animscripted("fall_anim", self.origin, self.zombie_faller_location.angles, "zm_faller_attack");
-						self zombie_shared::donotetracks("attack_anim", &handle_fall_notetracks, self.zombie_faller_location);
-					}
-				}
-			}
+			self animscripted("fall_anim", self.origin, self.zombie_faller_location.angles, "zm_faller_attack");
+			self zombie_shared::donotetracks("attack_anim", &handle_fall_notetracks, self.zombie_faller_location);
 		}
 	}
 	self notify(#"falling");
@@ -230,7 +218,7 @@ function zombie_faller_do_fall()
 	self stopanimscripted();
 	landanimdelta = 15;
 	ground_pos = zm_utility::groundpos_ignore_water_new(self.origin);
-	physdist = (self.origin[2] - ground_pos[2]) + landanimdelta;
+	physdist = self.origin[2] - ground_pos[2] + landanimdelta;
 	if(physdist > 0)
 	{
 		self animcustom(&zombie_fall_loop);
@@ -297,9 +285,9 @@ function zombie_faller_always_drop()
 {
 	if(isdefined(self.zombie_faller_location.drop_now) && self.zombie_faller_location.drop_now)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -396,21 +384,18 @@ function zombie_faller_watch_player(player)
 			}
 			incloserange = 1;
 		}
-		else
+		else if(incloserange)
 		{
-			if(incloserange)
+			dirtoplayerexit = player.origin - self.origin;
+			dirtoplayerexit = (dirtoplayerexit[0], dirtoplayerexit[1], 0);
+			dirtoplayerexit = vectornormalize(dirtoplayerexit);
+			if(vectordot(dirtoplayerenter, dirtoplayerexit) < 0)
 			{
-				dirtoplayerexit = player.origin - self.origin;
-				dirtoplayerexit = (dirtoplayerexit[0], dirtoplayerexit[1], 0);
-				dirtoplayerexit = vectornormalize(dirtoplayerexit);
-				if(vectordot(dirtoplayerenter, dirtoplayerexit) < 0)
-				{
-					self.zombie_faller_should_drop = 1;
-					break;
-				}
+				self.zombie_faller_should_drop = 1;
+				break;
 			}
-			incloserange = 0;
 		}
+		incloserange = 0;
 		wait(0.1);
 	}
 }
@@ -573,7 +558,7 @@ function zombie_faller_death_wait(endon_notify)
 	Parameters: 8
 	Flags: Linked, Private
 */
-function private zombie_fall_death_func(einflictor, attacker, idamage, smeansofdeath, weapon, vdir, shitloc, psoffsettime)
+private function zombie_fall_death_func(einflictor, attacker, idamage, smeansofdeath, weapon, vdir, shitloc, psoffsettime)
 {
 	self animmode("noclip");
 	self.deathanim = "zm_faller_emerge_death";
@@ -773,7 +758,7 @@ function in_player_fov(player)
 	{
 		banzaivsplayerfovbuffer = 0.2;
 	}
-	inplayerfov = anglefromcenter <= (playerfov * 0.5) * (1 - banzaivsplayerfovbuffer);
+	inplayerfov = anglefromcenter <= playerfov * 0.5 * 1 - banzaivsplayerfovbuffer;
 	return inplayerfov;
 }
 

@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_12282e6b2cc91b42;
-#using script_709bf7c56eb65adf;
+hashed-3\script_12282e6b2cc91b42.csc;
+hashed-2\script_709bf7c56eb65adf.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
@@ -94,15 +94,15 @@ function perks_register_clientfield()
 	}
 	for(i = 0; i < 4; i++)
 	{
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".itemIndex", 1, 5, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".state", 1, 2, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".progress", 1, 5, "float", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".chargeCount", 1, 3, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".timerActive", 1, 1, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".bleedoutOrderIndex", 1, 2, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".bleedoutActive", 1, 1, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".specialEffectActive", 1, 1, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.perkVapor." + i) + ".modifierActive", 6000, 1, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".itemIndex", 1, 5, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".state", 1, 2, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".progress", 1, 5, "float", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".chargeCount", 1, 3, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".timerActive", 1, 1, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".bleedoutOrderIndex", 1, 2, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".bleedoutActive", 1, 1, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".specialEffectActive", 1, 1, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.perkVapor." + i + ".modifierActive", 6000, 1, "int", undefined, 0, 0);
 	}
 	clientfield::register("clientuimodel", "hudItems.perkVapor.bleedoutProgress", 9000, 8, "float", undefined, 0, 0);
 	for(i = 0; i < 6; i++)
@@ -112,15 +112,15 @@ function perks_register_clientfield()
 		{
 			n_version = 8000;
 		}
-		clientfield::register("clientuimodel", ("hudItems.extraPerkVapor." + i) + ".itemIndex", n_version, 5, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.extraPerkVapor." + i) + ".state", n_version, 2, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.extraPerkVapor." + i) + ".progress", n_version, 5, "float", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.extraPerkVapor." + i) + ".chargeCount", n_version, 3, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.extraPerkVapor." + i) + ".timerActive", n_version, 1, "int", undefined, 0, 0);
-		clientfield::register("clientuimodel", ("hudItems.extraPerkVapor." + i) + ".specialEffectActive", n_version, 1, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.extraPerkVapor." + i + ".itemIndex", n_version, 5, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.extraPerkVapor." + i + ".state", n_version, 2, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.extraPerkVapor." + i + ".progress", n_version, 5, "float", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.extraPerkVapor." + i + ".chargeCount", n_version, 3, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.extraPerkVapor." + i + ".timerActive", n_version, 1, "int", undefined, 0, 0);
+		clientfield::register("clientuimodel", "hudItems.extraPerkVapor." + i + ".specialEffectActive", n_version, 1, "int", undefined, 0, 0);
 	}
 	clientfield::register("scriptmover", "" + #"hash_cf74c35ecc5a49", 1, 1, "int", &function_bb184fed, 0, 0);
-	clientfield::register("toplayer", "" + #"hash_35fe26fc5cb223b3", 1, 3, "int", &_train_sd_bombexplode, 0, 1);
+	clientfield::register("toplayer", "" + #"hash_35fe26fc5cb223b3", 1, 3, "int", &function_73d662b8, 0, 1);
 	clientfield::register("toplayer", "" + #"hash_6fb426c48a4877e0", 1, 3, "int", &function_d5f2f6ac, 0, 1);
 	clientfield::register("toplayer", "" + #"hash_345845080e40675d", 1, 3, "int", &function_136826b0, 0, 1);
 	clientfield::register("toplayer", "" + #"hash_1da6660f0414562", 1, 3, "int", &function_a4c33786, 0, 1);
@@ -401,7 +401,7 @@ function vending_machine_flicker_light(fx_light, duration)
 */
 function play_perk_fx_on_client(client_num, fx_light, duration)
 {
-	fxobj = spawn(client_num, self.origin + (vectorscale((0, 0, -1), 50)), "script_model");
+	fxobj = spawn(client_num, self.origin + vectorscale((0, 0, -1), 50), "script_model");
 	fxobj setmodel(#"tag_origin");
 	util::playfxontag(client_num, level._effect[fx_light], fxobj, "tag_origin");
 	wait(duration);
@@ -522,20 +522,17 @@ function function_bb184fed(localclientnum, oldval, newval, bnewent, binitialsnap
 			self.var_be82764e = var_fe826f11;
 			self.var_7ad76c54 = var_7ad76c54;
 		}
-		if(isdefined(var_16c042b8) && isdefined(level._custom_perks[var_16c042b8]) && isdefined(level._custom_perks[var_16c042b8].var_51f1a532) && (!(isdefined(namespace_59ff1d6c::function_901b751c(level._custom_perks[var_16c042b8].var_51f1a532)) && namespace_59ff1d6c::function_901b751c(level._custom_perks[var_16c042b8].var_51f1a532))))
+		if(isdefined(var_16c042b8) && isdefined(level._custom_perks[var_16c042b8]) && isdefined(level._custom_perks[var_16c042b8].var_51f1a532) && (!(isdefined(namespace_59ff1d6c::function_901b751c(level._custom_perks[var_16c042b8].var_51f1a532)) && cschashed-3\script_12282e6b2cc91b42::function_901b751c(level._custom_perks[var_16c042b8].var_51f1a532))))
 		{
 			var_c809f6c1 = 6;
 		}
+		else if(isdefined(e_player.var_74eaa305))
+		{
+			var_c809f6c1 = e_player.var_74eaa305;
+		}
 		else
 		{
-			if(isdefined(e_player.var_74eaa305))
-			{
-				var_c809f6c1 = e_player.var_74eaa305;
-			}
-			else
-			{
-				var_c809f6c1 = e_player getentitynumber() + 1;
-			}
+			var_c809f6c1 = e_player getentitynumber() + 1;
 		}
 		var_dcf4ea85 thread function_bde5bc78(localclientnum, var_fe0b737a, var_c809f6c1, 0);
 	}
@@ -554,9 +551,9 @@ function function_35ba0b0e(localclientnum, n_slot)
 {
 	level endon(#"demo_jump");
 	self endon(#"death");
-	self zm_loadout::function_622d8349(localclientnum);
+	self cschashed-2\script_709bf7c56eb65adf::function_622d8349(localclientnum);
 	n_perk = n_slot + 1;
-	var_3e311473 = self zm_loadout::function_2dfb9150(localclientnum, "specialty" + n_perk);
+	var_3e311473 = self cschashed-2\script_709bf7c56eb65adf::function_2dfb9150(localclientnum, "specialty" + n_perk);
 	/#
 		if(!isdemoplaying() && (!(isdefined(level.b_game_ended) && level.b_game_ended)))
 		{
@@ -569,7 +566,7 @@ function function_35ba0b0e(localclientnum, n_slot)
 	{
 		return;
 	}
-	s_perk = getunlockableiteminfofromindex(var_3e311473, 3);
+	var_2f3173d4 = getunlockableiteminfofromindex(var_3e311473, 3);
 	if(!isdefined(s_perk) || !isdefined(s_perk.specialties) || !isdefined(s_perk.specialties[0]))
 	{
 		return;
@@ -583,7 +580,7 @@ function function_35ba0b0e(localclientnum, n_slot)
 }
 
 /*
-	Name: _train_sd_bombexplode
+	Name: function_73d662b8
 	Namespace: zm_perks
 	Checksum: 0xA58BFDA2
 	Offset: 0x1E98
@@ -591,7 +588,7 @@ function function_35ba0b0e(localclientnum, n_slot)
 	Parameters: 7
 	Flags: Linked
 */
-function _train_sd_bombexplode(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
+function function_73d662b8(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
 {
 	function_30bf6142(localclientnum, newval, oldval, 0);
 }
@@ -706,7 +703,7 @@ function function_bde5bc78(localclientnum, var_fe0b737a, newval, oldval)
 {
 	level endon(#"demo_jump");
 	n_start_time = gettime();
-	n_end_time = n_start_time + (int(0.5 * 1000));
+	n_end_time = n_start_time + int(0.5 * 1000);
 	if(!function_be3ae9c5(newval))
 	{
 		self setscale(1);
@@ -742,53 +739,50 @@ function function_bde5bc78(localclientnum, var_fe0b737a, newval, oldval)
 			wait(0.01);
 		}
 	}
-	else
+	else if(level.var_c3e5c4cd == 2)
 	{
-		if(level.var_c3e5c4cd == 2)
+		if(newval == 7)
 		{
-			if(newval == 7)
-			{
-				self.var_73bd396b function_5b123b68(localclientnum, 0);
-			}
-			else
-			{
-				self.var_73bd396b.var_be82764e = level._effect[#"hash_26247c4bfd6fed73"];
-				self.var_73bd396b function_5b123b68(localclientnum, 1, 1);
-			}
-		}
-		if(isdefined(self.var_2efc1a24))
-		{
-			killfx(localclientnum, self.var_2efc1a24);
-			self.var_2efc1a24 = undefined;
-		}
-		if(newval == 6)
-		{
-			self function_78233d29(#"hash_16b8b568a95931e7", "", "brightness", 0);
-			self function_78233d29(#"hash_16b8b568a95931e7", "", "alpha", 0);
+			self.var_73bd396b function_5b123b68(localclientnum, 0);
 		}
 		else
 		{
-			self unlink();
-			v_forward = anglestoforward(self.angles) * 5;
-			v_fx_origin = self.origin + (v_forward[0], v_forward[1], 3);
-			playfx(localclientnum, level._effect[#"hash_57c8c9eff08ddf44"], v_fx_origin);
-			self moveto(self.origin - (anglestoforward(self.angles) * 2), 0.5);
-			while(isdefined(self))
+			self.var_73bd396b.var_be82764e = level._effect[#"hash_26247c4bfd6fed73"];
+			self.var_73bd396b function_5b123b68(localclientnum, 1, 1);
+		}
+	}
+	if(isdefined(self.var_2efc1a24))
+	{
+		killfx(localclientnum, self.var_2efc1a24);
+		self.var_2efc1a24 = undefined;
+	}
+	if(newval == 6)
+	{
+		self function_78233d29(#"hash_16b8b568a95931e7", "", "brightness", 0);
+		self function_78233d29(#"hash_16b8b568a95931e7", "", "alpha", 0);
+	}
+	else
+	{
+		self unlink();
+		v_forward = anglestoforward(self.angles) * 5;
+		v_fx_origin = self.origin + (v_forward[0], v_forward[1], 3);
+		playfx(localclientnum, level._effect[#"hash_57c8c9eff08ddf44"], v_fx_origin);
+		self moveto(self.origin - anglestoforward(self.angles) * 2, 0.5);
+		while(isdefined(self))
+		{
+			n_time = gettime();
+			if(n_time >= n_end_time)
 			{
-				n_time = gettime();
-				if(n_time >= n_end_time)
-				{
-					self function_78233d29(#"hash_16b8b568a95931e7", "", "brightness", 0);
-					self function_78233d29(#"hash_16b8b568a95931e7", "", "alpha", 0);
-					return;
-				}
-				n_shader_value = mapfloat(n_start_time, n_end_time, 1, 0, n_time);
-				var_6da3d352 = mapfloat(n_start_time, n_end_time, 1, 1.5, n_time);
-				self function_78233d29(#"hash_16b8b568a95931e7", "", "brightness", n_shader_value);
-				self function_78233d29(#"hash_16b8b568a95931e7", "", "alpha", n_shader_value);
-				self setscale(var_6da3d352);
-				wait(0.01);
+				self function_78233d29(#"hash_16b8b568a95931e7", "", "brightness", 0);
+				self function_78233d29(#"hash_16b8b568a95931e7", "", "alpha", 0);
+				return;
 			}
+			n_shader_value = mapfloat(n_start_time, n_end_time, 1, 0, n_time);
+			var_6da3d352 = mapfloat(n_start_time, n_end_time, 1, 1.5, n_time);
+			self function_78233d29(#"hash_16b8b568a95931e7", "", "brightness", n_shader_value);
+			self function_78233d29(#"hash_16b8b568a95931e7", "", "alpha", n_shader_value);
+			self setscale(var_6da3d352);
+			wait(0.01);
 		}
 	}
 }
@@ -814,7 +808,7 @@ function function_5b123b68(localclientnum, b_show, b_use_offset = 0)
 		v_origin = self gettagorigin("fx_tag_base_emblem");
 		if(b_use_offset && isdefined(self.var_7ad76c54))
 		{
-			v_origin = v_origin - (anglestoforward(v_angles) * self.var_7ad76c54);
+			v_origin = v_origin - anglestoforward(v_angles) * self.var_7ad76c54;
 		}
 		self.var_d67a4862 = playfx(localclientnum, self.var_be82764e, v_origin, anglestoforward(v_angles));
 	}
@@ -833,17 +827,17 @@ function function_5b123b68(localclientnum, b_show, b_use_offset = 0)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_be3ae9c5(n_value, var_51e3f61d = 0)
+private function function_be3ae9c5(n_value, var_51e3f61d = 0)
 {
 	if(n_value < 5)
 	{
 		if(var_51e3f61d && n_value == 0)
 		{
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

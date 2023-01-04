@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_39e954a546d3baf;
-#using script_3f9e0dc8454d98e1;
+#using hashed-2\zm_utility.gsc;
+#using hashed-1\zombie_utility.gsc;
 #using script_5b4f7a8178990872;
 #using script_6a3f43063dfd1bdc;
 #using script_6e3c826b1814cab6;
@@ -117,7 +117,7 @@ function zone_init()
 	zm_zonemgr::add_adjacent_zone("upper_catwalk", "specimen_storage", "specimen_storage_doors", 0);
 	zm_zonemgr::add_adjacent_zone("specimen_storage", "loading_platform", #"hash_24952374a6e863b8", 0);
 	zm_zonemgr::add_adjacent_zone("sunken_path", "artifact_storage", #"hash_6f7fd3d4d070db87", 0);
-	if(namespace_59ff1d6c::function_901b751c(#"hash_29004a67830922b6") == 2)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_29004a67830922b6") == 2)
 	{
 		zm_zonemgr::add_adjacent_zone("lagoon", "sunken_path", "frozen_crevasse_open", 0);
 		zm_zonemgr::add_adjacent_zone("lagoon", "sunken_path", #"hash_6f7fd3d4d070db87", 0);
@@ -141,9 +141,9 @@ function zone_init()
 	level thread function_734d8b08();
 	level thread function_49054104();
 	level thread grotto_tunnel_watcher();
-	level thread cargo_hold_to_artifact_storage_watcher();
-	level thread sun_deck_to_bridge_watcher();
-	level thread main_deck_to_forecastle_watcher();
+	level thread function_10d313e4();
+	level thread function_f61c30ba();
+	level thread function_739794fc();
 	if(!zm_utility::is_standard())
 	{
 		level thread function_9d1d7efd();
@@ -153,7 +153,7 @@ function zone_init()
 }
 
 /*
-	Name: main_deck_to_forecastle_watcher
+	Name: function_739794fc
 	Namespace: namespace_17555f14
 	Checksum: 0x5985136F
 	Offset: 0x15C0
@@ -161,7 +161,7 @@ function zone_init()
 	Parameters: 0
 	Flags: None
 */
-function main_deck_to_forecastle_watcher()
+function function_739794fc()
 {
 	level waittill(#"main_deck_to_forecastle");
 	var_21a9b20e = array("main_deck_to_forecastle", "main_deck_to_forecastle_blocker");
@@ -263,7 +263,7 @@ function grotto_tunnel_watcher()
 }
 
 /*
-	Name: cargo_hold_to_artifact_storage_watcher
+	Name: function_10d313e4
 	Namespace: namespace_17555f14
 	Checksum: 0x395082F5
 	Offset: 0x19D8
@@ -271,7 +271,7 @@ function grotto_tunnel_watcher()
 	Parameters: 0
 	Flags: None
 */
-function cargo_hold_to_artifact_storage_watcher()
+function function_10d313e4()
 {
 	level endon(#"end_game");
 	level flag::wait_till("cargo_hold_to_artifact_storage");
@@ -279,7 +279,7 @@ function cargo_hold_to_artifact_storage_watcher()
 }
 
 /*
-	Name: sun_deck_to_bridge_watcher
+	Name: function_f61c30ba
 	Namespace: namespace_17555f14
 	Checksum: 0xB7A77C9F
 	Offset: 0x1A30
@@ -287,7 +287,7 @@ function cargo_hold_to_artifact_storage_watcher()
 	Parameters: 0
 	Flags: None
 */
-function sun_deck_to_bridge_watcher()
+function function_f61c30ba()
 {
 	level endon(#"end_game");
 	e_door_clip = getent("sun_deck_to_bridge_clip", "targetname");
@@ -354,10 +354,10 @@ function function_c3bf42e9()
 		str_player_zone = e_player zm_zonemgr::get_player_zone();
 		if(isdefined(str_player_zone) && function_94b7a4bd(str_player_zone))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -392,9 +392,9 @@ function function_94b7a4bd(str_zone)
 {
 	if(str_zone == "security_lobby" || str_zone == "decontamination" || str_zone == "geological_processing" || str_zone == "upper_catwalk" || str_zone == "human_infusion" || str_zone == "specimen_storage")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -406,7 +406,7 @@ function function_94b7a4bd(str_zone)
 	Parameters: 0
 	Flags: Private
 */
-function private function_502f97fa()
+private function function_502f97fa()
 {
 	if(!isdefined(self.favoriteenemy) || (isdefined(self.favoriteenemy) && self function_8a80437(self.favoriteenemy) !== 1))
 	{
@@ -473,7 +473,7 @@ function private function_502f97fa()
 	Parameters: 1
 	Flags: Private
 */
-function private function_8a80437(target)
+private function function_8a80437(target)
 {
 	result = 1;
 	if(isdefined(self) && isdefined(target) && isdefined(self.archetype) && self.archetype == #"zombie_dog")
@@ -523,11 +523,11 @@ function function_8e0b371()
 		if(isalive(self))
 		{
 			str_location = function_ab7f70b9(self);
-			self zm_hud::function_29780fb5((isdefined(str_location) ? str_location : #""));
+			self cschashed-3\script_3762ce8163e304e6::function_29780fb5((isdefined(str_location) ? str_location : #""));
 		}
 		else
 		{
-			self zm_hud::function_29780fb5(#"");
+			self cschashed-3\script_3762ce8163e304e6::function_29780fb5(#"");
 		}
 		wait(0.5);
 	}
@@ -868,7 +868,7 @@ function function_58db1b78()
 	var_4d44c98e = getentarray("lighthouse_level_4_ext", "targetname");
 	while(true)
 	{
-		foreach(vol_ext in var_4d44c98e)
+		foreach(var_a99d350e in var_4d44c98e)
 		{
 			foreach(player in getplayers())
 			{

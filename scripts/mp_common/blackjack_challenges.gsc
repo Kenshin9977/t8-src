@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f27a7b2232674db;
-#using script_47fb62300ac0bd60;
+#using hashed-1\player_role.gsc;
+#using hashed-2\stats.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\challenges_shared.gsc;
 #using scripts\core_common\scoreevents_shared.gsc;
@@ -17,7 +17,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"blackjack_challenges", &__init__, undefined, undefined);
 }
@@ -187,7 +187,7 @@ function debug_print_kill_info()
 			return;
 		}
 		player = self;
-		iprintln((("" + player.pers[#"blackjack_specialist_kills"]) + "") + player.pers[#"blackjack_unique_specialist_kills"]);
+		iprintln("" + player.pers[#"blackjack_specialist_kills"] + "" + player.pers[#"blackjack_unique_specialist_kills"]);
 	#/
 }
 
@@ -548,7 +548,7 @@ function track_blackjack_consumable()
 	}
 	while(isdefined(player))
 	{
-		random_wait_time = getdvarfloat(#"mp_blackjack_consumable_wait", 20) + (randomfloatrange(-5, 5));
+		random_wait_time = getdvarfloat(#"mp_blackjack_consumable_wait", 20) + randomfloatrange(-5, 5);
 		wait(random_wait_time);
 		player report_consumable();
 	}

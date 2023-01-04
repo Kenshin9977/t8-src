@@ -119,7 +119,7 @@ function add_zombie_powerup(powerup_name, client_field_name, clientfield_version
 	level.zombie_powerups[powerup_name] = struct;
 	if(isdefined(client_field_name))
 	{
-		var_4e6e65fa = ("hudItems.zmPowerUps." + client_field_name) + ".state";
+		var_4e6e65fa = "hudItems.zmPowerUps." + client_field_name + ".state";
 		clientfield::register("clientuimodel", var_4e6e65fa, clientfield_version, 2, "int", &powerup_state_callback, 0, 1);
 		struct.client_field_name = var_4e6e65fa;
 	}
@@ -287,7 +287,7 @@ function function_9f7265fd(localclientnum, oldval, newval, bnewent, binitialsnap
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_d6070ac5(localclientnum)
+private function function_d6070ac5(localclientnum)
 {
 	if(isdefined(self.n_powerup_fx))
 	{
@@ -310,7 +310,7 @@ function private function_d6070ac5(localclientnum)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private play_powerup_fx(localclientnum, str_fx, var_6df65756 = 0)
+private function function_4e80334c(localclientnum, str_fx, var_6df65756 = 0)
 {
 	if(self.model !== #"tag_origin")
 	{

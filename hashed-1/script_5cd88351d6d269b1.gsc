@@ -3,19 +3,19 @@
 #using script_1a970b4b3bc5fb3a;
 #using script_1fd1a25536bc59cf;
 #using script_27c22e1d8df4d852;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_48586eea5c3542a4;
 #using script_493d9b5ad424cee7;
 #using script_4b80fc97d8469299;
 #using script_4ec1d631174f7283;
-#using script_57f7003580bb15e0;
+#using hashed-2\status_effect.gsc;
 #using script_5a4c716662b66a50;
-#using script_5bb072c3abf4652c;
+#using hashed-1\zm_vo.gsc;
 #using script_5c6694d7aa0f1490;
 #using script_5e177698fdcdbe2c;
 #using script_61a734c95edc17aa;
 #using script_6a3f43063dfd1bdc;
-#using script_6c5b51f98cd04fa3;
+#using hashed-1\zm_sq.gsc;
 #using script_6f35f7919b97e062;
 #using script_7bc1d63f5e0e027;
 #using scripts\core_common\array_shared.gsc;
@@ -36,11 +36,11 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_ec1f72a0;
+#namespace cschashed-1\script_7d5f2f51e8a5443d;
 
 /*
 	Name: preload
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x106A5391
 	Offset: 0x298
 	Size: 0xB4
@@ -51,17 +51,17 @@ function preload()
 {
 	namespace_45e52e8a::preload();
 	namespace_c52ee24f::preload();
-	namespace_ff7e4f08::preload();
-	namespace_1a68a5da::preload();
-	namespace_4b68b2b3::preload();
-	namespace_bfc8ee03::preload();
-	namespace_13b4b4b::preload();
+	cschashed-2\script_442a4e554bcd7c3b::preload();
+	cschashed-2\script_763e5f4b26b4d8ce::preload();
+	cschashed-1\script_6fdaa897ed596805::preload();
+	cschashed-3\script_20422991283c1b8::preload();
+	cschashed-2\script_387ae8d7955ac404::preload();
 	clientfield::register("toplayer", "" + #"hash_668f474410d5c1d0", 24000, 1, "int");
 }
 
 /*
 	Name: main
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x6AF85D
 	Offset: 0x358
 	Size: 0x7FC
@@ -72,31 +72,31 @@ function main()
 {
 	namespace_45e52e8a::main();
 	namespace_c52ee24f::main();
-	namespace_ff7e4f08::main();
-	namespace_1a68a5da::main();
-	namespace_4b68b2b3::main();
-	namespace_bfc8ee03::main();
-	namespace_13b4b4b::init();
+	cschashed-2\script_442a4e554bcd7c3b::main();
+	cschashed-2\script_763e5f4b26b4d8ce::main();
+	cschashed-1\script_6fdaa897ed596805::main();
+	cschashed-3\script_20422991283c1b8::main();
+	cschashed-2\script_387ae8d7955ac404::init();
 	level flag::init("sam_music_done");
 	level flag::init(#"hash_18b94410e3b6b0bf");
 	namespace_ee206246::register(#"main_quest", #"hash_86e283359f19a5f", #"hash_269c18969e47568f", &namespace_45e52e8a::function_77ed3bab, &namespace_45e52e8a::function_51ecc801);
 	namespace_ee206246::register(#"main_quest", #"hash_467104204a4803ad", #"hash_269c19969e475842", &namespace_c52ee24f::function_a5254494, &namespace_c52ee24f::function_77e4073b);
-	namespace_ee206246::register(#"main_quest", #"hash_7c16d3a3e4250b9a", #"hash_269c1a969e4759f5", &namespace_ff7e4f08::function_8d43b840, &namespace_ff7e4f08::function_2d9e1e29);
-	namespace_ee206246::register(#"main_quest", #"hash_2dfcd4264b2c2340", #"hash_269c13969e474e10", &namespace_1a68a5da::function_13dda28a, &namespace_1a68a5da::function_a874e5d0);
-	namespace_ee206246::register(#"main_quest", #"hash_c2e45a40a675911", #"hash_269c14969e474fc3", &namespace_f7a40df8::function_d878e1ee, &namespace_f7a40df8::function_9ee4c8c3);
-	namespace_ee206246::register(#"main_quest", #"hash_72bc0ec65f4afcca", #"hash_6289c5eef32eca15", &namespace_55999fe::function_742dfdb5, &namespace_55999fe::function_9e34b0d4);
-	namespace_ee206246::register(#"main_quest", #"hash_28c88f40ace27a7b", #"hash_6289c2eef32ec4fc", &namespace_55999fe::function_c723e684, &namespace_55999fe::function_3d5a45fb);
-	namespace_ee206246::register(#"main_quest", #"hash_382d731d4de07ed3", #"hash_269c16969e475329", &namespace_ff7e4f08::function_8d43b840, &namespace_ff7e4f08::function_2d9e1e29);
-	namespace_ee206246::register(#"main_quest", #"hash_2c00866b95e17ff5", #"hash_269c1f969e476274", &namespace_1a68a5da::function_13dda28a, &namespace_1a68a5da::function_a874e5d0);
-	namespace_ee206246::register(#"main_quest", #"hash_ebca448700872b8", #"hash_62afa5eef34f62f2", &namespace_4b68b2b3::function_1faf4b9, &namespace_4b68b2b3::function_a8748143);
-	namespace_ee206246::register(#"main_quest", #"hash_810019231f11ea1", #"hash_62afa4eef34f613f", &namespace_4b68b2b3::function_91fbb734, &namespace_4b68b2b3::function_c2898bf0);
-	namespace_ee206246::register(#"main_quest", #"hash_11c4f1ecb0dd5a34", #"hash_629486eef338668d", &namespace_ff7e4f08::function_8d43b840, &namespace_ff7e4f08::function_2d9e1e29);
-	namespace_ee206246::register(#"main_quest", #"hash_d0bf3cf30a07a84", #"hash_629485eef33864da", &namespace_1a68a5da::function_13dda28a, &namespace_1a68a5da::function_a874e5d0);
-	namespace_ee206246::register(#"main_quest", #"hash_13b9abe1bd17294c", #"hash_629484eef3386327", &namespace_4b68b2b3::function_816c3132, &namespace_4b68b2b3::function_3c9be590);
-	namespace_ee206246::register(#"main_quest", #"hash_7d78cef11f6afb5e", #"hash_629483eef3386174", &namespace_bfc8ee03::function_5309464a, &namespace_bfc8ee03::function_ae270d9e);
-	namespace_ee206246::register(#"main_quest", #"hash_2bd81e2b05fccbed", #"hash_629482eef3385fc1", &namespace_13b4b4b::function_5309464a, &namespace_13b4b4b::function_ae270d9e);
+	namespace_ee206246::register(#"main_quest", #"hash_7c16d3a3e4250b9a", #"hash_269c1a969e4759f5", &namespace_ff7e4f08::function_8d43b840, &cschashed-2\script_442a4e554bcd7c3b::function_2d9e1e29);
+	namespace_ee206246::register(#"main_quest", #"hash_2dfcd4264b2c2340", #"hash_269c13969e474e10", &namespace_1a68a5da::function_13dda28a, &cschashed-2\script_763e5f4b26b4d8ce::function_a874e5d0);
+	namespace_ee206246::register(#"main_quest", #"hash_c2e45a40a675911", #"hash_269c14969e474fc3", &namespace_f7a40df8::function_d878e1ee, &cschashed-2\script_69c3075ae5f589b3::function_9ee4c8c3);
+	namespace_ee206246::register(#"main_quest", #"hash_72bc0ec65f4afcca", #"hash_6289c5eef32eca15", &namespace_55999fe::function_742dfdb5, &cschashed-1\script_4b4a4b9186e38fd6::function_9e34b0d4);
+	namespace_ee206246::register(#"main_quest", #"hash_28c88f40ace27a7b", #"hash_6289c2eef32ec4fc", &namespace_55999fe::function_c723e684, &cschashed-1\script_4b4a4b9186e38fd6::function_3d5a45fb);
+	namespace_ee206246::register(#"main_quest", #"hash_382d731d4de07ed3", #"hash_269c16969e475329", &namespace_ff7e4f08::function_8d43b840, &cschashed-2\script_442a4e554bcd7c3b::function_2d9e1e29);
+	namespace_ee206246::register(#"main_quest", #"hash_2c00866b95e17ff5", #"hash_269c1f969e476274", &namespace_1a68a5da::function_13dda28a, &cschashed-2\script_763e5f4b26b4d8ce::function_a874e5d0);
+	namespace_ee206246::register(#"main_quest", #"hash_ebca448700872b8", #"hash_62afa5eef34f62f2", &namespace_4b68b2b3::function_1faf4b9, &cschashed-1\script_6fdaa897ed596805::function_a8748143);
+	namespace_ee206246::register(#"main_quest", #"hash_810019231f11ea1", #"hash_62afa4eef34f613f", &namespace_4b68b2b3::function_91fbb734, &cschashed-1\script_6fdaa897ed596805::function_c2898bf0);
+	namespace_ee206246::register(#"main_quest", #"hash_11c4f1ecb0dd5a34", #"hash_629486eef338668d", &namespace_ff7e4f08::function_8d43b840, &cschashed-2\script_442a4e554bcd7c3b::function_2d9e1e29);
+	namespace_ee206246::register(#"main_quest", #"hash_d0bf3cf30a07a84", #"hash_629485eef33864da", &namespace_1a68a5da::function_13dda28a, &cschashed-2\script_763e5f4b26b4d8ce::function_a874e5d0);
+	namespace_ee206246::register(#"main_quest", #"hash_13b9abe1bd17294c", #"hash_629484eef3386327", &namespace_4b68b2b3::function_816c3132, &cschashed-1\script_6fdaa897ed596805::function_3c9be590);
+	namespace_ee206246::register(#"main_quest", #"hash_7d78cef11f6afb5e", #"hash_629483eef3386174", &namespace_bfc8ee03::function_5309464a, &cschashed-3\script_20422991283c1b8::function_ae270d9e);
+	namespace_ee206246::register(#"main_quest", #"hash_2bd81e2b05fccbed", #"hash_629482eef3385fc1", &namespace_13b4b4b::function_5309464a, &cschashed-2\script_387ae8d7955ac404::function_ae270d9e);
 	namespace_ee206246::register(#"main_quest", #"hash_49b41abaa9addedd", #"hash_629481eef3385e0e", &function_d4147875, &function_895265b1, 1);
-	if(zm_utility::function_e51dc2d8())
+	if(zm_utility::can_enable_ee())
 	{
 		level thread function_93a140f7();
 	}
@@ -110,7 +110,7 @@ function main()
 
 /*
 	Name: function_93a140f7
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x370C2DA8
 	Offset: 0xB60
 	Size: 0x5C
@@ -124,12 +124,12 @@ function function_93a140f7()
 	{
 		wait(2);
 	}
-	namespace_ee206246::start(#"main_quest");
+	zm_sq::start(#"main_quest");
 }
 
 /*
 	Name: function_cb512dd4
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x7E8FD85C
 	Offset: 0xBC8
 	Size: 0x1A
@@ -146,7 +146,7 @@ function function_cb512dd4(var_5ea5c94d)
 
 /*
 	Name: function_f615b0f
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x5D10585F
 	Offset: 0xBF0
 	Size: 0x14
@@ -159,7 +159,7 @@ function function_f615b0f(var_5ea5c94d, ended_early)
 
 /*
 	Name: play_outro
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0xD2933143
 	Offset: 0xC10
 	Size: 0x14C
@@ -180,14 +180,14 @@ function play_outro()
 		}
 		array::thread_all(a_e_players, &zm_player::spectator_respawn_player);
 	}
-	namespace_509a75d1::function_3c173d37();
+	cschashed-3\script_e2bef0652b31f68::function_3c173d37();
 	level zm_audio::sndvoxoverride(1);
 	lui::play_movie(#"hash_13e1b680be72dcd3", "fullscreen", 1, 0, 0, #"hash_1d54dda4d1e82bc3", undefined, 0);
 }
 
 /*
 	Name: function_d4147875
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x122AB0FC
 	Offset: 0xD68
 	Size: 0x684
@@ -196,8 +196,8 @@ function play_outro()
 */
 function function_d4147875(var_5ea5c94d)
 {
-	namespace_509a75d1::function_314447b(1, 0);
-	namespace_db48768d::function_b1c6d4f2();
+	cschashed-3\script_e2bef0652b31f68::function_314447b(1, 0);
+	cschashed-1\script_2ba889640a9676f3::function_b1c6d4f2();
 	level flag::set(#"hold_round_end");
 	level thread play_outro();
 	wait(320);
@@ -232,7 +232,7 @@ function function_d4147875(var_5ea5c94d)
 	/#
 		println("");
 	#/
-	namespace_db48768d::function_e9f6e0f7();
+	cschashed-1\script_2ba889640a9676f3::function_e9f6e0f7();
 	/#
 		println("");
 	#/
@@ -274,8 +274,8 @@ function function_d4147875(var_5ea5c94d)
 	while(true)
 	{
 		waitframe(1);
-		_attack_barrier_sprint = vectornormalize(veh_end.origin - level.sam.origin);
-		var_7d910a84 = vectordot(_attack_barrier_sprint, anglestoforward(level.sam.angles));
+		var_9461d9d2 = vectornormalize(veh_end.origin - level.sam.origin);
+		var_7d910a84 = vectordot(var_9461d9d2, anglestoforward(level.sam.angles));
 		if(var_7d910a84 < 0)
 		{
 			break;
@@ -294,7 +294,7 @@ function function_d4147875(var_5ea5c94d)
 
 /*
 	Name: music_watcher
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x1E20AC38
 	Offset: 0x13F8
 	Size: 0x2C
@@ -309,7 +309,7 @@ function music_watcher()
 
 /*
 	Name: function_895265b1
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x2F262384
 	Offset: 0x1430
 	Size: 0x80
@@ -328,7 +328,7 @@ function function_895265b1(var_5ea5c94d, ended_early)
 
 /*
 	Name: function_74963add
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x5E723729
 	Offset: 0x14B8
 	Size: 0xBC
@@ -340,8 +340,8 @@ function function_74963add()
 	while(true)
 	{
 		waitframe(1);
-		_attack_barrier_sprint = vectornormalize(self.origin - level.sam.origin);
-		var_7d910a84 = vectordot(_attack_barrier_sprint, anglestoforward(level.sam.angles));
+		var_9461d9d2 = vectornormalize(self.origin - level.sam.origin);
+		var_7d910a84 = vectordot(var_9461d9d2, anglestoforward(level.sam.angles));
 		if(var_7d910a84 < 0)
 		{
 			break;
@@ -352,7 +352,7 @@ function function_74963add()
 
 /*
 	Name: function_b0fc5631
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0xE5427B87
 	Offset: 0x1580
 	Size: 0x120
@@ -373,7 +373,7 @@ function function_b0fc5631()
 
 /*
 	Name: function_33e15dfb
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x60208315
 	Offset: 0x16A8
 	Size: 0xD0
@@ -392,7 +392,7 @@ function function_33e15dfb()
 
 /*
 	Name: function_b20c4898
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x6C538B3F
 	Offset: 0x1780
 	Size: 0x66
@@ -412,7 +412,7 @@ function function_b20c4898()
 
 /*
 	Name: function_c40f70df
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x48EDD3E
 	Offset: 0x17F0
 	Size: 0x354
@@ -424,10 +424,10 @@ function function_c40f70df(var_21c1ba1)
 	level endon(#"end_game");
 	self endon(#"death");
 	/#
-		println(("" + var_21c1ba1) + "");
+		println("" + var_21c1ba1 + "");
 	#/
 	self bgb::suspend_weapon_cycling();
-	self bgb_pack::function_ac9cb612(1);
+	self cschashed-1\script_3d4e88c949caf53e::function_ac9cb612(1);
 	self util::magic_bullet_shield();
 	self allowsprint(0);
 	self allowcrouch(0);
@@ -442,9 +442,9 @@ function function_c40f70df(var_21c1ba1)
 	}
 	waitframe(1);
 	/#
-		println(("" + var_21c1ba1) + "");
+		println("" + var_21c1ba1 + "");
 	#/
-	self namespace_b22c99a5::function_3f8a4145(0);
+	self cschashed-1\script_3d5821d793ed4c6::function_3f8a4145(0);
 	if(!self laststand::player_is_in_laststand())
 	{
 		str_stance = self getstance();
@@ -454,7 +454,7 @@ function function_c40f70df(var_21c1ba1)
 			{
 				self setstance("stand");
 				/#
-					println(("" + var_21c1ba1) + "");
+					println("" + var_21c1ba1 + "");
 				#/
 				wait(0.2);
 				break;
@@ -463,7 +463,7 @@ function function_c40f70df(var_21c1ba1)
 			{
 				self setstance("stand");
 				/#
-					println(("" + var_21c1ba1) + "");
+					println("" + var_21c1ba1 + "");
 				#/
 				wait(1);
 				break;
@@ -471,13 +471,13 @@ function function_c40f70df(var_21c1ba1)
 		}
 	}
 	/#
-		println(("" + var_21c1ba1) + "");
+		println("" + var_21c1ba1 + "");
 	#/
 }
 
 /*
 	Name: function_fe09cd56
-	Namespace: namespace_ec1f72a0
+	Namespace: cschashed-1\script_7d5f2f51e8a5443d
 	Checksum: 0x17424876
 	Offset: 0x1B50
 	Size: 0x1F4

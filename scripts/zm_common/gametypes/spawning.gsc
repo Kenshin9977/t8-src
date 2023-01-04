@@ -357,19 +357,16 @@ function create_player_influencers()
 		other_team_mask = level.spawnsystem.ispawn_teammask_free;
 		weapon_team_mask = level.spawnsystem.ispawn_teammask_free;
 	}
+	else if(isdefined(self.pers[#"team"]))
+	{
+		team = self.pers[#"team"];
+		team_mask = util::getteammask(team);
+		enemy_teams_mask = util::getotherteamsmask(team);
+	}
 	else
 	{
-		if(isdefined(self.pers[#"team"]))
-		{
-			team = self.pers[#"team"];
-			team_mask = util::getteammask(team);
-			enemy_teams_mask = util::getotherteamsmask(team);
-		}
-		else
-		{
-			team_mask = 0;
-			enemy_teams_mask = 0;
-		}
+		team_mask = 0;
+		enemy_teams_mask = 0;
 	}
 	angles = self.angles;
 	origin = self.origin;
@@ -578,12 +575,7 @@ function create_map_placed_influencer(influencer_entity)
 		team_mask = util::getteammask(influencer_entity.script_team);
 		level create_enemy_influencer(influencer_entity.script_noteworty, influencer_entity.origin, team_mask);
 	}
-	else
-	{
-		/#
-			assertmsg("");
-		#/
-	}
+	assertmsg("");
 	return influencer_id;
 }
 
@@ -737,14 +729,11 @@ function get_debug_spawnpoint(player)
 			count = count + size;
 		}
 	}
-	else
+	else if(level.test_spawn_point_index >= level.unified_spawn_points[team].a.size)
 	{
-		if(level.test_spawn_point_index >= level.unified_spawn_points[team].a.size)
-		{
-			level.test_spawn_point_index = 0;
-		}
-		return level.unified_spawn_points[team].a[level.test_spawn_point_index];
+		level.test_spawn_point_index = 0;
 	}
+	return level.unified_spawn_points[team].a[level.test_spawn_point_index];
 }
 
 /*
@@ -909,16 +898,16 @@ function spawn_point_class_name_being_used(name)
 {
 	if(!isdefined(level.spawn_point_class_names))
 	{
-		return false;
+		return 0;
 	}
 	for(i = 0; i < level.spawn_point_class_names.size; i++)
 	{
 		if(level.spawn_point_class_names[i] == name)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*

@@ -22,7 +22,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"userspawnselection", &__init__, undefined, undefined);
 }
@@ -45,7 +45,7 @@ function __init__()
 	level.spawnselect.vox_plr_1_revive_down_2 = [];
 	level.spawnselect.lastchosenplayerspawns = [];
 	level.spawnselectenabled = getgametypesetting(#"spawnselectenabled");
-	level.usespawngroups = getgametypesetting(#"usespawngroups");
+	level.var_f13359cc = getgametypesetting(#"hash_579160ea3f0ec623");
 	level.spawngroups = [];
 	level.next_spawn_group_index = 0;
 	level.var_abb55703 = &function_a316ca82;
@@ -78,10 +78,10 @@ function function_127864f2(player)
 	{
 		if(player == spawnbeacon.owner)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -116,9 +116,9 @@ function function_a316ca82(player)
 	spawnbeacon = player function_b9573d36();
 	if(isdefined(spawnbeacon))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -358,7 +358,7 @@ function setspawngroupsenabled()
 */
 function canplayerusespawngroup(spawngroupindex)
 {
-	return true;
+	return 1;
 }
 
 /*
@@ -719,7 +719,7 @@ function watchforselectiontimeout()
 	self.spawnselect_start_time = gettime();
 	while(true)
 	{
-		if((level.spawnselect_timelimit_ms - (gettime() - self.spawnselect_start_time)) <= 0)
+		if(level.spawnselect_timelimit_ms - gettime() - self.spawnselect_start_time <= 0)
 		{
 			self luinotifyevent(#"force_spawn_selection");
 			return;
@@ -737,7 +737,7 @@ function watchforselectiontimeout()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private on_player_disconnect()
+private function on_player_disconnect()
 {
 	self clearcacheforplayer();
 }
@@ -800,7 +800,7 @@ function filter_spawnpoints(spawnpoints)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_259770ba(e_player)
+private function function_259770ba(e_player)
 {
 	if(!isdefined(level.spawnselect.lastchosenplayerspawns[e_player.clientid]) || level.usestartspawns)
 	{
@@ -827,25 +827,25 @@ function private function_259770ba(e_player)
 	{
 		/#
 			println("");
-			println(("" + spawbeaconid) + "");
-			println(("" + e_player.team) + "");
+			println("" + spawbeaconid + "");
+			println("" + e_player.team + "");
 			for(index = 0; index < level.spawnselect.vox_plr_1_revive_down_2.size; index++)
 			{
 				if(!isdefined(level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid]))
 				{
 					continue;
 				}
-				println(("" + index) + "");
-				println(("" + level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].objectiveid) + "");
-				println(("" + level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].team) + "");
+				println("" + index + "");
+				println("" + level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].objectiveid + "");
+				println("" + level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].team + "");
 				if(isdefined(level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].owner.playername))
 				{
-					println(("" + level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].owner.playername) + "");
+					println("" + level.spawnselect.vox_plr_1_revive_down_2[spawbeaconid].owner.playername + "");
 				}
 				println("");
 			}
-			println(("" + level.numgametypereservedobjectives) + "");
-			println(("" + level.releasedobjectives.size) + "");
+			println("" + level.numgametypereservedobjectives + "");
+			println("" + level.releasedobjectives.size + "");
 			println("");
 			foreach(objid in level.releasedobjectives)
 			{
@@ -880,9 +880,9 @@ function private function_259770ba(e_player)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private getclientfieldprefix(id)
+private function getclientfieldprefix(id)
 {
-	return ("spawngroupStatus." + id) + ".";
+	return "spawngroupStatus." + id + ".";
 }
 
 /*
@@ -894,7 +894,7 @@ function private getclientfieldprefix(id)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private registerclientfields()
+private function registerclientfields()
 {
 	for(index = 0; index < 20; index++)
 	{
@@ -953,7 +953,7 @@ function on_start_gametype()
 	{
 		return;
 	}
-	if(level.usespawngroups)
+	if(level.var_f13359cc)
 	{
 		spawngroupssorted = arraysort(spawngroups, (0, 0, 0), 1);
 		foreach(spawngroup in spawngroupssorted)
@@ -977,7 +977,7 @@ function on_start_gametype()
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private setupspawnlistforspawngroup(spawngroupkey, spawnlistname, team)
+private function setupspawnlistforspawngroup(spawngroupkey, spawnlistname, team)
 {
 	rawspawns = struct::get_array(spawngroupkey, "groupname");
 	if(!isdefined(rawspawns))
@@ -1023,7 +1023,7 @@ function private setupspawnlistforspawngroup(spawngroupkey, spawnlistname, team)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private setupspawngroup(spawngroup)
+private function setupspawngroup(spawngroup)
 {
 	spawngroup.objectiveid = gameobjects::get_next_obj_id();
 	if(level.teambased && isdefined(game.switchedsides) && game.switchedsides)

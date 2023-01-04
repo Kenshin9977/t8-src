@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_256b8879317373de;
+#using hashed-2\player_201.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\flagsys_shared.gsc;
@@ -33,7 +33,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init()
+autoexec function init()
 {
 	if(!isdefined(level.givestartloadout))
 	{
@@ -92,10 +92,10 @@ function allteamshaveexisted()
 	{
 		if(!level.everexisted[team])
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -111,15 +111,15 @@ function mayspawn()
 {
 	if(isdefined(level.playermayspawn) && !self [[level.playermayspawn]]())
 	{
-		return false;
+		return 0;
 	}
 	if(level.inovertime)
 	{
-		return false;
+		return 0;
 	}
 	if(level.playerqueuedrespawn && !isdefined(self.allowqueuespawn) && !level.ingraceperiod && !level.usestartspawns)
 	{
-		return false;
+		return 0;
 	}
 	if(level.numlives)
 	{
@@ -133,17 +133,17 @@ function mayspawn()
 		}
 		if(!self.pers[#"lives"] && gamehasstarted)
 		{
-			return false;
+			return 0;
 		}
 		if(gamehasstarted)
 		{
 			if(!level.ingraceperiod && !self.hasspawned && !isbot(self))
 			{
-				return false;
+				return 0;
 			}
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -157,21 +157,21 @@ function mayspawn()
 */
 function timeuntilwavespawn(minimumwait)
 {
-	earliestspawntime = gettime() + (minimumwait * 1000);
+	earliestspawntime = gettime() + minimumwait * 1000;
 	lastwavetime = level.lastwave[self.pers[#"team"]];
 	wavedelay = level.wavedelay[self.pers[#"team"]] * 1000;
 	if(wavedelay == 0)
 	{
 		return 0;
 	}
-	numwavespassedearliestspawntime = (earliestspawntime - lastwavetime) / wavedelay;
+	numwavespassedearliestspawntime = earliestspawntime - lastwavetime / wavedelay;
 	numwaves = ceil(numwavespassedearliestspawntime);
-	timeofspawn = lastwavetime + (numwaves * wavedelay);
+	timeofspawn = lastwavetime + numwaves * wavedelay;
 	if(isdefined(self.wavespawnindex))
 	{
-		timeofspawn = timeofspawn + (50 * self.wavespawnindex);
+		timeofspawn = timeofspawn + 50 * self.wavespawnindex;
 	}
-	return (timeofspawn - gettime()) / 1000;
+	return timeofspawn - gettime() / 1000;
 }
 
 /*
@@ -376,7 +376,7 @@ function function_7455b680()
 	self notify(#"spawned_player");
 	self callback::callback(#"on_player_spawned");
 	/#
-		print(((((("" + self.origin[0]) + "") + self.origin[1]) + "") + self.origin[2]) + "");
+		print("" + self.origin[0] + "" + self.origin[1] + "" + self.origin[2] + "");
 	#/
 	setdvar(#"scr_selecting_location", "");
 	self zm_utility::function_e0448fec();
@@ -554,8 +554,8 @@ function kickifidontspawninternal()
 	}
 	starttime = gettime();
 	kickwait(waittime);
-	timepassed = (gettime() - starttime) / 1000;
-	if(timepassed < (waittime - 0.1) && timepassed < mintime)
+	timepassed = gettime() - starttime / 1000;
+	if(timepassed < waittime - 0.1 && timepassed < mintime)
 	{
 		return;
 	}
@@ -640,16 +640,13 @@ function spawnintermission(usedefaultcallback)
 			{
 				self playlocalsound(#"mus_level_up");
 			}
-			else
+			else if(self.postgamecontracts)
 			{
-				if(self.postgamecontracts)
-				{
-					self playlocalsound(#"mus_challenge_complete");
-				}
-				else if(self.postgamemilestones)
-				{
-					self playlocalsound(#"mus_contract_complete");
-				}
+				self playlocalsound(#"mus_challenge_complete");
+			}
+			else if(self.postgamemilestones)
+			{
+				self playlocalsound(#"mus_contract_complete");
 			}
 			self closeingamemenu();
 			waittime = 4;
@@ -758,20 +755,20 @@ function allteamsnearscorelimit()
 {
 	if(!level.teambased)
 	{
-		return false;
+		return 0;
 	}
 	if(level.scorelimit <= 1)
 	{
-		return false;
+		return 0;
 	}
 	foreach(team, _ in level.teams)
 	{
-		if(!game.stat[#"teamscores"][team] >= (level.scorelimit - 1))
+		if(!game.stat[#"teamscores"][team] >= level.scorelimit - 1)
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -787,21 +784,21 @@ function shouldshowrespawnmessage()
 {
 	if(util::waslastround())
 	{
-		return false;
+		return 0;
 	}
 	if(util::isoneround())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.livesdonotreset) && level.livesdonotreset)
 	{
-		return false;
+		return 0;
 	}
 	if(allteamsnearscorelimit())
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

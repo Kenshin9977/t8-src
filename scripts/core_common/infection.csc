@@ -12,7 +12,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"infection", &__init__, undefined, undefined);
 }
@@ -43,8 +43,8 @@ function function_74650d7()
 {
 	if(isdefined(getgametypesetting("infectionMode")) && getgametypesetting("infectionMode"))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 

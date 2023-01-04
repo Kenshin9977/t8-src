@@ -42,7 +42,7 @@ function function_a8bbc967(str_name, n_version, n_bits, str_type, var_59f69872)
 */
 function function_346f95ba(var_a832fdfa, field_name, n_version, n_bits, str_type, var_59f69872)
 {
-	registerclientfield("clientuimodel", (("luielement." + var_a832fdfa) + ".") + field_name, n_version, n_bits, str_type, var_59f69872);
+	registerclientfield("clientuimodel", "luielement." + var_a832fdfa + "." + field_name, n_version, n_bits, str_type, var_59f69872);
 }
 
 /*
@@ -54,9 +54,9 @@ function function_346f95ba(var_a832fdfa, field_name, n_version, n_bits, str_type
 	Parameters: 5
 	Flags: Linked
 */
-function function_78175813(poolname, var_b693fec6, uniqueid, version, var_59f69872)
+function function_78175813(poolname, var_b693fec6, uniqueid, var_948bda55, var_59f69872)
 {
-	function_3ff577e6(poolname, var_b693fec6, uniqueid, version, var_59f69872);
+	function_3ff577e6(poolname, var_b693fec6, uniqueid, var_948bda55, var_59f69872);
 }
 
 /*
@@ -150,7 +150,7 @@ function set_player_uimodel(str_field_name, n_value)
 */
 function function_9bf78ef8(var_a832fdfa, str_field_name, n_value)
 {
-	codesetuimodelclientfield(self, (("luielement." + var_a832fdfa) + ".") + str_field_name, n_value);
+	codesetuimodelclientfield(self, "luielement." + var_a832fdfa + "." + str_field_name, n_value);
 }
 
 /*
@@ -164,7 +164,7 @@ function function_9bf78ef8(var_a832fdfa, str_field_name, n_value)
 */
 function function_bb878fc3(var_a832fdfa, str_field_name)
 {
-	codeincrementuimodelclientfield(self, (("luielement." + var_a832fdfa) + ".") + str_field_name);
+	codeincrementuimodelclientfield(self, "luielement." + var_a832fdfa + "." + str_field_name);
 }
 
 /*
@@ -192,7 +192,7 @@ function get_player_uimodel(str_field_name)
 */
 function function_f7ae6994(var_a832fdfa, str_field_name)
 {
-	return codegetuimodelclientfield(self, (("luielement." + var_a832fdfa) + ".") + str_field_name);
+	return codegetuimodelclientfield(self, "luielement." + var_a832fdfa + "." + str_field_name);
 }
 
 /*
@@ -260,7 +260,7 @@ function increment(str_field_name, n_increment_count)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private _increment(str_field_name, n_increment_count = 1)
+private function _increment(str_field_name, n_increment_count = 1)
 {
 	if(self != level)
 	{

@@ -1,12 +1,12 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3aa0f32b70d4f7cb;
-#using script_3f9e0dc8454d98e1;
-#using script_4d85e8de54b02198;
-#using script_522aeb6ae906391e;
-#using script_57f7003580bb15e0;
-#using script_59f07c660e6710a5;
-#using script_7b7ed6e4bc963a51;
-#using script_caf007e2a98afa2;
+#using hashed-1\behaviortreenetworkutility.gsc;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-1\animationstatenetwork_91.gsc;
+#using hashed-2\blackboard.gsc;
+#using hashed-2\status_effect.gsc;
+#using hashed-2\ai_interface.gsc;
+#using hashed-1\blackboard_136.gsc;
+#using hashed-3\animationstatenetworkutility.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -14,25 +14,24 @@
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
 
-#namespace archetype_avogadro;
+#namespace cschashed-1\script_5a251ec6ce631b;
 
 /*
 	Name: function_89f2df9
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x26F7FD59
 	Offset: 0x1F0
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
-	system::register(#"archetype_avogadro", &__init__, &__main__, undefined);
-}
+	system::register(#"archetype_avogadro", &__init__, &__main__, undefined);}
 
 /*
 	Name: __init__
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x3941B480
 	Offset: 0x240
 	Size: 0x164
@@ -53,7 +52,7 @@ function __init__()
 
 /*
 	Name: __main__
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x7830522E
 	Offset: 0x3B0
 	Size: 0x2E
@@ -67,7 +66,7 @@ function __main__()
 
 /*
 	Name: function_6bb82ac9
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xCA9346E7
 	Offset: 0x3E8
 	Size: 0x104
@@ -95,7 +94,7 @@ function function_6bb82ac9()
 
 /*
 	Name: registerbehaviorscriptfunctions
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x55088365
 	Offset: 0x4F8
 	Size: 0x44C
@@ -149,7 +148,7 @@ function registerbehaviorscriptfunctions()
 
 /*
 	Name: function_ee579eb5
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xD3F54384
 	Offset: 0x950
 	Size: 0xDC
@@ -173,14 +172,14 @@ function function_ee579eb5()
 
 /*
 	Name: function_8a404313
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xDC9C496D
 	Offset: 0xA38
 	Size: 0x4A
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_8a404313()
+private function function_8a404313()
 {
 	blackboard::createblackboardforentity(self);
 	ai::createinterfaceforentity(self);
@@ -189,14 +188,14 @@ function private function_8a404313()
 
 /*
 	Name: function_c7791d22
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xD9C2E93A
 	Offset: 0xA90
 	Size: 0x2C
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_c7791d22(entity)
+private function function_c7791d22(entity)
 {
 	entity.__blackboard = undefined;
 	entity function_8a404313();
@@ -204,7 +203,7 @@ function private function_c7791d22(entity)
 
 /*
 	Name: function_d1359818
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xDEA697A5
 	Offset: 0xAC8
 	Size: 0x1C
@@ -218,7 +217,7 @@ function function_d1359818()
 
 /*
 	Name: function_8886bcc4
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x5238D9F3
 	Offset: 0xAF0
 	Size: 0x4C
@@ -236,7 +235,7 @@ function function_8886bcc4(params)
 
 /*
 	Name: function_99ce086a
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x502B55E9
 	Offset: 0xB48
 	Size: 0xC8
@@ -254,7 +253,7 @@ function function_99ce086a(inflictor, attacker, damage, flags, meansofdeath, wea
 
 /*
 	Name: function_dbc638a8
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x5E49BB67
 	Offset: 0xC18
 	Size: 0xFC
@@ -267,22 +266,19 @@ function function_dbc638a8(entity)
 	{
 		entity clientfield::set("" + #"hash_2eec8fc21495a18c", 1);
 	}
+	else if(entity.health < entity.maxhealth * 0.66)
+	{
+		entity clientfield::set("" + #"hash_2eec8fc21495a18c", 2);
+	}
 	else
 	{
-		if(entity.health < entity.maxhealth * 0.66)
-		{
-			entity clientfield::set("" + #"hash_2eec8fc21495a18c", 2);
-		}
-		else
-		{
-			entity clientfield::set("" + #"hash_2eec8fc21495a18c", 3);
-		}
+		entity clientfield::set("" + #"hash_2eec8fc21495a18c", 3);
 	}
 }
 
 /*
 	Name: function_50a86206
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x7F195033
 	Offset: 0xD20
 	Size: 0x24
@@ -296,7 +292,7 @@ function function_50a86206(params)
 
 /*
 	Name: function_80fc1a78
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xD3B082AE
 	Offset: 0xD50
 	Size: 0x62
@@ -313,18 +309,18 @@ function function_80fc1a78(time)
 
 /*
 	Name: function_66dd488a
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xB8E074EB
 	Offset: 0xDC0
 	Size: 0xC6
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_66dd488a()
+private function function_66dd488a()
 {
 	foreach(bolt in level.var_58143890)
 	{
-		if(isalive(bolt.owner) || (bolt clientfield::get("" + #"hash_699d5bb1a9339a93")) == 1)
+		if(isalive(bolt.owner) || bolt clientfield::get("" + #"hash_699d5bb1a9339a93") == 1)
 		{
 			continue;
 		}
@@ -335,14 +331,14 @@ function private function_66dd488a()
 
 /*
 	Name: function_7e03184e
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x55DFE276
 	Offset: 0xE90
 	Size: 0x5A
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_7e03184e(bolt, entity)
+private function function_7e03184e(bolt, entity)
 {
 	/#
 		/#
@@ -354,50 +350,50 @@ function private function_7e03184e(bolt, entity)
 
 /*
 	Name: function_cbdce009
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xAC0151A4
 	Offset: 0xEF8
 	Size: 0x16
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_cbdce009(bolt)
+private function function_cbdce009(bolt)
 {
 	bolt.owner = undefined;
 }
 
 /*
 	Name: function_f8e8c129
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xD1DD5840
 	Offset: 0xF18
 	Size: 0x382
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_f8e8c129(entity)
+private function function_f8e8c129(entity)
 {
 	if(isdefined(entity.can_shoot) && !entity.can_shoot)
 	{
-		return false;
+		return 0;
 	}
 	var_99387d40 = blackboard::getblackboardevents(#"hash_27bee30b37f7debe");
 	if(var_99387d40.size > 0)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.var_a35afcb2) && ![[level.var_a35afcb2]](entity))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(entity.bolt))
 	{
-		return true;
+		return 1;
 	}
 	bolt = function_66dd488a();
 	if(!isdefined(bolt))
 	{
-		return false;
+		return 0;
 	}
 	enemy = (isdefined(self.attackable) ? self.attackable : self.favoriteenemy);
 	if(isdefined(enemy))
@@ -427,24 +423,24 @@ function private function_f8e8c129(entity)
 				{
 					function_7e03184e(bolt, entity);
 					entity.bolt = bolt;
-					return true;
+					return 1;
 				}
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_7e5905cd
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xAE7FDD10
 	Offset: 0x12A8
 	Size: 0xCC
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_7e5905cd(entity)
+private function function_7e5905cd(entity)
 {
 	enemy = self.favoriteenemy;
 	if(isdefined(enemy))
@@ -463,14 +459,14 @@ function private function_7e5905cd(entity)
 
 /*
 	Name: function_6cf71c35
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xCBE2AB39
 	Offset: 0x1380
 	Size: 0x3E
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_6cf71c35(entity)
+private function function_6cf71c35(entity)
 {
 	if(isdefined(entity.bolt))
 	{
@@ -481,14 +477,14 @@ function private function_6cf71c35(entity)
 
 /*
 	Name: shoot_bolt_wait
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x6FF2DFA8
 	Offset: 0x13C8
 	Size: 0x21C
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private shoot_bolt_wait(entity)
+private function shoot_bolt_wait(entity)
 {
 	bolt = entity.bolt;
 	entity.bolt = undefined;
@@ -519,7 +515,7 @@ function private shoot_bolt_wait(entity)
 
 /*
 	Name: check_bolt_impact
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xB8667912
 	Offset: 0x15F0
 	Size: 0x12C
@@ -546,7 +542,7 @@ function check_bolt_impact(entity, enemy)
 
 /*
 	Name: function_95141921
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xFC36C5A2
 	Offset: 0x1728
 	Size: 0x36
@@ -561,7 +557,7 @@ function function_95141921(entity)
 
 /*
 	Name: function_a495d71f
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x6446A726
 	Offset: 0x1768
 	Size: 0x38E
@@ -600,7 +596,7 @@ function function_a495d71f(entity)
 						recordsphere(endpoint, 15, (0, 1, 0));
 					#/
 					entity.var_1ce249af = 1;
-					return true;
+					return 1;
 				}
 				/#
 					recordline(entity.origin, endpoint, (1, 0, 0));
@@ -614,7 +610,7 @@ function function_a495d71f(entity)
 
 /*
 	Name: function_9ab1c000
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x8EF6B5EB
 	Offset: 0x1B00
 	Size: 0x3E
@@ -632,7 +628,7 @@ function function_9ab1c000(entity)
 
 /*
 	Name: function_3b8d314c
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xCAB2FC54
 	Offset: 0x1B48
 	Size: 0xDC
@@ -661,7 +657,7 @@ function function_3b8d314c(entity)
 
 /*
 	Name: function_36f6a838
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x78EF5853
 	Offset: 0x1C30
 	Size: 0x2E
@@ -676,7 +672,7 @@ function function_36f6a838(entity)
 
 /*
 	Name: function_dbba31c1
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0x27936E21
 	Offset: 0x1C68
 	Size: 0xB4
@@ -698,7 +694,7 @@ function function_dbba31c1(entity)
 
 /*
 	Name: function_1169b184
-	Namespace: archetype_avogadro
+	Namespace: cschashed-1\script_5a251ec6ce631b
 	Checksum: 0xBE8E297E
 	Offset: 0x1D28
 	Size: 0x24

@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"explode", &__init__, undefined, undefined);
 }
@@ -193,7 +193,7 @@ function do_the_dirty_lerp_helper(currenttime, elapsedtime, localclientnum, dirt
 {
 	if(elapsedtime > dirtduration - dirtfadetime)
 	{
-		filter::set_filter_sprite_dirt_opacity(self, 5, (dirtduration - elapsedtime) / dirtfadetime);
+		filter::set_filter_sprite_dirt_opacity(self, 5, dirtduration - elapsedtime / dirtfadetime);
 	}
 	else
 	{
@@ -254,18 +254,15 @@ function watchforexplosion(localclientnum)
 							udot = -1;
 						}
 					}
+					else if(rdot > 0)
+					{
+						rdot = 1;
+					}
 					else
 					{
-						if(rdot > 0)
-						{
-							rdot = 1;
-						}
-						else
-						{
-							rdot = -1;
-						}
+						rdot = -1;
 					}
-					self thread dothedirty(localclientnum, rdot, udot, 1 - (explosiondistance / 600), 2000, 500);
+					self thread dothedirty(localclientnum, rdot, udot, 1 - explosiondistance / 600, 2000, 500);
 				}
 			}
 		}

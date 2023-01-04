@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_79a7e1c31a3e8cc;
+#using hashed-2\deployable.gsc;
 #using scripts\core_common\laststand_shared.gsc;
 #using scripts\core_common\oob.gsc;
 #using scripts\core_common\scene_shared.gsc;
@@ -311,7 +311,7 @@ function innoplacementtrigger()
 		{
 			if(placeable istouching(level.noturretplacementtriggers[i]))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
@@ -321,15 +321,15 @@ function innoplacementtrigger()
 		{
 			if(placeable istouching(level.fatal_triggers[i]))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
 	if(placeable oob::istouchinganyoobtrigger())
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -364,7 +364,7 @@ function waitforplaceabletobebuilt(player)
 		}
 		if(isdefined(placeable.buildprogressfunc))
 		{
-			[[placeable.buildprogressfunc]](placeable, player, (gettime() - starttime) / buildlength);
+			[[placeable.buildprogressfunc]](placeable, player, gettime() - starttime / buildlength);
 		}
 		waitframe(1);
 	}
@@ -588,30 +588,21 @@ function function_e222876f(placeable)
 		{
 			placeable notify(#"cancelled");
 		}
-		else
+		else if(!(isdefined(placeable.var_e3be448) ? placeable.var_e3be448 : 0) && placeable.cancelable && player actionslotfourbuttonpressed())
 		{
-			if(!(isdefined(placeable.var_e3be448) ? placeable.var_e3be448 : 0) && placeable.cancelable && player actionslotfourbuttonpressed())
-			{
-				placeable notify(#"cancelled");
-			}
-			else
-			{
-				if(isdefined(placeable.var_25404db4) && placeable.var_25404db4 && player laststand::player_is_in_laststand())
-				{
-					placeable notify(#"cancelled");
-				}
-				else
-				{
-					if(player scene::is_igc_active())
-					{
-						placeable notify(#"cancelled");
-					}
-					else if(player isinvehicle())
-					{
-						placeable notify(#"cancelled");
-					}
-				}
-			}
+			placeable notify(#"cancelled");
+		}
+		else if(isdefined(placeable.var_25404db4) && placeable.var_25404db4 && player laststand::player_is_in_laststand())
+		{
+			placeable notify(#"cancelled");
+		}
+		else if(player scene::is_igc_active())
+		{
+			placeable notify(#"cancelled");
+		}
+		else if(player isinvehicle())
+		{
+			placeable notify(#"cancelled");
 		}
 		waitframe(1);
 	}

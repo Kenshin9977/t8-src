@@ -39,10 +39,8 @@ function init()
 	level.var_95c10956 = &function_a0488ba8;
 	level flag::init(#"flag_gegenees_set_intro");
 	level flag::init(#"flag_skeleton_set_intro");
-	namespace_c3287616::function_cc103b38(#"catalyst", 7);
-	namespace_c3287616::function_cc103b38(#"blight_father", 14);
-	namespace_c3287616::function_2876740e(#"catalyst", &function_2ffc8cca);
-	namespace_c3287616::function_2876740e(#"blight_father", &function_ec882ff);
+	namespace_c3287616::function_cc103b38(#"catalyst", 7);	namespace_c3287616::function_cc103b38(#"blight_father", 14);
+	namespace_c3287616::function_2876740e(#"catalyst", &function_2ffc8cca);	namespace_c3287616::function_2876740e(#"blight_father", &function_ec882ff);
 	namespace_c3287616::function_2876740e(#"gegenees", &function_57fd9735);
 	namespace_c3287616::function_306ce518(#"blight_father", &function_fa00e485);
 	namespace_c3287616::function_306ce518(#"gegenees", &function_c1a0ea97);
@@ -121,23 +119,17 @@ function function_990c303a()
 		{
 			level.var_9b1fafcf = 1;
 		}
+		else if(level.round_number <= 10)
+		{
+			level.var_9b1fafcf = 1;
+		}
+		else if(level.round_number <= 17)
+		{
+			level.var_9b1fafcf = 2;
+		}
 		else
 		{
-			if(level.round_number <= 10)
-			{
-				level.var_9b1fafcf = 1;
-			}
-			else
-			{
-				if(level.round_number <= 17)
-				{
-					level.var_9b1fafcf = 2;
-				}
-				else
-				{
-					level.var_9b1fafcf = 3;
-				}
-			}
+			level.var_9b1fafcf = 3;
 		}
 	}
 }
@@ -182,23 +174,17 @@ function function_ec882ff(n_max)
 	{
 		var_1797c23a = 1;
 	}
+	else if(level.round_number <= 10)
+	{
+		var_1797c23a = 1;
+	}
+	else if(level.round_number <= 17)
+	{
+		var_1797c23a = 2;
+	}
 	else
 	{
-		if(level.round_number <= 10)
-		{
-			var_1797c23a = 1;
-		}
-		else
-		{
-			if(level.round_number <= 17)
-			{
-				var_1797c23a = 2;
-			}
-			else
-			{
-				var_1797c23a = 3;
-			}
-		}
+		var_1797c23a = 3;
 	}
 	var_2506688 = 1;
 	n_num_to_spawn = function_21a3a673(int(var_2506688), var_1797c23a);
@@ -232,23 +218,17 @@ function function_57fd9735(n_max)
 	{
 		var_1797c23a = 1;
 	}
+	else if(level.round_number <= 10)
+	{
+		var_1797c23a = 1;
+	}
+	else if(level.round_number <= 17)
+	{
+		var_1797c23a = 2;
+	}
 	else
 	{
-		if(level.round_number <= 10)
-		{
-			var_1797c23a = 1;
-		}
-		else
-		{
-			if(level.round_number <= 17)
-			{
-				var_1797c23a = 2;
-			}
-			else
-			{
-				var_1797c23a = 3;
-			}
-		}
+		var_1797c23a = 3;
 	}
 	var_2506688 = 1;
 	n_num_to_spawn = function_21a3a673(int(var_2506688), var_1797c23a);

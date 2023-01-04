@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f27a7b2232674db;
-#using script_75be2950b381443;
+#using hashed-1\player_role.gsc;
+#using hashed-2\platoons.gsc;
 #using scripts\core_common\spectating.gsc;
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\teams.gsc;
@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"infection", &__init__, undefined, undefined);
 }
@@ -65,9 +65,9 @@ function function_74650d7()
 {
 	if(isdefined(level.infection))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -151,7 +151,7 @@ function function_153000d0(male, female)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_e8cc8373(male, female)
+private function function_e8cc8373(male, female)
 {
 	/#
 		assert(isdefined(male));
@@ -357,9 +357,9 @@ function function_687661ea()
 	xuid = self getxuid();
 	if(isdefined(level.infection.var_c4b373ef[xuid]) && level.infection.var_c4b373ef[xuid])
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -371,7 +371,7 @@ function function_687661ea()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_896b35be()
+private function function_896b35be()
 {
 	if(level.infection.platoon != #"invalid")
 	{
@@ -428,7 +428,7 @@ function function_d3da95cf()
 	if(platoon != #"invalid")
 	{
 		level.infection.var_c0879807[self.team] = team;
-		platoons::function_334c4bec(team, platoon);
+		namespace_aa9b5883::function_334c4bec(team, platoon);
 	}
 	if(!isdefined(level.everexisted[team]))
 	{

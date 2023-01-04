@@ -5,25 +5,25 @@
 #using scripts\zm_common\zm_bgb.gsc;
 #using scripts\zm_common\zm_score.gsc;
 
-#namespace namespace_d9876c98;
+#namespace cschashed-1\script_3c1fe5f059a0c8c9;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0xE7FCAF6E
 	Offset: 0x118
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_2fd8f0866dbeda28", &__init__, undefined, #"bgb");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0xF0D592A0
 	Offset: 0x168
 	Size: 0x12C
@@ -44,7 +44,7 @@ function __init__()
 
 /*
 	Name: enable
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0x77B94F1
 	Offset: 0x2A0
 	Size: 0x8C
@@ -60,7 +60,7 @@ function enable()
 
 /*
 	Name: disable
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0x80F724D1
 	Offset: 0x338
 	Size: 0x4
@@ -73,7 +73,7 @@ function disable()
 
 /*
 	Name: function_5cf91552
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0xAC899938
 	Offset: 0x348
 	Size: 0xA6
@@ -91,14 +91,14 @@ function function_5cf91552()
 
 /*
 	Name: add_to_player_score_override
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0xB80B9D48
 	Offset: 0x3F8
 	Size: 0x218
 	Parameters: 3
 	Flags: Linked
 */
-function add_to_player_score_override(n_points, str_awarded_by, zm_scr_spawner_location_distance)
+function add_to_player_score_override(n_points, str_awarded_by, var_b43eb4dc)
 {
 	if(str_awarded_by == #"hash_2fd8f0866dbeda28" || n_points == 0)
 	{
@@ -117,7 +117,7 @@ function add_to_player_score_override(n_points, str_awarded_by, zm_scr_spawner_l
 			break;
 		}
 	}
-	if(zm_scr_spawner_location_distance)
+	if(var_b43eb4dc)
 	{
 		var_bed6c5f = int(n_points / 20);
 		var_15fc340f = var_bed6c5f * 10;
@@ -147,7 +147,7 @@ function add_to_player_score_override(n_points, str_awarded_by, zm_scr_spawner_l
 
 /*
 	Name: function_db295169
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0xEFFBAB32
 	Offset: 0x618
 	Size: 0xDC
@@ -172,7 +172,7 @@ function function_db295169(e_player)
 
 /*
 	Name: function_cbaf1f69
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0x960E4DEB
 	Offset: 0x700
 	Size: 0x3A
@@ -187,7 +187,7 @@ function function_cbaf1f69(e_player)
 
 /*
 	Name: function_51e0947e
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0x244B3D99
 	Offset: 0x748
 	Size: 0x6C
@@ -209,7 +209,7 @@ function function_51e0947e()
 
 /*
 	Name: function_68790c5a
-	Namespace: namespace_d9876c98
+	Namespace: cschashed-1\script_3c1fe5f059a0c8c9
 	Checksum: 0xF9786AF0
 	Offset: 0x7C0
 	Size: 0x4C

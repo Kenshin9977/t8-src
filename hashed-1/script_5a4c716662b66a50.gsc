@@ -2,7 +2,7 @@
 #using script_421e0a3702e22de;
 #using script_52c6c2d1a2ef1b46;
 #using script_6a3f43063dfd1bdc;
-#using script_6c5b51f98cd04fa3;
+#using hashed-1\zm_sq.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
 #using scripts\core_common\spawner_shared.gsc;
@@ -46,12 +46,12 @@ function main()
 	level.var_4cf6900e[#"blue"] = struct::get("blue", "script_noteworthy");
 	level.var_4cf6900e[#"yellow"] = struct::get("yellow", "script_noteworthy");
 	level.var_4cf6900e[#"violet"] = struct::get("violet", "script_noteworthy");
-	foreach(s_dial in level.var_4cf6900e)
+	foreach(var_c808386b in level.var_4cf6900e)
 	{
-		s_dial.var_e5f66b29 = 0;
+		var_c808386b.var_e5f66b29 = 0;
 		s_dial.b_correct = 0;
 		s_dial.n_value = 0;
-		s_dial.var_7bb4ff56 = function_21a3a673(1, 9);
+		var_c808386b.var_7bb4ff56 = function_21a3a673(1, 9);
 		s_dial.dial_model = getent(s_dial.target, "targetname");
 		s_dial.dial_model hide();
 	}
@@ -69,7 +69,7 @@ function main()
 */
 function function_77ed3bab(var_5ea5c94d)
 {
-	namespace_6747c550::function_7df6bb60(#"hash_2fbec633e5118bab", 1);
+	cschashed-2\script_76b36ed1b7a51ed2::function_7df6bb60(#"hash_2fbec633e5118bab", 1);
 	if(!var_5ea5c94d)
 	{
 		/#
@@ -93,10 +93,10 @@ function function_77ed3bab(var_5ea5c94d)
 		namespace_85e029d3::function_3f9e02b8(6, #"hash_2934f352bd60d6d6", #"hash_68fc56c1fbf3b972", &function_bd605daa);
 		namespace_85e029d3::function_d83490c5(6);
 		level flag::wait_till(#"hash_40324afbf4440a0c");
-		foreach(s_dial in level.var_4cf6900e)
+		foreach(var_c808386b in level.var_4cf6900e)
 		{
 			s_dial zm_unitrigger::create("", 32);
-			s_dial thread function_1e5c0d3b();
+			var_c808386b thread function_1e5c0d3b();
 		}
 		while(!function_5a73ee80())
 		{
@@ -119,9 +119,9 @@ function function_51ecc801(var_5ea5c94d, ended_early)
 	if(var_5ea5c94d || ended_early)
 	{
 		namespace_85e029d3::function_6aaeff92(6);
-		foreach(s_dial in level.var_4cf6900e)
+		foreach(var_c808386b in level.var_4cf6900e)
 		{
-			s_dial.var_e5f66b29 = 1;
+			var_c808386b.var_e5f66b29 = 1;
 			s_dial.b_correct = 1;
 			s_dial.dial_model show();
 		}
@@ -174,7 +174,7 @@ function function_5a73ee80()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_1e5c0d3b()
+private function function_1e5c0d3b()
 {
 	level endon(#"end_game");
 	while(!level flag::get(#"hash_117279bc435c1c9"))
@@ -225,8 +225,8 @@ function private function_1e5c0d3b()
 					{
 						if(getdvarint(#"hash_11ad6a9695943217", 0))
 						{
-							iprintlnbold(("" + self.script_noteworthy) + "");
-							println(("" + self.script_noteworthy) + "");
+							iprintlnbold("" + self.script_noteworthy + "");
+							println("" + self.script_noteworthy + "");
 						}
 					}
 				#/
@@ -250,7 +250,7 @@ function private function_1e5c0d3b()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private lavapit_breach_(object)
+private function lavapit_breach_(object)
 {
 	v_origin = object.origin;
 	if(isdefined(object.var_eb397f67))
@@ -264,9 +264,9 @@ function private lavapit_breach_(object)
 	var_35b81369 = vectordot(v_cross, anglestoup(v_angles));
 	if(var_35b81369 >= 0)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -356,7 +356,7 @@ function function_66365668(n_code)
 function function_5f228e90()
 {
 	level function_a02dfba();
-	if(zm_utility::function_e51dc2d8())
+	if(zm_utility::can_enable_ee())
 	{
 		function_ca3efcd8(level.var_c205c941, "orange_code", level.var_4cf6900e[#"orange"].var_7bb4ff56);
 		function_ca3efcd8(level.var_c205c941, "blue_code", level.var_4cf6900e[#"blue"].var_7bb4ff56);
@@ -377,7 +377,7 @@ function function_5f228e90()
 function function_ca3efcd8(var_f0c3a84d, str_noteworthy, n_code)
 {
 	var_127789d1 = randomint(3);
-	var_52ed9cd6 = namespace_509a75d1::function_bffcedde(str_noteworthy, "script_noteworthy", "script_int");
+	var_52ed9cd6 = cschashed-3\script_e2bef0652b31f68::function_bffcedde(str_noteworthy, "script_noteworthy", "script_int");
 	level.var_c205c941[str_noteworthy] = var_52ed9cd6[var_127789d1];
 	level.var_c205c941[str_noteworthy] function_66365668(n_code);
 	for(i = 0; i < var_52ed9cd6.size; i++)

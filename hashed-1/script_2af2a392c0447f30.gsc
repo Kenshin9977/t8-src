@@ -2,25 +2,25 @@
 #using scripts\core_common\system_shared.gsc;
 #using scripts\zm_common\zm_perks.gsc;
 
-#namespace namespace_eb4608d5;
+#namespace cschashed-2\script_706f792ab902ea4;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_eb4608d5
+	Namespace: cschashed-2\script_706f792ab902ea4
 	Checksum: 0x38C6D459
 	Offset: 0x88
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_4ae02ae28a48d88b", &__init__, undefined, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_eb4608d5
+	Namespace: cschashed-2\script_706f792ab902ea4
 	Checksum: 0x420143C
 	Offset: 0xD0
 	Size: 0x14
@@ -34,7 +34,7 @@ function __init__()
 
 /*
 	Name: function_37c0d395
-	Namespace: namespace_eb4608d5
+	Namespace: cschashed-2\script_706f792ab902ea4
 	Checksum: 0x688C855B
 	Offset: 0xF0
 	Size: 0x94
@@ -49,7 +49,7 @@ function function_37c0d395()
 
 /*
 	Name: function_58d94d9
-	Namespace: namespace_eb4608d5
+	Namespace: cschashed-2\script_706f792ab902ea4
 	Checksum: 0x80F724D1
 	Offset: 0x190
 	Size: 0x4
@@ -62,7 +62,7 @@ function function_58d94d9()
 
 /*
 	Name: function_bf7ca4a7
-	Namespace: namespace_eb4608d5
+	Namespace: cschashed-2\script_706f792ab902ea4
 	Checksum: 0x7E32B6BE
 	Offset: 0x1A0
 	Size: 0x24

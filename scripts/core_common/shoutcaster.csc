@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_ecbb3819941bb69;
+hashed-3\script_ecbb3819941bb69.csc;
 #using scripts\core_common\flag_shared.csc;
 #using scripts\core_common\renderoverridebundle.csc;
 #using scripts\core_common\util_shared.csc;
@@ -146,7 +146,7 @@ function function_981be10f(local_client_num)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private shoutcaster_monitor_xray_change(local_client_num)
+private function shoutcaster_monitor_xray_change(local_client_num)
 {
 	level notify("shoutcaster_monitor_xray_change" + local_client_num);
 	level endon("shoutcaster_monitor_xray_change" + local_client_num);
@@ -213,7 +213,7 @@ function private shoutcaster_monitor_xray_change(local_client_num)
 	Parameters: 4
 	Flags: Linked, Private
 */
-function private function_4c4946d4(local_client_num, localplayerteam, var_52fe6881, var_faa7a3fb)
+private function function_4c4946d4(local_client_num, localplayerteam, var_52fe6881, var_faa7a3fb)
 {
 	var_f2a410c9 = [];
 	players = getplayers(local_client_num);
@@ -301,7 +301,7 @@ function function_a0b844f1(local_client_num, var_c6fc7911, rob)
 	if(is_shoutcaster_using_team_identity(local_client_num))
 	{
 		var_f90afe60 = get_team_color_id(local_client_num, self.team);
-		teamcolor = function_4823f055(var_f90afe60);
+		var_a8cb10a = function_4823f055(var_f90afe60);
 	}
 	self function_78233d29(rob, "", #"tintr", teamcolor[0]);
 	self function_78233d29(rob, "", #"tintg", teamcolor[1]);
@@ -318,21 +318,21 @@ function function_a0b844f1(local_client_num, var_c6fc7911, rob)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_7ed4edd3(playername)
+private function function_7ed4edd3(playername)
 {
 	if(!isdefined(playername))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(level.var_b541c509))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(level.var_b541c509[playername]))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -344,25 +344,25 @@ function private function_7ed4edd3(playername)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_2b07633f(playername)
+private function function_2b07633f(playername)
 {
 	if(!isdefined(playername))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(level.var_b9e7d957))
 	{
-		return false;
+		return 0;
 	}
 	if(level.var_b9e7d957 != playername)
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(level.var_fea1a13))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -396,7 +396,7 @@ function function_995e01b6(localclientnum, player)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_8e1e7736(localclientnum, player)
+private function function_8e1e7736(localclientnum, player)
 {
 	level.var_b9e7d957 = player.name;
 	if(player.team == #"allies")
@@ -419,7 +419,7 @@ function private function_8e1e7736(localclientnum, player)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_35248a94(localclientnum, playername)
+private function function_35248a94(localclientnum, playername)
 {
 	if(isdefined(level.var_b541c509[playername]))
 	{
@@ -437,7 +437,7 @@ function private function_35248a94(localclientnum, playername)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_69b179ea(localclientnum)
+private function function_69b179ea(localclientnum)
 {
 	if(isdefined(level.var_fea1a13))
 	{
@@ -455,7 +455,7 @@ function private function_69b179ea(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private shoutcaster_monitor_player_pucks(localclientnum)
+private function shoutcaster_monitor_player_pucks(localclientnum)
 {
 	level notify("shoutcaster_monitor_player_pucks" + localclientnum);
 	level endon("shoutcaster_monitor_player_pucks" + localclientnum);

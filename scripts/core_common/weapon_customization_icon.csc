@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"weapon_customization_icon", &__init__, undefined, undefined);
 }
@@ -86,7 +86,7 @@ function update_wc_icon_extracam(localclientnum)
 */
 function wait_for_extracam_close(localclientnum, camera_ent, extracam_data_struct)
 {
-	level waittill((("render_complete_" + localclientnum) + "_") + extracam_data_struct.extracamindex);
+	level waittill("render_complete_" + localclientnum + "_" + extracam_data_struct.extracamindex);
 	multi_extracam::extracam_reset_index(localclientnum, extracam_data_struct.extracamindex);
 	if(isdefined(extracam_data_struct.weapon_script_model))
 	{
@@ -177,7 +177,7 @@ function setup_wc_extracam_settings(localclientnum, extracam_data_struct)
 	}
 	else
 	{
-		level waittilltimeout(5, "paintshop_ready_" + extracam_data_struct.jobindex);
+		level waittill_timeout(5, "paintshop_ready_" + extracam_data_struct.jobindex);
 	}
 	setextracamrenderready(extracam_data_struct.jobindex);
 	extracam_data_struct.jobindex = undefined;

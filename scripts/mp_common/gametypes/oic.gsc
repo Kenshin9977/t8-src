@@ -1,10 +1,10 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_18f0d22c75b141a7;
-#using script_2255a7ad3edc838f;
-#using script_2c49ae69cd8ce30c;
-#using script_47fb62300ac0bd60;
-#using script_5399f402045d7abd;
-#using script_56ca01b3b31455b5;
+#using hashed-2\loadout.gsc;
+#using hashed-3\bot.gsc;
+#using hashed-1\player_36.gsc;
+#using hashed-2\stats.gsc;
+#using hashed-3\weapon_utils.gsc;
+#using hashed-2\ability_util.gsc;
 #using script_788472602edbe3b9;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\bots\bot_action.gsc;
@@ -120,7 +120,7 @@ event main(eventstruct)
 	{
 		var_1f99b9e8 = array(var_1f99b9e8);
 	}
-	var_1f99b9e8[var_1f99b9e8.size] = getweapon(#"pistol_fullauto_t8" + "_oic", "");
+	var_1f99b9e8[var_1f99b9e8.size] = getweapon(#"hash_1f48082b20588e4e" + "_oic", "");
 	if(!isdefined(var_1f99b9e8))
 	{
 		var_1f99b9e8 = [];
@@ -428,8 +428,7 @@ function onplayerkilled(einflictor, attacker, idamage, smeansofdeath, sweapon, v
 		}
 		if(self.pers[#"lives"] == 0)
 		{
-			scoreevents::processscoreevent(#"eliminated_enemy", attacker, self, sweapon);
-		}
+			scoreevents::processscoreevent(#"eliminated_enemy", attacker, self, sweapon);		}
 	}
 }
 
@@ -462,13 +461,13 @@ function shouldreceivesurvivorbonus()
 {
 	if(isalive(self))
 	{
-		return true;
+		return 1;
 	}
 	if(self.hasspawned && self.pers[#"lives"] > 0)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -514,16 +513,16 @@ function watchelimination()
 	Parameters: 1
 	Flags: Private
 */
-function private function_ce7ffccb(winner)
+private function function_ce7ffccb(winner)
 {
-	if(globallogic_utils::gettimeremaining() <= (int(level.var_18823aed * 1000)))
+	if(globallogic_utils::gettimeremaining() <= int(level.var_18823aed * 1000))
 	{
 		return;
 	}
 	if(level.var_18823aed > 0)
 	{
 		level.timelimitoverride = 1;
-		setgameendtime(gettime() + (int(level.var_18823aed * 1000)));
+		setgameendtime(gettime() + int(level.var_18823aed * 1000));
 		hostmigration::waitlongdurationwithgameendtimeupdate(level.var_18823aed);
 		if(game.state != "playing")
 		{

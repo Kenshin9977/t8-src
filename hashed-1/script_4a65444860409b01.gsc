@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_57f7003580bb15e0;
+#using hashed-2\status_effect.gsc;
 #using scripts\core_common\system_shared.gsc;
 
 #namespace namespace_dafacbee;
@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_221a828ea2610a47", &__init__, undefined, undefined);
 }

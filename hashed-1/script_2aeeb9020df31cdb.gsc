@@ -3,25 +3,25 @@
 #using scripts\core_common\struct.gsc;
 #using scripts\core_common\system_shared.gsc;
 
-#namespace namespace_8d9c976e;
+#namespace cschashed-2\script_9fc0d01fbc5236f;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_8d9c976e
+	Namespace: cschashed-2\script_9fc0d01fbc5236f
 	Checksum: 0xA3E49E1A
 	Offset: 0xC0
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_435f2e0dff1c53c7", &init, undefined, undefined);
 }
 
 /*
 	Name: init
-	Namespace: namespace_8d9c976e
+	Namespace: cschashed-2\script_9fc0d01fbc5236f
 	Checksum: 0xA5D7FAA8
 	Offset: 0x108
 	Size: 0x5C
@@ -36,7 +36,7 @@ function init()
 
 /*
 	Name: function_ffef72a
-	Namespace: namespace_8d9c976e
+	Namespace: cschashed-2\script_9fc0d01fbc5236f
 	Checksum: 0x229D5408
 	Offset: 0x170
 	Size: 0xA0
@@ -54,7 +54,7 @@ function function_ffef72a()
 
 /*
 	Name: function_31a1d10f
-	Namespace: namespace_8d9c976e
+	Namespace: cschashed-2\script_9fc0d01fbc5236f
 	Checksum: 0x8216E49D
 	Offset: 0x218
 	Size: 0x288

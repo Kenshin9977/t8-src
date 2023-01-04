@@ -137,7 +137,7 @@ function function_47deed80(localclientnum, beam_id)
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private _new_beam(ent_1, str_tag1, ent_2, str_tag2, str_beam_type)
+private function _new_beam(ent_1, str_tag1, ent_2, str_tag2, str_beam_type)
 {
 	if(!isdefined(self.active_beams))
 	{
@@ -170,7 +170,7 @@ function private _new_beam(ent_1, str_tag1, ent_2, str_tag2, str_beam_type)
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private _get_beam(ent_1, str_tag1, ent_2, str_tag2, str_beam_type)
+private function _get_beam(ent_1, str_tag1, ent_2, str_tag2, str_beam_type)
 {
 	if(isdefined(self.active_beams))
 	{
@@ -193,7 +193,7 @@ function private _get_beam(ent_1, str_tag1, ent_2, str_tag2, str_beam_type)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_1c0feeb0(beam_id)
+private function function_1c0feeb0(beam_id)
 {
 	if(isdefined(level.active_beams))
 	{
@@ -216,7 +216,7 @@ function private function_1c0feeb0(beam_id)
 	Parameters: 4
 	Flags: Linked, Private
 */
-function private _kill_on_ent_death(localclientnum, s_beam, ent_1, ent_2)
+private function _kill_on_ent_death(localclientnum, s_beam, ent_1, ent_2)
 {
 	s_beam endon(#"kill");
 	util::waittill_any_ents(ent_1, "death", ent_2, "death");

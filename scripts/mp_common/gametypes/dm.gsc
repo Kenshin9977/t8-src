@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2c49ae69cd8ce30c;
+#using hashed-1\player_36.gsc;
 #using script_4c8dba49908aecc2;
-#using script_6c8abe14025b47c4;
+#using hashed-1\killstreaks.gsc;
 #using scripts\core_common\spawning_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
 #using scripts\mp_common\gametypes\globallogic.gsc;
@@ -47,7 +47,7 @@ event main(eventstruct)
 	if(util::function_8570168d())
 	{
 		level.is_dm = 1;
-		namespace_9096c917::init();
+		cschashed-2\script_28a20e497bd69c36::init();
 	}
 }
 

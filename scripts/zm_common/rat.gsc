@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6021ce59143452c3;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\rat_shared.gsc;
@@ -22,7 +22,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	/#
 		system::register(#"rat", &__init__, undefined, undefined);
@@ -89,7 +89,7 @@ function __init__()
 function function_e1bdc812(params)
 {
 	/#
-		return zm_trial::function_ba9853db();
+		return cschashed-1\script_3c362258ff800237::function_ba9853db();
 	#/
 }
 
@@ -113,11 +113,11 @@ function function_303319e9(params)
 		{
 			distance = float(params.distance);
 		}
-		spawn = player.origin + (forward * distance);
+		spawn = player.origin + forward * distance;
 		foreach(zombie in zombies)
 		{
 			zombie forceteleport(spawn, player.angles);
-			if(isdefined(params.is_dummy) && params.is_dummy == 1)
+			if(isdefined(params.register132_roof_) && params.register132_roof_ == 1)
 			{
 				zombie pathmode("");
 			}
@@ -363,7 +363,7 @@ function function_e2143adf(params)
 function function_1bd3da0f(params)
 {
 	/#
-		chunks = level.s_pap_quest.var_e770eb55;
+		chunks = level.var_7759c77d.var_e770eb55;
 		if(isdefined(chunks))
 		{
 			foreach(chunk in chunks)
@@ -389,7 +389,7 @@ function function_1bd3da0f(params)
 function function_d49caa1a(params)
 {
 	/#
-		return level.s_pap_quest.var_be6e6f65;
+		return level.var_7759c77d.var_be6e6f65;
 	#/
 }
 
@@ -677,9 +677,9 @@ function function_3d37c034(params)
 			{
 				continue;
 			}
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	#/
 }
 
@@ -729,7 +729,7 @@ function function_1428d95e(params)
 	/#
 		player = util::gethostplayer();
 		forward = anglestoforward(player.angles);
-		spawn = player.origin + (forward * 10);
+		spawn = player.origin + forward * 10;
 		zombie = zm_devgui::devgui_zombie_spawn();
 		if(isdefined(zombie))
 		{
@@ -786,9 +786,9 @@ function function_ff8061ca(params)
 	/#
 		if(isdefined(level.power_local_doors_globally))
 		{
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	#/
 }
 
@@ -865,11 +865,11 @@ function derriesezombiespawnnavmeshtest(params, inrat)
 			errmsg = "";
 			for(i = 0; i < size; i++)
 			{
-				errmsg = errmsg + (((("" + failed_spawn_origin[i]) + "") + failed_node_origin[i]) + "");
+				errmsg = errmsg + "" + failed_spawn_origin[i] + "" + failed_node_origin[i] + "";
 			}
 			for(i = 0; i < failed_attack_spot_size; i++)
 			{
-				errmsg = errmsg + (((("" + failed_attack_spot_spawn_origin[i]) + "") + failed_attack_spot[i]) + "");
+				errmsg = errmsg + "" + failed_attack_spot_spawn_origin[i] + "" + failed_attack_spot[i] + "";
 			}
 			if(size > 0 || failed_attack_spot_size > 0)
 			{

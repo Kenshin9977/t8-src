@@ -1,9 +1,9 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_11c0a75851de7fce;
+#using hashed-2\zm_specialist_minigun.gsc;
 #using script_14d4cc4687ff9afd;
 #using script_14f4a3c583c77d4b;
-#using script_193e6daef46bb88b;
-#using script_27e13de8e5cf7b4;
+#using hashed-2\zm_specialist_katana.gsc;
+#using hashed-2\zm_weap_gravityspikes.gsc;
 #using script_2c5e325003fa52e2;
 #using script_2fcb47e3735a6edd;
 #using script_3110b4b6b21db11f;
@@ -11,9 +11,9 @@
 #using script_37752a01e45812b8;
 #using script_3a575c42e5260e65;
 #using script_3ed4043a74fa517b;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_421e0a3702e22de;
-#using script_42ac6fc8b2ff0f3e;
+#using hashed-2\riotshield.gsc;
 #using script_4333a03353e1e13a;
 #using script_48586eea5c3542a4;
 #using script_493d9b5ad424cee7;
@@ -21,14 +21,14 @@
 #using script_52965c854845b73;
 #using script_52c6c2d1a2ef1b46;
 #using script_54fe572984843999;
-#using script_5a979d9fa7d64923;
+#using hashed-1\zm_specialist_flamethrower.gsc;
 #using script_5b2f999b8dbf5f77;
 #using script_5b4f7a8178990872;
-#using script_5bb072c3abf4652c;
+#using hashed-1\zm_vo.gsc;
 #using script_5cd88351d6d269b1;
 #using script_6021ce59143452c3;
 #using script_652cf01d4f20aeb5;
-#using script_67c9a990c0db216c;
+#using hashed-2\full_screen_movie.gsc;
 #using script_6a3f43063dfd1bdc;
 #using script_6b6fff322a8a64eb;
 #using script_6e3c826b1814cab6;
@@ -85,11 +85,11 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec opt_in()
+autoexec function opt_in()
 {
 	level.aat_in_use = 1;
 	level.bgb_in_use = 1;
-	level.bgb_machine_count = 2;
+	level.var_4ea5cce8 = 2;
 	level.random_pandora_box_start = 1;
 	level.pack_a_punch_camo_index = 394;
 	level.pack_a_punch_camo_index_number_variants = 1;
@@ -111,7 +111,7 @@ event main(eventstruct)
 	level._uses_taser_knuckles = 1;
 	level thread lui::function_b95a3ba5("full_screen_movie", &full_screen_movie::register, "full_screen_movie");
 	zm::init_fx();
-	level.custom_spawner_entry[#"crawl"] = &namespace_509a75d1::function_45bb11e4;
+	level.custom_spawner_entry[#"crawl"] = &cschashed-3\script_e2bef0652b31f68::function_45bb11e4;
 	level.var_c02e63 = &namespace_3263198e::function_583cad13;
 	clientfield::register("actor", "sndActorUnderwater", 28000, 1, "int");
 	level._effect[#"headshot"] = "zombie/fx_bul_flesh_head_fatal_zmb";
@@ -120,7 +120,7 @@ event main(eventstruct)
 	level._effect[#"animscript_gib_fx"] = "zombie/fx_blood_torso_explo_zmb";
 	level._effect[#"animscript_gibtrail_fx"] = "blood/fx_blood_gib_limb_trail";
 	level._effect[#"switch_sparks"] = "electric/fx8_sparks_burst_dir_sm_orange_os";
-	level thread namespace_a59839fe::init();
+	level thread zm_orange_fx::init();
 	level.var_c1013f84 = 1;
 	level._no_vending_machine_auto_collision = 1;
 	level.default_start_location = "start_room";
@@ -143,24 +143,24 @@ event main(eventstruct)
 		}
 	}
 	level namespace_86eed980::init();
-	level namespace_f9df92f::preload();
-	level namespace_be178848::init();
-	level namespace_67594c4a::init();
+	level cschashed-3\script_4716533215778f7f::preload();
+	level cschashed-1\script_4f00f8c9cdfa5084::init();
+	level cschashed-2\script_18a4de9276bfbc6d::init();
 	level namespace_5449c7ba::init();
-	level namespace_379af75a::preload();
-	level namespace_99a6629b::init();
-	level namespace_6036de69::init();
-	level namespace_790eb878::init();
+	level cschashed-3\script_1964b042d2f814f9::preload();
+	level cschashed-2\script_70e92046734b4a71::init();
+	level cschashed-1\script_1edaf4333ed0bece::init();
+	level cschashed-2\script_613cf9c83fcec4a7::init();
 	level namespace_f93d2fa1::init();
-	level namespace_ec1f72a0::preload();
-	level namespace_55999fe::preload();
-	level namespace_f7a40df8::preload();
-	level namespace_44916ada::init();
-	level namespace_18db89ed::init();
+	level cschashed-1\script_7d5f2f51e8a5443d::preload();
+	level cschashed-1\script_4b4a4b9186e38fd6::preload();
+	level cschashed-2\script_69c3075ae5f589b3::preload();
+	level cschashed-3\script_f459be361894751::init();
+	level cschashed-3\script_520360b6c44baa8b::init();
 	level zm_orange_ww_quest::init();
-	level namespace_5095a550::preload();
+	level cschashed-3\script_7958032999970f05::preload();
 	level namespace_e9563b61::init();
-	level namespace_78baa66c::preload();
+	level cschashed-2\script_29ccb18ac19d72ef::preload();
 	load::main();
 	setdvar(#"zombie_unlock_all", 0);
 	level.zones = [];
@@ -183,32 +183,32 @@ event main(eventstruct)
 	level thread sndfunctions();
 	level thread namespace_85e029d3::init();
 	level thread namespace_86eed980::main();
-	level thread namespace_f9df92f::main();
-	level thread namespace_be178848::main();
-	level thread namespace_67594c4a::main();
+	level thread cschashed-3\script_4716533215778f7f::main();
+	level thread cschashed-1\script_4f00f8c9cdfa5084::main();
+	level thread cschashed-2\script_18a4de9276bfbc6d::main();
 	level thread namespace_5449c7ba::main();
 	level thread namespace_565e073b::main();
-	level thread namespace_6036de69::main();
-	level thread namespace_99a6629b::main();
-	level thread namespace_790eb878::main();
-	level thread namespace_ec1f72a0::main();
-	level thread namespace_55999fe::main();
-	level thread namespace_f7a40df8::main();
-	level thread namespace_44916ada::main();
+	level thread cschashed-1\script_1edaf4333ed0bece::main();
+	level thread cschashed-2\script_70e92046734b4a71::main();
+	level thread cschashed-2\script_613cf9c83fcec4a7::main();
+	level thread cschashed-1\script_7d5f2f51e8a5443d::main();
+	level thread cschashed-1\script_4b4a4b9186e38fd6::main();
+	level thread cschashed-2\script_69c3075ae5f589b3::main();
+	level thread cschashed-3\script_f459be361894751::main();
 	level thread namespace_16c9989b::main();
-	level thread namespace_18db89ed::main();
+	level thread cschashed-3\script_520360b6c44baa8b::main();
 	level thread zm_orange_ww_quest::main();
 	level thread namespace_17555f14::main();
 	level thread namespace_3263198e::init();
-	level thread namespace_379af75a::main();
+	level thread cschashed-3\script_1964b042d2f814f9::main();
 	level thread namespace_bda88164::init();
-	level thread namespace_5095a550::init();
+	level thread cschashed-3\script_7958032999970f05::init();
 	level thread namespace_e9563b61::main();
 	level thread function_681c28c9();
 	level thread function_486119ea();
 	level thread function_30829a12();
 	callback::function_74872db6(&play_avalanche);
-	if(!zm_utility::function_e51dc2d8())
+	if(!zm_utility::can_enable_ee())
 	{
 		var_47cef04a = getent("ee_ind", "targetname");
 		if(isdefined(var_47cef04a))
@@ -218,7 +218,7 @@ event main(eventstruct)
 	}
 	if(zm_utility::is_trials())
 	{
-		level thread namespace_78baa66c::main();
+		level thread cschashed-2\script_29ccb18ac19d72ef::main();
 	}
 	level flag::init("fasttravel_disabled");
 	level thread function_4dacc177();
@@ -242,7 +242,7 @@ event main(eventstruct)
 */
 function function_9f50079d()
 {
-	zm_loadout::register_tactical_grenade_for_level(#"hash_603fdd2e4ae5b2b0", 1);
+	cschashed-2\script_709bf7c56eb65adf::register_tactical_grenade_for_level(#"hash_603fdd2e4ae5b2b0", 1);
 }
 
 /*
@@ -257,12 +257,12 @@ function function_9f50079d()
 function offhand_weapon_give_override(str_weapon)
 {
 	self endon(#"death");
-	if(zm_loadout::is_tactical_grenade(str_weapon) && isdefined(self zm_loadout::get_player_tactical_grenade()) && !self zm_loadout::is_player_tactical_grenade(str_weapon))
+	if(zm_loadout::is_tactical_grenade(str_weapon) && isdefined(self zm_loadout::get_player_tactical_grenade()) && !self cschashed-2\script_709bf7c56eb65adf::is_player_tactical_grenade(str_weapon))
 	{
-		self setweaponammoclip(self zm_loadout::get_player_tactical_grenade(), 0);
-		self takeweapon(self zm_loadout::get_player_tactical_grenade());
+		self setweaponammoclip(self cschashed-2\script_709bf7c56eb65adf::get_player_tactical_grenade(), 0);
+		self takeweapon(self cschashed-2\script_709bf7c56eb65adf::get_player_tactical_grenade());
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -611,7 +611,7 @@ function function_c3d2b3ee()
 function function_486119ea()
 {
 	self endon(#"end_game");
-	if(zm_utility::is_standard() || namespace_59ff1d6c::function_901b751c(#"hash_4e0ec3fe56f08b47") == 3)
+	if(zm_utility::is_standard() || cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_4e0ec3fe56f08b47") == 3)
 	{
 		level thread function_cf95fbb7();
 		return;
@@ -710,7 +710,7 @@ function function_1f712bb1()
 function function_19a4e7cf(n_offset, var_e503dc79)
 {
 	var_ef61bf9 = util::spawn_model("tag_origin", level.chests[var_e503dc79].origin + (0, 0, n_offset - 75));
-	var_ef61bf9.angles = level.chests[level.chest_index].angles + (vectorscale((-1, 0, -1), 90));
+	var_ef61bf9.angles = level.chests[level.chest_index].angles + vectorscale((-1, 0, -1), 90);
 	playfxontag(level._effect[#"hash_572a14944ad27060"], var_ef61bf9, "tag_origin");
 	return var_ef61bf9;
 }
@@ -998,9 +998,9 @@ function play_avalanche()
 */
 function function_4dacc177()
 {
-	namespace_59ff1d6c::function_a00576dd(undefined, undefined, &function_c8ce0a17, &function_e5086229);
+	cschashed-3\script_12282e6b2cc91b42::function_a00576dd(undefined, undefined, &function_c8ce0a17, &function_e5086229);
 	level waittill(#"start_zombie_round_logic");
-	switch(namespace_59ff1d6c::function_901b751c(#"zmpowerstate"))
+	switch(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"zmpowerstate"))
 	{
 		case 1:
 		{
@@ -1039,7 +1039,7 @@ function function_c8ce0a17(var_404e4288, var_8dd554ee)
 	{
 		level.zombie_total--;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1054,11 +1054,11 @@ function function_c8ce0a17(var_404e4288, var_8dd554ee)
 function function_e5086229(var_404e4288, var_8dd554ee)
 {
 	level flag::set(#"disable_special_rounds");
-	ai = namespace_c402654::function_62db7b1c(1);
+	ai = cschashed-1\script_5fb8da2731850d9e::function_62db7b1c(1);
 	if(isdefined(ai))
 	{
 		level.zombie_total--;
 	}
-	return true;
+	return 1;
 }
 

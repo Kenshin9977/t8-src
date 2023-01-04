@@ -2,25 +2,25 @@
 #using scripts\core_common\system_shared.gsc;
 #using scripts\zm_common\zm_perks.gsc;
 
-#namespace namespace_d25f3c2a;
+#namespace cschashed-1\script_4f3b810931057ceb;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_d25f3c2a
+	Namespace: cschashed-1\script_4f3b810931057ceb
 	Checksum: 0x10084B51
 	Offset: 0x90
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_7bb29f081ab9b5cc", &__init__, undefined, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_d25f3c2a
+	Namespace: cschashed-1\script_4f3b810931057ceb
 	Checksum: 0x671E82DF
 	Offset: 0xD8
 	Size: 0x14
@@ -34,7 +34,7 @@ function __init__()
 
 /*
 	Name: enable_widows_wine_perk_for_level
-	Namespace: namespace_d25f3c2a
+	Namespace: cschashed-1\script_4f3b810931057ceb
 	Checksum: 0x10305236
 	Offset: 0xF8
 	Size: 0x94
@@ -49,7 +49,7 @@ function enable_widows_wine_perk_for_level()
 
 /*
 	Name: widows_wine_perk_activate
-	Namespace: namespace_d25f3c2a
+	Namespace: cschashed-1\script_4f3b810931057ceb
 	Checksum: 0x37650E36
 	Offset: 0x198
 	Size: 0x10
@@ -63,7 +63,7 @@ function widows_wine_perk_activate()
 
 /*
 	Name: widows_wine_perk_lost
-	Namespace: namespace_d25f3c2a
+	Namespace: cschashed-1\script_4f3b810931057ceb
 	Checksum: 0x439B4043
 	Offset: 0x1B0
 	Size: 0x36

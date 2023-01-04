@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_6d7d84509b62f422;
+#using hashed-1\zm_location.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -16,25 +16,23 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace zm_hud;
+#namespace cschashed-3\script_3762ce8163e304e6;
 
 /*
 	Name: function_89f2df9
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0x9F6C52F4
 	Offset: 0xF8
 	Size: 0x54
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
-	system::register(#"zm_hud", &__init__, &__main__, #"zm_crafting");
-}
-
+	system::register(#"zm_hud", &__init__, &__main__, #"zm_crafting");}
 /*
 	Name: __init__
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0x72D1DB19
 	Offset: 0x158
 	Size: 0x64
@@ -50,7 +48,7 @@ function __init__()
 
 /*
 	Name: __main__
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0x80F724D1
 	Offset: 0x1C8
 	Size: 0x4
@@ -63,7 +61,7 @@ function __main__()
 
 /*
 	Name: on_player_connect
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0x80F724D1
 	Offset: 0x1D8
 	Size: 0x4
@@ -76,7 +74,7 @@ function on_player_connect()
 
 /*
 	Name: on_player_spawned
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0x693CC272
 	Offset: 0x1E8
 	Size: 0x9C
@@ -100,7 +98,7 @@ function on_player_spawned()
 
 /*
 	Name: function_84c3e8e6
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0xE5D89FFC
 	Offset: 0x290
 	Size: 0x44
@@ -117,7 +115,7 @@ function function_84c3e8e6()
 
 /*
 	Name: function_29780fb5
-	Namespace: zm_hud
+	Namespace: cschashed-3\script_3762ce8163e304e6
 	Checksum: 0xC9361A59
 	Offset: 0x2E0
 	Size: 0x8C

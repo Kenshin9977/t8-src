@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"serversettings", &__init__, undefined, undefined);
 }
@@ -74,30 +74,21 @@ function main()
 	{
 		setdvar(#"scr_mapsize", 64);
 	}
+	else if(getdvarfloat(#"scr_mapsize", 0) >= 64)
+	{
+		setdvar(#"scr_mapsize", 64);
+	}
+	else if(getdvarfloat(#"scr_mapsize", 0) >= 32)
+	{
+		setdvar(#"scr_mapsize", 32);
+	}
+	else if(getdvarfloat(#"scr_mapsize", 0) >= 16)
+	{
+		setdvar(#"scr_mapsize", 16);
+	}
 	else
 	{
-		if(getdvarfloat(#"scr_mapsize", 0) >= 64)
-		{
-			setdvar(#"scr_mapsize", 64);
-		}
-		else
-		{
-			if(getdvarfloat(#"scr_mapsize", 0) >= 32)
-			{
-				setdvar(#"scr_mapsize", 32);
-			}
-			else
-			{
-				if(getdvarfloat(#"scr_mapsize", 0) >= 16)
-				{
-					setdvar(#"scr_mapsize", 16);
-				}
-				else
-				{
-					setdvar(#"scr_mapsize", 8);
-				}
-			}
-		}
+		setdvar(#"scr_mapsize", 8);
 	}
 	for(;;)
 	{
@@ -139,7 +130,7 @@ function updateserversettings()
 	if(level.friendlyfire != scr_friendlyfire)
 	{
 		level.friendlyfire = scr_friendlyfire;
-		namespace_59ff1d6c::function_928be07c();
+		cschashed-3\script_12282e6b2cc91b42::function_928be07c();
 		setdvar(#"ui_friendlyfire", level.friendlyfire);
 	}
 }

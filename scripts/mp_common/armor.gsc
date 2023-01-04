@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_5399f402045d7abd;
+#using hashed-3\weapon_utils.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\gameobjects_shared.gsc;
@@ -305,7 +305,7 @@ function has_armor()
 */
 function get_damage_time_threshold_ms(not_damaged_time_seconds = 0.5)
 {
-	damage_time_threshold_ms = gettime() - (int(not_damaged_time_seconds * 1000));
+	damage_time_threshold_ms = gettime() - int(not_damaged_time_seconds * 1000);
 	return damage_time_threshold_ms;
 }
 
@@ -346,7 +346,7 @@ function boost_armor(bars_to_give, damage_time_threshold_ms)
 	{
 		player update_max_armor(1);
 	}
-	player.armor = player.armor + (int(bars_to_give * player.armorperbar));
+	player.armor = player.armor + int(bars_to_give * player.armorperbar);
 }
 
 /*
@@ -364,7 +364,7 @@ function get_empty_bars()
 	{
 		return 0;
 	}
-	return (self.maxarmor - self.armor) / self.armorperbar;
+	return self.maxarmor - self.armor / self.armorperbar;
 }
 
 /*
@@ -434,7 +434,7 @@ function get_max_armor_bars(bonus_bars)
 	{
 		return 0;
 	}
-	return math::clamp((ceil(self.armor / self.armorperbar)) + bonus_bars, 0, max(self.armorbarmaxcount, 1));
+	return math::clamp(ceil(self.armor / self.armorperbar) + bonus_bars, 0, max(self.armorbarmaxcount, 1));
 }
 
 /*
@@ -460,51 +460,48 @@ function get_armor_bars()
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_37f4e0e0(smeansofdeath, shitloc)
+private function function_37f4e0e0(smeansofdeath, shitloc)
 {
 	if(!isdefined(smeansofdeath))
 	{
-		return true;
+		return 1;
 	}
 	isexplosivedamage = weapon_utils::isexplosivedamage(smeansofdeath);
 	if(isdefined(self.var_59a874a7) && isdefined(self.var_59a874a7.var_735ae1ee) && (!(isdefined(isexplosivedamage) && isexplosivedamage)))
 	{
 		if(!isdefined(self.var_59a874a7.var_735ae1ee.(shitloc)))
 		{
-			return false;
+			return 0;
 		}
 		if(self.var_59a874a7.var_735ae1ee.(shitloc) == 0)
 		{
-			return false;
+			return 0;
 		}
 		if(smeansofdeath == "MOD_HEAD_SHOT")
 		{
-			return true;
+			return 1;
 		}
 	}
 	if(function_f99d2668())
 	{
 		if(smeansofdeath == "MOD_BULLET" || smeansofdeath == "MOD_RIFLE_BULLET" || smeansofdeath == "MOD_PISTOL_BULLET" || smeansofdeath == "MOD_MELEE" || smeansofdeath == "MOD_MELEE_WEAPON_BUTT")
 		{
-			return true;
+			return 1;
 		}
 		if(isexplosivedamage)
 		{
-			return true;
+			return 1;
 		}
 	}
-	else
+	else if(smeansofdeath == "MOD_BULLET" || smeansofdeath == "MOD_RIFLE_BULLET" || smeansofdeath == "MOD_PISTOL_BULLET" || (smeansofdeath == "MOD_IMPACT" && shitloc !== "head"))
 	{
-		if(smeansofdeath == "MOD_BULLET" || smeansofdeath == "MOD_RIFLE_BULLET" || smeansofdeath == "MOD_PISTOL_BULLET" || (smeansofdeath == "MOD_IMPACT" && shitloc !== "head"))
-		{
-			return true;
-		}
-		if(isexplosivedamage)
-		{
-			return true;
-		}
+		return 1;
 	}
-	return false;
+	if(isexplosivedamage)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 /*
@@ -516,13 +513,13 @@ function private function_37f4e0e0(smeansofdeath, shitloc)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_7538fede(weapon)
+private function function_7538fede(weapon)
 {
 	if(weapon.name == #"hash_3458fd4dff2bd9e8")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -561,7 +558,7 @@ function apply_damage(weapon, damage, smeansofdeath, eattacker, shitloc)
 	{
 		self function_9c8b5737();
 	}
-	var_737c8f6e = var_737c8f6e * (isdefined(weapon.var_ed6ea786) && (weapon.var_ed6ea786 ? self.var_59a874a7.var_e6683a43 : self.var_59a874a7.var_cdeeec29));
+	var_737c8f6e = var_737c8f6e * isdefined(weapon.var_ed6ea786) && (weapon.var_ed6ea786 ? self.var_59a874a7.var_e6683a43 : self.var_59a874a7.var_cdeeec29);
 	var_2274e560 = weapon.var_7b0ea85;
 	if(getdvarint(#"hash_4cfef227405e3c46", 0))
 	{
@@ -572,50 +569,44 @@ function apply_damage(weapon, damage, smeansofdeath, eattacker, shitloc)
 		var_2274e560 = self.var_59a874a7.var_c899f877;
 		var_737c8f6e = self.var_59a874a7.var_35e3563e;
 	}
-	else
+	else if(smeansofdeath == "MOD_MELEE")
 	{
-		if(smeansofdeath == "MOD_MELEE")
+		if(weapon_utils::ispunch(weapon))
 		{
-			if(weapon_utils::ispunch(weapon))
-			{
-				var_2274e560 = var_2274e560 * self.var_59a874a7.var_22c3ab38;
-			}
-			else
-			{
-				var_2274e560 = var_2274e560 * self.var_59a874a7.var_9f307988;
-			}
+			var_2274e560 = var_2274e560 * self.var_59a874a7.var_22c3ab38;
 		}
 		else
 		{
-			if(smeansofdeath == "MOD_MELEE_WEAPON_BUTT")
-			{
-				if(function_7538fede(weapon))
-				{
-					var_2274e560 = var_2274e560 * self.var_59a874a7.var_9f307988;
-				}
-				else
-				{
-					var_2274e560 = var_2274e560 * self.var_59a874a7.var_7a80f06e;
-				}
-			}
-			else
-			{
-				var_2274e560 = var_2274e560 * (weapon.var_ed6ea786 ? self.var_59a874a7.var_5164d2e2 : self.var_59a874a7.var_2274e560);
-			}
+			var_2274e560 = var_2274e560 * self.var_59a874a7.var_9f307988;
 		}
-		if(isdefined(self.var_59a874a7) && isdefined(self.var_59a874a7.var_735ae1ee))
+	}
+	else if(smeansofdeath == "MOD_MELEE_WEAPON_BUTT")
+	{
+		if(function_7538fede(weapon))
 		{
-			var_2274e560 = var_2274e560 + (1 - var_2274e560) * (1 - self.var_59a874a7.var_735ae1ee.(shitloc));
+			var_2274e560 = var_2274e560 * self.var_59a874a7.var_9f307988;
 		}
+		else
+		{
+			var_2274e560 = var_2274e560 * self.var_59a874a7.var_7a80f06e;
+		}
+	}
+	else
+	{
+		var_2274e560 = var_2274e560 * (weapon.var_ed6ea786 ? self.var_59a874a7.var_5164d2e2 : self.var_59a874a7.var_2274e560);
+	}
+	if(isdefined(self.var_59a874a7) && isdefined(self.var_59a874a7.var_735ae1ee))
+	{
+		var_2274e560 = var_2274e560 + 1 - var_2274e560 * 1 - self.var_59a874a7.var_735ae1ee.(shitloc);
 	}
 	var_aacd5df1 = damage * var_737c8f6e;
 	var_9bb721d3 = 0;
 	if(var_aacd5df1 > 0)
 	{
 		armor_damage = float(math::clamp(var_aacd5df1, 0, self.armor));
-		var_e27873f2 = damage * (1 - var_2274e560);
+		var_e27873f2 = damage * 1 - var_2274e560;
 		var_b1417997 = math::clamp(var_aacd5df1 - self.armor, 0, var_aacd5df1);
-		var_9bb721d3 = var_e27873f2 * (var_b1417997 / var_aacd5df1);
+		var_9bb721d3 = var_e27873f2 * var_b1417997 / var_aacd5df1;
 		self.armor = self.armor - int(ceil(armor_damage));
 		if(isdefined(self.var_3f1410dd))
 		{
@@ -671,7 +662,7 @@ function apply_damage(weapon, damage, smeansofdeath, eattacker, shitloc)
 		var_d72bd991 = self.var_ea1458aa.attackerdamage[eattacker.clientid];
 		var_d72bd991.var_a74d2db8 = gettime();
 	}
-	remaining_damage = int(ceil(math::clamp((damage * var_2274e560) + var_9bb721d3, 0, damage)));
+	remaining_damage = int(ceil(math::clamp(damage * var_2274e560 + var_9bb721d3, 0, damage)));
 	return remaining_damage;
 }
 

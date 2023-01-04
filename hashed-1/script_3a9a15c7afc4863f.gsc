@@ -9,25 +9,25 @@
 #using scripts\zm_common\zm_perks.gsc;
 #using scripts\zm_common\zm_stats.gsc;
 
-#namespace namespace_b3dc953d;
+#namespace cschashed-1\script_5b8cc1c7c1f27fab;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x745F7B76
 	Offset: 0x158
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_568317e5f219241c", &__init__, undefined, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0xB0C3DE43
 	Offset: 0x1A0
 	Size: 0x14
@@ -41,7 +41,7 @@ function __init__()
 
 /*
 	Name: function_82ad2d27
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0xE850ED6D
 	Offset: 0x1C0
 	Size: 0xD4
@@ -52,12 +52,12 @@ function function_82ad2d27()
 {
 	zm_perks::function_7f42e14e(#"hash_3eac84d6fe51944b", "mod_electric_cherry", #"perk_electric_cherry", #"specialty_electriccherry", 4000);
 	zm_perks::register_perk_threads(#"hash_3eac84d6fe51944b", &function_4b44aa37, &function_cfba6046, &function_b107ce52);
-	zm_perks::register_actor_damage_override(#"hash_3eac84d6fe51944b", &function_f6515ba2);
+	zm_perks::function_430970f6(#"hash_3eac84d6fe51944b", &function_f6515ba2);
 }
 
 /*
 	Name: electric_cherry_death_fx
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x81929265
 	Offset: 0x2A0
 	Size: 0xEC
@@ -78,22 +78,19 @@ function electric_cherry_death_fx()
 			self clientfield::set("tesla_shock_eyes_fx", 1);
 		}
 	}
+	else if(isvehicle(self))
+	{
+		self clientfield::set("tesla_death_fx_veh", 1);
+	}
 	else
 	{
-		if(isvehicle(self))
-		{
-			self clientfield::set("tesla_death_fx_veh", 1);
-		}
-		else
-		{
-			self clientfield::set("tesla_death_fx", 1);
-		}
+		self clientfield::set("tesla_death_fx", 1);
 	}
 }
 
 /*
 	Name: electric_cherry_shock_fx
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0xF4461248
 	Offset: 0x398
 	Size: 0xDC
@@ -124,7 +121,7 @@ function electric_cherry_shock_fx()
 
 /*
 	Name: electric_cherry_stun
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x3792EB6D
 	Offset: 0x480
 	Size: 0x10E
@@ -156,7 +153,7 @@ function electric_cherry_stun()
 
 /*
 	Name: electric_cherry_reload_attack
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x547B102A
 	Offset: 0x598
 	Size: 0x13A
@@ -190,7 +187,7 @@ function electric_cherry_reload_attack()
 
 /*
 	Name: check_for_reload_complete
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x1464B2FC
 	Offset: 0x6E0
 	Size: 0xD4
@@ -214,7 +211,7 @@ function check_for_reload_complete(weapon, n_clip_current, n_clip_max)
 
 /*
 	Name: function_f6515ba2
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x4FD35A39
 	Offset: 0x7C0
 	Size: 0x1FE
@@ -230,8 +227,7 @@ function function_f6515ba2(inflictor, attacker, damage, flags, meansofdeath, wea
 			attacker thread function_81622feb();
 		}
 		var_5a8c565a = damage * 3;
-		if(self.archetype === #"zombie" || self.archetype === #"catalyst")
-		{
+		if(self.archetype === #"zombie" || self.archetype === #"catalyst")		{
 			self thread electric_cherry_death_fx();
 			/#
 				attacker zm_challenges::debug_print("");
@@ -257,7 +253,7 @@ function function_f6515ba2(inflictor, attacker, damage, flags, meansofdeath, wea
 
 /*
 	Name: function_97a7641d
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0xA07F3206
 	Offset: 0x9C8
 	Size: 0x8C
@@ -273,7 +269,7 @@ function function_97a7641d(w_current, n_clip_current, n_clip_max)
 	}
 	else
 	{
-		n_time = 10 - (n_fraction * 10);
+		n_time = 10 - n_fraction * 10;
 	}
 	if(n_time < 2)
 	{
@@ -284,7 +280,7 @@ function function_97a7641d(w_current, n_clip_current, n_clip_max)
 
 /*
 	Name: function_a2ba8a6c
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x695B6288
 	Offset: 0xA60
 	Size: 0x3C
@@ -302,7 +298,7 @@ function function_a2ba8a6c(n_time)
 
 /*
 	Name: function_4debd1a8
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x8246D225
 	Offset: 0xAA8
 	Size: 0x94
@@ -319,7 +315,7 @@ function function_4debd1a8()
 
 /*
 	Name: function_81622feb
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x74FB91B4
 	Offset: 0xB48
 	Size: 0xEC
@@ -342,7 +338,7 @@ function function_81622feb()
 
 /*
 	Name: function_4b44aa37
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x1ADC3EF5
 	Offset: 0xC40
 	Size: 0x44
@@ -357,7 +353,7 @@ function function_4b44aa37()
 
 /*
 	Name: function_857ced89
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0xF74D5FE7
 	Offset: 0xC90
 	Size: 0x190
@@ -378,16 +374,16 @@ function function_857ced89()
 		wait(0.1);
 		n_time_left = n_time_left - 0.1;
 		n_time_left = math::clamp(n_time_left, 0, var_9ade76c0);
-		n_percentage = n_time_left / var_9ade76c0;
-		n_percentage = n_percentage * var_8b3ae2d6;
-		n_percentage = math::clamp(n_percentage, 0.02, var_9ade76c0);
+		var_c2093736 = n_time_left / var_9ade76c0;
+		var_c2093736 = var_c2093736 * var_8b3ae2d6;
+		var_c2093736 = math::clamp(var_c2093736, 0.02, var_9ade76c0);
 		self zm_perks::function_13880aa5(3, n_percentage, #"perk_electric_cherry");
 	}
 }
 
 /*
 	Name: function_b107ce52
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0xCA13CD5C
 	Offset: 0xE28
 	Size: 0x64
@@ -409,7 +405,7 @@ function function_b107ce52()
 
 /*
 	Name: function_cfba6046
-	Namespace: namespace_b3dc953d
+	Namespace: cschashed-1\script_5b8cc1c7c1f27fab
 	Checksum: 0x44F40A33
 	Offset: 0xE98
 	Size: 0xC4

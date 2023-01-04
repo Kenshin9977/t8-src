@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_28784009b5b165db;
+#using hashed-3\auto_turret.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\microwave_turret_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -18,7 +18,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_419dc372c53dc4c5", &__init__, undefined, undefined);
 }

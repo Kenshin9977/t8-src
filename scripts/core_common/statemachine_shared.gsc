@@ -204,14 +204,14 @@ function set_state(name, state_params)
 	state = self.states[name];
 	if(!isdefined(self.owner))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(state))
 	{
 		/#
-			assertmsg((("" + name) + "") + self.name);
+			assertmsg("" + name + "" + self.name);
 		#/
-		return false;
+		return 0;
 	}
 	reenter = self.current_state === state;
 	if(isdefined(state.reenter_func) && reenter)
@@ -220,7 +220,7 @@ function set_state(name, state_params)
 	}
 	if(reenter && shouldreenter !== 1)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(self.current_state))
 	{
@@ -251,7 +251,7 @@ function set_state(name, state_params)
 	{
 		self.owner thread [[self.current_state.update_func]](self.current_state.state_params);
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -427,11 +427,11 @@ function function_acc83382()
 				if(!getdvarint(#"recorder_enablerec", 0))
 				{
 					heightoffset = var_88791e00 * i;
-					print3d(owner.origin + (0, 0, heightoffset), (("" + state_machine.name) + "") + statename, (1, 1, 0));
+					print3d(owner.origin + (0, 0, heightoffset), "" + state_machine.name + "" + statename, (1, 1, 0));
 				}
 				else
 				{
-					record3dtext((("" + state_machine.name) + "") + statename, owner.origin, (1, 1, 0), "", owner, 1);
+					record3dtext("" + state_machine.name + "" + statename, owner.origin, (1, 1, 0), "", owner, 1);
 				}
 				i++;
 			}

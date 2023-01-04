@@ -5,25 +5,25 @@
 #using scripts\zm_common\zm_bgb.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_6cc2ce5b;
+#namespace cschashed-1\script_7f9a84512fb02618;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0x4D2FD287
 	Offset: 0xA0
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_4a6b297c85fafec1", &__init__, undefined, "bgb");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0xDF5D1E69
 	Offset: 0xE8
 	Size: 0x84
@@ -41,7 +41,7 @@ function __init__()
 
 /*
 	Name: enable
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0xC2738FFE
 	Offset: 0x178
 	Size: 0x64
@@ -50,14 +50,14 @@ function __init__()
 */
 function enable()
 {
-	zm_wallbuy::function_c047c228(&function_84832f40);
-	zm_wallbuy::function_33023da5(&function_84832f40);
-	zm_wallbuy::function_48f914bd(&override_ammo_cost);
+	cschashed-3\script_1611421ee9b880d3::function_c047c228(&function_84832f40);
+	cschashed-3\script_1611421ee9b880d3::function_33023da5(&function_84832f40);
+	cschashed-3\script_1611421ee9b880d3::function_48f914bd(&override_ammo_cost);
 }
 
 /*
 	Name: disable
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0xB73CAB53
 	Offset: 0x1E8
 	Size: 0x64
@@ -66,14 +66,14 @@ function enable()
 */
 function disable()
 {
-	zm_wallbuy::function_a6889c(&function_84832f40);
-	zm_wallbuy::function_782e8955(&function_84832f40);
-	zm_wallbuy::function_99911dae(&override_ammo_cost);
+	cschashed-3\script_1611421ee9b880d3::function_a6889c(&function_84832f40);
+	cschashed-3\script_1611421ee9b880d3::function_782e8955(&function_84832f40);
+	cschashed-3\script_1611421ee9b880d3::function_99911dae(&override_ammo_cost);
 }
 
 /*
 	Name: validation
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0x41034431
 	Offset: 0x258
 	Size: 0x2E
@@ -82,16 +82,16 @@ function disable()
 */
 function validation()
 {
-	if(!namespace_59ff1d6c::function_901b751c(#"hash_51a2cf319e12d9ae"))
+	if(!cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_51a2cf319e12d9ae"))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
 	Name: function_84832f40
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0x3F0F46FB
 	Offset: 0x290
 	Size: 0x18
@@ -105,14 +105,14 @@ function function_84832f40(var_38e724e6, var_2b6f3563)
 
 /*
 	Name: override_ammo_cost
-	Namespace: namespace_6cc2ce5b
+	Namespace: cschashed-1\script_7f9a84512fb02618
 	Checksum: 0xCBF163D0
 	Offset: 0x2B0
 	Size: 0x3C
 	Parameters: 2
 	Flags: Linked
 */
-function override_ammo_cost(var_38e724e6, stub)
+function function_a152b188(var_38e724e6, stub)
 {
 	if(self zm_weapons::has_upgrade(var_38e724e6))
 	{

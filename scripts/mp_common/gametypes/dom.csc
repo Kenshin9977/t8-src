@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_28a20e497bd69c36;
+hashed-2\script_28a20e497bd69c36.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\shoutcaster.csc;
 #using scripts\core_common\util_shared.csc;
@@ -24,7 +24,7 @@ event main(eventstruct)
 	}
 	if(util::function_8570168d())
 	{
-		namespace_9096c917::init();
+		cschashed-2\script_28a20e497bd69c36::init();
 	}
 }
 
@@ -157,17 +157,14 @@ function update_base_fx(localclientnum, flag, team)
 	{
 		play_base_fx(localclientnum, flag, fx_name, team);
 	}
+	else if(flag.last_team == #"neutral" || shoutcaster::is_shoutcaster(localclientnum))
+	{
+		play_base_fx(localclientnum, flag, fx_name, team);
+	}
 	else
 	{
-		if(flag.last_team == #"neutral" || shoutcaster::is_shoutcaster(localclientnum))
-		{
-			play_base_fx(localclientnum, flag, fx_name, team);
-		}
-		else
-		{
-			setfxteam(localclientnum, flag.base_fx, team);
-			flag.last_team = team;
-		}
+		setfxteam(localclientnum, flag.base_fx, team);
+		flag.last_team = team;
 	}
 }
 

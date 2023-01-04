@@ -1,79 +1,79 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_15c45f6ceed8c664;
-#using script_190d6b82bcca0908;
-#using script_192830e549417cae;
+#using hashed-2\zm_talisman_extra_molotov.gsc;
+#using hashed-2\zm_game_over.gsc;
+#using hashed-3\zm_talisman_perk_start_3.gsc;
 #using script_1b10fdf0addd52e;
-#using script_1baaed37fe4669a4;
-#using script_1c51d02b2a870d66;
+#using hashed-1\zm_talisman_start_weapon_smg.gsc;
+#using hashed-1\zm_talisman_start_weapon_ar.gsc;
 #using script_20ac552ee498eb9d;
-#using script_20f0345a320cc189;
-#using script_25ef58a2f6c13bd9;
-#using script_261bf0c99a18fc19;
-#using script_271b338bc5e801f1;
+#using hashed-2\zm_aat_plasmatic_burst.gsc;
+#using hashed-2\zm_attachments.gsc;
+#using hashed-2\zm_talisman_start_weapon_lmg.gsc;
+#using hashed-2\zm_talisman_extra_miniturret.gsc;
 #using script_27c22e1d8df4d852;
-#using script_281eabb4df02b1c;
+#using hashed-2\zm_talisman_box_guarantee_lmg.gsc;
 #using script_299f56e6d0b16416;
 #using script_2c5daa95f8fec03c;
-#using script_2cb46c63a33c9b9c;
-#using script_2e08b271d6ffbf77;
-#using script_2e8dd558d392a29f;
+#using hashed-1\zm_playerzombie.gsc;
+#using hashed-1\mini_turret.gsc;
+#using hashed-1\zm_talisman_perk_reducecost_3.gsc;
 #using script_2fd955361c8b5861;
 #using script_301f64a4090c381a;
-#using script_345bb77d6298356c;
-#using script_35598499769dbb3d;
-#using script_35b5ff21c2a0960f;
+#using hashed-2\zm_callings.gsc;
+#using hashed-3\gib.gsc;
+#using hashed-2\globallogic_vehicle.gsc;
 #using script_3688d332e17e9ac1;
-#using script_3743c984969444fd;
-#using script_37cd05f5ce399867;
-#using script_3912c6b178efd520;
-#using script_3975dbbf20d501ed;
-#using script_3ab029db1d973ccd;
-#using script_3b034476f596d018;
-#using script_3f9e0dc8454d98e1;
-#using script_4194df57536e11ed;
-#using script_42499e7667ceb9a8;
-#using script_42f2fc7321ce6ef3;
-#using script_45a4e17fd13b3121;
+#using hashed-3\proximity_grenade.gsc;
+#using hashed-2\zm_talisman_coagulant.gsc;
+#using hashed-3\zm_talisman_extra_frag.gsc;
+#using hashed-3\zm_talisman_shield_durability_rare.gsc;
+#using hashed-1\zm_talisman_perk_start_2.gsc;
+#using hashed-1\status_effect.gsc;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-3\initial_black.gsc;
+#using hashed-3\zm_talisman_perk_reducecost_2.gsc;
+#using hashed-2\zm_aat_brain_decay.gsc;
+#using hashed-2\zm_talisman_perk_reducecost_1.gsc;
 #using script_460f2e04fb3cff8a;
-#using script_469904a7587a8d6e;
+#using hashed-3\zm_talisman_weapon_reducepapcost.gsc;
 #using script_46b763cb3769d370;
-#using script_47fb62300ac0bd60;
-#using script_48f7c4ab73137f8;
+#using hashed-2\stats.gsc;
+#using hashed-2\zm_laststand_client.gsc;
 #using script_4d000493c57bb851;
-#using script_53f13b381cd4251d;
-#using script_5660bae5b402a1eb;
-#using script_59abbd3afb4260b8;
+#using hashed-2\zm_bot.gsc;
+#using hashed-3\zombie_death.gsc;
+#using hashed-2\zm_talisman_special_xp_rate.gsc;
 #using script_5b4f7a8178990872;
-#using script_5bb072c3abf4652c;
-#using script_5ec7afe85b493b9d;
+#using hashed-1\zm_vo.gsc;
+#using hashed-1\zm_talisman_perk_permanent_4.gsc;
 #using script_5f7a85316133915b;
 #using script_6021ce59143452c3;
-#using script_663c3bd4763135c6;
-#using script_68c06910e987dea0;
-#using script_68d0af4307c05cca;
+#using hashed-2\zm_powerup_bonus_points_player.gsc;
+#using hashed-2\zm_talisman_special_startlv3.gsc;
+#using hashed-2\zm_talisman_box_guarantee_box_only.gsc;
 #using script_6ce38ab036223e6e;
-#using script_6df8c1e16bc0a728;
+#using hashed-1\zm_talisman_shield_durability_legendary.gsc;
 #using script_6e3c826b1814cab6;
-#using script_704280a6086efc24;
-#using script_708f86069429bb48;
-#using script_71c99f9188d13a15;
+#using hashed-3\zm_talisman_extra_claymore.gsc;
+#using hashed-2\zm_talisman_impatient.gsc;
+#using hashed-2\zm_aat_kill_o_watt.gsc;
 #using script_7224d61ed502ea07;
-#using script_729483e239af8960;
-#using script_741ad7d45afb75ac;
-#using script_77ffcd7bdce11b7;
-#using script_7daae2066da4b3f7;
-#using script_7e1a8b23e43eca16;
+#using hashed-3\zm_talisman_perk_permanent_3.gsc;
+#using hashed-2\zm_talisman_extra_semtex.gsc;
+#using hashed-2\zm_talisman_perk_permanent_2.gsc;
+#using hashed-1\zm_talisman_special_startlv2.gsc;
+#using hashed-1\zm_aat_frostbite.gsc;
 #using script_7e59d7bba853fe4b;
-#using script_7fb938e966bd5c04;
-#using script_9e4105ea1798ccc;
-#using script_aed3ce8e2908a0a;
+#using hashed-1\zm_talisman_perk_start_1.gsc;
+#using hashed-2\zm_armor.gsc;
+#using hashed-3\zm_talisman_perk_permanent_1.gsc;
 #using script_b52a163973f339f;
-#using script_b56031714f70b20;
-#using script_c9833a62d6b6bf;
-#using script_db06eb511bd9b36;
-#using script_f1c34b62cac9967;
-#using script_f8bd1830885acc6;
+#using hashed-3\zm_talisman_shield_price.gsc;
+#using hashed-3\zm_talisman_perk_mod_single.gsc;
+#using hashed-3\zm_cleanup.gsc;
+#using hashed-3\zm_talisman_perk_start_4.gsc;
+#using hashed-3\zm_talisman_perk_reducecost_4.gsc;
 #using scripts\core_common\aat_shared.gsc;
 #using scripts\core_common\ai_puppeteer_shared.gsc;
 #using scripts\core_common\ai_shared.gsc;
@@ -138,7 +138,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec ignore_systems()
+autoexec function ignore_systems()
 {
 	system::ignore(#"gadget_clone");
 	system::ignore(#"gadget_armor");
@@ -172,7 +172,7 @@ function autoexec ignore_systems()
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm", &__init__, undefined, undefined);
 }
@@ -279,7 +279,7 @@ function init()
 	level.func_get_delay_between_rounds = &namespace_a28acff3::get_delay_between_rounds;
 	level.var_3426461d = &function_a2b54d42;
 	level.no_target_override = &zm_cleanup::no_target_override;
-	level.var_d22435d9 = &zm_cleanup::function_d22435d9;
+	level.var_d22435d9 = &namespace_57ff8cbb::function_d22435d9;
 	level.zombie_visionset = "zombie_neutral";
 	level.wait_and_revive = 0;
 	if(getdvarint(#"anim_intro", 0) == 1)
@@ -316,7 +316,7 @@ function init()
 	init_sounds();
 	init_shellshocks();
 	init_client_field_callback_funcs();
-	zm_loadout::register_offhand_weapons_for_level_defaults();
+	cschashed-2\script_709bf7c56eb65adf::register_offhand_weapons_for_level_defaults();
 	zm_perks::init();
 	zm_talisman::init();
 	zm_powerups::init();
@@ -399,10 +399,10 @@ function cheat_enabled(val)
 	if(getdvarint(#"zombie_cheat", 0) >= val)
 	{
 		/#
-			return true;
+			return 1;
 		#/
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -486,7 +486,7 @@ function onallplayersready()
 			}
 		}
 		/#
-			println((("" + getnumconnectedplayers()) + "") + getnumexpectedplayers(1));
+			println("" + getnumconnectedplayers() + "" + getnumexpectedplayers(1));
 		#/
 		waitframe(1);
 	}
@@ -988,9 +988,9 @@ function init_levelvars()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_b10f6843()
+private function function_b10f6843()
 {
-	n_starting = ((level.round_number - namespace_59ff1d6c::function_901b751c(#"startround")) + 1) * 500;
+	var_d54c234d = level.round_number - cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"startround") + 1 * 500;
 	return (isdefined(level.player_starting_points) ? level.player_starting_points : n_starting);
 }
 
@@ -1116,7 +1116,7 @@ function init_player_levelvars()
 		{
 			points = 3000;
 		}
-		points = zombie_utility::set_zombie_var(("zombie_score_start_" + (i + 1)) + "p", points, 0, column);
+		points = zombie_utility::set_zombie_var("zombie_score_start_" + i + 1 + "p", points, 0, column);
 	}
 }
 
@@ -1162,7 +1162,7 @@ function init_function_overrides()
 	level.custom_introscreen = &zombie_intro_screen;
 	level.custom_intermission = &zm_player::player_intermission;
 	level.reset_clientdvars = &zm_player::onplayerconnect_clientdvars;
-	level.player_becomes_zombie = &namespace_cc96b007::zombify_player;
+	level.player_becomes_zombie = &zm_playerzombie::zombify_player;
 	level.validate_enemy_path_length = &zm_utility::default_validate_enemy_path_length;
 }
 
@@ -1411,7 +1411,7 @@ function vehicle_damage_override(einflictor, eattacker, idamage, idflags, smeans
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private function_7bdb1f9f(attacker, damage, meansofdeath, weapon, shitloc)
+private function function_7bdb1f9f(attacker, damage, meansofdeath, weapon, shitloc)
 {
 	if(isdefined(level.headshots_only) && level.headshots_only || namespace_25f0796c::is_active() && isplayer(attacker))
 	{
@@ -1515,7 +1515,7 @@ function actor_damage_override(inflictor, attacker, damage, flags, meansofdeath,
 	self.var_2e581a5 = undefined;
 	if(self.var_6f84b820 === #"heavy" || self.var_6f84b820 === #"miniboss")
 	{
-		var_84ed9a13 = self namespace_e0710ee6::function_de3dda83(boneindex, shitloc, vpoint);
+		var_84ed9a13 = self cschashed-1\script_5a012bbb9342dbdf::function_de3dda83(boneindex, shitloc, vpoint);
 		if(isdefined(var_84ed9a13) && namespace_81245006::function_f29756fe(var_84ed9a13) == 1 && var_84ed9a13.type !== #"armor")
 		{
 			self.var_2e581a5 = 1;
@@ -1543,7 +1543,7 @@ function actor_damage_override(inflictor, attacker, damage, flags, meansofdeath,
 	/#
 		if(getdvarint(#"scr_perkdebug", 0))
 		{
-			println((((("" + (final_damage / old_damage)) + "") + old_damage) + "") + final_damage);
+			println("" + final_damage / old_damage + "" + old_damage + "" + final_damage);
 		}
 	#/
 	if(isdefined(self.in_water) && self.in_water)
@@ -1755,7 +1755,7 @@ function actor_damage_override_wrapper(inflictor, attacker, damage, flags, means
 		return 0;
 	}
 	damage_override = self actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex, surfacetype);
-	willbekilled = (self.health - damage_override) <= 0;
+	willbekilled = self.health - damage_override <= 0;
 	if(isdefined(level.zombie_damage_override_callbacks))
 	{
 		foreach(func_override in level.zombie_damage_override_callbacks)
@@ -1763,7 +1763,7 @@ function actor_damage_override_wrapper(inflictor, attacker, damage, flags, means
 			self thread [[func_override]](willbekilled, inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex, surfacetype);
 		}
 	}
-	bb::logdamage(attacker, self, weapon, damage_override, meansofdeath, shitloc, willbekilled, willbekilled);
+	bb::function_95e18a48(attacker, self, weapon, damage_override, meansofdeath, shitloc, willbekilled, willbekilled);
 	if(!willbekilled || (!(isdefined(self.dont_die_on_me) && self.dont_die_on_me)))
 	{
 		self thread zm_score::function_89db94b3(attacker, damage_override, inflictor);
@@ -1867,8 +1867,7 @@ function actor_killed_override(einflictor, attacker, idamage, smeansofdeath, wea
 		killstreaks = [];
 		rounds = level.round_number;
 		var_65e76577 = #"";
-		if(isdefined(self.archetype) && (self.archetype == #"tiger" || self.archetype == #"brutus" || self.archetype == #"zombie_dog" || self.archetype == #"catalyst" || self.archetype == #"stoker" || self.archetype == #"blight_father"))
-		{
+		if(isdefined(self.archetype) && (self.archetype == #"tiger" || self.archetype == #"brutus" || self.archetype == #"zombie_dog" || self.archetype == #"catalyst" || self.archetype == #"stoker" || self.archetype == #"blight_father"))		{
 			var_65e76577 = #"hash_1553fcea4f6a00e";
 		}
 		else
@@ -1948,10 +1947,10 @@ function actor_killed_override(einflictor, attacker, idamage, smeansofdeath, wea
 	{
 		self [[self.deathfunction]](einflictor, attacker, idamage, smeansofdeath, weapon, vdir, shitloc, psoffsettime);
 	}
-	var_82700ea5 = namespace_59ff1d6c::function_901b751c(#"zmkillcap");
+	var_82700ea5 = cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"zmkillcap");
 	if(var_82700ea5 > 0 && level.n_total_kills >= var_82700ea5)
 	{
-		namespace_59ff1d6c::function_9be9c072("zmKillCap");
+		cschashed-3\script_12282e6b2cc91b42::function_9be9c072("zmKillCap");
 	}
 }
 
@@ -2052,7 +2051,7 @@ function function_758406d8()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_70171add()
+private function function_70171add()
 {
 	if(randomfloat(1) <= getdvarfloat(#"survey_chance", 0))
 	{
@@ -2116,7 +2115,7 @@ function end_game()
 		level.n_gameplay_start_time = gettime();
 	}
 	level clientfield::set("gameplay_started", 0);
-	level clientfield::set("game_end_time", int(((gettime() - level.n_gameplay_start_time) + 500) / 1000));
+	level clientfield::set("game_end_time", int(gettime() - level.n_gameplay_start_time + 500 / 1000));
 	level clientfield::set("zesn", 1);
 	if(isdefined(level.var_ea32773))
 	{
@@ -2198,12 +2197,12 @@ function end_game()
 		for(i = 0; i < players.size; i++)
 		{
 			level.var_7c7c6c35 zm_game_over::open(players[i]);
-			level.var_7c7c6c35 zm_game_over::set_rounds(players[i], (level.round_number - namespace_59ff1d6c::function_901b751c(#"startround")) + var_5c965b78);
+			level.var_7c7c6c35 zm_game_over::function_b1ff84a2(players[i], level.round_number - cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"startround") + var_5c965b78);
 		}
 	}
 	else if("ztrials" == util::function_5df4294())
 	{
-		namespace_b22c99a5::function_2ee2d021();
+		cschashed-1\script_3d5821d793ed4c6::function_2ee2d021();
 	}
 	util::preload_frontend();
 	players = getplayers();
@@ -2234,7 +2233,7 @@ function end_game()
 		player zm_stats::function_ae547e45("boas_gameType", util::function_5df4294());
 	}
 	zm_stats::function_ea5b4947(1);
-	bb::logroundevent("end_game");
+	bb::function_22b9bc7("end_game");
 	upload_leaderboards();
 	recordgameresult(#"draw");
 	globallogic::function_6c8d7c31(#"draw");
@@ -2269,9 +2268,9 @@ function end_game()
 	{
 		function_758406d8();
 	}
-	if(zm_trial::function_b47f6aba())
+	if(cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
-		level thread namespace_b22c99a5::function_f79b96ac();
+		level thread cschashed-1\script_3d5821d793ed4c6::function_f79b96ac();
 	}
 	if(potm::function_afe21831() == 0)
 	{
@@ -2416,12 +2415,12 @@ function to_mins(seconds)
 	if(seconds > 59)
 	{
 		minutes = int(seconds / 60);
-		seconds = (int(seconds * 1000)) % 60000;
+		seconds = int(seconds * 1000) % 60000;
 		seconds = seconds * 0.001;
 		if(minutes > 59)
 		{
 			hours = int(minutes / 60);
-			minutes = (int(minutes * 1000)) % 60000;
+			minutes = int(minutes * 1000) % 60000;
 			minutes = minutes * 0.001;
 		}
 	}
@@ -2438,7 +2437,7 @@ function to_mins(seconds)
 	{
 		seconds = "0" + seconds;
 	}
-	combined = (((("" + hours) + ":") + minutes) + ":") + seconds;
+	combined = "" + hours + ":" + minutes + ":" + seconds;
 	return combined;
 }
 
@@ -2804,7 +2803,7 @@ function precache_zombie_leaderboards()
 	}
 	mapname = util::function_53bbf9d2();
 	expectedplayernum = getnumexpectedplayers();
-	mapleaderboard = ((("LB_ZM_MAP_" + getsubstr(mapname, 3, mapname.size)) + "_") + expectedplayernum) + "PLAYER";
+	mapleaderboard = "LB_ZM_MAP_" + getsubstr(mapname, 3, mapname.size) + "_" + expectedplayernum + "PLAYER";
 	precacheleaderboards(globalleaderboards + mapleaderboard);
 }
 
@@ -2867,10 +2866,10 @@ function is_idgun_damage(weapon)
 	{
 		if(isinarray(level.idgun_weapons, weapon))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2956,7 +2955,7 @@ function printhashids()
 		outputstring = outputstring + "";
 		foreach(powerup in level.zombie_powerups)
 		{
-			outputstring = outputstring + (((powerup.powerup_name + "") + powerup.var_33c87f51) + "");
+			outputstring = outputstring + powerup.powerup_name + "" + powerup.var_33c87f51 + "";
 		}
 		outputstring = outputstring + "";
 		if(isdefined(level.aat_in_use) && level.aat_in_use)
@@ -2967,7 +2966,7 @@ function printhashids()
 				{
 					continue;
 				}
-				outputstring = outputstring + (((aat.name + "") + aat.var_33c87f51) + "");
+				outputstring = outputstring + aat.name + "" + aat.var_33c87f51 + "";
 			}
 		}
 		outputstring = outputstring + "";
@@ -2977,7 +2976,7 @@ function printhashids()
 			{
 				continue;
 			}
-			outputstring = outputstring + (((function_9e72a96(perk.alias) + "") + perk.alias) + "");
+			outputstring = outputstring + function_9e72a96(perk.alias) + "" + perk.alias + "";
 		}
 		outputstring = outputstring + "";
 		println(outputstring);

@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_678d56e299d40621", &__init__, undefined, undefined);
 }
@@ -35,11 +35,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_32cdfeca4a793d78", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_32cdfeca4a793d78", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -51,7 +51,7 @@ function __init__()
 	Parameters: 0
 	Flags: Private
 */
-function private function_d1de6a85()
+private function function_d1de6a85()
 {
 	foreach(player in getplayers())
 	{
@@ -68,7 +68,7 @@ function private function_d1de6a85()
 	Parameters: 1
 	Flags: Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	foreach(player in getplayers())
 	{
@@ -87,7 +87,7 @@ function private function_9e7b3f4d(round_reset)
 */
 function is_active()
 {
-	challenge = zm_trial::function_a36e8c38(#"hash_32cdfeca4a793d78");
+	challenge = cschashed-1\script_3c362258ff800237::function_a36e8c38(#"hash_32cdfeca4a793d78");
 	return isdefined(challenge);
 }
 
@@ -100,7 +100,7 @@ function is_active()
 	Parameters: 0
 	Flags: Private
 */
-function private movement_watcher()
+private function movement_watcher()
 {
 	self endon(#"disconnect", #"hash_17c41292130032eb");
 	wait(namespace_a28acff3::get_delay_between_rounds() - 2);

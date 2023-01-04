@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
-#using script_5660bae5b402a1eb;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-3\zombie_death.gsc;
 #using scripts\core_common\aat_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\laststand_shared.gsc;
@@ -18,25 +18,25 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_47a807c3;
+#namespace cschashed-2\script_26b191e111bca72e;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0x4463B3D2
 	Offset: 0x118
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_7587f8ddd6b0d47a", &__init__, undefined, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0x80F724D1
 	Offset: 0x160
 	Size: 0x4
@@ -49,7 +49,7 @@ function __init__()
 
 /*
 	Name: function_8d37256a
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0xF6B66DBF
 	Offset: 0x170
 	Size: 0xCC
@@ -68,7 +68,7 @@ function function_8d37256a(e_player)
 
 /*
 	Name: function_ad31c153
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0xDD66D06F
 	Offset: 0x248
 	Size: 0x5C
@@ -87,7 +87,7 @@ function function_ad31c153()
 
 /*
 	Name: function_81eaae89
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0x38563A0F
 	Offset: 0x2B0
 	Size: 0x254
@@ -131,7 +131,7 @@ function function_81eaae89(e_player)
 
 /*
 	Name: function_40935801
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0x1015031D
 	Offset: 0x510
 	Size: 0x224
@@ -169,7 +169,7 @@ function function_40935801()
 
 /*
 	Name: function_35ae342e
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0x1835B255
 	Offset: 0x740
 	Size: 0x254
@@ -212,14 +212,14 @@ function function_35ae342e(e_player)
 
 /*
 	Name: function_d0ea0364
-	Namespace: namespace_47a807c3
+	Namespace: cschashed-2\script_26b191e111bca72e
 	Checksum: 0x6E3ED17D
 	Offset: 0x9A0
 	Size: 0x204
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_d0ea0364(var_5198244f)
+private function function_d0ea0364(var_5198244f)
 {
 	self notify("picked_up_pap_" + var_5198244f.name);
 	self endon("picked_up_pap_" + var_5198244f.name);

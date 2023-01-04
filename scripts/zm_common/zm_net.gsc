@@ -70,7 +70,7 @@ function network_choke_safe(id)
 function network_choke_action(id, choke_action, arg1, arg2, arg3)
 {
 	/#
-		assert(isdefined(level.zombie_network_choke_ids_max[id]), ("" + id) + "");
+		assert(isdefined(level.zombie_network_choke_ids_max[id]), "" + id + "");
 	#/
 	while(!network_choke_safe(id))
 	{
@@ -105,9 +105,9 @@ function network_entity_valid(entity)
 {
 	if(!isdefined(entity))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

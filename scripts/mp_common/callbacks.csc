@@ -1,8 +1,8 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_1b80a90bb1ce332e;
-#using script_6fe18f6a76bd7e8d;
+hashed-1\script_6fe18f6a76bd7e8d.csc;
 #using script_7c21aca7f8a3572a;
-#using script_ecbb3819941bb69;
+hashed-3\script_ecbb3819941bb69.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\footsteps_shared.csc;
 #using scripts\core_common\system_shared.csc;
@@ -21,7 +21,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"callback", &__init__, undefined, undefined);
 }
@@ -186,60 +186,51 @@ function entityspawned(localclientnum)
 		}
 		if(self.weapon.name === "eq_acid_bomb")
 		{
-			self thread namespace_e6ad7806::spawned(localclientnum);
+			self thread cschashed-1\script_6fe18f6a76bd7e8d::spawned(localclientnum);
 		}
 	}
-	else
+	else if(self.type == "vehicle" || self.type == "helicopter" || self.type == "plane")
 	{
-		if(self.type == "vehicle" || self.type == "helicopter" || self.type == "plane")
+		if(isdefined(level._customvehiclecbfunc))
 		{
-			if(isdefined(level._customvehiclecbfunc))
-			{
-				self thread [[level._customvehiclecbfunc]](localclientnum);
-			}
-			self thread vehicle::field_toggle_exhaustfx_handler(localclientnum, undefined, 0, 1);
-			self thread vehicle::field_toggle_lights_handler(localclientnum, undefined, 0, 1);
-			if(self.type == "plane" || self.type == "helicopter")
-			{
-				self thread vehicle::aircraft_dustkick();
-			}
-			else
-			{
-				self thread vehicle::vehicle_rumble(localclientnum);
-			}
-			if(self.type == "helicopter")
-			{
-				self thread helicopter::startfx_loop(localclientnum);
-			}
+			self thread [[level._customvehiclecbfunc]](localclientnum);
+		}
+		self thread vehicle::field_toggle_exhaustfx_handler(localclientnum, undefined, 0, 1);
+		self thread vehicle::field_toggle_lights_handler(localclientnum, undefined, 0, 1);
+		if(self.type == "plane" || self.type == "helicopter")
+		{
+			self thread vehicle::aircraft_dustkick();
 		}
 		else
 		{
-			if(self.type == "scriptmover")
+			self thread vehicle::vehicle_rumble(localclientnum);
+		}
+		if(self.type == "helicopter")
+		{
+			self thread helicopter::startfx_loop(localclientnum);
+		}
+	}
+	else if(self.type == "scriptmover")
+	{
+		if(isdefined(level.var_83485e06))
+		{
+			self thread [[level.var_83485e06]](localclientnum);
+		}
+	}
+	else if(self.type == "actor")
+	{
+		if(isdefined(level._customactorcbfunc))
+		{
+			self thread [[level._customactorcbfunc]](localclientnum);
+		}
+	}
+	else if(self.type == "NA")
+	{
+		if(isdefined(self.weapon))
+		{
+			if(isdefined(level.var_6b11d5f6))
 			{
-				if(isdefined(level.var_83485e06))
-				{
-					self thread [[level.var_83485e06]](localclientnum);
-				}
-			}
-			else
-			{
-				if(self.type == "actor")
-				{
-					if(isdefined(level._customactorcbfunc))
-					{
-						self thread [[level._customactorcbfunc]](localclientnum);
-					}
-				}
-				else if(self.type == "NA")
-				{
-					if(isdefined(self.weapon))
-					{
-						if(isdefined(level.var_6b11d5f6))
-						{
-							self thread [[level.var_6b11d5f6]](localclientnum);
-						}
-					}
-				}
+				self thread [[level.var_6b11d5f6]](localclientnum);
 			}
 		}
 	}
@@ -330,7 +321,7 @@ function airsupport(localclientnum, x, y, z, type, yaw, team, teamfaction, owner
 				println("");
 			#/
 			/#
-				println(("" + teamfaction) + "");
+				println("" + teamfaction + "");
 			#/
 			teamfaction = #"marines";
 			break;
@@ -356,7 +347,7 @@ function airsupport(localclientnum, x, y, z, type, yaw, team, teamfaction, owner
 		default:
 		{
 			/#
-				println(("" + team) + "");
+				println("" + team + "");
 			#/
 			team = #"allies";
 			break;
@@ -374,7 +365,7 @@ function airsupport(localclientnum, x, y, z, type, yaw, team, teamfaction, owner
 	{
 		planehalfdistance = 12000;
 		data.planehalfdistance = planehalfdistance;
-		data.startpoint = pos + (vectorscale(anglestoforward(direction), -1 * planehalfdistance));
+		data.startpoint = pos + vectorscale(anglestoforward(direction), -1 * planehalfdistance);
 		data.endpoint = pos + vectorscale(anglestoforward(direction), planehalfdistance);
 		data.planemodel = "t5_veh_air_b52";
 		data.flybysound = "null";
@@ -382,36 +373,33 @@ function airsupport(localclientnum, x, y, z, type, yaw, team, teamfaction, owner
 		data.apextime = 6145;
 		data.exittype = -1;
 		data.flyspeed = 2000;
-		data.flytime = (planehalfdistance * 2) / data.flyspeed;
+		data.flytime = planehalfdistance * 2 / data.flyspeed;
 		planetype = "airstrike";
+	}
+	else if(type == "n")
+	{
+		planehalfdistance = 24000;
+		data.planehalfdistance = planehalfdistance;
+		data.startpoint = pos + vectorscale(anglestoforward(direction), -1 * planehalfdistance);
+		data.endpoint = pos + vectorscale(anglestoforward(direction), planehalfdistance);
+		data.planemodel = airsupport::getplanemodel(teamfaction);
+		data.flybysound = "null";
+		data.washsound = #"evt_us_napalm_wash";
+		data.apextime = 2362;
+		data.exittype = exittype;
+		data.flyspeed = 7000;
+		data.flytime = planehalfdistance * 2 / data.flyspeed;
+		planetype = "napalm";
 	}
 	else
 	{
-		if(type == "n")
-		{
-			planehalfdistance = 24000;
-			data.planehalfdistance = planehalfdistance;
-			data.startpoint = pos + (vectorscale(anglestoforward(direction), -1 * planehalfdistance));
-			data.endpoint = pos + vectorscale(anglestoforward(direction), planehalfdistance);
-			data.planemodel = airsupport::getplanemodel(teamfaction);
-			data.flybysound = "null";
-			data.washsound = #"evt_us_napalm_wash";
-			data.apextime = 2362;
-			data.exittype = exittype;
-			data.flyspeed = 7000;
-			data.flytime = (planehalfdistance * 2) / data.flyspeed;
-			planetype = "napalm";
-		}
-		else
-		{
-			/#
-				println("");
-				println("");
-				println(type);
-				println("");
-			#/
-			return;
-		}
+		/#
+			println("");
+			println("");
+			println(type);
+			println("");
+		#/
+		return;
 	}
 }
 

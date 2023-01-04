@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_245749c1f51c5bd8;
-#using script_5bb072c3abf4652c;
+#using hashed-1\zm_vo.gsc;
 #using script_7e59d7bba853fe4b;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -223,11 +223,11 @@ function function_9a8ab327()
 	{
 		if(isdefined(level.e_gondola) && isdefined(level.e_gondola.t_ride) && self istouching(level.e_gondola.t_ride))
 		{
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -243,17 +243,17 @@ function zombie_alcatraz_player_intersection_tracker_override(other_player)
 {
 	if(isdefined(self.afterlife_revived) && self.afterlife_revived || (isdefined(other_player.afterlife_revived) && other_player.afterlife_revived))
 	{
-		return true;
+		return 1;
 	}
 	if(isdefined(self.is_on_gondola) && self.is_on_gondola && (isdefined(level.e_gondola.is_moving) && level.e_gondola.is_moving))
 	{
-		return true;
+		return 1;
 	}
 	if(isdefined(other_player.is_on_gondola) && other_player.is_on_gondola && (isdefined(level.e_gondola.is_moving) && level.e_gondola.is_moving))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -472,28 +472,25 @@ function gondola_doors_move(str_side, n_state)
 			}
 		}
 	}
+	else if(n_side_modifier == 1)
+	{
+		var_cd3296d7 = getnode("nd_on_top_r", "targetname");
+		if(isdefined(var_cd3296d7))
+		{
+			unlinktraversal(var_cd3296d7);
+		}
+	}
 	else
 	{
-		if(n_side_modifier == 1)
+		var_fd05c6f4 = getnode("nd_on_bottom_r", "targetname");
+		if(isdefined(var_fd05c6f4))
 		{
-			var_cd3296d7 = getnode("nd_on_top_r", "targetname");
-			if(isdefined(var_cd3296d7))
-			{
-				unlinktraversal(var_cd3296d7);
-			}
+			unlinktraversal(var_fd05c6f4);
 		}
-		else
-		{
-			var_fd05c6f4 = getnode("nd_on_bottom_r", "targetname");
-			if(isdefined(var_fd05c6f4))
-			{
-				unlinktraversal(var_fd05c6f4);
-			}
-		}
-		mdl_door_left playsound(#"hash_ac1fa6f62462ed8");
-		gondola_gate_and_door_moves(n_state, n_side_modifier, var_d134f0d1, mdl_door_left, var_b82242be, mdl_door_right, var_8bd1eeb0, var_b3c73561, var_b0f06f50, var_1c80ffe2);
-		gondola_gate_moves(n_state, n_side_modifier, var_d134f0d1, var_b82242be, var_8bd1eeb0, var_b0f06f50);
 	}
+	mdl_door_left playsound(#"hash_ac1fa6f62462ed8");
+	gondola_gate_and_door_moves(n_state, n_side_modifier, var_d134f0d1, mdl_door_left, var_b82242be, mdl_door_right, var_8bd1eeb0, var_b3c73561, var_b0f06f50, var_1c80ffe2);
+	gondola_gate_moves(n_state, n_side_modifier, var_d134f0d1, var_b82242be, var_8bd1eeb0, var_b0f06f50);
 	foreach(mdl_model in a_doors_and_gates)
 	{
 		mdl_model linkto(self);
@@ -511,10 +508,10 @@ function gondola_doors_move(str_side, n_state)
 */
 function gondola_gate_moves(n_state, n_side_modifier, var_d134f0d1, var_b82242be, var_8bd1eeb0, var_b0f06f50)
 {
-	var_d134f0d1 moveto(var_d134f0d1.origin + ((22.5 * n_side_modifier) * n_state, 0, 0), 0.5, 0.05, 0.05);
-	var_b82242be moveto(var_b82242be.origin + (((22.5 * n_side_modifier) * n_state) * -1, 0, 0), 0.5, 0.05, 0.05);
-	var_8bd1eeb0 moveto(var_8bd1eeb0.origin + ((22.5 * n_side_modifier) * n_state, 0, 0), 0.5, 0.05, 0.05);
-	var_b0f06f50 moveto(var_b0f06f50.origin + (((22.5 * n_side_modifier) * n_state) * -1, 0, 0), 0.5, 0.05, 0.05);
+	var_d134f0d1 moveto(var_d134f0d1.origin + (22.5 * n_side_modifier * n_state, 0, 0), 0.5, 0.05, 0.05);
+	var_b82242be moveto(var_b82242be.origin + (22.5 * n_side_modifier * n_state * -1, 0, 0), 0.5, 0.05, 0.05);
+	var_8bd1eeb0 moveto(var_8bd1eeb0.origin + (22.5 * n_side_modifier * n_state, 0, 0), 0.5, 0.05, 0.05);
+	var_b0f06f50 moveto(var_b0f06f50.origin + (22.5 * n_side_modifier * n_state * -1, 0, 0), 0.5, 0.05, 0.05);
 	var_b82242be waittill(#"movedone");
 }
 
@@ -529,14 +526,14 @@ function gondola_gate_moves(n_state, n_side_modifier, var_d134f0d1, var_b82242be
 */
 function gondola_gate_and_door_moves(n_state, n_side_modifier, var_d134f0d1, mdl_door_left, var_b82242be, mdl_door_right, var_8bd1eeb0, var_b3c73561, var_b0f06f50, var_1c80ffe2)
 {
-	mdl_door_left moveto(mdl_door_left.origin + ((24 * n_side_modifier) * n_state, 0, 0), 0.5, 0.05, 0.05);
-	var_d134f0d1 moveto(var_d134f0d1.origin + ((24 * n_side_modifier) * n_state, 0, 0), 0.5, 0.05, 0.05);
-	mdl_door_right moveto(mdl_door_right.origin + (((24 * n_side_modifier) * n_state) * -1, 0, 0), 0.5, 0.05, 0.05);
-	var_b82242be moveto(var_b82242be.origin + (((24 * n_side_modifier) * n_state) * -1, 0, 0), 0.5, 0.05, 0.05);
-	var_b3c73561 moveto(var_b3c73561.origin + ((24 * n_side_modifier) * n_state, 0, 0), 0.5, 0.05, 0.05);
-	var_8bd1eeb0 moveto(var_8bd1eeb0.origin + ((24 * n_side_modifier) * n_state, 0, 0), 0.5, 0.05, 0.05);
-	var_1c80ffe2 moveto(var_1c80ffe2.origin + (((24 * n_side_modifier) * n_state) * -1, 0, 0), 0.5, 0.05, 0.05);
-	var_b0f06f50 moveto(var_b0f06f50.origin + (((24 * n_side_modifier) * n_state) * -1, 0, 0), 0.5, 0.05, 0.05);
+	mdl_door_left moveto(mdl_door_left.origin + (24 * n_side_modifier * n_state, 0, 0), 0.5, 0.05, 0.05);
+	var_d134f0d1 moveto(var_d134f0d1.origin + (24 * n_side_modifier * n_state, 0, 0), 0.5, 0.05, 0.05);
+	mdl_door_right moveto(mdl_door_right.origin + (24 * n_side_modifier * n_state * -1, 0, 0), 0.5, 0.05, 0.05);
+	var_b82242be moveto(var_b82242be.origin + (24 * n_side_modifier * n_state * -1, 0, 0), 0.5, 0.05, 0.05);
+	var_b3c73561 moveto(var_b3c73561.origin + (24 * n_side_modifier * n_state, 0, 0), 0.5, 0.05, 0.05);
+	var_8bd1eeb0 moveto(var_8bd1eeb0.origin + (24 * n_side_modifier * n_state, 0, 0), 0.5, 0.05, 0.05);
+	var_1c80ffe2 moveto(var_1c80ffe2.origin + (24 * n_side_modifier * n_state * -1, 0, 0), 0.5, 0.05, 0.05);
+	var_b0f06f50 moveto(var_b0f06f50.origin + (24 * n_side_modifier * n_state * -1, 0, 0), 0.5, 0.05, 0.05);
 	var_b82242be waittill(#"movedone");
 }
 
@@ -574,7 +571,7 @@ function zipline_move_trigger_think()
 		{
 			continue;
 		}
-		if(namespace_6f53a9bb::is_active())
+		if(cschashed-1\script_3d09dc1e349814c::is_active())
 		{
 			continue;
 		}
@@ -670,7 +667,7 @@ function zipline_call_trigger_think()
 		{
 			continue;
 		}
-		if(namespace_6f53a9bb::is_active())
+		if(cschashed-1\script_3d09dc1e349814c::is_active())
 		{
 			continue;
 		}
@@ -759,7 +756,7 @@ function move_gondola(b_suppress_doors_close = 0)
 	{
 		if(player function_9a8ab327())
 		{
-			namespace_e0710ee6::function_991333ce(player);
+			cschashed-1\script_5a012bbb9342dbdf::function_991333ce(player);
 		}
 	}
 	if(!(isdefined(b_suppress_doors_close) && b_suppress_doors_close))
@@ -1088,9 +1085,9 @@ function function_dc269d0d(a_zombies, e_gondola)
 	a_zombies = util::get_array_of_closest(e_gondola.origin, a_zombies, undefined, 1, 256);
 	if(a_zombies.size > 0)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1112,7 +1109,7 @@ function function_6a4544e()
 	}
 	else if(var_1b66809c.size > 1)
 	{
-		level zm_vo::play_banter("gondola_banter", undefined, var_1b66809c);
+		level namespace_891c9bac::function_3720b375("gondola_banter", undefined, var_1b66809c);
 	}
 }
 
@@ -1236,7 +1233,7 @@ function player_escaped_gondola_failsafe()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_da48c149(s_pos)
+private function function_da48c149(s_pos)
 {
 	var_75c89236 = 0;
 	self dontinterpolate();
@@ -1283,7 +1280,7 @@ function gondola_cooldown()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_de1be51e()
+private function function_de1be51e()
 {
 	var_55a82bb2 = struct::get("gondola_wires");
 	var_55a82bb2 thread scene::play("Shot 2");

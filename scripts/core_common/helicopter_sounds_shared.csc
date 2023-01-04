@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"helicopter_sounds", &__init__, undefined, undefined);
 }
@@ -156,36 +156,30 @@ function command_parser()
 					println("");
 					success = 0;
 				}
-				else
+				else if(!isdefined(tokens[1]))
 				{
-					if(!isdefined(tokens[1]))
+					if(isdefined(tokens[1]))
 					{
-						if(isdefined(tokens[1]))
-						{
-							println((("" + tokens[0]) + "") + tokens[1]);
-						}
-						else
-						{
-							println("" + tokens[0]);
-						}
-						println("");
-						success = 0;
+						println("" + tokens[0] + "" + tokens[1]);
 					}
 					else
 					{
-						if(!isdefined(tokens[2]))
-						{
-							println((("" + tokens[0]) + "") + tokens[1]);
-							println("");
-							success = 0;
-						}
-						else if(!isdefined(tokens[3]))
-						{
-							println((("" + tokens[0]) + "") + tokens[1]);
-							println("");
-							success = 0;
-						}
+						println("" + tokens[0]);
 					}
+					println("");
+					success = 0;
+				}
+				else if(!isdefined(tokens[2]))
+				{
+					println("" + tokens[0] + "" + tokens[1]);
+					println("");
+					success = 0;
+				}
+				else if(!isdefined(tokens[3]))
+				{
+					println("" + tokens[0] + "" + tokens[1]);
+					println("");
+					success = 0;
 				}
 				if(success)
 				{
@@ -526,7 +520,7 @@ function start_helicopter_sounds(localclientnum)
 			default:
 			{
 				/#
-					println(("" + self.vehicletype) + "");
+					println("" + self.vehicletype + "");
 				#/
 				break;
 			}
@@ -536,16 +530,11 @@ function start_helicopter_sounds(localclientnum)
 		/#
 			if(getdvarint(#"debug_heli", 0) > 0)
 			{
-				iprintlnbold(("" + self.vehicletype) + "");
+				iprintlnbold("" + self.vehicletype + "");
 			}
 		#/
 	}
-	else
-	{
-		/#
-			println("");
-		#/
-	}
+	println("");
 }
 
 /*
@@ -604,7 +593,7 @@ function heli_sound_play(heli_bone)
 		default:
 		{
 			/#
-				println(("" + heli_bone.type) + "");
+				println("" + heli_bone.type + "");
 			#/
 			break;
 		}
@@ -973,7 +962,7 @@ function aircraft_dustkick(localclientnum)
 			dotracethisframe = numframespertrace;
 			trace = bullettrace(trace_ent.origin, trace_ent.origin - vectorscale((0, 0, 1), 100000), 0, trace_ent, 1);
 			d = distance(trace_ent.origin, trace[#"position"]);
-			repeatrate = (d - minheight) / (maxheight - minheight) * (slowestrepeatwait - fastestrepeatwait) + fastestrepeatwait;
+			repeatrate = d - minheight / maxheight - minheight * slowestrepeatwait - fastestrepeatwait + fastestrepeatwait;
 		}
 		if(!isdefined(trace))
 		{
@@ -1006,11 +995,11 @@ function aircraft_dustkick(localclientnum)
 			/#
 				if(isdefined(self.vehicletype))
 				{
-					println((("" + trace[#"surfacetype"]) + "") + self.vehicletype);
+					println("" + trace[#"surfacetype"] + "" + self.vehicletype);
 				}
 				else
 				{
-					println(("" + trace[#"surfacetype"]) + "");
+					println("" + trace[#"surfacetype"] + "");
 				}
 			#/
 			return;

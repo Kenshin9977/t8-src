@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_61ec16c9c8ab8dcc;
+hashed-2\script_61ec16c9c8ab8dcc.csc;
 #using scripts\core_common\system_shared.csc;
 
 #namespace hud_message;
@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hud_message", &__init__, undefined, undefined);
 }

@@ -14,25 +14,25 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_95574d51;
+#namespace cschashed-1\script_1de1583a62cc580f;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x42675EFE
 	Offset: 0x198
 	Size: 0x54
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_7ec9595768b1ec91", &__init__, &__main__, #"zm_weapons");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xFCD31B99
 	Offset: 0x1F8
 	Size: 0xE4
@@ -43,14 +43,14 @@ function __init__()
 {
 	level.weaponzmcymbalmonkey = getweapon(#"cymbal_monkey");
 	zm_weapons::register_zombie_weapon_callback(level.weaponzmcymbalmonkey, &player_give_cymbal_monkey);
-	zm_loadout::register_lethal_grenade_for_level(#"cymbal_monkey");
+	cschashed-2\script_709bf7c56eb65adf::register_lethal_grenade_for_level(#"cymbal_monkey");
 	clientfield::register("scriptmover", "" + #"hash_60a7e5b79e8064a5", 1, 1, "int");
 	zm::function_84d343d(#"cymbal_monkey", &function_3681e2bc);
 }
 
 /*
 	Name: __main__
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x61A48DDA
 	Offset: 0x2E8
 	Size: 0x182
@@ -102,7 +102,7 @@ function __main__()
 
 /*
 	Name: function_3681e2bc
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xA7EE9AF3
 	Offset: 0x478
 	Size: 0xEA
@@ -122,7 +122,7 @@ function function_3681e2bc(inflictor, attacker, damage, flags, meansofdeath, wea
 
 /*
 	Name: player_give_cymbal_monkey
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xC5822134
 	Offset: 0x570
 	Size: 0x64
@@ -141,7 +141,7 @@ function player_give_cymbal_monkey()
 
 /*
 	Name: player_handle_cymbal_monkey
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xAC0C740E
 	Offset: 0x5E0
 	Size: 0xFE
@@ -177,7 +177,7 @@ function player_handle_cymbal_monkey()
 
 /*
 	Name: watch_for_dud
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x8BB8DBB0
 	Offset: 0x6E8
 	Size: 0x104
@@ -212,7 +212,7 @@ function watch_for_dud(actor)
 
 /*
 	Name: watch_for_emp
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x8D2069C1
 	Offset: 0x7F8
 	Size: 0x1EC
@@ -266,7 +266,7 @@ function watch_for_emp(actor)
 
 /*
 	Name: clone_player_angles
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x60F0A34D
 	Offset: 0x9F0
 	Size: 0x58
@@ -286,7 +286,7 @@ function clone_player_angles(owner)
 
 /*
 	Name: show_briefly
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x18E7EB92
 	Offset: 0xA50
 	Size: 0xB6
@@ -314,7 +314,7 @@ function show_briefly(showtime)
 
 /*
 	Name: show_owner_on_attack
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xF359D543
 	Offset: 0xB10
 	Size: 0xB0
@@ -335,7 +335,7 @@ function show_owner_on_attack(owner)
 
 /*
 	Name: hide_owner
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x1185CDDE
 	Offset: 0xBC8
 	Size: 0x23C
@@ -375,7 +375,7 @@ function hide_owner(owner)
 
 /*
 	Name: proximity_detonate
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xD1334175
 	Offset: 0xE10
 	Size: 0x27C
@@ -430,7 +430,7 @@ function proximity_detonate(owner)
 
 /*
 	Name: player_throw_cymbal_monkey
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x23C53732
 	Offset: 0x1098
 	Size: 0x5A4
@@ -524,30 +524,30 @@ function player_throw_cymbal_monkey(e_grenade, num_attractors, max_attract_dist,
 
 /*
 	Name: function_ab9a9770
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x39897D1C
 	Offset: 0x1648
 	Size: 0xAE
 	Parameters: 0
 	Flags: Private
 */
-function private function_ab9a9770()
+private function function_ab9a9770()
 {
-	s_trace = groundtrace(self.origin + vectorscale((0, 0, 1), 70), self.origin + (vectorscale((0, 0, -1), 100)), 0, self);
+	s_trace = groundtrace(self.origin + vectorscale((0, 0, 1), 70), self.origin + vectorscale((0, 0, -1), 100), 0, self);
 	if(isdefined(s_trace[#"entity"]))
 	{
 		entity = s_trace[#"entity"];
 		if(entity ismovingplatform())
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_2f2478f2
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xB1411C12
 	Offset: 0x1700
 	Size: 0x1AE
@@ -570,16 +570,16 @@ function function_2f2478f2()
 			if(zm_utility::check_point_in_enabled_zone(point.origin) && bullettracepassed(point.origin + vectorscale((0, 0, 1), 20), v_orig + vectorscale((0, 0, 1), 20), 0, self, undefined, 0, 0))
 			{
 				self.origin = point.origin;
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
 	Name: grenade_stolen_by_sam
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x45DE44DD
 	Offset: 0x18B8
 	Size: 0x2D4
@@ -632,7 +632,7 @@ function grenade_stolen_by_sam(e_grenade, e_actor)
 
 /*
 	Name: monkey_cleanup
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x13C27AC5
 	Offset: 0x1B98
 	Size: 0x90
@@ -663,7 +663,7 @@ function monkey_cleanup(e_grenade)
 
 /*
 	Name: do_monkey_sound
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x1935FA7C
 	Offset: 0x1C30
 	Size: 0x260
@@ -719,7 +719,7 @@ function do_monkey_sound(info)
 
 /*
 	Name: function_875fd1df
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xA65F7A3E
 	Offset: 0x1E98
 	Size: 0x6C
@@ -742,7 +742,7 @@ function function_875fd1df()
 
 /*
 	Name: play_delayed_explode_vox
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x39A5B6A5
 	Offset: 0x1F10
 	Size: 0x34
@@ -760,7 +760,7 @@ function play_delayed_explode_vox()
 
 /*
 	Name: get_thrown_monkey
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x77E4F217
 	Offset: 0x1F50
 	Size: 0xD2
@@ -789,7 +789,7 @@ function get_thrown_monkey()
 
 /*
 	Name: monitor_zombie_groans
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xE6A62CBA
 	Offset: 0x2030
 	Size: 0x1B0
@@ -838,7 +838,7 @@ function monitor_zombie_groans(info)
 
 /*
 	Name: play_zombie_groans
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0xAFA87B6C
 	Offset: 0x21E8
 	Size: 0x7E
@@ -864,7 +864,7 @@ function play_zombie_groans()
 
 /*
 	Name: cymbal_monkey_exists
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x2ABAFF38
 	Offset: 0x2270
 	Size: 0x1A
@@ -878,7 +878,7 @@ function cymbal_monkey_exists()
 
 /*
 	Name: is_on_navmesh
-	Namespace: namespace_95574d51
+	Namespace: cschashed-1\script_1de1583a62cc580f
 	Checksum: 0x66B36B46
 	Offset: 0x2298
 	Size: 0x24C
@@ -900,7 +900,7 @@ function is_on_navmesh(e_player)
 	if(ispointonnavmesh(self.origin, 60) == 1)
 	{
 		self.var_45eaa114 = 1;
-		return true;
+		return 1;
 	}
 	v_valid_point = getclosestpointonnavmesh(self.origin, 150, 12);
 	if(isdefined(v_valid_point))
@@ -909,7 +909,7 @@ function is_on_navmesh(e_player)
 		if(!(isdefined(var_3fb36683) && var_3fb36683))
 		{
 			v_dir = vectornormalize(e_origin - self.origin);
-			v_pos = self.origin + (v_dir * 24);
+			v_pos = self.origin + v_dir * 24;
 			v_valid_point = getclosestpointonnavmesh(v_pos, 150, 12);
 			if(isdefined(v_valid_point))
 			{
@@ -930,9 +930,9 @@ function is_on_navmesh(e_player)
 			self.var_bdd70f6a clientfield::set("" + #"hash_60a7e5b79e8064a5", 1);
 		}
 		self.var_45eaa114 = 1;
-		return true;
+		return 1;
 	}
 	self.var_45eaa114 = 0;
-	return false;
+	return 0;
 }
 

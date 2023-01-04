@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_35598499769dbb3d;
+#using hashed-3\gib.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -8,25 +8,25 @@
 #using scripts\zm_common\zm.gsc;
 #using scripts\zm_common\zm_utility.gsc;
 
-#namespace namespace_2cbb6c62;
+#namespace cschashed-3\script_4693ccb3587498e1;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x80E015A6
 	Offset: 0x148
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_4b8517108556612", &__init__, undefined, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x905D2D4A
 	Offset: 0x190
 	Size: 0x33C
@@ -59,7 +59,7 @@ function __init__()
 
 /*
 	Name: function_5ff12a45
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0xA4305665
 	Offset: 0x4D8
 	Size: 0xEC
@@ -82,7 +82,7 @@ function function_5ff12a45(inflictor, attacker, damage, flags, meansofdeath, wea
 
 /*
 	Name: function_f77ced93
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x551E8E66
 	Offset: 0x5D0
 	Size: 0xA4
@@ -103,7 +103,7 @@ function function_f77ced93(s_params)
 
 /*
 	Name: function_de59b16a
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0xF18E4BDD
 	Offset: 0x680
 	Size: 0xA4
@@ -116,14 +116,14 @@ function function_de59b16a(e_source, str_mod, var_8e05c280, weapon)
 	{
 		e_source.tesla_enemies_hit = 1;
 		self thread function_9f86f360(e_source, 3, 128);
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_fd1a163d
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0xDA1109DF
 	Offset: 0x730
 	Size: 0x1AC
@@ -143,14 +143,14 @@ function function_fd1a163d(e_source, damage, meansofdeath, weapon, shitloc)
 		self ai::stun();
 		self thread function_487ae8a7(e_source, meansofdeath, weapon, shitloc);
 		level thread function_e0525d4e(self, e_source, meansofdeath, weapon, shitloc);
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_e0525d4e
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x5A077E4B
 	Offset: 0x8E8
 	Size: 0x21E
@@ -172,7 +172,7 @@ function function_e0525d4e(var_6a3758f2, e_source, meansofdeath, weapon, shitloc
 	var_bf7a56c5 = int(ceil(a_zombies.size / 3));
 	for(i = 0; i < a_zombies.size; i++)
 	{
-		if((i % var_bf7a56c5) == 0)
+		if(i % var_bf7a56c5 == 0)
 		{
 			wait(1.5 / 3);
 		}
@@ -185,7 +185,7 @@ function function_e0525d4e(var_6a3758f2, e_source, meansofdeath, weapon, shitloc
 
 /*
 	Name: function_4764da22
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x22E3AB25
 	Offset: 0xB10
 	Size: 0x8C
@@ -206,7 +206,7 @@ function function_4764da22(e_source, meansofdeath, weapon, shitloc)
 
 /*
 	Name: function_487ae8a7
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0xE1CF433F
 	Offset: 0xBA8
 	Size: 0x8C
@@ -226,7 +226,7 @@ function function_487ae8a7(e_source, meansofdeath, weapon, shitloc)
 
 /*
 	Name: function_b7a6f208
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x56814CAD
 	Offset: 0xC40
 	Size: 0x3C
@@ -240,7 +240,7 @@ function function_b7a6f208(w_weapon)
 
 /*
 	Name: function_9f86f360
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x15667E71
 	Offset: 0xC88
 	Size: 0x140
@@ -267,7 +267,7 @@ function function_9f86f360(e_player, var_3e8e91cb, n_range)
 
 /*
 	Name: function_bd5b7309
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0xB496DC1
 	Offset: 0xDD0
 	Size: 0x154
@@ -298,7 +298,7 @@ function function_bd5b7309(player, var_fb0999c0)
 
 /*
 	Name: function_5253f1fb
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0xCBFA9544
 	Offset: 0xF30
 	Size: 0xBC
@@ -316,7 +316,7 @@ function function_5253f1fb(player)
 
 /*
 	Name: function_80fa8760
-	Namespace: namespace_2cbb6c62
+	Namespace: cschashed-3\script_4693ccb3587498e1
 	Checksum: 0x9E531DC7
 	Offset: 0xFF8
 	Size: 0x5E

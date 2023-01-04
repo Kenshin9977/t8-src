@@ -89,12 +89,7 @@ function save()
 			println("", self.name);
 		#/
 	}
-	else
-	{
-		/#
-			println("");
-		#/
-	}
+	println("");
 	attachsize = self getattachsize();
 	for(i = 0; i < attachsize; i++)
 	{
@@ -128,12 +123,7 @@ function load(info)
 			println("", self.name);
 		#/
 	}
-	else
-	{
-		/#
-			println("");
-		#/
-	}
+	println("");
 	attachinfo = info[#"attach"];
 	attachsize = attachinfo.size;
 	for(i = 0; i < attachsize; i++)

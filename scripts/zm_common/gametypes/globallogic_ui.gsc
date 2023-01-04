@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_256b8879317373de;
+#using hashed-2\player_201.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\hud_message_shared.gsc;
 #using scripts\core_common\hud_util_shared.gsc;
@@ -22,7 +22,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"globallogic_ui", &__init__, undefined, undefined);
 }
@@ -152,10 +152,10 @@ function teamplayercountsequal(playercounts)
 		}
 		if(count != playercounts[team])
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -200,81 +200,78 @@ function menuautoassign(comingfrommenu)
 	{
 		assignment = #"allies";
 	}
-	else
+	else if(level.teambased)
 	{
-		if(level.teambased)
+		if(getdvarint(#"party_autoteams", 0) == 1)
 		{
-			if(getdvarint(#"party_autoteams", 0) == 1)
+			if(level.allow_teamchange && (self.hasspawned || comingfrommenu))
 			{
-				if(level.allow_teamchange && (self.hasspawned || comingfrommenu))
+				assignment = "";
+			}
+			else
+			{
+				team = getassignedteam(self);
+				switch(team)
 				{
-					assignment = "";
-				}
-				else
-				{
-					team = getassignedteam(self);
-					switch(team)
+					case 1:
 					{
-						case 1:
+						assignment = teamkeys[1];
+						break;
+					}
+					case 2:
+					{
+						assignment = teamkeys[0];
+						break;
+					}
+					case 3:
+					{
+						assignment = teamkeys[2];
+						break;
+					}
+					case 4:
+					{
+						if(!isdefined(level.forceautoassign) || !level.forceautoassign)
 						{
-							assignment = teamkeys[1];
-							break;
+							return;
 						}
-						case 2:
+					}
+					default:
+					{
+						assignment = "";
+						if(isdefined(level.teams[team]))
 						{
-							assignment = teamkeys[0];
-							break;
+							assignment = team;
 						}
-						case 3:
+						else if(team == "spectator" && !level.forceautoassign)
 						{
-							assignment = teamkeys[2];
-							break;
-						}
-						case 4:
-						{
-							if(!isdefined(level.forceautoassign) || !level.forceautoassign)
-							{
-								return;
-							}
-						}
-						default:
-						{
-							assignment = "";
-							if(isdefined(level.teams[team]))
-							{
-								assignment = team;
-							}
-							else if(team == "spectator" && !level.forceautoassign)
-							{
-								return;
-							}
+							return;
 						}
 					}
 				}
 			}
-			if(assignment == "" || getdvarint(#"party_autoteams", 0) == 0)
-			{
-				assignment = #"allies";
-			}
-			if(assignment == self.pers[#"team"] && (self.sessionstate == "playing" || self.sessionstate == "dead"))
-			{
-				self beginclasschoice();
-				return;
-			}
 		}
-		else if(getdvarint(#"party_autoteams", 0) == 1)
+		if(assignment == "" || getdvarint(#"party_autoteams", 0) == 0)
 		{
-			if(!level.allow_teamchange || (!self.hasspawned && !comingfrommenu))
+			assignment = #"allies";
+		}
+		if(assignment == self.pers[#"team"] && (self.sessionstate == "playing" || self.sessionstate == "dead"))
+		{
+			self beginclasschoice();
+			return;
+		}
+	}
+	else if(getdvarint(#"party_autoteams", 0) == 1)
+	{
+		if(!level.allow_teamchange || (!self.hasspawned && !comingfrommenu))
+		{
+			team = getassignedteam(self);
+			if(isdefined(level.teams[team]))
 			{
-				team = getassignedteam(self);
-				if(isdefined(level.teams[team]))
-				{
-					assignment = team;
-				}
-				else if(team == "spectator" && !level.forceautoassign)
-				{
-					return;
-				}
+				assignment = team;
+			}
+			else if(team == "spectator" && !level.forceautoassign)
+			{
+				return;
 			}
 		}
 	}
@@ -327,10 +324,10 @@ function teamscoresequal()
 		}
 		if(score != getteamscore(team))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*

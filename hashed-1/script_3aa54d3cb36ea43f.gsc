@@ -1,9 +1,9 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_2c5daa95f8fec03c;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_58c342edd81589fb;
 #using script_7e59d7bba853fe4b;
-#using script_db06eb511bd9b36;
+#using hashed-3\zm_cleanup.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
@@ -29,7 +29,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_44c6201436ba267e", &__init__, &__main__, #"hash_5ecf1967e7cb0189");
 }
@@ -46,7 +46,7 @@ function autoexec function_89f2df9()
 function __init__()
 {
 	function_ea46ca6f();
-	zm_cleanup::function_cdf5a512(#"gegenees", &function_7640eac2);
+	namespace_57ff8cbb::function_cdf5a512(#"gegenees", &function_7640eac2);
 	zm_player::register_player_damage_callback(&function_7e791d5d);
 	level thread function_b656013e();
 	if(zm_utility::is_standard())
@@ -83,7 +83,7 @@ function __main__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_b656013e()
+private function function_b656013e()
 {
 	level endon(#"game_over");
 	bundle = level.var_b3d6ef3b[0] ai::function_9139c839();
@@ -136,7 +136,7 @@ function function_ea46ca6f()
 */
 function gegenees_init()
 {
-	self.maxhealth = int(self namespace_e0710ee6::function_8d44707e(1, self._starting_round_number) * (isdefined(level.var_9503486c) ? level.var_9503486c : 1));
+	self.maxhealth = int(self cschashed-1\script_5a012bbb9342dbdf::function_8d44707e(1, self._starting_round_number) * (isdefined(level.var_9503486c) ? level.var_9503486c : 1));
 	self.health = self.maxhealth;
 	self zm_score::function_82732ced();
 	self.var_ab8f2b90 = 3;
@@ -161,12 +161,12 @@ function function_7640eac2()
 	if(level.var_f1e94d9.size < 1)
 	{
 		self.b_ignore_cleanup = 1;
-		return true;
+		return 1;
 	}
 	if(zm_utility::is_standard() && level flag::exists("started_defend_area") && level flag::get("started_defend_area"))
 	{
 		self.b_ignore_cleanup = 1;
-		return true;
+		return 1;
 	}
 	var_31f7011a = arraycopy(level.players);
 	var_31f7011a = arraysortclosest(var_31f7011a, self.origin);
@@ -192,12 +192,12 @@ function function_7640eac2()
 			var_b2aa54a9 = var_d7eff26a;
 		}
 	}
-	self namespace_e0710ee6::function_a8dc3363(var_b2aa54a9);
+	self cschashed-1\script_5a012bbb9342dbdf::function_a8dc3363(var_b2aa54a9);
 	if(isdefined(var_b2aa54a9.scriptbundlename))
 	{
 		self function_9a9b5f49(var_b2aa54a9);
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -211,7 +211,7 @@ function function_7640eac2()
 */
 function function_9a9b5f49(spot)
 {
-	self endoncallback(&zm_spawner::function_fe3cb19a, #"death");
+	self endon_callback(&zm_spawner::function_fe3cb19a, #"death");
 	self zm_spawner::function_fe3cb19a();
 	self.mdl_anchor = util::spawn_model("tag_origin", self.origin, self.angles);
 	self ghost();
@@ -250,7 +250,7 @@ function function_9a9b5f49(spot)
 	Parameters: 10
 	Flags: Linked, Private
 */
-function private function_7e791d5d(einflictor, eattacker, idamage, idflags, smeansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime)
+private function function_7e791d5d(einflictor, eattacker, idamage, idflags, smeansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime)
 {
 	if(isdefined(eattacker) && isai(eattacker) && eattacker.archetype == #"gegenees" && eattacker.team != self.team)
 	{
@@ -291,23 +291,17 @@ function function_7107da88(var_dbce0c44)
 	{
 		var_1797c23a = 1;
 	}
+	else if(level.round_number <= 10)
+	{
+		var_1797c23a = 1;
+	}
+	else if(level.round_number <= 17)
+	{
+		var_1797c23a = 2;
+	}
 	else
 	{
-		if(level.round_number <= 10)
-		{
-			var_1797c23a = 1;
-		}
-		else
-		{
-			if(level.round_number <= 17)
-			{
-				var_1797c23a = 2;
-			}
-			else
-			{
-				var_1797c23a = 3;
-			}
-		}
+		var_1797c23a = 3;
 	}
 	var_2506688 = (var_1797c23a > 8 ? var_1797c23a * 0.75 : max(var_1797c23a - 3, 0));
 	n_num_to_spawn = function_21a3a673(int(var_2506688), int(min(var_8cf00d40, var_1797c23a)));
@@ -352,9 +346,9 @@ function round_spawn()
 	if(isdefined(ai))
 	{
 		level.zombie_total--;
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -366,7 +360,7 @@ function round_spawn()
 	Parameters: 3
 	Flags: Linked
 */
-function spawn_single(b_force_spawn = 0, var_eb3a8721, var_bc66d64b)
+function function_6249817(b_force_spawn = 0, var_eb3a8721, var_bc66d64b)
 {
 	if(!b_force_spawn && !function_48c60fc2())
 	{
@@ -376,16 +370,13 @@ function spawn_single(b_force_spawn = 0, var_eb3a8721, var_bc66d64b)
 	{
 		s_spawn_loc = var_eb3a8721;
 	}
-	else
+	else if(isdefined(level.var_9e923fdb))
 	{
-		if(isdefined(level.var_9e923fdb))
-		{
-			s_spawn_loc = [[level.var_9e923fdb]]();
-		}
-		else if(level.zm_loc_types[#"gegenees_location"].size > 0)
-		{
-			s_spawn_loc = array::random(level.zm_loc_types[#"gegenees_location"]);
-		}
+		s_spawn_loc = [[level.var_9e923fdb]]();
+	}
+	else if(level.zm_loc_types[#"gegenees_location"].size > 0)
+	{
+		s_spawn_loc = array::random(level.zm_loc_types[#"gegenees_location"]);
 	}
 	if(!isdefined(s_spawn_loc))
 	{
@@ -431,9 +422,9 @@ function function_48c60fc2()
 	var_ba74cbf9 = function_5685dac6();
 	if(!(isdefined(level.var_a2831281) && level.var_a2831281) && (isdefined(level.var_153e9058) && level.var_153e9058 || var_d6ddc067 >= var_ba74cbf9 || !level flag::get("spawn_zombies")))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

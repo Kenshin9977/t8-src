@@ -24,16 +24,16 @@
 function init()
 {
 	var_a017eb40 = struct::get_array("snowball_pile");
-	foreach(s_snowball_pile in var_a017eb40)
+	foreach(var_b85ff151 in var_a017eb40)
 	{
 		if(isdefined(s_snowball_pile.model))
 		{
 			s_snowball_pile.e_model = util::spawn_model(s_snowball_pile.model, s_snowball_pile.origin, s_snowball_pile.angles);
 		}
-		s_snowball_pile zm_unitrigger::create(&function_dd028fcb, 64);
+		var_b85ff151 zm_unitrigger::create(&function_dd028fcb, 64);
 		s_snowball_pile.s_unitrigger.origin = s_snowball_pile.s_unitrigger.origin + vectorscale((0, 0, 1), 32);
-		s_snowball_pile thread function_608b90b4();
-		s_snowball_pile.var_1c1b4398 = 0;
+		var_b85ff151 thread function_608b90b4();
+		var_b85ff151.var_1c1b4398 = 0;
 	}
 	if(zm_utility::is_trials())
 	{
@@ -50,20 +50,20 @@ function init()
 	Parameters: 1
 	Flags: Private
 */
-function private function_dd028fcb(e_player)
+private function function_dd028fcb(e_player)
 {
-	var_d49d10b0 = e_player zm_loadout::get_player_lethal_grenade();
+	var_d49d10b0 = e_player cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 	if(var_d49d10b0 === level.weaponnone)
 	{
-		return false;
+		return 0;
 	}
 	if(level flag::get(#"hash_5e095d53ae9513f5"))
 	{
 		self sethintstring(#"hash_7a1ce549121dd33f");
-		return true;
+		return 1;
 	}
 	self sethintstring(#"hash_16b4b2b59405ab16");
-	return true;
+	return 1;
 }
 
 /*
@@ -75,7 +75,7 @@ function private function_dd028fcb(e_player)
 	Parameters: 0
 	Flags: Private
 */
-function private function_608b90b4()
+private function function_608b90b4()
 {
 	self endon(#"end_game");
 	while(true)
@@ -103,7 +103,7 @@ function private function_608b90b4()
 */
 function function_79ef6b93()
 {
-	var_d49d10b0 = self zm_loadout::get_player_lethal_grenade();
+	var_d49d10b0 = self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 	self playsound("fly_pickup_snowball");
 	if(isdefined(self.var_3b55baa1) && (var_d49d10b0 == level.var_ad5d43cf || var_d49d10b0 == level.var_f8934665 || var_d49d10b0 == level.var_bf70d56c || var_d49d10b0 == level.var_d879215))
 	{
@@ -129,14 +129,14 @@ function function_79ef6b93()
 		{
 			self zm_weapons::weapon_give(level.var_f8934665, 1, 0);
 		}
-		n_slot = self gadgetgetslot(var_d49d10b0);
+		var_bcd1c2ff = self gadgetgetslot(var_d49d10b0);
 		self gadgetpowerreset(n_slot, 0);
 		self thread function_76e94d52();
 	}
 	else
 	{
 		self.var_3b55baa1 = var_d49d10b0;
-		n_slot = self gadgetgetslot(var_d49d10b0);
+		var_bcd1c2ff = self gadgetgetslot(var_d49d10b0);
 		self.var_e01bb56 = self gadgetpowerget(n_slot);
 		if(level flag::get(#"hash_5e095d53ae9513f5"))
 		{
@@ -149,16 +149,13 @@ function function_79ef6b93()
 				self zm_weapons::weapon_give(level.var_bf70d56c, 1, 0);
 			}
 		}
+		else if(level flag::get(#"extra_snowballs"))
+		{
+			self zm_weapons::weapon_give(level.var_f8934665, 1, 0);
+		}
 		else
 		{
-			if(level flag::get(#"extra_snowballs"))
-			{
-				self zm_weapons::weapon_give(level.var_f8934665, 1, 0);
-			}
-			else
-			{
-				self zm_weapons::weapon_give(level.var_ad5d43cf, 1, 0);
-			}
+			self zm_weapons::weapon_give(level.var_ad5d43cf, 1, 0);
 		}
 		self thread function_76e94d52();
 		self callback::on_laststand(&function_3bb2f43b);
@@ -178,10 +175,10 @@ function function_3bb2f43b()
 {
 	if(isdefined(self.var_3b55baa1) && isdefined(self.var_e01bb56) && self function_75a76099())
 	{
-		self zm_loadout::set_player_lethal_grenade(self.var_3b55baa1);
+		self cschashed-2\script_709bf7c56eb65adf::set_player_lethal_grenade(self.var_3b55baa1);
 		self zm_weapons::weapon_give(self.var_3b55baa1, 1, 0);
-		n_slot = self gadgetgetslot(self.var_3b55baa1);
-		self gadgetpowerset(n_slot, self.var_e01bb56);
+		var_bcd1c2ff = self gadgetgetslot(self.var_3b55baa1);
+		self gadgetpowerset(var_bcd1c2ff, self.var_e01bb56);
 		self.var_3b55baa1 = undefined;
 		self.var_e01bb56 = undefined;
 		self notify(#"hash_2ef9a0f78a628812");
@@ -206,7 +203,7 @@ function function_76e94d52()
 	level endon(#"end_game");
 	while(true)
 	{
-		var_d49d10b0 = self zm_loadout::get_player_lethal_grenade();
+		var_d49d10b0 = self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 		if(self function_75a76099())
 		{
 			var_d8b1f3e3 = self getweaponammoclip(var_d49d10b0);
@@ -215,10 +212,10 @@ function function_76e94d52()
 				wait(1);
 				if(isdefined(self.var_3b55baa1) && isdefined(self.var_e01bb56) && self function_75a76099())
 				{
-					self zm_loadout::set_player_lethal_grenade(self.var_3b55baa1);
+					self cschashed-2\script_709bf7c56eb65adf::set_player_lethal_grenade(self.var_3b55baa1);
 					self zm_weapons::weapon_give(self.var_3b55baa1, 1, 0);
-					n_slot = self gadgetgetslot(self.var_3b55baa1);
-					self gadgetpowerset(n_slot, self.var_e01bb56);
+					var_bcd1c2ff = self gadgetgetslot(self.var_3b55baa1);
+					self gadgetpowerset(var_bcd1c2ff, self.var_e01bb56);
 					self.var_3b55baa1 = undefined;
 					self.var_e01bb56 = undefined;
 					self function_820a63e9(n_slot, 1);
@@ -229,16 +226,13 @@ function function_76e94d52()
 				}
 			}
 		}
-		else
+		else if(self.var_3b55baa1 == getweapon(#"music_box"))
 		{
-			if(self.var_3b55baa1 == getweapon(#"music_box"))
-			{
-				namespace_5449c7ba::function_96d95cf5();
-			}
-			self.var_3b55baa1 = undefined;
-			self.var_e01bb56 = undefined;
-			self notify(#"hash_2ef9a0f78a628812");
+			namespace_5449c7ba::function_96d95cf5();
 		}
+		self.var_3b55baa1 = undefined;
+		self.var_e01bb56 = undefined;
+		self notify(#"hash_2ef9a0f78a628812");
 		wait(0.5);
 	}
 }
@@ -254,12 +248,12 @@ function function_76e94d52()
 */
 function function_75a76099()
 {
-	var_d49d10b0 = self zm_loadout::get_player_lethal_grenade();
+	var_d49d10b0 = self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 	if(isdefined(var_d49d10b0) && (var_d49d10b0 == level.var_ad5d43cf || var_d49d10b0 == level.var_f8934665 || var_d49d10b0 == level.var_bf70d56c || var_d49d10b0 == level.var_d879215))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -277,10 +271,10 @@ function function_e1b7c710()
 	level flag::wait_till_any(array("round_reset", #"hash_6acab8bde7078239"));
 	if(isdefined(self.var_3b55baa1) && isdefined(self.var_e01bb56) && self function_75a76099())
 	{
-		self zm_loadout::set_player_lethal_grenade(self.var_3b55baa1);
+		self cschashed-2\script_709bf7c56eb65adf::set_player_lethal_grenade(self.var_3b55baa1);
 		self zm_weapons::weapon_give(self.var_3b55baa1, 1, 0);
-		n_slot = self gadgetgetslot(self.var_3b55baa1);
-		self gadgetpowerset(n_slot, self.var_e01bb56);
+		var_bcd1c2ff = self gadgetgetslot(self.var_3b55baa1);
+		self gadgetpowerset(var_bcd1c2ff, self.var_e01bb56);
 		self.var_3b55baa1 = undefined;
 		self.var_e01bb56 = undefined;
 		self notify(#"hash_2ef9a0f78a628812");

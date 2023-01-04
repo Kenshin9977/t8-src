@@ -1,9 +1,9 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
 #using script_27d214e32f50853d;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6e3c826b1814cab6;
-#using script_ab890501c40b73c;
+#using hashed-3\contracts.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -29,7 +29,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_score", &__init__, &__main__, undefined);
 }
@@ -192,7 +192,7 @@ function score_cf_register_info(name, version, max_count)
 {
 	for(i = 0; i < 4; i++)
 	{
-		clientfield::register("worlduimodel", (("PlayerList.client" + i) + ".score_cf_") + name, version, getminbitcountfornum(max_count), "counter");
+		clientfield::register("worlduimodel", "PlayerList.client" + i + ".score_cf_" + name, version, getminbitcountfornum(max_count), "counter");
 	}
 }
 
@@ -209,7 +209,7 @@ function score_cf_increment_info(name, var_ce49f2dd = 0)
 {
 	if(!var_ce49f2dd && self bgb::function_69b88b5())
 	{
-		clientfield::increment_world_uimodel((("PlayerList.client" + self.entity_num) + ".score_cf_") + name);
+		clientfield::increment_world_uimodel("PlayerList.client" + self.entity_num + ".score_cf_" + name);
 	}
 }
 
@@ -370,7 +370,7 @@ function player_add_points(event, mod, hit_location, e_target, zombie_team, dama
 	player_points = multiplier * zm_utility::round_up_score(player_points, 10);
 	if(isdefined(self.point_split_receiver) && event == "death")
 	{
-		split_player_points = player_points - (zm_utility::round_up_score(player_points * self.point_split_keep_percent, 10));
+		split_player_points = player_points - zm_utility::round_up_score(player_points * self.point_split_keep_percent, 10);
 		self.point_split_receiver add_to_player_score(split_player_points);
 		player_points = player_points - split_player_points;
 	}
@@ -399,13 +399,13 @@ function player_add_points(event, mod, hit_location, e_target, zombie_team, dama
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_e31cf9d5(str_score_event)
+private function function_e31cf9d5(str_score_event)
 {
 	if(namespace_32623e1c::is_active(1) && (str_score_event === "death" || str_score_event === "damage_points"))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -461,7 +461,7 @@ function player_add_points_kill_bonus(mod, hit_location, weapon, player_points =
 			return new_points;
 		}
 	}
-	if(mod == "MOD_MELEE" && (!isdefined(weapon) || (!weapon.isriotshield && !zm_loadout::is_hero_weapon(weapon))))
+	if(mod == "MOD_MELEE" && (!isdefined(weapon) || (!weapon.isriotshield && !cschashed-2\script_709bf7c56eb65adf::is_hero_weapon(weapon))))
 	{
 		self score_cf_increment_info("death_melee", var_e6e61503);
 		scoreevents::processscoreevent("melee_kill", self, undefined, weapon);
@@ -531,9 +531,9 @@ function player_reduce_points(event, n_amount)
 		}
 		case "no_revive_penalty":
 		{
-			if(namespace_59ff1d6c::function_901b751c(#"hash_64291919b16c489a"))
+			if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_64291919b16c489a"))
 			{
-				percent = namespace_59ff1d6c::function_901b751c(#"hash_64291919b16c489a") / 100;
+				percent = cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_64291919b16c489a") / 100;
 				points = self.score * percent;
 			}
 			else if(level.round_number >= 50)
@@ -545,9 +545,9 @@ function player_reduce_points(event, n_amount)
 		}
 		case "died":
 		{
-			if(namespace_59ff1d6c::function_901b751c(#"hash_1158d006a3913ef6"))
+			if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_1158d006a3913ef6"))
 			{
-				percent = namespace_59ff1d6c::function_901b751c(#"hash_1158d006a3913ef6") / 100;
+				percent = cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_1158d006a3913ef6") / 100;
 				points = self.score * percent;
 			}
 			else if(level.round_number >= 50)
@@ -559,28 +559,25 @@ function player_reduce_points(event, n_amount)
 		}
 		case "downed":
 		{
-			if(level.round_number < 50 && !namespace_59ff1d6c::function_901b751c(#"hash_1fed0d9afc0b0040"))
+			if(level.round_number < 50 && !cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_1fed0d9afc0b0040"))
 			{
 				percent = 0;
 			}
+			else if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_1fed0d9afc0b0040"))
+			{
+				percent = cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_1fed0d9afc0b0040") / 100;
+			}
 			else
 			{
-				if(namespace_59ff1d6c::function_901b751c(#"hash_1fed0d9afc0b0040"))
+				percent = zombie_utility::function_d2dfacfd(#"penalty_downed");
+				step = zombie_utility::function_d2dfacfd(#"hash_3037a1f286b662e6");
+				if(step > 0)
 				{
-					percent = namespace_59ff1d6c::function_901b751c(#"hash_1fed0d9afc0b0040") / 100;
+					percent = percent * int(self.score / step);
 				}
-				else
+				if(percent > 0.5)
 				{
-					percent = zombie_utility::function_d2dfacfd(#"penalty_downed");
-					step = zombie_utility::function_d2dfacfd(#"hash_3037a1f286b662e6");
-					if(step > 0)
-					{
-						percent = percent * (int(self.score / step));
-					}
-					if(percent > 0.5)
-					{
-						percent = 0.5;
-					}
+					percent = 0.5;
 				}
 			}
 			self notify(#"i_am_down");
@@ -653,8 +650,7 @@ function add_to_player_score(points, b_add_to_total = 1, str_awarded_by = "", va
 		self.pers[#"score"] = self.score;
 		self incrementplayerstat("scoreEarned", n_points_to_add_to_currency);
 		self zm_stats::function_301c4be2("boas_scoreEarned", n_points_to_add_to_currency);
-		self zm_stats::function_c0c6ab19(#"zearned", n_points_to_add_to_currency, 1);
-		level notify(#"earned_points", {#points:points, #player:self});
+		self zm_stats::function_c0c6ab19(#"zearned", n_points_to_add_to_currency, 1);		level notify(#"earned_points", {#points:points, #player:self});
 		level thread zm_hero_weapon::function_3fe4a02e(self, points, str_awarded_by);
 		self contracts::function_5b88297d(#"hash_781e103e02826009", n_points_to_add_to_currency, #"zstandard");
 		if(zm_utility::is_standard())
@@ -794,17 +790,17 @@ function can_player_purchase(n_cost, var_1c65f833 = 0)
 {
 	if(self.score >= n_cost)
 	{
-		return true;
+		return 1;
 	}
 	if(self bgb::is_enabled(#"zm_bgb_shopping_free"))
 	{
-		return true;
+		return 1;
 	}
 	if(zm_utility::is_standard() && !var_1c65f833)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -826,11 +822,11 @@ function function_82732ced()
 	{
 		var_7afe66bc = function_e5ca5733(self.archetype);
 		/#
-			assert(var_7afe66bc, ("" + function_9e72a96(self.archetype)) + "");
+			assert(var_7afe66bc, "" + function_9e72a96(self.archetype) + "");
 		#/
 	}
 	self.var_f256a4d9 = var_7afe66bc;
-	self.var_d8caf335 = max(1, int(self.maxhealth / (var_7afe66bc * 0.1)));
+	self.var_d8caf335 = max(1, int(self.maxhealth / var_7afe66bc * 0.1));
 	self.var_8d5c706f = [];
 }
 
@@ -862,7 +858,7 @@ function function_89db94b3(e_attacker, n_damage, e_inflictor)
 	var_810a69da = var_20701980 + n_damage;
 	var_86e74a5c = int(var_20701980 / self.var_d8caf335);
 	var_6fb77dc8 = int(var_810a69da / self.var_d8caf335);
-	n_points = (var_6fb77dc8 - var_86e74a5c) * 10;
+	n_points = var_6fb77dc8 - var_86e74a5c * 10;
 	if(n_points > self.var_f256a4d9)
 	{
 		n_points = self.var_f256a4d9;
@@ -873,7 +869,7 @@ function function_89db94b3(e_attacker, n_damage, e_inflictor)
 	}
 	if(n_points)
 	{
-		if(isdefined(e_inflictor) && e_inflictor.var_9fde8624 === #"hash_44aa977896e18e7f")
+		if(isdefined(e_inflictor) && e_inflictor.entity_type === #"hash_44aa977896e18e7f")
 		{
 			e_attacker player_add_points("damage_points", 70, undefined, undefined, undefined, undefined, undefined, self.var_12745932);
 			self.var_f256a4d9 = self.var_f256a4d9 - n_points;

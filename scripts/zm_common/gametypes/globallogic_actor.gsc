@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_35598499769dbb3d;
-#using script_41fe08c37d53a635;
-#using script_70a43d6ba27cff6a;
+#using hashed-3\gib.gsc;
+#using hashed-2\destructserverutils.gsc;
+#using hashed-2\globallogic_player.gsc;
 #using scripts\core_common\challenges_shared.gsc;
 #using scripts\core_common\spawner_shared.gsc;
 #using scripts\core_common\struct.gsc;
@@ -23,7 +23,7 @@
 function callback_actorspawned(spawner)
 {
 	self thread spawner::spawn_think(spawner);
-	bb::logaispawn(self, spawner);
+	bb::function_d85a26a1(self, spawner);
 }
 
 /*

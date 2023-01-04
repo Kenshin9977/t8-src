@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6e3c826b1814cab6;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -29,25 +29,25 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_e7c67ece;
+#namespace cschashed-1\script_3e87d9314f0597ef;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0xFA3B6A25
 	Offset: 0x230
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_145b120e873ea191", &__init__, undefined, #"load");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x63B383E9
 	Offset: 0x280
 	Size: 0x64
@@ -65,7 +65,7 @@ function __init__()
 
 /*
 	Name: function_542725a1
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x4E9680E0
 	Offset: 0x2F0
 	Size: 0xF4
@@ -75,7 +75,7 @@ function __init__()
 function function_542725a1()
 {
 	level flag::wait_till("all_players_connected");
-	if(!level.enable_magic || (!(isdefined(namespace_59ff1d6c::function_901b751c(#"hash_3d18f84f48bd5d1f")) && namespace_59ff1d6c::function_901b751c(#"hash_3d18f84f48bd5d1f"))))
+	if(!level.enable_magic || (!(isdefined(namespace_59ff1d6c::function_901b751c(#"hash_3d18f84f48bd5d1f")) && cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_3d18f84f48bd5d1f"))))
 	{
 		return;
 	}
@@ -87,7 +87,7 @@ function function_542725a1()
 
 /*
 	Name: function_7d881772
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x4B8B9EC0
 	Offset: 0x3F0
 	Size: 0x1D2
@@ -128,13 +128,13 @@ function function_7d881772()
 			level.var_8feb4083[level.var_8feb4083.size] = var_eed5ca85;
 		}
 		var_eed5ca85 thread function_1a038e0b();
-		var_eed5ca85.b_is_active = 1;
+		var_eed5ca85.var_3c4b2051 = 1;
 	}
 }
 
 /*
 	Name: function_1a038e0b
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x66FEF27A
 	Offset: 0x5D0
 	Size: 0x302
@@ -183,7 +183,7 @@ function function_1a038e0b()
 
 /*
 	Name: function_8dd97732
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x37DB092A
 	Offset: 0x8E0
 	Size: 0x15C
@@ -202,7 +202,7 @@ function function_8dd97732()
 		s_interact.unitrigger_stub = undefined;
 	}
 	zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
-	self.b_is_active = undefined;
+	self.var_3c4b2051 = undefined;
 	if(isdefined(self.var_73bd396b))
 	{
 		self.var_73bd396b delete();
@@ -211,7 +211,7 @@ function function_8dd97732()
 
 /*
 	Name: function_6842bdd7
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x17AC4007
 	Offset: 0xA48
 	Size: 0x788
@@ -222,10 +222,10 @@ function function_6842bdd7(player)
 {
 	s_altar = self.stub.script_struct;
 	finalfight_raid = struct::get_array(s_altar.target);
-	if(namespace_59ff1d6c::function_8b8fa6e5(player))
+	if(cschashed-3\script_12282e6b2cc91b42::function_8b8fa6e5(player))
 	{
 		player.var_e07e301b = undefined;
-		return false;
+		return 0;
 	}
 	if(!(isdefined(s_altar.b_in_use) && s_altar.b_in_use) && isdefined(player.perks_active) && player.perks_active.size > 4)
 	{
@@ -295,16 +295,16 @@ function function_6842bdd7(player)
 			}
 			player.var_e07e301b = s_interact;
 			self sethintstringforplayer(player, var_4a186601, s_interact.n_cost);
-			return true;
+			return 1;
 		}
 		player.var_e07e301b = undefined;
-		return false;
+		return 0;
 	}
 	if(!(isdefined(s_altar.b_in_use) && s_altar.b_in_use))
 	{
 		self sethintstringforplayer(player, #"hash_5d7144cc16556865", 4);
 		player.var_e07e301b = undefined;
-		return true;
+		return 1;
 	}
 	if(isdefined(s_altar.var_46fe01e2) && s_altar.var_46fe01e2 && s_altar.var_125b20f8 === player && isdefined(s_altar.var_62fef0f1))
 	{
@@ -420,15 +420,15 @@ function function_6842bdd7(player)
 			}
 		}
 		self sethintstringforplayer(player, var_5137b086);
-		return true;
+		return 1;
 	}
 	player.var_e07e301b = undefined;
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_20fe0559
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x1D647E86
 	Offset: 0x11D8
 	Size: 0x4CA
@@ -454,11 +454,11 @@ function function_20fe0559()
 			waitframe(1);
 			continue;
 		}
-		if(namespace_59ff1d6c::function_8b8fa6e5(player))
+		if(cschashed-3\script_12282e6b2cc91b42::function_8b8fa6e5(player))
 		{
 			continue;
 		}
-		n_slot = player.var_e07e301b.script_int;
+		var_bcd1c2ff = player.var_e07e301b.script_int;
 		n_cost = player.var_e07e301b.n_cost;
 		if(!player zm_score::can_player_purchase(n_cost))
 		{
@@ -488,16 +488,16 @@ function function_20fe0559()
 		level.bottle_spawn_location setmodel(#"tag_origin");
 		if(isdefined(var_5c3cde58) && var_5c3cde58)
 		{
-			if(n_slot == 3 && isdefined(level.var_5355c665))
+			if(var_bcd1c2ff == 3 && isdefined(level.var_5355c665))
 			{
 				player notify(level.var_5355c665[player.var_c27f1e90[n_slot]] + "_stop");
 			}
 			player notify(player.var_c27f1e90[n_slot] + "_stop");
 			player thread function_bb1ac745(s_altar);
-			player.var_c27f1e90[n_slot] = var_62fef0f1;
+			player.var_c27f1e90[var_bcd1c2ff] = var_62fef0f1;
 			player notify(#"perk_purchased", {#perk:var_62fef0f1});
-			player thread zm_perks::function_4acf7b43(n_slot, var_62fef0f1);
-			self thread zm_perks::taking_cover_tanks_(player, var_62fef0f1, n_slot);
+			player thread zm_perks::function_4acf7b43(var_bcd1c2ff, var_62fef0f1);
+			self thread zm_perks::function_9c5d6cd6(player, var_62fef0f1, n_slot);
 		}
 		else
 		{
@@ -515,7 +515,7 @@ function function_20fe0559()
 
 /*
 	Name: function_44481969
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x57AB0CB7
 	Offset: 0x16B0
 	Size: 0x184
@@ -533,7 +533,7 @@ function function_44481969()
 	{
 		var_eed5ca85 = array::random(var_8dd5d69f);
 		var_eed5ca85 thread function_1a038e0b();
-		var_eed5ca85.b_is_active = 1;
+		var_eed5ca85.var_3c4b2051 = 1;
 		if(!isdefined(level.var_8feb4083))
 		{
 			level.var_8feb4083 = [];
@@ -556,7 +556,7 @@ function function_44481969()
 
 /*
 	Name: function_2cc4144b
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0xF56819BE
 	Offset: 0x1840
 	Size: 0x154
@@ -589,7 +589,7 @@ function function_2cc4144b(var_83225a27)
 
 /*
 	Name: start_perk_bottle_cycling
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0xCFDCBB26
 	Offset: 0x19A0
 	Size: 0x162
@@ -632,7 +632,7 @@ function start_perk_bottle_cycling()
 
 /*
 	Name: perk_bottle_motion
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x5C133C94
 	Offset: 0x1B10
 	Size: 0x20C
@@ -661,7 +661,7 @@ function perk_bottle_motion()
 
 /*
 	Name: function_42171e41
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x1EBCB1D8
 	Offset: 0x1D28
 	Size: 0xAA
@@ -673,18 +673,18 @@ function function_42171e41(player)
 	s_altar = self.stub.script_struct;
 	s_altar.var_46fe01e2 = 1;
 	s_result = undefined;
-	s_result = self waittilltimeout(10, #"trigger");
+	s_result = self waittill_timeout(10, #"trigger");
 	s_altar.var_46fe01e2 = 0;
 	if(s_result._notify == "trigger" && s_result.activator === player)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
 	Name: function_bb1ac745
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0x64B75443
 	Offset: 0x1DE0
 	Size: 0x5E
@@ -699,14 +699,14 @@ function function_bb1ac745(s_altar)
 
 /*
 	Name: function_5d55ce5f
-	Namespace: namespace_e7c67ece
+	Namespace: cschashed-1\script_3e87d9314f0597ef
 	Checksum: 0xC648264C
 	Offset: 0x1E48
 	Size: 0xE4
 	Parameters: 0
 	Flags: Private
 */
-function private function_5d55ce5f()
+private function function_5d55ce5f()
 {
 	/#
 		level waittill(#"start_zombie_round_logic");

@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f27a7b2232674db;
-#using script_68d2ee1489345a1d;
+#using hashed-1\player_role.gsc;
+#using hashed-2\killstreaks_312.gsc;
 #using scripts\core_common\animation_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -20,535 +20,6 @@
 #using scripts\core_common\values_shared.gsc;
 #using scripts\core_common\weapons_shared.gsc;
 
-class cinteractobj 
-{
-	var e_object;
-	var m_str_team;
-	var var_15547ed4;
-	var var_2854e7f7;
-	var var_426bccfd;
-	var m_str_trigger_type;
-	var m_t_interact;
-	var m_str_type;
-	var m_n_trigger_height;
-	var m_n_trigger_radius;
-	var m_v_tag_origin;
-	var m_n_trigger_offset;
-	var m_s_bundle;
-	var m_str_hint;
-	var m_a_keyline_objects;
-	var var_26a01d70;
-	var m_str_objective;
-	var m_str_identifier;
-	var m_n_trigger_use_time;
-	var var_14f4f0bc;
-	var m_str_player_scene_anim;
-	var m_str_anim;
-	var m_b_reusable;
-	var m_b_auto_reenable;
-	var m_b_allow_weapons;
-	var m_b_scene_use_time_override;
-	var m_b_gameobject_scene_alignment;
-	var var_7abf2b16;
-	var m_b_allow_companion_command;
-	var m_str_obj_anim;
-	var m_str_tag;
-
-	/*
-		Name: constructor
-		Namespace: cinteractobj
-		Checksum: 0xF958DCE2
-		Offset: 0xF598
-		Size: 0x12
-		Parameters: 0
-		Flags: Linked, 8
-	*/
-	constructor()
-	{
-		self.m_str_trigger_type = "use";
-	}
-
-	/*
-		Name: destructor
-		Namespace: cinteractobj
-		Checksum: 0x553EE287
-		Offset: 0xF5B8
-		Size: 0x44
-		Parameters: 0
-		Flags: Linked, 16
-	*/
-	destructor()
-	{
-		/#
-			if(getdvarint(#"hash_69e71fbd49bdaa8a", 0))
-			{
-				iprintlnbold("");
-			}
-		#/
-	}
-
-	/*
-		Name: function_aa070e6f
-		Namespace: cinteractobj
-		Checksum: 0x8C6163A9
-		Offset: 0x10C98
-		Size: 0xD4
-		Parameters: 1
-		Flags: Linked
-	*/
-	function function_aa070e6f(e_player)
-	{
-		if(isdefined(e_object) && isdefined(e_object.mdl_gameobject) && isdefined(e_player) && (isdefined(e_object.mdl_gameobject.b_enabled) && e_object.mdl_gameobject.b_enabled))
-		{
-			return distance2dsquared(e_object.origin, e_player.origin) < (675 * 675) && e_player util::is_player_looking_at(e_object.origin);
-		}
-		return 0;
-	}
-
-	/*
-		Name: function_768739b6
-		Namespace: cinteractobj
-		Checksum: 0xB7AF34C4
-		Offset: 0x10870
-		Size: 0x41A
-		Parameters: 0
-		Flags: Linked
-	*/
-	function function_768739b6()
-	{
-		level endon(#"game_ended");
-		e_object endon(#"death", #"gameobject_end_use");
-		e_object.mdl_gameobject endon(#"death");
-		level waittill(#"all_players_spawned");
-		if(m_str_team == #"none")
-		{
-			return;
-		}
-		var_9c2f0815 = (isdefined(e_object.var_f66cebb1) ? m_str_team : #"none");
-		var_fb20e730 = util::get_players(m_str_team);
-		while(var_fb20e730.size)
-		{
-			foreach(e_player in var_fb20e730)
-			{
-				if(function_aa070e6f(e_player) && !isinarray(var_2854e7f7, e_player.team) && !e_player isinvehicle())
-				{
-					var_ef387694 = {#targetname:e_object.var_f66cebb1, #side:var_9c2f0815, #team:m_str_team};
-					if(isdefined(e_object.var_fa2dfcb4))
-					{
-						function_58ca2822("itfr_dis_obj", undefined, var_ef387694);
-					}
-					else
-					{
-						if(isdefined(e_object.var_ff3c99c5))
-						{
-							function_58ca2822("mini_hint_itct", undefined, var_ef387694);
-						}
-						else if(isdefined(var_426bccfd))
-						{
-							switch(var_426bccfd)
-							{
-								case "door":
-								{
-									function_58ca2822("door_hint_itct", undefined, var_ef387694);
-									break;
-								}
-								case "panel":
-								{
-									function_58ca2822("panl_hint_itct", undefined, var_ef387694);
-									break;
-								}
-								case "radio":
-								{
-									function_58ca2822("rdio_hint_itct", undefined, var_ef387694);
-									break;
-								}
-								case "console":
-								{
-									function_58ca2822("cnsl_hint_itct", undefined, var_ef387694);
-									break;
-								}
-								case "climb":
-								{
-									function_58ca2822("clmb_hint_itct", undefined, var_ef387694);
-									break;
-								}
-								default:
-								{
-									function_58ca2822("gobj_hint_itct", undefined, var_ef387694);
-									break;
-								}
-							}
-						}
-					}
-					array::add(var_2854e7f7, e_player.team);
-					break;
-				}
-			}
-			wait(1);
-			var_fb20e730 = util::get_players(m_str_team);
-		}
-	}
-
-	/*
-		Name: is_valid_gameobject_trigger
-		Namespace: cinteractobj
-		Checksum: 0xC53F303D
-		Offset: 0x10718
-		Size: 0x14C
-		Parameters: 1
-		Flags: Linked
-	*/
-	function is_valid_gameobject_trigger(t_override)
-	{
-		if(m_str_trigger_type === "proximity")
-		{
-			switch(t_override.classname)
-			{
-				case "trigger_once_new":
-				case "trigger_box":
-				case "trigger_once":
-				case "trigger_radius":
-				case "trigger_box_new":
-				case "trigger_multiple":
-				case "trigger_radius_new":
-				case "trigger_multiple_new":
-				{
-					return true;
-				}
-				default:
-				{
-					return false;
-				}
-			}
-		}
-		else
-		{
-			switch(t_override.classname)
-			{
-				case "trigger_use_new":
-				case "trigger_radius_use":
-				case "hash_6119f399228d396b":
-				case "trigger_use":
-				{
-					return true;
-				}
-				default:
-				{
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-
-	/*
-		Name: create_gameobject_trigger
-		Namespace: cinteractobj
-		Checksum: 0xA51D4232
-		Offset: 0xFD08
-		Size: 0xA06
-		Parameters: 0
-		Flags: Linked
-	*/
-	function create_gameobject_trigger()
-	{
-		if(!isdefined(m_t_interact))
-		{
-			if(m_str_type === "generic" || m_str_trigger_type === "proximity")
-			{
-				self.m_t_interact = spawn("trigger_radius", (m_v_tag_origin + m_n_trigger_offset) + (0, 0, m_n_trigger_height / 2), 0, m_n_trigger_radius, m_n_trigger_height, 1);
-			}
-			else
-			{
-				self.m_t_interact = spawn("trigger_radius_use", (m_v_tag_origin + m_n_trigger_offset) + (0, 0, m_n_trigger_height / 2), 0, m_n_trigger_radius, m_n_trigger_height, 1);
-				if(isdefined(e_object.angles))
-				{
-					m_t_interact.angles = e_object.angles;
-				}
-				m_t_interact usetriggerrequirelookat(isdefined(e_object.require_look_at) && e_object.require_look_at);
-				m_t_interact usetriggerrequirelooktoward(isdefined(e_object.require_look_toward) && e_object.require_look_toward);
-			}
-		}
-		m_t_interact.trigger_offset = m_n_trigger_offset;
-		m_t_interact triggerignoreteam();
-		m_t_interact setvisibletoall();
-		m_t_interact setcursorhint("HINT_INTERACTIVE_PROMPT");
-		m_t_interact.var_a865c2cd = (isdefined(m_s_bundle.var_a865c2cd) ? m_s_bundle.var_a865c2cd : 0);
-		m_t_interact.str_hint = m_str_hint;
-		if(m_str_team != #"any")
-		{
-			m_t_interact setteamfortrigger(m_str_team);
-		}
-		if(!isdefined(m_a_keyline_objects))
-		{
-			self.m_a_keyline_objects = [];
-		}
-		else if(!isarray(m_a_keyline_objects))
-		{
-			self.m_a_keyline_objects = array(m_a_keyline_objects);
-		}
-		switch(m_str_type)
-		{
-			case "carry":
-			{
-				/#
-					assert(isdefined(m_a_keyline_objects[0]), "");
-				#/
-				mdl_gameobject = gameobjects::create_carry_object(m_str_team, m_t_interact, m_a_keyline_objects, (0, 0, 0), m_str_objective, var_26a01d70);
-				break;
-			}
-			case "pack":
-			{
-				/#
-					assert(isdefined(m_a_keyline_objects[0]), "");
-				#/
-				mdl_gameobject = gameobjects::create_pack_object(m_str_team, m_t_interact, m_a_keyline_objects, (0, 0, 0), m_str_objective, var_26a01d70);
-				break;
-			}
-			case "generic":
-			{
-				mdl_gameobject = gameobjects::create_generic_object(m_str_team, m_t_interact, m_a_keyline_objects, (0, 0, 0));
-				break;
-			}
-			case "use":
-			default:
-			{
-				mdl_gameobject = gameobjects::create_use_object(m_str_team, m_t_interact, m_a_keyline_objects, (0, 0, 0), m_str_objective, var_26a01d70, 0, e_object.script_enable_on_start);
-				break;
-			}
-		}
-		mdl_gameobject.single_use = 0;
-		if(m_str_type == "carry" || m_str_type == "pack")
-		{
-			mdl_gameobject.objectiveonself = 1;
-			if(isdefined(mdl_gameobject.objectiveid))
-			{
-				objective_setposition(mdl_gameobject.objectiveid, (0, 0, 0));
-			}
-			if(isdefined(m_s_bundle.carryicon))
-			{
-				if(m_str_type == "carry")
-				{
-					mdl_gameobject gameobjects::set_carry_icon(m_s_bundle.carryicon);
-				}
-				else
-				{
-					mdl_gameobject gameobjects::set_pack_icon(m_s_bundle.carryicon);
-				}
-			}
-			if(isdefined(m_s_bundle.registerline__grow))
-			{
-				mdl_gameobject gameobjects::set_visible_carrier_model(m_s_bundle.registerline__grow);
-			}
-			if(isdefined(m_s_bundle.droponusebutton) && m_s_bundle.droponusebutton)
-			{
-				mdl_gameobject gameobjects::function_a8c842d6(m_s_bundle.droponusebutton, 1);
-			}
-			if(isdefined(m_s_bundle.weapon))
-			{
-				mdl_gameobject gameobjects::function_6e870d38(m_s_bundle.weapon);
-			}
-		}
-		mdl_gameobject gameobjects::set_identifier(m_str_identifier);
-		mdl_gameobject.origin = m_t_interact.origin;
-		mdl_gameobject.angles = m_t_interact.angles;
-		mdl_gameobject gameobjects::set_owner_team(m_str_team);
-		if(m_str_team == #"any")
-		{
-			mdl_gameobject gameobjects::allow_use(m_str_team);
-			mdl_gameobject gameobjects::set_visible_team(m_str_team);
-		}
-		else
-		{
-			mdl_gameobject gameobjects::allow_use(#"friendly");
-			mdl_gameobject gameobjects::set_visible_team(#"friendly");
-		}
-		mdl_gameobject gameobjects::set_use_time(m_n_trigger_use_time);
-		mdl_gameobject gameobjects::function_86d3b442(var_14f4f0bc);
-		mdl_gameobject.str_player_scene_anim = m_str_player_scene_anim;
-		mdl_gameobject.str_anim = m_str_anim;
-		mdl_gameobject.b_reusable = m_b_reusable;
-		mdl_gameobject.b_auto_reenable = m_b_auto_reenable;
-		mdl_gameobject.allowweapons = m_b_allow_weapons;
-		mdl_gameobject.b_scene_use_time_override = m_b_scene_use_time_override;
-		mdl_gameobject.b_use_gameobject_for_alignment = m_b_gameobject_scene_alignment;
-		mdl_gameobject.var_75ea46f6 = var_7abf2b16;
-		mdl_gameobject.var_a7ef92ac = m_s_bundle.var_559e6e9f;
-		mdl_gameobject.b_allow_companion_command = m_b_allow_companion_command;
-		if(isdefined(m_str_obj_anim))
-		{
-			mdl_gameobject.str_obj_anim = m_str_obj_anim;
-		}
-		mdl_gameobject.t_interact = m_t_interact;
-		mdl_gameobject.t_interact enablelinkto();
-		mdl_gameobject.e_object = e_object;
-		if(isentity(mdl_gameobject.e_object))
-		{
-			if(isdefined(m_str_tag))
-			{
-				mdl_gameobject.t_interact linkto(mdl_gameobject.e_object, m_str_tag);
-			}
-			else
-			{
-				mdl_gameobject.t_interact linkto(mdl_gameobject.e_object);
-			}
-		}
-		if(isdefined(mdl_gameobject.str_player_scene_anim) || isdefined(mdl_gameobject.str_anim))
-		{
-			mdl_gameobject.dontlinkplayertotrigger = 1;
-		}
-		if(!mdl_gameobject.e_object flag::exists("gameobject_end_use"))
-		{
-			mdl_gameobject.e_object flag::init("gameobject_end_use");
-		}
-		e_object.mdl_gameobject = mdl_gameobject;
-	}
-
-	/*
-		Name: init_game_object
-		Namespace: cinteractobj
-		Checksum: 0xAAE128D6
-		Offset: 0xF608
-		Size: 0x6F4
-		Parameters: 8
-		Flags: Linked
-	*/
-	function init_game_object(str_bundle, str_team_override, str_tag_override, str_identifier_override, a_keyline_objects, t_override, b_allow_companion_command = 1, str_objective_override)
-	{
-		self.m_s_bundle = getscriptbundle(str_bundle);
-		/#
-			assert(isdefined(m_s_bundle), ("" + str_bundle) + "");
-		#/
-		if(isdefined(str_tag_override))
-		{
-			self.m_str_tag = str_tag_override;
-		}
-		else
-		{
-			self.m_str_tag = m_s_bundle.str_tag;
-		}
-		if(isentity(e_object))
-		{
-			self.m_v_tag_origin = e_object gettagorigin(m_str_tag);
-		}
-		if(!isdefined(m_v_tag_origin))
-		{
-			self.m_str_tag = undefined;
-			self.m_v_tag_origin = e_object.origin;
-			/#
-				if(isentity(e_object))
-				{
-					println((("" + m_s_bundle.str_tag) + "") + e_object.model);
-				}
-			#/
-		}
-		self.m_n_trigger_height = m_s_bundle.n_trigger_height;
-		self.m_n_trigger_radius = m_s_bundle.n_trigger_radius;
-		self.m_str_team = m_s_bundle.str_team;
-		self.var_426bccfd = m_s_bundle.var_ce7dda5f;
-		self.var_15547ed4 = isdefined(m_s_bundle.b_play_vo) && m_s_bundle.b_play_vo;
-		self.m_str_player_scene_anim = m_s_bundle.playerscenebundle;
-		self.m_b_scene_use_time_override = m_s_bundle.playerscenebundletimeoverride;
-		self.m_str_anim = m_s_bundle.viewanim;
-		self.m_str_obj_anim = m_s_bundle.entityanim;
-		self.m_b_reusable = m_s_bundle.b_reusable;
-		self.m_b_auto_reenable = m_s_bundle.autoreenable;
-		self.m_str_identifier = m_s_bundle.str_identifier;
-		self.m_str_trigger_type = m_s_bundle.triggertype;
-		self.m_b_gameobject_scene_alignment = m_s_bundle.playerscenebundlegameobjectalignment;
-		self.var_7abf2b16 = m_s_bundle.var_e45035d4;
-		self.var_26a01d70 = m_s_bundle.var_1a876104;
-		self.m_n_trigger_use_time = m_s_bundle.n_trigger_use_time;
-		if(!isdefined(m_n_trigger_use_time))
-		{
-			self.m_n_trigger_use_time = 0;
-		}
-		self.var_14f4f0bc = m_s_bundle.var_f6949418;
-		if(!isdefined(var_14f4f0bc))
-		{
-			self.var_14f4f0bc = 0;
-		}
-		if(isdefined(str_identifier_override))
-		{
-			self.m_str_identifier = str_identifier_override;
-		}
-		self.m_str_hint = m_s_bundle.str_hint;
-		if(isdefined(str_objective_override))
-		{
-			self.m_str_objective = str_objective_override;
-		}
-		else
-		{
-			self.m_str_objective = (isdefined(m_s_bundle.objective) ? m_s_bundle.objective : undefined);
-		}
-		e_object.str_objective_name = m_s_bundle.objective;
-		e_object.var_45aad1f4 = m_str_objective;
-		self.m_str_type = m_s_bundle.gameobjecttype;
-		if(isdefined(m_s_bundle.allowweapons) && m_s_bundle.allowweapons)
-		{
-			self.m_b_allow_weapons = 1;
-		}
-		else
-		{
-			self.m_b_allow_weapons = 0;
-		}
-		if(isdefined(str_team_override))
-		{
-			self.m_str_team = str_team_override;
-		}
-		self.m_str_team = util::get_team_mapping(m_str_team);
-		if(isdefined(a_keyline_objects))
-		{
-			self.m_a_keyline_objects = a_keyline_objects;
-		}
-		else if(isdefined(m_s_bundle.model))
-		{
-			var_ed8e6d51 = util::spawn_model(m_s_bundle.model, e_object.origin, e_object.angles);
-			self.m_a_keyline_objects = array(var_ed8e6d51);
-		}
-		n_trig_x = m_s_bundle.triggerxoffset;
-		if(!isdefined(n_trig_x))
-		{
-			n_trig_x = 0;
-		}
-		n_trig_y = m_s_bundle.triggeryoffset;
-		if(!isdefined(n_trig_y))
-		{
-			n_trig_y = 0;
-		}
-		n_trig_z = m_s_bundle.triggerzoffset;
-		if(!isdefined(n_trig_z))
-		{
-			n_trig_z = 0;
-		}
-		self.m_n_trigger_offset = (n_trig_x, n_trig_y, n_trig_z);
-		if(isdefined(e_object.func_custom_gameobject_position))
-		{
-			self.m_n_trigger_offset = (0, 0, 0);
-			self.m_v_tag_origin = e_object [[e_object.func_custom_gameobject_position]]();
-		}
-		self.m_b_allow_companion_command = b_allow_companion_command;
-		if(isdefined(t_override) && isdefined(t_override.classname))
-		{
-			if(is_valid_gameobject_trigger(t_override))
-			{
-				self.m_t_interact = t_override;
-			}
-			else
-			{
-				/#
-					assert("");
-				#/
-			}
-		}
-		self.var_a99c4d4c = [];
-		self.var_2854e7f7 = [];
-		self create_gameobject_trigger();
-		self thread function_768739b6();
-	}
-
-}
-
 #namespace gameobjects;
 
 /*
@@ -560,7 +31,7 @@ class cinteractobj
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"gameobjects", &__init__, undefined, undefined);
 }
@@ -786,7 +257,7 @@ function function_71699fe2()
 	{
 		if(isdefined(s_radiant.targetname))
 		{
-			s_radiant.str_identifier = (s_radiant.targetname + "_") + n_count;
+			s_radiant.str_identifier = s_radiant.targetname + "_" + n_count;
 		}
 		else
 		{
@@ -852,7 +323,7 @@ function function_176070dc()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private init_flags()
+private function init_flags()
 {
 	self flag::init("enabled");
 	self flag::init("success");
@@ -883,7 +354,7 @@ function private init_flags()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_35a012bf()
+private function function_35a012bf()
 {
 	if(self flag::get("enabled"))
 	{
@@ -928,7 +399,7 @@ function function_8dbe8332(b_success, b_destroyed)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_49184ad0(str_team, e_player, b_success = 0)
+private function function_49184ad0(str_team, e_player, b_success = 0)
 {
 	if(b_success)
 	{
@@ -948,7 +419,7 @@ function private function_49184ad0(str_team, e_player, b_success = 0)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_42b34fc3()
+private function function_42b34fc3()
 {
 	foreach(var_7418aa09 in trigger::get_all())
 	{
@@ -979,7 +450,7 @@ function private function_42b34fc3()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_d4107dde(var_bf5ad193)
+private function function_d4107dde(var_bf5ad193)
 {
 	self endon(#"death");
 	self trigger::wait_till();
@@ -1001,30 +472,30 @@ function private function_d4107dde(var_bf5ad193)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_2f3ba1ad()
+private function function_2f3ba1ad()
 {
 	foreach(s_key in struct::get_script_bundle_instances("gameobject"))
 	{
-		if(isdefined(s_key.var_51676529))
+		if(isdefined(var_6f1036dd.var_51676529))
 		{
-			var_fac9218d = strtok(s_key.var_51676529, " ");
-			s_key.var_db1edf58 = [];
+			var_fac9218d = strtok(var_6f1036dd.var_51676529, " ");
+			var_6f1036dd.var_db1edf58 = [];
 			foreach(var_9d32a381 in var_fac9218d)
 			{
-				s_key.var_db1edf58 = arraycombine(s_key.var_db1edf58, struct::get_array(var_9d32a381, "script_carry_object_key_target"), 0, 0);
+				var_6f1036dd.var_db1edf58 = arraycombine(var_6f1036dd.var_db1edf58, struct::get_array(var_9d32a381, "script_carry_object_key_target"), 0, 0);
 			}
-			foreach(s_lock in s_key.var_db1edf58)
+			foreach(var_183d2001 in var_6f1036dd.var_db1edf58)
 			{
 				if(isdefined(s_lock.mdl_gameobject))
 				{
 					s_lock set_key_object(s_key);
 					continue;
 				}
-				s_lock.var_4cd30731 = s_key;
+				var_183d2001.var_4cd30731 = s_key;
 			}
-			if(isdefined(s_key.var_3a8907ff) && s_key.var_3a8907ff && isdefined(s_key.var_db1edf58))
+			if(isdefined(var_6f1036dd.var_3a8907ff) && var_6f1036dd.var_3a8907ff && isdefined(var_6f1036dd.var_db1edf58))
 			{
-				s_key thread function_2e028a0e();
+				var_6f1036dd thread function_2e028a0e();
 			}
 		}
 	}
@@ -1046,32 +517,32 @@ function function_2e028a0e()
 	{
 		self.mdl_gameobject waittill(#"pickup_object");
 		self hide_waypoint();
-		foreach(s_lock in self.var_db1edf58)
+		foreach(var_183d2001 in self.var_db1edf58)
 		{
 			if(isdefined(s_lock.mdl_gameobject))
 			{
 				s_lock show_waypoint();
 				continue;
 			}
-			if(isdefined(s_lock.var_4cd30731))
+			if(isdefined(var_183d2001.var_4cd30731))
 			{
 				s_lock notify(#"hash_58b8542ed702b2a5", {#player:self.mdl_gameobject.carrier, #hash_36c9fd16:1});
-				s_lock.var_459e9174 = 1;
+				var_183d2001.var_459e9174 = 1;
 			}
 		}
 		self.mdl_gameobject waittill(#"dropped");
 		self show_waypoint();
-		foreach(s_lock in self.var_db1edf58)
+		foreach(var_183d2001 in self.var_db1edf58)
 		{
 			if(isdefined(s_lock.mdl_gameobject))
 			{
-				s_lock function_c59e69d3(s_lock get_owner_team());
+				var_183d2001 function_c59e69d3(s_lock get_owner_team());
 				continue;
 			}
-			if(isdefined(s_lock.var_4cd30731))
+			if(isdefined(var_183d2001.var_4cd30731))
 			{
 				s_lock notify(#"hash_58b8542ed702b2a5", {#hash_36c9fd16:0});
-				s_lock.var_459e9174 = undefined;
+				var_183d2001.var_459e9174 = undefined;
 			}
 		}
 	}
@@ -1086,7 +557,7 @@ function function_2e028a0e()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_71a1c90f()
+private function function_71a1c90f()
 {
 	foreach(var_80ab0aea in struct::get_script_bundle_instances("gameobject"))
 	{
@@ -1112,7 +583,7 @@ function private function_71a1c90f()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_d85d429b(var_7d01398c)
+private function function_d85d429b(var_7d01398c)
 {
 	level endon(#"game_ended");
 	self.trigger endon(#"destroyed", #"death");
@@ -1180,16 +651,13 @@ function function_e19c7c52(var_7537f028, var_1511a953 = 0)
 	{
 		mdl_gameobject.trigger.origin = var_7537f028;
 	}
+	else if(isdefined(var_7537f028.curorigin))
+	{
+		mdl_gameobject.trigger.origin = var_7537f028.curorigin;
+	}
 	else
 	{
-		if(isdefined(var_7537f028.curorigin))
-		{
-			mdl_gameobject.trigger.origin = var_7537f028.curorigin;
-		}
-		else
-		{
-			mdl_gameobject.trigger.origin = var_7537f028.origin;
-		}
+		mdl_gameobject.trigger.origin = var_7537f028.origin;
 	}
 	if(isentity(var_7537f028) && var_1511a953)
 	{
@@ -1482,13 +950,13 @@ function function_4ea98a09()
 {
 	if(!isdefined(self.trigger.var_a865c2cd))
 	{
-		return true;
+		return 1;
 	}
 	if(self.trigger.var_a865c2cd)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1667,14 +1135,11 @@ function set_picked_up(player)
 			{
 				player.carryobject thread set_dropped();
 			}
-			else
+			else if(isdefined(self.onpickupfailed))
 			{
-				if(isdefined(self.onpickupfailed))
-				{
-					self [[self.onpickupfailed]](player);
-				}
-				return;
+				self [[self.onpickupfailed]](player);
 			}
+			return;
 		}
 		player give_object(self);
 	}
@@ -1827,7 +1292,7 @@ function give_object(object)
 		self giveweapon(object.carryweapon);
 		if(self isswitchingweapons())
 		{
-			self waittilltimeout(2, #"weapon_change");
+			self waittill_timeout(2, #"weapon_change");
 		}
 		self switchtoweaponimmediate(object.carryweapon);
 		self setblockweaponpickup(object.carryweapon, 1);
@@ -1977,13 +1442,13 @@ function is_object_away_from_home()
 {
 	if(isdefined(self.carrier))
 	{
-		return true;
+		return 1;
 	}
 	if(distancesquared(self.trigger.origin, self.trigger.baseorigin) > 4)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2055,7 +1520,7 @@ function set_drop_offset(height)
 */
 function set_trigger_origin(origin)
 {
-	offset = (self.maxs[2] - self.mins[2]) / 2;
+	offset = self.maxs[2] - self.mins[2] / 2;
 	self.origin = (origin[0], origin[1], origin[2] + offset);
 	if(isvec(self.trigger_offset))
 	{
@@ -2105,18 +1570,15 @@ function set_dropped(var_e329a2fa)
 		endorigin = self.carrier.origin - vectorscale((0, 0, 1), 2000);
 		body = self.carrier.body;
 	}
+	else if(isdefined(self.safeorigin))
+	{
+		startorigin = self.safeorigin + vectorscale((0, 0, 1), 20);
+		endorigin = self.safeorigin - vectorscale((0, 0, 1), 20);
+	}
 	else
 	{
-		if(isdefined(self.safeorigin))
-		{
-			startorigin = self.safeorigin + vectorscale((0, 0, 1), 20);
-			endorigin = self.safeorigin - vectorscale((0, 0, 1), 20);
-		}
-		else
-		{
-			startorigin = self.curorigin + vectorscale((0, 0, 1), 20);
-			endorigin = self.curorigin - vectorscale((0, 0, 1), 20);
-		}
+		startorigin = self.curorigin + vectorscale((0, 0, 1), 20);
+		endorigin = self.curorigin - vectorscale((0, 0, 1), 20);
 	}
 	if(isplayer(var_e329a2fa))
 	{
@@ -2142,7 +1604,7 @@ function set_dropped(var_e329a2fa)
 			{
 				if(trace[#"walkable"] == 0)
 				{
-					end_reflect = (forward * 1000) + trace[#"position"];
+					end_reflect = forward * 1000 + trace[#"position"];
 					reflect_trace = physicstrace(trace[#"position"], end_reflect, (trace_size * -1, trace_size * -1, trace_size * -1), (trace_size, trace_size, trace_size), self, 32);
 					if(isdefined(reflect_trace))
 					{
@@ -2280,17 +1742,17 @@ function is_touching_any_trigger(triggers, minz, maxz, var_943e96ce)
 			{
 				if(istouching(self.origin, trigger))
 				{
-					return true;
+					return 1;
 				}
 				continue;
 			}
 			if(self istouchingswept(trigger, minz, maxz))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2320,21 +1782,21 @@ function should_be_reset(minz, maxz)
 {
 	if(self.visuals[0] is_touching_any_trigger_key_value("minefield", "targetname", minz, maxz, self.var_ac304f56))
 	{
-		return true;
+		return 1;
 	}
 	if(self.visuals[0] is_touching_any_trigger_key_value("trigger_hurt_new", "classname", minz, maxz, self.var_ac304f56))
 	{
-		return true;
+		return 1;
 	}
 	level.oob_triggers = array::remove_undefined(level.oob_triggers);
 	if(self.visuals[0] is_touching_any_trigger(level.oob_triggers, minz, maxz, self.var_ac304f56))
 	{
-		return true;
+		return 1;
 	}
 	if(isdefined(self.var_8c812e0a) && self.var_8c812e0a)
 	{
 		self.var_8c812e0a = 0;
-		return true;
+		return 1;
 	}
 	elevators = getentarray("script_elevator", "targetname");
 	foreach(elevator in elevators)
@@ -2344,10 +1806,10 @@ function should_be_reset(minz, maxz)
 		#/
 		if(self.visuals[0] istouchingswept(elevator.occupy_volume, minz, maxz))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2495,7 +1957,7 @@ function take_object(object)
 function wait_take_carry_weapon(weapon)
 {
 	self thread take_carry_weapon_on_death(weapon);
-	wait(max(0, weapon.firetime - (2 * (float(function_60d95f53()) / 1000))));
+	wait(max(0, weapon.firetime - 2 * float(function_60d95f53()) / 1000));
 	self take_carry_weapon(weapon);
 }
 
@@ -2796,19 +2258,19 @@ function function_2544bab6()
 			waitframe(1);
 		}
 		var_f783260f = gettime();
-		while(self usebuttonpressed() && (var_f783260f + 500) > gettime())
+		while(self usebuttonpressed() && var_f783260f + 500 > gettime())
 		{
 			waitframe(1);
 		}
-		if((var_f783260f + 500) <= gettime())
+		if(var_f783260f + 500 <= gettime())
 		{
 			continue;
 		}
-		while(!self usebuttonpressed() && (var_f783260f + 1000) > gettime())
+		while(!self usebuttonpressed() && var_f783260f + 1000 > gettime())
 		{
 			waitframe(1);
 		}
-		if((var_f783260f + 1000) <= gettime())
+		if(var_f783260f + 1000 <= gettime())
 		{
 			continue;
 		}
@@ -2874,7 +2336,7 @@ function function_bee2a129()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private setup_touching()
+private function setup_touching()
 {
 	self.var_a0ff5eb8 = 0;
 	self.touchinguserate[#"neutral"] = 0;
@@ -2904,7 +2366,7 @@ function private setup_touching()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_2d29e9a4()
+private function function_2d29e9a4()
 {
 	self.var_1dbb2b2b[#"neutral"] = [];
 	self.var_1dbb2b2b[#"none"] = [];
@@ -3090,7 +2552,7 @@ function create_use_object(ownerteam, trigger, visuals, offset, objectivename, a
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_4d047b8d()
+private function function_4d047b8d()
 {
 	useobject = self;
 	/#
@@ -3197,13 +2659,13 @@ function has_key_object(use)
 {
 	if(!isdefined(use.keyobject))
 	{
-		return false;
+		return 0;
 	}
 	for(x = 0; x < use.keyobject.size; x++)
 	{
 		if(isdefined(self.carryobject) && self.carryobject == use.keyobject[x])
 		{
-			return true;
+			return 1;
 		}
 		if(isdefined(self.packobject))
 		{
@@ -3211,12 +2673,12 @@ function has_key_object(use)
 			{
 				if(self.packobject[i] == use.keyobject[x])
 				{
-					return true;
+					return 1;
 				}
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -3470,7 +2932,7 @@ function remove_player_use_modifiers(e_player)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_76f3a4cd()
+private function function_76f3a4cd()
 {
 	if(self.cancontestclaim)
 	{
@@ -3478,10 +2940,10 @@ function private function_76f3a4cd()
 		numother = get_num_touching_except_team(self.claimteam);
 		if(num && numother)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -3493,7 +2955,7 @@ function private function_76f3a4cd()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_4783042a()
+private function function_4783042a()
 {
 	if(isdefined(self.oncontested))
 	{
@@ -3515,7 +2977,7 @@ function private function_4783042a()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_72307b09(progress)
+private function function_72307b09(progress)
 {
 	if(!self.var_5c196da4 || !progress)
 	{
@@ -3645,196 +3107,178 @@ function use_object_prox_think()
 				self set_claim_team(#"none");
 				self.claimplayer = undefined;
 			}
-			else
+			else if(self.usetime && (!self.mustmaintainclaim || self get_owner_team() != self get_claim_team()))
 			{
-				if(self.usetime && (!self.mustmaintainclaim || self get_owner_team() != self get_claim_team()))
+				if(self.decayprogress && !self.numtouching[self.claimteam])
 				{
-					if(self.decayprogress && !self.numtouching[self.claimteam])
+					if(isdefined(self.var_5fefcd28) && self.var_5fefcd28 > 0 && self.curprogress > 0)
 					{
-						if(isdefined(self.autodecaytime) && self.autodecaytime > 0 && self.curprogress > 0)
-						{
-							self.curprogress = self.curprogress - (level.var_9fee970c * (self.usetime / (int(self.autodecaytime * 1000))));
-							deltaprogress = self.curprogress - previousprogress;
-							function_72307b09(deltaprogress);
-							self update_current_progress();
-							if(self.curprogress <= 0)
-							{
-								self clear_progress();
-							}
-							previousprogress = self.curprogress;
-						}
-						self.inuse = 0;
-						hadprogress = self.curprogress > 0;
-						if(isdefined(self.claimplayer))
-						{
-							if(isdefined(self.onenduse))
-							{
-								if(isdefined(self.classobj))
-								{
-									self.classobj [[self.onenduse]](self, self get_claim_team(), self.claimplayer, 0);
-								}
-								else
-								{
-									self [[self.onenduse]](self get_claim_team(), self.claimplayer, 0);
-								}
-							}
-							if(isdefined(self.e_object) && (isdefined(self.e_object.var_c65066ad) && self.e_object.var_c65066ad))
-							{
-								self.e_object thread function_49184ad0(self get_claim_team(), self.claimplayer, 0);
-							}
-							self.claimplayer = undefined;
-						}
-						decayscale = 0;
-						if(self.var_98bb0715 && isdefined(self.decaytime) && self.decaytime > 0)
-						{
-							decayscale = self.usetime / self.decaytime;
-						}
-						self.curprogress = self.curprogress - ((level.var_9fee970c * self.userate) * decayscale);
+						self.curprogress = self.curprogress - level.var_9fee970c * self.usetime / int(self.var_5fefcd28 * 1000);
 						deltaprogress = self.curprogress - previousprogress;
 						function_72307b09(deltaprogress);
-						if(isdefined(self.decayprogressmin) && self.curprogress < self.decayprogressmin)
-						{
-							self.curprogress = self.decayprogressmin;
-						}
+						self update_current_progress();
 						if(self.curprogress <= 0)
 						{
 							self clear_progress();
 						}
-						self update_current_progress();
-						if(isdefined(self.onuseupdate))
-						{
-							self [[self.onuseupdate]](self get_claim_team(), self.curprogress / self.usetime, deltaprogress / self.usetime);
-						}
-						if(isdefined(self.var_ff74c7e9))
-						{
-							self [[self.var_ff74c7e9]](self get_claim_team(), self.curprogress / self.usetime, deltaprogress / self.usetime);
-						}
-						if(self.curprogress == 0)
-						{
-							if(self.claimteam != #"none")
-							{
-								self set_claim_team(#"none");
-							}
-						}
-						if(isdefined(hadprogress) && hadprogress && isdefined(self.ondecaycomplete) && self.curprogress <= (isdefined(self.decayprogressmin) ? self.decayprogressmin : 0))
-						{
-							self [[self.ondecaycomplete]]();
-						}
+						previousprogress = self.curprogress;
 					}
-					else
+					self.inuse = 0;
+					hadprogress = self.curprogress > 0;
+					if(isdefined(self.claimplayer))
 					{
-						if(!self.numtouching[self.claimteam])
+						if(isdefined(self.onenduse))
 						{
-							self.inuse = 0;
-							if(isdefined(self.onenduse))
+							if(isdefined(self.classobj))
 							{
-								if(isdefined(self.classobj))
-								{
-									self.classobj [[self.onenduse]](self, self get_claim_team(), self.claimplayer, 0);
-								}
-								else
-								{
-									self [[self.onenduse]](self get_claim_team(), self.claimplayer, 0);
-								}
-							}
-							if(isdefined(self.e_object) && (isdefined(self.e_object.var_c65066ad) && self.e_object.var_c65066ad))
-							{
-								self.e_object thread function_49184ad0(self get_claim_team(), self.claimplayer, 0);
-							}
-							self set_claim_team(#"none");
-							self.claimplayer = undefined;
-						}
-						else
-						{
-							if(function_76f3a4cd())
-							{
-								function_4783042a();
+								self.classobj [[self.onenduse]](self, self get_claim_team(), self.claimplayer, 0);
 							}
 							else
 							{
-								self.inuse = 1;
-								self.curprogress = self.curprogress + (level.var_9fee970c * self.userate);
-								deltaprogress = self.curprogress - previousprogress;
-								function_72307b09(deltaprogress);
-								self update_current_progress();
-								if(isdefined(self.onuseupdate))
-								{
-									self [[self.onuseupdate]](self get_claim_team(), self.curprogress / self.usetime, (level.var_9fee970c * self.userate) / self.usetime);
-								}
-								if(isdefined(self.var_ff74c7e9))
-								{
-									self [[self.var_ff74c7e9]](self get_claim_team(), self.curprogress / self.usetime, (level.var_9fee970c * self.userate) / self.usetime);
-								}
+								self [[self.onenduse]](self get_claim_team(), self.claimplayer, 0);
 							}
 						}
+						if(isdefined(self.e_object) && (isdefined(self.e_object.var_c65066ad) && self.e_object.var_c65066ad))
+						{
+							self.e_object thread function_49184ad0(self get_claim_team(), self.claimplayer, 0);
+						}
+						self.claimplayer = undefined;
 					}
+					decayscale = 0;
+					if(self.var_98bb0715 && isdefined(self.decaytime) && self.decaytime > 0)
+					{
+						decayscale = self.usetime / self.decaytime;
+					}
+					self.curprogress = self.curprogress - level.var_9fee970c * self.userate * decayscale;
+					deltaprogress = self.curprogress - previousprogress;
+					function_72307b09(deltaprogress);
+					if(isdefined(self.decayprogressmin) && self.curprogress < self.decayprogressmin)
+					{
+						self.curprogress = self.decayprogressmin;
+					}
+					if(self.curprogress <= 0)
+					{
+						self clear_progress();
+					}
+					self update_current_progress();
+					if(isdefined(self.onuseupdate))
+					{
+						self [[self.onuseupdate]](self get_claim_team(), self.curprogress / self.usetime, deltaprogress / self.usetime);
+					}
+					if(isdefined(self.var_ff74c7e9))
+					{
+						self [[self.var_ff74c7e9]](self get_claim_team(), self.curprogress / self.usetime, deltaprogress / self.usetime);
+					}
+					if(self.curprogress == 0)
+					{
+						if(self.claimteam != #"none")
+						{
+							self set_claim_team(#"none");
+						}
+					}
+					if(isdefined(hadprogress) && hadprogress && isdefined(self.ondecaycomplete) && self.curprogress <= (isdefined(self.decayprogressmin) ? self.decayprogressmin : 0))
+					{
+						self [[self.ondecaycomplete]]();
+					}
+				}
+				else if(!self.numtouching[self.claimteam])
+				{
+					self.inuse = 0;
+					if(isdefined(self.onenduse))
+					{
+						if(isdefined(self.classobj))
+						{
+							self.classobj [[self.onenduse]](self, self get_claim_team(), self.claimplayer, 0);
+						}
+						else
+						{
+							self [[self.onenduse]](self get_claim_team(), self.claimplayer, 0);
+						}
+					}
+					if(isdefined(self.e_object) && (isdefined(self.e_object.var_c65066ad) && self.e_object.var_c65066ad))
+					{
+						self.e_object thread function_49184ad0(self get_claim_team(), self.claimplayer, 0);
+					}
+					self set_claim_team(#"none");
+					self.claimplayer = undefined;
+				}
+				else if(function_76f3a4cd())
+				{
+					function_4783042a();
 				}
 				else
 				{
-					if(!self.mustmaintainclaim)
+					self.inuse = 1;
+					self.curprogress = self.curprogress + level.var_9fee970c * self.userate;
+					deltaprogress = self.curprogress - previousprogress;
+					function_72307b09(deltaprogress);
+					self update_current_progress();
+					if(isdefined(self.onuseupdate))
 					{
-						if(isdefined(self.onuse))
-						{
-							self use_object_onuse(self.claimplayer);
-						}
-						if(!self.mustmaintainclaim && self.claimteam != #"none")
-						{
-							self set_claim_team(#"none");
-							self.claimplayer = undefined;
-						}
+						self [[self.onuseupdate]](self get_claim_team(), self.curprogress / self.usetime, level.var_9fee970c * self.userate / self.usetime);
 					}
-					else
+					if(isdefined(self.var_ff74c7e9))
 					{
-						if(!self.numtouching[self.claimteam])
-						{
-							self.inuse = 0;
-							if(isdefined(self.onunoccupied))
-							{
-								self [[self.onunoccupied]]();
-							}
-							self set_claim_team(#"none");
-							self.claimplayer = undefined;
-						}
-						else if(function_76f3a4cd())
-						{
-							function_4783042a();
-						}
+						self [[self.var_ff74c7e9]](self get_claim_team(), self.curprogress / self.usetime, level.var_9fee970c * self.userate / self.usetime);
 					}
 				}
 			}
-		}
-		else
-		{
-			if(!self.decayprogress && self.curprogress > 0 && self.var_79f2beba !== 1 && (gettime() - self.lastclaimtime) > (int(self.claimgraceperiod * 1000)))
+			else if(!self.mustmaintainclaim)
 			{
-				self clear_progress();
+				if(isdefined(self.onuse))
+				{
+					self use_object_onuse(self.claimplayer);
+				}
+				if(!self.mustmaintainclaim && self.claimteam != #"none")
+				{
+					self set_claim_team(#"none");
+					self.claimplayer = undefined;
+				}
 			}
-			if(self.mustmaintainclaim && self get_owner_team() != #"none")
+			else if(!self.numtouching[self.claimteam])
 			{
-				if(!self.numtouching[self get_owner_team()])
+				self.inuse = 0;
+				if(isdefined(self.onunoccupied))
 				{
-					self.inuse = 0;
-					if(isdefined(self.onunoccupied))
-					{
-						self [[self.onunoccupied]]();
-					}
+					self [[self.onunoccupied]]();
 				}
-				else if(self.cancontestclaim && self.lastclaimteam != #"none" && self.numtouching[self.lastclaimteam])
-				{
-					numother = get_num_touching_except_team(self.lastclaimteam);
-					if(numother == 0)
-					{
-						if(isdefined(self.onuncontested))
-						{
-							self [[self.onuncontested]](self.lastclaimteam);
-						}
-					}
-				}
+				self set_claim_team(#"none");
+				self.claimplayer = undefined;
 			}
 			else if(function_76f3a4cd())
 			{
 				function_4783042a();
 			}
+		}
+		else if(!self.decayprogress && self.curprogress > 0 && self.var_79f2beba !== 1 && gettime() - self.lastclaimtime > int(self.claimgraceperiod * 1000))
+		{
+			self clear_progress();
+		}
+		if(self.mustmaintainclaim && self get_owner_team() != #"none")
+		{
+			if(!self.numtouching[self get_owner_team()])
+			{
+				self.inuse = 0;
+				if(isdefined(self.onunoccupied))
+				{
+					self [[self.onunoccupied]]();
+				}
+			}
+			else if(self.cancontestclaim && self.lastclaimteam != #"none" && self.numtouching[self.lastclaimteam])
+			{
+				numother = get_num_touching_except_team(self.lastclaimteam);
+				if(numother == 0)
+				{
+					if(isdefined(self.onuncontested))
+					{
+						self [[self.onuncontested]](self.lastclaimteam);
+					}
+				}
+			}
+		}
+		else if(function_76f3a4cd())
+		{
+			function_4783042a();
 		}
 		waitframe(1);
 		hostmigration::waittillhostmigrationdone();
@@ -3920,21 +3364,21 @@ function can_claim(sentient)
 {
 	if(isdefined(self.carrier))
 	{
-		return false;
+		return 0;
 	}
 	if(self.cancontestclaim)
 	{
 		numother = get_num_touching_except_team(sentient.team);
 		if(numother != 0)
 		{
-			return false;
+			return 0;
 		}
 	}
 	if(!isdefined(self.keyobject) || sentient has_key_object(self))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -3946,33 +3390,33 @@ function can_claim(sentient)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_dfec159b(player)
+private function function_dfec159b(player)
 {
 	if(!isalive(player) || self use_object_locked_for_team(player.pers[#"team"]))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(player.laststand) && player.laststand && (!(isdefined(player.var_de39e480) && player.var_de39e480)) && (!(isdefined(player.var_4835f0a0) && player.var_4835f0a0)))
 	{
-		return false;
+		return 0;
 	}
 	if(player.spawntime == gettime())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(player.selectinglocation) && player.selectinglocation && self.triggertype === "use")
 	{
-		return false;
+		return 0;
 	}
 	if(player isweaponviewonlylinked())
 	{
-		return false;
+		return 0;
 	}
 	if(!(isdefined(self.cancontestclaim) && self.cancontestclaim) && isdefined(self.keyobject) && !player has_key_object(self))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -3984,11 +3428,11 @@ function private function_dfec159b(player)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_bbb55f41(sentient)
+private function function_bbb55f41(sentient)
 {
 	if(!self can_interact_with(sentient))
 	{
-		return false;
+		return 0;
 	}
 	if(self.claimteam == #"none")
 	{
@@ -4022,9 +3466,9 @@ function private function_bbb55f41(sentient)
 	}
 	else if(self.claimteam == sentient.team && self can_claim(sentient) && self.numtouching[self.claimteam] == 0)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4075,16 +3519,16 @@ function is_excluded(sentient)
 {
 	if(!isdefined(self.exclusions))
 	{
-		return false;
+		return 0;
 	}
 	foreach(exclusion in self.exclusions)
 	{
 		if(isdefined(exclusion) && sentient function_59e66d9(exclusion))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4161,7 +3605,7 @@ function set_claim_team(newteam)
 	#/
 	if(self.var_5083077c !== 1)
 	{
-		if(!self.decayprogress && self.claimteam == #"none" && (gettime() - self.lastclaimtime) > (int(self.claimgraceperiod * 1000)))
+		if(!self.decayprogress && self.claimteam == #"none" && gettime() - self.lastclaimtime > int(self.claimgraceperiod * 1000))
 		{
 			self clear_progress();
 		}
@@ -4217,38 +3661,38 @@ function continue_trigger_touch_think(team, object)
 {
 	if(!isalive(self))
 	{
-		return false;
+		return 0;
 	}
 	var_47a62b7b = isvehicle(self) || (isplayer(self) && self isinvehicle() && !self function_a867284b());
 	if(var_47a62b7b && (!(isdefined(level.b_allow_vehicle_proximity_pickup) && level.b_allow_vehicle_proximity_pickup)) && (!(isdefined(object.b_allow_vehicle_proximity_pickup) && object.b_allow_vehicle_proximity_pickup)))
 	{
-		return false;
+		return 0;
 	}
 	if(self use_object_locked_for_team(team))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(self.laststand) && self.laststand && (!(isdefined(self.var_de39e480) && self.var_de39e480)) && (!(isdefined(self.var_4835f0a0) && self.var_4835f0a0)))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(object) || !isdefined(object.trigger))
 	{
-		return false;
+		return 0;
 	}
 	if(!object.trigger istriggerenabled())
 	{
-		return false;
+		return 0;
 	}
 	if(!object function_a34c1761(self))
 	{
-		return false;
+		return 0;
 	}
 	if(!self function_59e66d9(object.trigger))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -4361,16 +3805,13 @@ function trigger_touch_think(object)
 			waitframe(1);
 		}
 	}
-	else
+	else if(object.usetime == 0 && level.var_c85170d1 === 1)
 	{
-		if(object.usetime == 0 && level.var_c85170d1 === 1)
-		{
-			object update_use_rate();
-		}
-		while(self continue_trigger_touch_think(team, object))
-		{
-			waitframe(1);
-		}
+		object update_use_rate();
+	}
+	while(self continue_trigger_touch_think(team, object))
+	{
+		waitframe(1);
 	}
 	if(isdefined(self))
 	{
@@ -4538,16 +3979,13 @@ function update_use_rate()
 		{
 			self.userate = claimantsuserate;
 		}
-		else
+		else if(!numclaimants && numother)
 		{
-			if(!numclaimants && numother)
-			{
-				self.userate = otheruserate;
-			}
-			else if(!numclaimants && !numother)
-			{
-				self.userate = 0;
-			}
+			self.userate = otheruserate;
+		}
+		else if(!numclaimants && !numother)
+		{
+			self.userate = 0;
 		}
 	}
 	else if(numclaimants && !numother)
@@ -4761,72 +4199,72 @@ function continue_hold_think_loop(player, waitforweapon, timedout, usetime)
 	maxwaittime = 1.5;
 	if(!isalive(player))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(player.laststand) && player.laststand)
 	{
-		return false;
+		return 0;
 	}
 	if(self.curprogress >= usetime)
 	{
-		return false;
+		return 0;
 	}
 	if(!player usebuttonpressed())
 	{
-		return false;
+		return 0;
 	}
 	if(player function_f75eb1ae())
 	{
-		return false;
+		return 0;
 	}
 	if(player.throwinggrenade && (!isdefined(self.var_c2f21609) || (self.var_c2f21609 != 14 && self.var_c2f21609 != 15)))
 	{
-		return false;
+		return 0;
 	}
 	if(player isinvehicle())
 	{
-		return false;
+		return 0;
 	}
 	if(player isremotecontrolling() || player util::isusingremote())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(player.selectinglocation) && player.selectinglocation)
 	{
-		return false;
+		return 0;
 	}
 	if(player isweaponviewonlylinked())
 	{
-		return false;
+		return 0;
 	}
 	if(!player function_59e66d9(self.trigger))
 	{
 		if(!isdefined(player.cursorhintent) || player.cursorhintent != self)
 		{
-			return false;
+			return 0;
 		}
 	}
 	if(isdefined(self.requireslos) && self.requireslos && !has_line_of_sight(player))
 	{
-		return false;
+		return 0;
 	}
 	if(!self.userate && !waitforweapon)
 	{
-		return false;
+		return 0;
 	}
 	if(waitforweapon && timedout > maxwaittime)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(self.interrupted) && self.interrupted)
 	{
-		return false;
+		return 0;
 	}
 	if(level.gameended)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -4883,7 +4321,7 @@ function use_hold_think_loop(player)
 				playerusemultiplier = self [[self.getuseratemultiplier]](player);
 			}
 			previousprogress = self.curprogress;
-			self.curprogress = self.curprogress + ((level.var_9fee970c * self.userate) * playerusemultiplier);
+			self.curprogress = self.curprogress + level.var_9fee970c * self.userate * playerusemultiplier;
 			deltaprogress = self.curprogress - previousprogress;
 			if(isdefined(self.var_5c196da4) && self.var_5c196da4 && isdefined(self.var_1dbb2b2b))
 			{
@@ -4909,7 +4347,7 @@ function use_hold_think_loop(player)
 		{
 			if(self.curprogress >= self.usetime)
 			{
-				return true;
+				return 1;
 			}
 			waitframe(1);
 		}
@@ -4919,12 +4357,12 @@ function use_hold_think_loop(player)
 			if(self.curprogress >= self.usetime)
 			{
 				util::wait_network_frame();
-				return true;
+				return 1;
 			}
 		}
 		hostmigration::waittillhostmigrationdone();
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4956,33 +4394,27 @@ function update_trigger()
 	{
 		self.trigger triggerenable(0);
 	}
-	else
+	else if(self.interactteam == #"friendly")
 	{
-		if(self.interactteam == #"friendly")
+		self.trigger triggerenable(1);
+		if(isdefined(level.teams[self.ownerteam]))
 		{
-			self.trigger triggerenable(1);
-			if(isdefined(level.teams[self.ownerteam]))
-			{
-				self.trigger setteamfortrigger(self.ownerteam);
-			}
-			else
-			{
-				self.trigger triggerenable(0);
-			}
+			self.trigger setteamfortrigger(self.ownerteam);
 		}
 		else
 		{
-			if(self.interactteam == #"enemy")
-			{
-				self.trigger triggerenable(1);
-				self.trigger setexcludeteamfortrigger(self.ownerteam);
-			}
-			else if(self.interactteam == #"any" || !level.teambased)
-			{
-				self.trigger triggerenable(1);
-				self.trigger setteamfortrigger(#"none");
-			}
+			self.trigger triggerenable(0);
 		}
+	}
+	else if(self.interactteam == #"enemy")
+	{
+		self.trigger triggerenable(1);
+		self.trigger setexcludeteamfortrigger(self.ownerteam);
+	}
+	else if(self.interactteam == #"any" || !level.teambased)
+	{
+		self.trigger triggerenable(1);
+		self.trigger setteamfortrigger(#"none");
 	}
 }
 
@@ -5015,36 +4447,27 @@ function update_objective()
 		function_da7940a3(self.objectiveid, 0);
 		function_3ae6fa3(self.objectiveid, self.absolute_visible_and_interact_team, 1);
 	}
+	else if(self.visibleteam == #"any")
+	{
+		objective_setstate(self.objectiveid, "active");
+		function_da7940a3(self.objectiveid, 1);
+	}
+	else if(isdefined(self.ownerteam) && isdefined(level.spawnsystem.ispawn_teammask[self.ownerteam]) && self.visibleteam == #"friendly")
+	{
+		objective_setstate(self.objectiveid, "active");
+		function_da7940a3(self.objectiveid, 0);
+		function_3ae6fa3(self.objectiveid, self.ownerteam, 1);
+	}
+	else if(isdefined(self.ownerteam) && isdefined(level.spawnsystem.ispawn_teammask[self.ownerteam]) && self.visibleteam == #"enemy")
+	{
+		objective_setstate(self.objectiveid, "active");
+		function_da7940a3(self.objectiveid, 1);
+		function_3ae6fa3(self.objectiveid, self.ownerteam, 0);
+	}
 	else
 	{
-		if(self.visibleteam == #"any")
-		{
-			objective_setstate(self.objectiveid, "active");
-			function_da7940a3(self.objectiveid, 1);
-		}
-		else
-		{
-			if(isdefined(self.ownerteam) && isdefined(level.spawnsystem.ispawn_teammask[self.ownerteam]) && self.visibleteam == #"friendly")
-			{
-				objective_setstate(self.objectiveid, "active");
-				function_da7940a3(self.objectiveid, 0);
-				function_3ae6fa3(self.objectiveid, self.ownerteam, 1);
-			}
-			else
-			{
-				if(isdefined(self.ownerteam) && isdefined(level.spawnsystem.ispawn_teammask[self.ownerteam]) && self.visibleteam == #"enemy")
-				{
-					objective_setstate(self.objectiveid, "active");
-					function_da7940a3(self.objectiveid, 1);
-					function_3ae6fa3(self.objectiveid, self.ownerteam, 0);
-				}
-				else
-				{
-					objective_setstate(self.objectiveid, "invisible");
-					function_da7940a3(self.objectiveid, 0);
-				}
-			}
-		}
+		objective_setstate(self.objectiveid, "invisible");
+		function_da7940a3(self.objectiveid, 0);
 	}
 	if(self.type == "carryObject" || self.type == "packObject")
 	{
@@ -5053,23 +4476,17 @@ function update_objective()
 			objective_onentity(self.objectiveid, self.carrier);
 			objective_setinvisibletoplayer(self.objectiveid, self.carrier);
 		}
+		else if(isdefined(self.objectiveonvisuals) && self.objectiveonvisuals)
+		{
+			objective_onentity(self.objectiveid, self.visuals[0]);
+		}
+		else if(isdefined(self.objectiveonself) && self.objectiveonself)
+		{
+			objective_onentity(self.objectiveid, self);
+		}
 		else
 		{
-			if(isdefined(self.objectiveonvisuals) && self.objectiveonvisuals)
-			{
-				objective_onentity(self.objectiveid, self.visuals[0]);
-			}
-			else
-			{
-				if(isdefined(self.objectiveonself) && self.objectiveonself)
-				{
-					objective_onentity(self.objectiveid, self);
-				}
-				else
-				{
-					objective_clearentity(self.objectiveid);
-				}
-			}
+			objective_clearentity(self.objectiveid);
 		}
 	}
 }
@@ -5195,13 +4612,13 @@ function should_ping_object(relativeteam)
 {
 	if(relativeteam == #"friendly" && self.objidpingfriendly)
 	{
-		return true;
+		return 1;
 	}
 	if(relativeteam == #"enemy" && self.objidpingenemy)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5239,16 +4656,13 @@ function get_update_teams(relativeteam)
 			}
 		}
 	}
+	else if(relativeteam == #"friendly")
+	{
+		updateteams[updateteams.size] = level.nonteambasedteam;
+	}
 	else
 	{
-		if(relativeteam == #"friendly")
-		{
-			updateteams[updateteams.size] = level.nonteambasedteam;
-		}
-		else
-		{
-			updateteams[updateteams.size] = #"axis";
-		}
+		updateteams[updateteams.size] = #"axis";
 	}
 	return updateteams;
 }
@@ -5292,7 +4706,7 @@ function should_show_compass_due_to_radar(team)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private _set_team(team)
+private function _set_team(team)
 {
 	self.ownerteam = team;
 	if(team != #"any")
@@ -5788,7 +5202,7 @@ function gameobject_is_player_looking_at(origin, dot, do_trace, ignore_ent, igno
 			trace = bullettrace(eye, origin, 0, ignore_ent);
 			if(trace[#"position"] == origin)
 			{
-				return true;
+				return 1;
 			}
 			if(isdefined(ignore_trace_distance))
 			{
@@ -5797,16 +5211,16 @@ function gameobject_is_player_looking_at(origin, dot, do_trace, ignore_ent, igno
 				n_delta = abs(n_dist - n_mag);
 				if(n_delta <= ignore_trace_distance)
 				{
-					return true;
+					return 1;
 				}
 			}
 		}
 		else
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -6128,16 +5542,13 @@ function enable_object(var_13c260df, b_show_objective = 1)
 			mdl_gameobject set_visible_team(mdl_gameobject.str_restore_visible_team_after_disable);
 			mdl_gameobject.str_restore_visible_team_after_disable = undefined;
 		}
+		else if(isdefined(mdl_gameobject.visibleteam))
+		{
+			mdl_gameobject set_visible_team(mdl_gameobject.visibleteam);
+		}
 		else
 		{
-			if(isdefined(mdl_gameobject.visibleteam))
-			{
-				mdl_gameobject set_visible_team(mdl_gameobject.visibleteam);
-			}
-			else
-			{
-				mdl_gameobject set_visible_team(#"any");
-			}
+			mdl_gameobject set_visible_team(#"any");
 		}
 		if(isdefined(mdl_gameobject.objectiveid))
 		{
@@ -6192,17 +5603,17 @@ function is_friendly_team(team)
 	team = util::get_team_mapping(team);
 	if(!level.teambased)
 	{
-		return true;
+		return 1;
 	}
 	if(self.ownerteam == #"any")
 	{
-		return true;
+		return 1;
 	}
 	if(self.ownerteam == team)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -6219,41 +5630,41 @@ function function_a34c1761(sentient)
 	var_47a62b7b = isvehicle(sentient) || (isplayer(sentient) && sentient isinvehicle() && !sentient function_a867284b());
 	if(var_47a62b7b && (!(isdefined(level.b_allow_vehicle_proximity_pickup) && level.b_allow_vehicle_proximity_pickup)) && (!(isdefined(self.b_allow_vehicle_proximity_pickup) && self.b_allow_vehicle_proximity_pickup)))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.b_allow_vehicle_proximity_pickup) && level.b_allow_vehicle_proximity_pickup || (isdefined(self.b_allow_vehicle_proximity_pickup) && self.b_allow_vehicle_proximity_pickup))
 	{
 		if(!isplayer(sentient) && !isvehicle(sentient))
 		{
-			return false;
+			return 0;
 		}
 	}
 	else if(!isplayer(sentient))
 	{
-		return false;
+		return 0;
 	}
 	if(isplayer(sentient))
 	{
 		if(!function_dfec159b(sentient))
 		{
-			return false;
+			return 0;
 		}
 		if(isdefined(self.var_d647eb08) && self.var_d647eb08 && sentient isreloading())
 		{
-			return false;
+			return 0;
 		}
 	}
 	else if(!isdefined(sentient.var_69d05189) || sentient.var_69d05189 == 0)
 	{
-		return false;
+		return 0;
 	}
 	if(self is_excluded(sentient))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(self.canuseobject) && ![[self.canuseobject]](sentient))
 	{
-		return false;
+		return 0;
 	}
 	if(self.triggertype === "use" && isdefined(sentient.var_121392a1) && sentient.var_121392a1.size > 0)
 	{
@@ -6261,11 +5672,11 @@ function function_a34c1761(sentient)
 		{
 			if(isdefined(var_cd6ef3e2.var_4f6b79a4) && (isdefined(var_cd6ef3e2.var_4f6b79a4.var_4f6b79a4.var_cb34970a) ? var_cd6ef3e2.var_4f6b79a4.var_cb34970a : 0))
 			{
-				return false;
+				return 0;
 			}
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -6286,7 +5697,7 @@ function can_interact_with(sentient)
 		{
 			if(level.time < ignore_time)
 			{
-				return false;
+				return 0;
 			}
 			self.ignore_use_time[sentient getentitynumber()] = undefined;
 		}
@@ -6296,7 +5707,7 @@ function can_interact_with(sentient)
 	{
 		if(team == self.absolute_visible_and_interact_team)
 		{
-			return true;
+			return 1;
 		}
 	}
 	if(isdefined(self.var_af6e4895) && isplayer(sentient))
@@ -6304,27 +5715,27 @@ function can_interact_with(sentient)
 		player = sentient;
 		if(!player hasweapon(self.var_af6e4895))
 		{
-			return false;
+			return 0;
 		}
 		ammocount = player getammocount(self.var_af6e4895);
 		if(ammocount == 0)
 		{
-			return false;
+			return 0;
 		}
 	}
 	switch(self.interactteam)
 	{
 		case "none":
 		{
-			return false;
+			return 0;
 		}
 		case "any":
 		{
-			return true;
+			return 1;
 		}
 		case "free":
 		{
-			return false;
+			return 0;
 		}
 		case "friendly":
 		{
@@ -6332,23 +5743,20 @@ function can_interact_with(sentient)
 			{
 				if(team == self.ownerteam)
 				{
-					return true;
+					return 1;
 				}
 				else
 				{
-					return false;
+					return 0;
 				}
+			}
+			else if(sentient.team == self.ownerteam && sentient.team != #"free")
+			{
+				return 1;
 			}
 			else
 			{
-				if(sentient.team == self.ownerteam && sentient.team != #"free")
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return 0;
 			}
 		}
 		case "enemy":
@@ -6357,30 +5765,24 @@ function can_interact_with(sentient)
 			{
 				if(team != self.ownerteam)
 				{
-					return true;
+					return 1;
+				}
+				else if(isdefined(self.decayprogress) && self.decayprogress && self.curprogress > 0 && (!isdefined(self.decayprogressmin) || self.curprogress > self.decayprogressmin))
+				{
+					return 1;
 				}
 				else
 				{
-					if(isdefined(self.decayprogress) && self.decayprogress && self.curprogress > 0 && (!isdefined(self.decayprogressmin) || self.curprogress > self.decayprogressmin))
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
+					return 0;
 				}
+			}
+			else if(sentient.team != self.ownerteam)
+			{
+				return 1;
 			}
 			else
 			{
-				if(sentient.team != self.ownerteam)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return 0;
 			}
 		}
 		default:
@@ -6388,7 +5790,7 @@ function can_interact_with(sentient)
 			/#
 				assert(0, "");
 			#/
-			return false;
+			return 0;
 		}
 	}
 }
@@ -6411,15 +5813,15 @@ function is_team(team)
 		case "neutral":
 		case "any":
 		{
-			return true;
+			return 1;
 			break;
 		}
 	}
 	if(isdefined(level.teams[team]))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -6440,12 +5842,12 @@ function is_relative_team(relativeteam)
 		case "enemy":
 		case "any":
 		{
-			return true;
+			return 1;
 			break;
 		}
 		default:
 		{
-			return false;
+			return 0;
 			break;
 		}
 	}
@@ -6849,7 +6251,7 @@ function get_packicon_offset(index = 0)
 		size = 35;
 		base = -40;
 	}
-	int = base - (size * index);
+	int = base - size * index;
 	return int;
 }
 
@@ -6905,7 +6307,9 @@ function set_pack_icon(shader)
 */
 function init_game_objects(str_gameobject_bundle, str_team_override, b_allow_companion_command, t_override, a_keyline_objects, str_objective_override, str_tag_override, str_identifier_override)
 {
-	c_interact_obj = new cinteractobj();
+	object = new cinteractobj();
+	[[ object ]]->__constructor();
+	c_interact_obj = object;
 	c_interact_obj.e_object = self;
 	str_bundle = undefined;
 	if(isdefined(str_gameobject_bundle))
@@ -6922,6 +6326,516 @@ function init_game_objects(str_gameobject_bundle, str_team_override, b_allow_com
 	#/
 	[[ c_interact_obj ]]->init_game_object(str_bundle, str_team_override, str_tag_override, str_identifier_override, a_keyline_objects, t_override, b_allow_companion_command, str_objective_override);
 	return c_interact_obj;
+}
+
+#namespace cinteractobj;
+
+/*
+	Name: __constructor
+	Namespace: cinteractobj
+	Checksum: 0xF958DCE2
+	Offset: 0xF598
+	Size: 0x12
+	Parameters: 0
+	Flags: Linked, 8
+*/
+function __constructor()
+{
+	self.m_str_trigger_type = "use";
+}
+
+/*
+	Name: __destructor
+	Namespace: cinteractobj
+	Checksum: 0x553EE287
+	Offset: 0xF5B8
+	Size: 0x44
+	Parameters: 0
+	Flags: Linked, 16
+*/
+function __destructor()
+{
+	/#
+		if(getdvarint(#"hash_69e71fbd49bdaa8a", 0))
+		{
+			iprintlnbold("");
+		}
+	#/
+}
+
+/*
+	Name: init_game_object
+	Namespace: cinteractobj
+	Checksum: 0xAAE128D6
+	Offset: 0xF608
+	Size: 0x6F4
+	Parameters: 8
+	Flags: Linked
+*/
+function init_game_object(str_bundle, str_team_override, str_tag_override, str_identifier_override, a_keyline_objects, t_override, b_allow_companion_command = 1, str_objective_override)
+{
+	self.m_s_bundle = getscriptbundle(str_bundle);
+	/#
+		assert(isdefined(self.m_s_bundle), "" + str_bundle + "");
+	#/
+	if(isdefined(str_tag_override))
+	{
+		self.m_str_tag = str_tag_override;
+	}
+	else
+	{
+		self.m_str_tag = self.m_s_bundle.str_tag;
+	}
+	if(isentity(self.e_object))
+	{
+		self.m_v_tag_origin = self.e_object gettagorigin(self.m_str_tag);
+	}
+	if(!isdefined(self.m_v_tag_origin))
+	{
+		self.m_str_tag = undefined;
+		self.m_v_tag_origin = self.e_object.origin;
+		/#
+			if(isentity(self.e_object))
+			{
+				println("" + self.m_s_bundle.str_tag + "" + self.e_object.model);
+			}
+		#/
+	}
+	self.m_n_trigger_height = self.m_s_bundle.n_trigger_height;
+	self.m_n_trigger_radius = self.m_s_bundle.n_trigger_radius;
+	self.m_str_team = self.m_s_bundle.str_team;
+	self.var_426bccfd = self.m_s_bundle.var_ce7dda5f;
+	self.var_15547ed4 = isdefined(self.m_s_bundle.b_play_vo) && self.m_s_bundle.b_play_vo;
+	self.m_str_player_scene_anim = self.m_s_bundle.playerscenebundle;
+	self.m_b_scene_use_time_override = self.m_s_bundle.playerscenebundletimeoverride;
+	self.m_str_anim = self.m_s_bundle.viewanim;
+	self.m_str_obj_anim = self.m_s_bundle.entityanim;
+	self.m_b_reusable = self.m_s_bundle.b_reusable;
+	self.m_b_auto_reenable = self.m_s_bundle.autoreenable;
+	self.m_str_identifier = self.m_s_bundle.str_identifier;
+	self.m_str_trigger_type = self.m_s_bundle.triggertype;
+	self.m_b_gameobject_scene_alignment = self.m_s_bundle.playerscenebundlegameobjectalignment;
+	self.var_7abf2b16 = self.m_s_bundle.var_e45035d4;
+	self.var_26a01d70 = self.m_s_bundle.var_1a876104;
+	self.m_n_trigger_use_time = self.m_s_bundle.n_trigger_use_time;
+	if(!isdefined(self.m_n_trigger_use_time))
+	{
+		self.m_n_trigger_use_time = 0;
+	}
+	self.var_14f4f0bc = self.m_s_bundle.var_f6949418;
+	if(!isdefined(self.var_14f4f0bc))
+	{
+		self.var_14f4f0bc = 0;
+	}
+	if(isdefined(str_identifier_override))
+	{
+		self.m_str_identifier = str_identifier_override;
+	}
+	self.m_str_hint = self.m_s_bundle.str_hint;
+	if(isdefined(str_objective_override))
+	{
+		self.m_str_objective = str_objective_override;
+	}
+	else
+	{
+		self.m_str_objective = (isdefined(self.m_s_bundle.objective) ? self.m_s_bundle.objective : undefined);
+	}
+	self.e_object.str_objective_name = self.m_s_bundle.objective;
+	self.e_object.var_45aad1f4 = self.m_str_objective;
+	self.m_str_type = self.m_s_bundle.gameobjecttype;
+	if(isdefined(self.m_s_bundle.allowweapons) && self.m_s_bundle.allowweapons)
+	{
+		self.m_b_allow_weapons = 1;
+	}
+	else
+	{
+		self.m_b_allow_weapons = 0;
+	}
+	if(isdefined(str_team_override))
+	{
+		self.m_str_team = str_team_override;
+	}
+	self.m_str_team = util::get_team_mapping(self.m_str_team);
+	if(isdefined(a_keyline_objects))
+	{
+		self.m_a_keyline_objects = a_keyline_objects;
+	}
+	else if(isdefined(self.m_s_bundle.model))
+	{
+		var_ed8e6d51 = util::spawn_model(self.m_s_bundle.model, self.e_object.origin, self.e_object.angles);
+		self.m_a_keyline_objects = array(var_ed8e6d51);
+	}
+	n_trig_x = self.m_s_bundle.triggerxoffset;
+	if(!isdefined(n_trig_x))
+	{
+		n_trig_x = 0;
+	}
+	n_trig_y = self.m_s_bundle.triggeryoffset;
+	if(!isdefined(n_trig_y))
+	{
+		n_trig_y = 0;
+	}
+	n_trig_z = self.m_s_bundle.triggerzoffset;
+	if(!isdefined(n_trig_z))
+	{
+		n_trig_z = 0;
+	}
+	self.m_n_trigger_offset = (n_trig_x, n_trig_y, n_trig_z);
+	if(isdefined(self.e_object.func_custom_gameobject_position))
+	{
+		self.m_n_trigger_offset = (0, 0, 0);
+		self.m_v_tag_origin = self.e_object [[self.e_object.func_custom_gameobject_position]]();
+	}
+	self.m_b_allow_companion_command = b_allow_companion_command;
+	if(isdefined(t_override) && isdefined(t_override.classname))
+	{
+		if(is_valid_gameobject_trigger(t_override))
+		{
+			self.m_t_interact = t_override;
+		}
+		assert("");
+	}
+	self.var_a99c4d4c = [];
+	self.var_2854e7f7 = [];
+	self create_gameobject_trigger();
+	self thread function_768739b6();
+}
+
+/*
+	Name: create_gameobject_trigger
+	Namespace: cinteractobj
+	Checksum: 0xA51D4232
+	Offset: 0xFD08
+	Size: 0xA06
+	Parameters: 0
+	Flags: Linked
+*/
+function create_gameobject_trigger()
+{
+	if(!isdefined(self.m_t_interact))
+	{
+		if(self.m_str_type === "generic" || self.m_str_trigger_type === "proximity")
+		{
+			self.m_t_interact = spawn("trigger_radius", self.m_v_tag_origin + self.m_n_trigger_offset + (0, 0, self.m_n_trigger_height / 2), 0, self.m_n_trigger_radius, self.m_n_trigger_height, 1);
+		}
+		else
+		{
+			self.m_t_interact = spawn("trigger_radius_use", self.m_v_tag_origin + self.m_n_trigger_offset + (0, 0, self.m_n_trigger_height / 2), 0, self.m_n_trigger_radius, self.m_n_trigger_height, 1);
+			if(isdefined(self.e_object.angles))
+			{
+				self.m_t_interact.angles = self.e_object.angles;
+			}
+			self.m_t_interact usetriggerrequirelookat(isdefined(self.e_object.require_look_at) && self.e_object.require_look_at);
+			self.m_t_interact usetriggerrequirelooktoward(isdefined(self.e_object.require_look_toward) && self.e_object.require_look_toward);
+		}
+	}
+	self.m_t_interact.trigger_offset = self.m_n_trigger_offset;
+	self.m_t_interact triggerignoreteam();
+	self.m_t_interact setvisibletoall();
+	self.m_t_interact setcursorhint("HINT_INTERACTIVE_PROMPT");
+	self.m_t_interact.var_a865c2cd = (isdefined(self.m_s_bundle.var_a865c2cd) ? self.m_s_bundle.var_a865c2cd : 0);
+	self.m_t_interact.str_hint = self.m_str_hint;
+	if(self.m_str_team != #"any")
+	{
+		self.m_t_interact setteamfortrigger(self.m_str_team);
+	}
+	if(!isdefined(self.m_a_keyline_objects))
+	{
+		self.m_a_keyline_objects = [];
+	}
+	else if(!isarray(self.m_a_keyline_objects))
+	{
+		self.m_a_keyline_objects = array(self.m_a_keyline_objects);
+	}
+	switch(self.m_str_type)
+	{
+		case "carry":
+		{
+			/#
+				assert(isdefined(self.m_a_keyline_objects[0]), "");
+			#/
+			mdl_gameobject = gameobjects::create_carry_object(self.m_str_team, self.m_t_interact, self.m_a_keyline_objects, (0, 0, 0), self.m_str_objective, self.var_26a01d70);
+			break;
+		}
+		case "pack":
+		{
+			/#
+				assert(isdefined(self.m_a_keyline_objects[0]), "");
+			#/
+			mdl_gameobject = gameobjects::create_pack_object(self.m_str_team, self.m_t_interact, self.m_a_keyline_objects, (0, 0, 0), self.m_str_objective, self.var_26a01d70);
+			break;
+		}
+		case "generic":
+		{
+			mdl_gameobject = gameobjects::create_generic_object(self.m_str_team, self.m_t_interact, self.m_a_keyline_objects, (0, 0, 0));
+			break;
+		}
+		case "use":
+		default:
+		{
+			mdl_gameobject = gameobjects::create_use_object(self.m_str_team, self.m_t_interact, self.m_a_keyline_objects, (0, 0, 0), self.m_str_objective, self.var_26a01d70, 0, self.e_object.script_enable_on_start);
+			break;
+		}
+	}
+	mdl_gameobject.single_use = 0;
+	if(self.m_str_type == "carry" || self.m_str_type == "pack")
+	{
+		mdl_gameobject.objectiveonself = 1;
+		if(isdefined(mdl_gameobject.objectiveid))
+		{
+			objective_setposition(mdl_gameobject.objectiveid, (0, 0, 0));
+		}
+		if(isdefined(self.m_s_bundle.carryicon))
+		{
+			if(self.m_str_type == "carry")
+			{
+				mdl_gameobject gameobjects::set_carry_icon(self.m_s_bundle.carryicon);
+			}
+			else
+			{
+				mdl_gameobject gameobjects::set_pack_icon(self.m_s_bundle.carryicon);
+			}
+		}
+		if(isdefined(self.m_s_bundle.registerline__grow))
+		{
+			mdl_gameobject gameobjects::set_visible_carrier_model(self.m_s_bundle.registerline__grow);
+		}
+		if(isdefined(self.m_s_bundle.droponusebutton) && self.m_s_bundle.droponusebutton)
+		{
+			mdl_gameobject gameobjects::function_a8c842d6(self.m_s_bundle.droponusebutton, 1);
+		}
+		if(isdefined(self.m_s_bundle.weapon))
+		{
+			mdl_gameobject gameobjects::function_6e870d38(self.m_s_bundle.weapon);
+		}
+	}
+	mdl_gameobject gameobjects::set_identifier(self.m_str_identifier);
+	mdl_gameobject.origin = self.m_t_interact.origin;
+	mdl_gameobject.angles = self.m_t_interact.angles;
+	mdl_gameobject gameobjects::set_owner_team(self.m_str_team);
+	if(self.m_str_team == #"any")
+	{
+		mdl_gameobject gameobjects::allow_use(self.m_str_team);
+		mdl_gameobject gameobjects::set_visible_team(self.m_str_team);
+	}
+	else
+	{
+		mdl_gameobject gameobjects::allow_use(#"friendly");
+		mdl_gameobject gameobjects::set_visible_team(#"friendly");
+	}
+	mdl_gameobject gameobjects::set_use_time(self.m_n_trigger_use_time);
+	mdl_gameobject gameobjects::function_86d3b442(self.var_14f4f0bc);
+	mdl_gameobject.str_player_scene_anim = self.m_str_player_scene_anim;
+	mdl_gameobject.str_anim = self.m_str_anim;
+	mdl_gameobject.b_reusable = self.m_b_reusable;
+	mdl_gameobject.b_auto_reenable = self.m_b_auto_reenable;
+	mdl_gameobject.allowweapons = self.m_b_allow_weapons;
+	mdl_gameobject.b_scene_use_time_override = self.m_b_scene_use_time_override;
+	mdl_gameobject.b_use_gameobject_for_alignment = self.m_b_gameobject_scene_alignment;
+	mdl_gameobject.var_75ea46f6 = self.var_7abf2b16;
+	mdl_gameobject.var_a7ef92ac = self.m_s_bundle.var_559e6e9f;
+	mdl_gameobject.b_allow_companion_command = self.m_b_allow_companion_command;
+	if(isdefined(self.m_str_obj_anim))
+	{
+		mdl_gameobject.str_obj_anim = self.m_str_obj_anim;
+	}
+	mdl_gameobject.t_interact = self.m_t_interact;
+	mdl_gameobject.t_interact enablelinkto();
+	mdl_gameobject.e_object = self.e_object;
+	if(isentity(mdl_gameobject.e_object))
+	{
+		if(isdefined(self.m_str_tag))
+		{
+			mdl_gameobject.t_interact linkto(mdl_gameobject.e_object, self.m_str_tag);
+		}
+		else
+		{
+			mdl_gameobject.t_interact linkto(mdl_gameobject.e_object);
+		}
+	}
+	if(isdefined(mdl_gameobject.str_player_scene_anim) || isdefined(mdl_gameobject.str_anim))
+	{
+		mdl_gameobject.dontlinkplayertotrigger = 1;
+	}
+	if(!mdl_gameobject.e_object flag::exists("gameobject_end_use"))
+	{
+		mdl_gameobject.e_object flag::init("gameobject_end_use");
+	}
+	self.e_object.mdl_gameobject = mdl_gameobject;
+}
+
+/*
+	Name: is_valid_gameobject_trigger
+	Namespace: cinteractobj
+	Checksum: 0xC53F303D
+	Offset: 0x10718
+	Size: 0x14C
+	Parameters: 1
+	Flags: Linked
+*/
+function is_valid_gameobject_trigger(t_override)
+{
+	if(self.m_str_trigger_type === "proximity")
+	{
+		switch(t_override.classname)
+		{
+			case "trigger_once_new":
+			case "trigger_box":
+			case "trigger_once":
+			case "trigger_radius":
+			case "trigger_box_new":
+			case "trigger_multiple":
+			case "trigger_radius_new":
+			case "trigger_multiple_new":
+			{
+				return 1;
+			}
+			default:
+			{
+				return 0;
+			}
+		}
+	}
+	else
+	{
+		switch(t_override.classname)
+		{
+			case "trigger_use_new":
+			case "trigger_radius_use":
+			case "hash_6119f399228d396b":
+			case "trigger_use":
+			{
+				return 1;
+			}
+			default:
+			{
+				return 0;
+			}
+		}
+	}
+	return 0;
+}
+
+/*
+	Name: function_768739b6
+	Namespace: cinteractobj
+	Checksum: 0xB7AF34C4
+	Offset: 0x10870
+	Size: 0x41A
+	Parameters: 0
+	Flags: Linked
+*/
+function function_768739b6()
+{
+	level endon(#"game_ended");
+	self.e_object endon(#"death", #"gameobject_end_use");
+	self.e_object.mdl_gameobject endon(#"death");
+	level waittill(#"all_players_spawned");
+	if(self.m_str_team == #"none")
+	{
+		return;
+	}
+	var_9c2f0815 = (isdefined(self.e_object.var_f66cebb1) ? self.m_str_team : #"none");
+	var_fb20e730 = util::get_players(self.m_str_team);
+	while(var_fb20e730.size)
+	{
+		foreach(e_player in var_fb20e730)
+		{
+			if(function_aa070e6f(e_player) && !isinarray(self.var_2854e7f7, e_player.team) && !e_player isinvehicle())
+			{
+				var_ef387694 = {#targetname:self.e_object.var_f66cebb1, #side:var_9c2f0815, #team:self.m_str_team};
+				if(isdefined(self.e_object.var_fa2dfcb4))
+				{
+					function_58ca2822("itfr_dis_obj", undefined, var_ef387694);
+				}
+				else if(isdefined(self.e_object.var_ff3c99c5))
+				{
+					function_58ca2822("mini_hint_itct", undefined, var_ef387694);
+				}
+				else if(isdefined(self.var_426bccfd))
+				{
+					switch(self.var_426bccfd)
+					{
+						case "door":
+						{
+							function_58ca2822("door_hint_itct", undefined, var_ef387694);
+							break;
+						}
+						case "panel":
+						{
+							function_58ca2822("panl_hint_itct", undefined, var_ef387694);
+							break;
+						}
+						case "radio":
+						{
+							function_58ca2822("rdio_hint_itct", undefined, var_ef387694);
+							break;
+						}
+						case "console":
+						{
+							function_58ca2822("cnsl_hint_itct", undefined, var_ef387694);
+							break;
+						}
+						case "climb":
+						{
+							function_58ca2822("clmb_hint_itct", undefined, var_ef387694);
+							break;
+						}
+						default:
+						{
+							function_58ca2822("gobj_hint_itct", undefined, var_ef387694);
+							break;
+						}
+					}
+				}
+				array::add(self.var_2854e7f7, e_player.team);
+				break;
+			}
+		}
+		wait(1);
+		var_fb20e730 = util::get_players(self.m_str_team);
+	}
+}
+
+/*
+	Name: function_aa070e6f
+	Namespace: cinteractobj
+	Checksum: 0x8C6163A9
+	Offset: 0x10C98
+	Size: 0xD4
+	Parameters: 1
+	Flags: Linked
+*/
+function function_aa070e6f(e_player)
+{
+	if(isdefined(self.e_object) && isdefined(self.e_object.mdl_gameobject) && isdefined(e_player) && (isdefined(self.e_object.mdl_gameobject.b_enabled) && self.e_object.mdl_gameobject.b_enabled))
+	{
+		return distance2dsquared(self.e_object.origin, e_player.origin) < 675 * 675 && e_player util::is_player_looking_at(self.e_object.origin);
+	}
+	return 0;
+}
+
+#namespace gameobjects;
+
+/*
+	Name: cinteractobj
+	Namespace: gameobjects
+	Checksum: 0xF9E0C889
+	Offset: 0x10D78
+	Size: 0x176
+	Parameters: 0
+	Flags: AutoExec, Private, 128
+*/
+private autoexec function cinteractobj()
+{
+	classes.cinteractobj[0] = spawnstruct();
+	classes.cinteractobj[0].__vtable[1442378129] = &cinteractobj::function_aa070e6f;
+	classes.cinteractobj[0].__vtable[1988573622] = &cinteractobj::function_768739b6;
+	classes.cinteractobj[0].__vtable[1835166644] = &cinteractobj::is_valid_gameobject_trigger;
+	classes.cinteractobj[0].__vtable[405623345] = &cinteractobj::create_gameobject_trigger;
+	classes.cinteractobj[0].__vtable[489596092] = &cinteractobj::init_game_object;
+	classes.cinteractobj[0].__vtable[913321084] = &cinteractobj::__destructor;
+	classes.cinteractobj[0].__vtable[674154906] = &cinteractobj::__constructor;
 }
 
 /*
@@ -7053,7 +6967,7 @@ function function_6362d6ea(func)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_fd4a5f2f()
+private function function_fd4a5f2f()
 {
 	if(isdefined(self.mdl_gameobject))
 	{
@@ -7081,16 +6995,13 @@ function play_interact_anim(e_player)
 		{
 			e_align = self.e_object;
 		}
+		else if(isdefined(self.var_75ea46f6) && self.var_75ea46f6)
+		{
+			e_align = e_player;
+		}
 		else
 		{
-			if(isdefined(self.var_75ea46f6) && self.var_75ea46f6)
-			{
-				e_align = e_player;
-			}
-			else
-			{
-				e_align = level;
-			}
+			e_align = level;
 		}
 		a_ents = array(e_player);
 		if(self.type == "carryObject")
@@ -7232,7 +7143,7 @@ function function_c6fa00c2()
 	foreach(contribution in var_1dbb2b2b)
 	{
 		var_9b38d2c0 = contribution.player;
-		percentage = (100 * contribution.contribution) / self.usetime;
+		percentage = 100 * contribution.contribution / self.usetime;
 		var_9b38d2c0.var_759a143b = int(0.5 + percentage);
 		if(var_9b38d2c0.var_759a143b > getgametypesetting(#"hash_1c94fa23e276efe9"))
 		{

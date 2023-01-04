@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -63,14 +63,12 @@ function on_ai_killed(params)
 	if(isplayer(params.eattacker))
 	{
 		params.eattacker thread function_e7750e06(params);
-		if(self.archetype == #"zombie" || self.archetype == #"catalyst")
-		{
+		if(self.archetype == #"zombie" || self.archetype == #"catalyst")		{
 			if(self clientfield::get("sndActorUnderwater"))
 			{
 				params.eattacker thread function_9ac35f47();
 			}
-			if(isdefined(params.einflictor) && params.einflictor.archetype === #"catalyst" && (isdefined(params.einflictor.var_85387c5b) && params.einflictor.var_85387c5b))
-			{
+			if(isdefined(params.einflictor) && params.einflictor.archetype === #"catalyst" && (isdefined(params.einflictor.var_85387c5b) && params.einflictor.var_85387c5b))			{
 				params.eattacker thread function_4060b2c6();
 			}
 		}
@@ -154,9 +152,9 @@ function function_6e60e5b8()
 	while(true)
 	{
 		level waittill(#"end_of_round");
-		if((level.round_number - var_980ea73) >= 5)
+		if(level.round_number - var_980ea73 >= 5)
 		{
-			return true;
+			return 1;
 		}
 	}
 }
@@ -239,13 +237,13 @@ function function_d814403c()
 	while(true)
 	{
 		self waittill(#"pap_taken");
-		if(isdefined(level.s_pap_quest) && isdefined(level.s_pap_quest.var_88aa74e))
+		if(isdefined(level.var_7759c77d) && isdefined(level.var_7759c77d.var_88aa74e))
 		{
 			if(!isdefined(self.var_6ba87fa))
 			{
 				self.var_6ba87fa = [];
 			}
-			if(!isinarray(self.var_6ba87fa, level.s_pap_quest.var_88aa74e.prefabname))
+			if(!isinarray(self.var_6ba87fa, level.var_7759c77d.var_88aa74e.prefabname))
 			{
 				if(!isdefined(self.var_6ba87fa))
 				{
@@ -255,9 +253,9 @@ function function_d814403c()
 				{
 					self.var_6ba87fa = array(self.var_6ba87fa);
 				}
-				if(!isinarray(self.var_6ba87fa, level.s_pap_quest.var_88aa74e.prefabname))
+				if(!isinarray(self.var_6ba87fa, level.var_7759c77d.var_88aa74e.prefabname))
 				{
-					self.var_6ba87fa[self.var_6ba87fa.size] = level.s_pap_quest.var_88aa74e.prefabname;
+					self.var_6ba87fa[self.var_6ba87fa.size] = level.var_7759c77d.var_88aa74e.prefabname;
 				}
 				if(self.var_6ba87fa.size > 3)
 				{

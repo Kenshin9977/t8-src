@@ -57,30 +57,27 @@ function default_onforfeit(team)
 		endreason = game.strings[#"players_forfeited"];
 		winner = level.players[0];
 	}
+	else if(isdefined(level.teams[team]))
+	{
+		endreason = game.strings[team + "_forfeited"];
+		setdvar(#"ui_text_endreason", endreason);
+		winner = getwinningteamfromloser(team);
+	}
 	else
 	{
-		if(isdefined(level.teams[team]))
-		{
-			endreason = game.strings[team + "_forfeited"];
-			setdvar(#"ui_text_endreason", endreason);
-			winner = getwinningteamfromloser(team);
-		}
-		else
-		{
-			/#
-				assert(isdefined(team), "");
-			#/
-			/#
-				assert(0, ("" + team) + "");
-			#/
-			winner = "tie";
-		}
+		/#
+			assert(isdefined(team), "");
+		#/
+		/#
+			assert(0, "" + team + "");
+		#/
+		winner = "tie";
 	}
 	level.forcedend = 1;
 	/#
 		if(isplayer(winner))
 		{
-			print(((("" + winner getxuid()) + "") + winner.name) + "");
+			print("" + winner getxuid() + "" + winner.name + "");
 		}
 		else
 		{
@@ -244,7 +241,7 @@ function default_onscorelimit()
 {
 	if(!level.endgameonscorelimit)
 	{
-		return false;
+		return 0;
 	}
 	winner = undefined;
 	if(level.teambased)
@@ -268,7 +265,7 @@ function default_onscorelimit()
 	}
 	setdvar(#"ui_text_endreason", game.strings[#"score_limit_reached"]);
 	thread globallogic::endgame(winner, game.strings[#"score_limit_reached"]);
-	return true;
+	return 1;
 }
 
 /*
@@ -314,12 +311,7 @@ function default_onspawnintermission()
 	{
 		self spawn(spawnpoint.origin, spawnpoint.angles);
 	}
-	else
-	{
-		/#
-			util::error(("" + spawnpointname) + "");
-		#/
-	}
+	util::error("" + spawnpointname + "");
 }
 
 /*

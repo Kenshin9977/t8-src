@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"scriptmodels", &__init__, undefined, undefined);
 }
@@ -45,7 +45,7 @@ function __init__()
 	Parameters: 1
 	Flags: Private
 */
-function private function_9abee270(model)
+private function function_9abee270(model)
 {
 	/#
 		assert(isdefined(model));

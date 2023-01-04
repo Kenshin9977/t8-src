@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_5bb072c3abf4652c;
-#using script_ab890501c40b73c;
+#using hashed-1\zm_vo.gsc;
+#using hashed-3\contracts.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\exploder_shared.gsc;
 #using scripts\core_common\scene_shared.gsc;
@@ -8,11 +8,11 @@
 #using scripts\zm_common\zm_traps.gsc;
 #using scripts\zm_common\zm_utility.gsc;
 
-#namespace namespace_140c66e4;
+#namespace cschashed-1\script_3ab16fc9b82a7ec7;
 
 /*
 	Name: init
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x65C0DE5
 	Offset: 0x210
 	Size: 0x136
@@ -34,7 +34,7 @@ function init()
 
 /*
 	Name: trap_activate
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0xF2F6BC18
 	Offset: 0x350
 	Size: 0x174
@@ -62,7 +62,7 @@ function trap_activate()
 
 /*
 	Name: trap_cooldown
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0xC338AFDD
 	Offset: 0x4D0
 	Size: 0x44
@@ -78,7 +78,7 @@ function trap_cooldown()
 
 /*
 	Name: trap_audio
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x80F724D1
 	Offset: 0x520
 	Size: 0x4
@@ -91,7 +91,7 @@ function trap_audio()
 
 /*
 	Name: function_c7393b8d
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x4D7F9148
 	Offset: 0x530
 	Size: 0xAC
@@ -110,7 +110,7 @@ function function_c7393b8d(var_9bda8088)
 
 /*
 	Name: trap_damage
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x210BEEB4
 	Offset: 0x5E8
 	Size: 0x444
@@ -132,8 +132,7 @@ function trap_damage(var_9bda8088)
 			n_percent = 35;
 			break;
 		}
-		case "catalyst":
-		{
+		case "catalyst":		{
 			n_percent = 35;
 			break;
 		}
@@ -186,7 +185,7 @@ function trap_damage(var_9bda8088)
 		{
 			if(isdefined(var_9bda8088) && isplayer(var_9bda8088.activated_by_player))
 			{
-				var_9bda8088.activated_by_player thread zm_vo::function_a2bd5a0c(#"hash_150ed78f0557df5f", 0.5, 1, 0, 1);
+				var_9bda8088.activated_by_player thread namespace_891c9bac::function_a2bd5a0c(#"hash_150ed78f0557df5f", 0.5, 1, 0, 1);
 				level.var_bae901ce = undefined;
 			}
 		}
@@ -205,7 +204,7 @@ function trap_damage(var_9bda8088)
 
 /*
 	Name: trap_damage_cooldown
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x7884C8FB
 	Offset: 0xA38
 	Size: 0x26
@@ -223,7 +222,7 @@ function trap_damage_cooldown(e_victim)
 
 /*
 	Name: function_49d1db63
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x3E9B762B
 	Offset: 0xA68
 	Size: 0x16
@@ -238,7 +237,7 @@ function function_49d1db63()
 
 /*
 	Name: function_922c05f
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x6EB2DCBE
 	Offset: 0xA88
 	Size: 0x1C4
@@ -251,29 +250,26 @@ function function_922c05f()
 	{
 		level exploder::exploder("fxexp_trap_bath");
 	}
-	else
+	else if(level.var_c33299e2 == 4 && !level.var_30ec2c9a || level.var_4a0ddedd)
 	{
-		if(level.var_c33299e2 == 4 && !level.var_30ec2c9a || level.var_4a0ddedd)
-		{
-			level function_2b2e6b4();
-			level exploder::exploder("fxexp_trap_bath_bloody_lvl1");
-			level exploder::exploder("exp_lgt_bath_trap");
-			level exploder::stop_exploder("fxexp_trap_bath");
-			level thread function_3a067395("fxexp_trap_bath_bloody_lvl1");
-		}
-		else if(level.var_c33299e2 == 10 || level.var_30ec2c9a)
-		{
-			level function_2b2e6b4();
-			level exploder::exploder("fxexp_trap_bath_bloody_lvl2");
-			level exploder::stop_exploder("fxexp_trap_bath_bloody_lvl1");
-			level thread function_3a067395("fxexp_trap_bath_bloody_lvl2");
-		}
+		level function_2b2e6b4();
+		level exploder::exploder("fxexp_trap_bath_bloody_lvl1");
+		level exploder::exploder("exp_lgt_bath_trap");
+		level exploder::stop_exploder("fxexp_trap_bath");
+		level thread function_3a067395("fxexp_trap_bath_bloody_lvl1");
+	}
+	else if(level.var_c33299e2 == 10 || level.var_30ec2c9a)
+	{
+		level function_2b2e6b4();
+		level exploder::exploder("fxexp_trap_bath_bloody_lvl2");
+		level exploder::stop_exploder("fxexp_trap_bath_bloody_lvl1");
+		level thread function_3a067395("fxexp_trap_bath_bloody_lvl2");
 	}
 }
 
 /*
 	Name: function_3a067395
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0xB50368BC
 	Offset: 0xC58
 	Size: 0x1B4
@@ -313,7 +309,7 @@ function function_3a067395(str_exploder)
 
 /*
 	Name: function_2b2e6b4
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0xC50B49B8
 	Offset: 0xE18
 	Size: 0x5E
@@ -330,7 +326,7 @@ function function_2b2e6b4()
 
 /*
 	Name: function_5bf5b467
-	Namespace: namespace_140c66e4
+	Namespace: cschashed-1\script_3ab16fc9b82a7ec7
 	Checksum: 0x684485CA
 	Offset: 0xE80
 	Size: 0x64

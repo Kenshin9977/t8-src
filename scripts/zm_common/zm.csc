@@ -1,19 +1,19 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_13581d8481dff471;
-#using script_1611421ee9b880d3;
+hashed-3\script_13581d8481dff471.csc;
+hashed-3\script_1611421ee9b880d3.csc;
 #using script_17179876e0e27f8c;
-#using script_1f0690730d18d827;
-#using script_22073723f8f4cda2;
-#using script_2630b7cb2596f8e4;
-#using script_3762ce8163e304e6;
-#using script_3e87d9314f0597ef;
-#using script_4548e05a471de3f5;
-#using script_4c3385b0ecce078c;
-#using script_4e8f5e71e8d29a03;
-#using script_50d6f39176a340a9;
-#using script_6d85b093d74cdfdd;
-#using script_7520bf82a814057c;
-#using script_76b36ed1b7a51ed2;
+hashed-1\script_1f0690730d18d827.csc;
+hashed-3\script_22073723f8f4cda2.csc;
+hashed-3\script_2630b7cb2596f8e4.csc;
+hashed-3\script_3762ce8163e304e6.csc;
+hashed-1\script_3e87d9314f0597ef.csc;
+hashed-3\script_4548e05a471de3f5.csc;
+hashed-1\script_4c3385b0ecce078c.csc;
+hashed-1\script_4e8f5e71e8d29a03.csc;
+hashed-2\script_50d6f39176a340a9.csc;
+hashed-1\script_6d85b093d74cdfdd.csc;
+hashed-3\script_7520bf82a814057c.csc;
+hashed-2\script_76b36ed1b7a51ed2.csc;
 #using scripts\core_common\aat_shared.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\callbacks_shared.csc;
@@ -54,7 +54,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec ignore_systems()
+autoexec function ignore_systems()
 {
 	system::ignore(#"gadget_clone");
 	system::ignore(#"gadget_heat_wave");
@@ -91,7 +91,7 @@ function autoexec ignore_systems()
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm", &__init__, undefined, "renderoverridebundle");
 }
@@ -904,16 +904,16 @@ function has_gibbed_piece(piece_index)
 {
 	if(!isdefined(self.gibbed_pieces))
 	{
-		return false;
+		return 0;
 	}
 	for(i = 0; i < self.gibbed_pieces.size; i++)
 	{
 		if(self.gibbed_pieces[i] == piece_index)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -986,7 +986,7 @@ function do_gib(model, tag)
 	angles = undefined;
 	if(!isdefined(self))
 	{
-		end_pos = start_pos + (anglestoforward(start_angles) * 10);
+		end_pos = start_pos + anglestoforward(start_angles) * 10;
 		angles = start_angles;
 	}
 	else
@@ -1047,9 +1047,9 @@ function check_should_gib()
 {
 	if(level.gibcount <= level.gibmaxcount)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1546,23 +1546,17 @@ function rise_dust_fx(clientnum, type, billow_fx, burst_fx)
 	{
 		effect = level._effect[#"rise_dust_water"];
 	}
-	else
+	else if(type == "snow")
 	{
-		if(type == "snow")
-		{
-			effect = level._effect[#"rise_dust_snow"];
-		}
-		else
-		{
-			if(type == "foliage")
-			{
-				effect = level._effect[#"rise_dust_foliage"];
-			}
-			else if(type == "none")
-			{
-				return;
-			}
-		}
+		effect = level._effect[#"rise_dust_snow"];
+	}
+	else if(type == "foliage")
+	{
+		effect = level._effect[#"rise_dust_foliage"];
+	}
+	else if(type == "none")
+	{
+		return;
 	}
 	t = 0;
 	while(t < dust_time)
@@ -1767,29 +1761,29 @@ function laststand(localclientnum, oldval, newval, bnewent, binitialsnap, fieldn
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_b9c917cc(var_6142f944, str_bundle)
+private function function_b9c917cc(var_6142f944, str_bundle)
 {
 	if(self function_21c0fa55())
 	{
-		return false;
+		return 0;
 	}
 	if(!self function_ca024039())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.var_dc60105c) && level.var_dc60105c)
 	{
-		return false;
+		return 0;
 	}
 	if(isigcactive(var_6142f944))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(self.var_74b9b03b) && self.var_74b9b03b)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1801,25 +1795,25 @@ function private function_b9c917cc(var_6142f944, str_bundle)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_a1ab192(var_6142f944, str_bundle)
+private function function_a1ab192(var_6142f944, str_bundle)
 {
 	if(!self function_b9c917cc(var_6142f944, str_bundle))
 	{
-		return false;
+		return 0;
 	}
 	if(isplayer(self) || self function_21c0fa55() || isdemoplaying())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.var_dc60105c) && level.var_dc60105c)
 	{
-		return false;
+		return 0;
 	}
 	if(isigcactive(var_6142f944))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

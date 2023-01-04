@@ -12,7 +12,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"rewindobjects", &__init__, undefined, undefined);
 }
@@ -124,7 +124,7 @@ function startrewindableevent(localclientnum, timekey)
 			{
 				continue;
 			}
-			starttime = timekey + (int(timedfunction.starttimesec * 1000));
+			starttime = timekey + int(timedfunction.starttimesec * 1000);
 			if(starttime > getservertime(0))
 			{
 				allfunctionsstarted = 0;
@@ -318,7 +318,7 @@ function addrewindableeventtowatcher(starttime, data)
 function servertimedmoveto(localclientnum, startpoint, endpoint, starttime, duration)
 {
 	level endon("demo_jump" + localclientnum);
-	timeelapsed = (getservertime(0) - starttime) * 0.001;
+	timeelapsed = getservertime(0) - starttime * 0.001;
 	/#
 		assert(duration > 0);
 	#/
@@ -336,10 +336,10 @@ function servertimedmoveto(localclientnum, startpoint, endpoint, starttime, dura
 			self.origin = jumppoint;
 		}
 		self moveto(endpoint, movetime, 0, 0);
-		return true;
+		return 1;
 	}
 	self.origin = endpoint;
-	return false;
+	return 0;
 }
 
 /*
@@ -354,7 +354,7 @@ function servertimedmoveto(localclientnum, startpoint, endpoint, starttime, dura
 function servertimedrotateto(localclientnum, angles, starttime, duration, timein, timeout)
 {
 	level endon("demo_jump" + localclientnum);
-	timeelapsed = (getservertime(0) - starttime) * 0.001;
+	timeelapsed = getservertime(0) - starttime * 0.001;
 	if(!isdefined(timein))
 	{
 		timein = 0;
@@ -370,10 +370,10 @@ function servertimedrotateto(localclientnum, angles, starttime, duration, timein
 	{
 		rotatetime = duration - timeelapsed;
 		self rotateto(angles, rotatetime, timein, timeout);
-		return true;
+		return 1;
 	}
 	self.angles = angles;
-	return false;
+	return 0;
 }
 
 /*
@@ -422,7 +422,7 @@ function removecliententonjump(clientent, localclientnum)
 */
 function getpointonline(startpoint, endpoint, ratio)
 {
-	nextpoint = (startpoint[0] + ((endpoint[0] - startpoint[0]) * ratio), startpoint[1] + ((endpoint[1] - startpoint[1]) * ratio), startpoint[2] + ((endpoint[2] - startpoint[2]) * ratio));
+	nextpoint = (startpoint[0] + endpoint[0] - startpoint[0] * ratio, startpoint[1] + endpoint[1] - startpoint[1] * ratio, startpoint[2] + endpoint[2] - startpoint[2] * ratio);
 	return nextpoint;
 }
 

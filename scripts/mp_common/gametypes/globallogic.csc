@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_4029012c9af5b12a;
-#using script_49c434794684964a;
-#using script_6ad3fda349f49bf9;
+hashed-2\script_49c434794684964a.csc;
+hashed-1\script_6ad3fda349f49bf9.csc;
 #using script_6f7d15a072a2565;
 #using scripts\core_common\animation_shared.csc;
 #using scripts\core_common\array_shared.csc;
@@ -24,7 +24,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"globallogic", &__init__, undefined, #"visionset_mgr");
 }
@@ -42,7 +42,7 @@ function __init__()
 {
 	visionset_mgr::register_visionset_info("mpintro", 1, 31, undefined, "mpintro");
 	visionset_mgr::register_visionset_info("crithealth", 1, 25, undefined, "critical_health");
-	animation::add_notetrack_func(#"globallogic::play_plant_sound", &play_plant_sound);
+	animation::add_notetrack_func(#"hash_5228e37ecfe19e98", &play_plant_sound);
 	clientfield::register("world", "game_ended", 1, 1, "int", &on_end_game, 1, 1);
 	clientfield::register("world", "post_game", 1, 1, "int", &post_game, 1, 1);
 	registerclientfield("playercorpse", "firefly_effect", 1, 2, "int", &firefly_effect_cb, 0);
@@ -81,16 +81,16 @@ function __init__()
 	level.new_health_model = getdvarint(#"new_health_model", 1) > 0;
 	if(sessionmodeismultiplayergame())
 	{
-		level.var_90bb9821 = getgametypesetting(#"specialistmaxhealth_allies_1") - 150;
+		level.var_90bb9821 = getgametypesetting(#"hash_2fbdfa4970acbb83") - 150;
 	}
 	else
 	{
 		level.var_90bb9821 = getgametypesetting(#"playermaxhealth") - 150;
 	}
-	setdvar(#"hash_6028c4687677bbc9", getgametypesetting(#"boastenabled"));
-	boastallowcam = getgametypesetting(#"boastallowcam");
-	setdvar(#"hash_23c5d7207ebc0bf9", boastallowcam);
-	setdvar(#"hash_62833d3c5e6d7380", boastallowcam);
+	setdvar(#"hash_6028c4687677bbc9", getgametypesetting(#"hash_321db600709b0707"));
+	var_89ad9c7b = getgametypesetting(#"hash_2ca03c812881d3be");
+	setdvar(#"hash_23c5d7207ebc0bf9", var_89ad9c7b);
+	setdvar(#"hash_62833d3c5e6d7380", var_89ad9c7b);
 	setdvar(#"hash_e099986c072eb0f", getgametypesetting(#"hash_104f124f56f0f20a"));
 	setdvar(#"hash_553ad8f9db24bf22", int(1000 * getgametypesetting(#"hash_1614b9cbe0df6f75")));
 	callback::on_spawned(&on_player_spawned);
@@ -179,7 +179,7 @@ function annihilate_effect_cb(localclientnum, oldval, newval, bnewent, binitials
 		{
 			where = self.origin;
 		}
-		where = where + (vectorscale((0, 0, -1), 40));
+		where = where + vectorscale((0, 0, -1), 40);
 		character_index = self getcharacterbodytype();
 		fields = getcharacterfields(character_index, currentsessionmode());
 		if(isdefined(fields) && isdefined(fields.fullbodyexplosion) && fields.fullbodyexplosion !== "")

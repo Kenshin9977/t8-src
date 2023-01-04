@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_13ba67412d79c7f;
-#using script_151cd5772fe546db;
-#using script_2f226180773b89b9;
+hashed-2\script_13ba67412d79c7f.csc;
+hashed-2\script_151cd5772fe546db.csc;
+hashed-1\script_2f226180773b89b9.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\struct.csc;
@@ -30,10 +30,10 @@ event main(eventstruct)
 	level._zombie_gamemodemain = &onstartgametype;
 	for(i = 0; i < 4; i++)
 	{
-		clientfield::register("worlduimodel", ("PlayerList.client" + i) + ".playerIsDowned", 1, 1, "int", undefined, 0, 0);
-		clientfield::register("worlduimodel", ("PlayerList.client" + i) + ".multiplier_count", 1, 12, "int", undefined, 0, 0);
-		clientfield::register("worlduimodel", ("PlayerList.client" + i) + ".multiplier_blink", 1, 1, "int", undefined, 0, 0);
-		clientfield::register("worlduimodel", ("PlayerList.client" + i) + ".self_revives", 1, 8, "int", undefined, 0, 0);
+		clientfield::register("worlduimodel", "PlayerList.client" + i + ".playerIsDowned", 1, 1, "int", undefined, 0, 0);
+		clientfield::register("worlduimodel", "PlayerList.client" + i + ".multiplier_count", 1, 12, "int", undefined, 0, 0);
+		clientfield::register("worlduimodel", "PlayerList.client" + i + ".multiplier_blink", 1, 1, "int", undefined, 0, 0);
+		clientfield::register("worlduimodel", "PlayerList.client" + i + ".self_revives", 1, 8, "int", undefined, 0, 0);
 	}
 }
 
@@ -46,7 +46,7 @@ event main(eventstruct)
 	Parameters: 1
 	Flags: Private
 */
-function private finalize_clientfields(localclientnum)
+private function finalize_clientfields(localclientnum)
 {
 	clientfield::register("toplayer", "zm_trials_timer", 1, getminbitcountfornum(540), "int", &function_bb753058, 0, 1);
 	clientfield::register("worlduimodel", "ZMHudGlobal.trials.gameStartTime", 1, 31, "int", undefined, 0, 0);
@@ -87,9 +87,9 @@ function onstartgametype()
 	Parameters: 1
 	Flags: Private
 */
-function private on_localplayer_connect(localclientnum)
+private function on_localplayer_connect(localclientnum)
 {
-	timer_model = function_c8b7588d(localclientnum);
+	var_b0871863 = function_c8b7588d(localclientnum);
 	setuimodelvalue(timer_model, 0);
 }
 
@@ -102,7 +102,7 @@ function private on_localplayer_connect(localclientnum)
 	Parameters: 1
 	Flags: Private
 */
-function private function_c8b7588d(localclientnum)
+private function function_c8b7588d(localclientnum)
 {
 	controller_model = getuimodelforcontroller(localclientnum);
 	return createuimodel(controller_model, "ZMHud.trialsTimer");
@@ -117,11 +117,11 @@ function private function_c8b7588d(localclientnum)
 	Parameters: 7
 	Flags: Private
 */
-function private function_bb753058(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
+private function function_bb753058(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
 {
 	if(!function_65b9eb0f(localclientnum))
 	{
-		timer_model = function_c8b7588d(localclientnum);
+		var_b0871863 = function_c8b7588d(localclientnum);
 		duration_msec = newval * 1000;
 		setuimodelvalue(timer_model, getservertime(localclientnum, 1) + duration_msec);
 	}

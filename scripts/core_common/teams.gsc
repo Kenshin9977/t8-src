@@ -96,9 +96,9 @@ function function_6d86768e(team)
 	team_players = getplayers(team);
 	if(team_players.size > 0)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -117,7 +117,7 @@ function function_959bac94()
 		if(self function_6d86768e(team))
 		{
 			/#
-				println(((("" + "") + self.name) + "") + team);
+				println("" + "" + self.name + "" + team);
 			#/
 			/#
 				function_d28f6fa0(team);
@@ -137,7 +137,7 @@ function function_959bac94()
 	Parameters: 1
 	Flags: Private
 */
-function private function_ba459d03(team)
+private function function_ba459d03(team)
 {
 	/#
 		if(isdefined(level.var_ba13fb7a) && level.var_ba13fb7a)
@@ -156,7 +156,7 @@ function private function_ba459d03(team)
 			{
 				voip = voip + "";
 			}
-			println(((((("" + "") + self.name) + "") + var_54e8d52e) + "") + voip);
+			println("" + "" + self.name + "" + var_54e8d52e + "" + voip);
 		}
 	#/
 }

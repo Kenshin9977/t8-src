@@ -455,7 +455,7 @@ function wait_till_match(array, str_notify, str_match, n_timeout)
 function _waitlogic_match(s_tracker, str_notify, str_match)
 {
 	self endon(#"death");
-	self waittillmatch(str_match, str_notify);
+	self waittill_match(str_match, str_notify);
 	update_waitlogic_tracker(s_tracker);
 }
 
@@ -917,7 +917,7 @@ function replace(array, value, replacement)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_80fe1cb6(a, b)
+private function function_80fe1cb6(a, b)
 {
 	return a === b;
 }
@@ -1021,7 +1021,7 @@ function get_all_closest(org, array, excluders = [], max = array.size, maxdist)
 		change = 0;
 		for(i = 0; i < dist.size - 1; i++)
 		{
-			if(dist[i] <= (dist[i + 1]))
+			if(dist[i] <= dist[i + 1])
 			{
 				continue;
 			}
@@ -1305,10 +1305,10 @@ function is_touching(a_ents, e_volume)
 	{
 		if(!e_ent istouching(e_volume))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1363,7 +1363,7 @@ function quick_sort(array, compare_func)
 */
 function quick_sort_mid(array, start, end, compare_func)
 {
-	if((end - start) >= 1)
+	if(end - start >= 1)
 	{
 		if(!isdefined(compare_func))
 		{
@@ -1553,7 +1553,7 @@ function function_d1f43a84(max_entries, minval, maxval, compare_func, var_c8e96e
 			var_c8e96eee = 1;
 		}
 		var_365f3054 = randomintrange(0, max_entries);
-		println(((((("" + var_365f3054) + "") + minval) + "") + maxval) + "");
+		println("" + var_365f3054 + "" + minval + "" + maxval + "");
 		source_array = [];
 		for(i = 0; i < var_365f3054; i++)
 		{
@@ -1574,7 +1574,7 @@ function function_d1f43a84(max_entries, minval, maxval, compare_func, var_c8e96e
 			for(i = 0; i < var_365f3054 - 1; i++)
 			{
 				/#
-					assert(sorted_array[i] <= (sorted_array[i + 1]), "");
+					assert(sorted_array[i] <= sorted_array[i + 1], "");
 				#/
 			}
 		}
@@ -1583,7 +1583,7 @@ function function_d1f43a84(max_entries, minval, maxval, compare_func, var_c8e96e
 			for(i = 0; i < var_365f3054 - 1; i++)
 			{
 				/#
-					assert(sorted_array[i] >= (sorted_array[i + 1]), "");
+					assert(sorted_array[i] >= sorted_array[i + 1], "");
 				#/
 			}
 		}
@@ -1650,7 +1650,7 @@ function function_70daaa9d(max_entries, minval, maxval, compare_func, var_c8e96e
 			var_c8e96eee = 1;
 		}
 		var_365f3054 = randomintrange(0, max_entries);
-		println(((((("" + var_365f3054) + "") + minval) + "") + maxval) + "");
+		println("" + var_365f3054 + "" + minval + "" + maxval + "");
 		source_array = [];
 		for(i = 0; i < var_365f3054; i++)
 		{
@@ -1671,7 +1671,7 @@ function function_70daaa9d(max_entries, minval, maxval, compare_func, var_c8e96e
 			for(i = 0; i < var_365f3054 - 1; i++)
 			{
 				/#
-					assert(sorted_array[i] <= (sorted_array[i + 1]), "");
+					assert(sorted_array[i] <= sorted_array[i + 1], "");
 				#/
 			}
 		}
@@ -1680,7 +1680,7 @@ function function_70daaa9d(max_entries, minval, maxval, compare_func, var_c8e96e
 			for(i = 0; i < var_365f3054 - 1; i++)
 			{
 				/#
-					assert(sorted_array[i] >= (sorted_array[i + 1]), "");
+					assert(sorted_array[i] >= sorted_array[i + 1], "");
 				#/
 			}
 		}

@@ -1,9 +1,9 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_229f24b1662651c4;
-#using script_2c49ae69cd8ce30c;
-#using script_3f27a7b2232674db;
+#using hashed-2\killstreaks.gsc;
+#using hashed-1\player_36.gsc;
+#using hashed-1\player_role.gsc;
 #using script_4c8dba49908aecc2;
-#using script_6c8abe14025b47c4;
+#using hashed-1\killstreaks.gsc;
 #using scripts\core_common\gameobjects_shared.gsc;
 #using scripts\core_common\spawning_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
@@ -58,7 +58,7 @@ event main(eventstruct)
 	globallogic_spawn::addsupportedspawnpointtype("tdm");
 	if(util::function_8570168d())
 	{
-		namespace_9096c917::init();
+		cschashed-2\script_28a20e497bd69c36::init();
 	}
 	if(getdvarint(#"hash_5795d85dc4b1b0d9", 0))
 	{
@@ -201,7 +201,7 @@ function onscoreclosemusic()
 			}
 		}
 		scoredif = topscore - runnerupscore;
-		if(topscore >= (scorelimit * 0.5))
+		if(topscore >= scorelimit * 0.5)
 		{
 			level notify(#"sndmusichalfway");
 			return;

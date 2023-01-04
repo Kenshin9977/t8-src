@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"demo", &__init__, undefined, undefined);
 }
@@ -44,7 +44,7 @@ function __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private init()
+private function init()
 {
 	potm::function_d71338e4();
 }
@@ -58,7 +58,7 @@ function private init()
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_4ba58938(bookmark, overrideentitycamera)
+private function function_4ba58938(bookmark, overrideentitycamera)
 {
 	if(!isdefined(bookmark))
 	{
@@ -146,7 +146,7 @@ function function_c6ae5fd6(var_65e76577, winningteamindex, losingteamindex)
 	if(!isdefined(bookmark))
 	{
 		/#
-			println(("" + var_65e76577) + "");
+			println("" + var_65e76577 + "");
 		#/
 		return;
 	}

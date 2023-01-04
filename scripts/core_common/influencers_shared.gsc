@@ -14,7 +14,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"influencers_shared", &__init__, undefined, undefined);
 }
@@ -174,7 +174,7 @@ function get_enemy_team_mask(team)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private add_influencer_tracker(influencer, name)
+private function add_influencer_tracker(influencer, name)
 {
 	if(!isdefined(self.influencers))
 	{
@@ -210,16 +210,13 @@ function create_influencer_generic(str_name, origin_or_entity, str_team, is_for_
 	{
 		team_mask = level.spawnsystem.ispawn_teammask[#"all"];
 	}
+	else if(is_for_enemy)
+	{
+		team_mask = self get_enemy_team_mask(str_team);
+	}
 	else
 	{
-		if(is_for_enemy)
-		{
-			team_mask = self get_enemy_team_mask(str_team);
-		}
-		else
-		{
-			team_mask = self get_friendly_team_mask(str_team);
-		}
+		team_mask = self get_friendly_team_mask(str_team);
 	}
 	if(isentity(origin_or_entity))
 	{
@@ -364,19 +361,16 @@ function create_player_influencers()
 		team_mask = level.spawnsystem.ispawn_teammask_free;
 		enemy_teams_mask = level.spawnsystem.ispawn_teammask_free;
 	}
+	else if(isdefined(self.pers[#"team"]))
+	{
+		team = self.pers[#"team"];
+		team_mask = util::getteammask(team);
+		enemy_teams_mask = util::getotherteamsmask(team);
+	}
 	else
 	{
-		if(isdefined(self.pers[#"team"]))
-		{
-			team = self.pers[#"team"];
-			team_mask = util::getteammask(team);
-			enemy_teams_mask = util::getotherteamsmask(team);
-		}
-		else
-		{
-			team_mask = 0;
-			enemy_teams_mask = 0;
-		}
+		team_mask = 0;
+		enemy_teams_mask = 0;
 	}
 	angles = self.angles;
 	origin = self.origin;
@@ -414,7 +408,7 @@ function create_player_spawn_influencers(spawn_origin)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private remove_influencer_tracking(to_be_removed)
+private function remove_influencer_tracking(to_be_removed)
 {
 	if(isdefined(self.influencers))
 	{
@@ -434,7 +428,7 @@ function private remove_influencer_tracking(to_be_removed)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private is_influencer_tracked(influencer)
+private function is_influencer_tracked(influencer)
 {
 	if(isdefined(self.influencers))
 	{
@@ -442,11 +436,11 @@ function private is_influencer_tracked(influencer)
 		{
 			if(isinarray(influencer_name_array, influencer))
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -568,12 +562,7 @@ function create_map_placed_influencer(influencer_entity)
 		team_mask = util::getteammask(influencer_entity.script_team);
 		level create_enemy_influencer(influencer_entity.script_noteworty, influencer_entity.origin, team_mask);
 	}
-	else
-	{
-		/#
-			assertmsg("");
-		#/
-	}
+	assertmsg("");
 	return influencer_id;
 }
 
@@ -594,7 +583,7 @@ function create_turret_influencer(name)
 	{
 		return;
 	}
-	projected_point = turret.origin + (vectorscale(anglestoforward(turret.angles), preset[#"radius"] * 0.7));
+	projected_point = turret.origin + vectorscale(anglestoforward(turret.angles), preset[#"radius"] * 0.7);
 	return create_enemy_influencer(name, turret.origin, turret.team);
 }
 

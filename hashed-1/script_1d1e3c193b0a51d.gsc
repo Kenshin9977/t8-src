@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_27c22e1d8df4d852;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6021ce59143452c3;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_2f326252a6b5175", &__init__, undefined, undefined);
 }
@@ -35,11 +35,11 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_322751dde777c910", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_322751dde777c910", &function_d1de6a85, &function_9e7b3f4d);
 }
 
 /*
@@ -51,10 +51,10 @@ function __init__()
 	Parameters: 2
 	Flags: Private
 */
-function private function_d1de6a85(var_c8a36f90, var_16e6b8ea)
+private function function_d1de6a85(var_c8a36f90, var_16e6b8ea)
 {
 	level.var_a96e21f8 = (isdefined(var_c8a36f90) ? var_c8a36f90 : "movement");
-	var_16e6b8ea = zm_trial::function_5769f26a(var_16e6b8ea);
+	var_16e6b8ea = cschashed-1\script_3c362258ff800237::function_5769f26a(var_16e6b8ea);
 	foreach(player in getplayers())
 	{
 		player thread function_1633056a(var_16e6b8ea);
@@ -70,7 +70,7 @@ function private function_d1de6a85(var_c8a36f90, var_16e6b8ea)
 	Parameters: 1
 	Flags: Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 	level.var_a96e21f8 = undefined;
 }
@@ -84,7 +84,7 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 1
 	Flags: Private
 */
-function private function_1633056a(var_16e6b8ea = 10)
+private function function_1633056a(var_16e6b8ea = 10)
 {
 	self endon(#"disconnect");
 	level endon(#"hash_7646638df88a3656");
@@ -109,7 +109,7 @@ function private function_1633056a(var_16e6b8ea = 10)
 	Parameters: 0
 	Flags: Private
 */
-function private function_c81cdba2()
+private function function_c81cdba2()
 {
 	switch(level.var_a96e21f8)
 	{
@@ -118,41 +118,41 @@ function private function_c81cdba2()
 			var_389b3ef1 = self playerads();
 			if(self adsbuttonpressed() && var_389b3ef1 > 0)
 			{
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 		case "jump":
 		{
 			if(self zm_utility::is_jumping())
 			{
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 		case "slide":
 		{
 			if(self issliding())
 			{
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 		case "crouch":
 		{
 			if(self getstance() === "crouch")
 			{
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 		case "sprint":
 		{
 			if(self issprinting())
 			{
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 		case "movement":
 		default:
@@ -160,11 +160,11 @@ function private function_c81cdba2()
 			v_velocity = self getvelocity();
 			if(length(v_velocity) != 0)
 			{
-				return true;
+				return 1;
 			}
-			return false;
+			return 0;
 		}
 	}
-	return false;
+	return 0;
 }
 

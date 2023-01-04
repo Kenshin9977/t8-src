@@ -7,25 +7,25 @@
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
 
-#namespace namespace_db48768d;
+#namespace cschashed-1\script_2ba889640a9676f3;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x2EC65E46
 	Offset: 0x190
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_2d11bcef9355cc81", &__init__, &__main__, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x9532A65
 	Offset: 0x1E0
 	Size: 0x46
@@ -41,7 +41,7 @@ function __init__()
 
 /*
 	Name: __main__
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x8036CBF6
 	Offset: 0x230
 	Size: 0x7C
@@ -59,7 +59,7 @@ function __main__()
 
 /*
 	Name: init_clientfields
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x8EFC9850
 	Offset: 0x2B8
 	Size: 0x124
@@ -78,7 +78,7 @@ function init_clientfields()
 
 /*
 	Name: function_3d4e24ea
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x49667EAB
 	Offset: 0x3E8
 	Size: 0x32
@@ -92,7 +92,7 @@ function function_3d4e24ea()
 
 /*
 	Name: ship_lights_control
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0xFEC67597
 	Offset: 0x428
 	Size: 0x3C
@@ -107,7 +107,7 @@ function ship_lights_control()
 
 /*
 	Name: lighthouse_lights_control
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0xF2134B0E
 	Offset: 0x470
 	Size: 0x3C
@@ -122,7 +122,7 @@ function lighthouse_lights_control()
 
 /*
 	Name: facility_lights_control
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x120A031A
 	Offset: 0x4B8
 	Size: 0x3C
@@ -137,7 +137,7 @@ function facility_lights_control()
 
 /*
 	Name: infusion_lights_hot
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x4E59D0DD
 	Offset: 0x500
 	Size: 0x84
@@ -154,7 +154,7 @@ function infusion_lights_hot()
 
 /*
 	Name: infusion_lights_cold
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x628FC982
 	Offset: 0x590
 	Size: 0x84
@@ -171,7 +171,7 @@ function infusion_lights_cold()
 
 /*
 	Name: function_e9f6e0f7
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0xF9779F80
 	Offset: 0x620
 	Size: 0x11C
@@ -185,20 +185,20 @@ function function_e9f6e0f7()
 	var_a6323eb5.tag = util::spawn_model("tag_origin", s_lgt_spawner.origin);
 	var_a6323eb5.tag.angles = s_lgt_spawner.angles;
 	level.registerglass_railing_kickedleader = level._effect[#"hash_723a7c4a495d1008"];
-	var_a6323eb5.var_82acd734 = playfxontag(level.registerglass_railing_kickedleader, var_a6323eb5.tag, "tag_origin");
+	var_a6323eb5.var_82acd734 = playfxontag(level.var_e0cad096, var_a6323eb5.tag, "tag_origin");
 	var_a6323eb5.var_82acd734 linkto(var_a6323eb5);
 }
 
 /*
 	Name: function_35b30784
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0x79CD4D52
 	Offset: 0x748
 	Size: 0x4C
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_35b30784(string)
+private function function_35b30784(string)
 {
 	if(!isdefined(level.var_7b4e19aa))
 	{
@@ -209,7 +209,7 @@ function private function_35b30784(string)
 
 /*
 	Name: function_b1c6d4f2
-	Namespace: namespace_db48768d
+	Namespace: cschashed-1\script_2ba889640a9676f3
 	Checksum: 0xDDB108E9
 	Offset: 0x7A0
 	Size: 0xC4

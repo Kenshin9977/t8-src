@@ -1,8 +1,8 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_256b8879317373de;
-#using script_5399f402045d7abd;
-#using script_545a0bac37bda541;
-#using script_70a43d6ba27cff6a;
+#using hashed-2\player_201.gsc;
+#using hashed-3\weapon_utils.gsc;
+#using hashed-2\globallogic_score.gsc;
+#using hashed-2\globallogic_player.gsc;
 #using script_b52a163973f339f;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\bb_shared.gsc;
@@ -62,7 +62,7 @@ function freezeplayerforroundend()
 */
 function callback_playerconnect()
 {
-	zm_characters::set_character();
+	cschashed-1\script_2c454d63a96d2d0b::set_character();
 	self thread zm::initialblack();
 	thread notifyconnecting();
 	self.statusicon = "$default";
@@ -216,7 +216,7 @@ function callback_playerconnect()
 		self setclientuivisibilityflag("hud_visible", 0);
 		self [[level.spawnintermission]]();
 		self closeingamemenu();
-		profilelog_endtiming(4, (("gs=" + game.state) + " zom=") + sessionmodeiszombiesgame());
+		profilelog_endtiming(4, "gs=" + game.state + " zom=" + sessionmodeiszombiesgame());
 		return;
 	}
 	if(self istestclient())
@@ -272,32 +272,29 @@ function callback_playerconnect()
 			self thread spectating::setspectatepermissions();
 		}
 	}
+	else if(self.pers[#"team"] == "spectator")
+	{
+		[[level.spawnspectator]]();
+		self.sessionteam = "spectator";
+		self.sessionstate = "spectator";
+		self thread spectate_player_watcher();
+	}
 	else
 	{
-		if(self.pers[#"team"] == "spectator")
+		self.sessionteam = self.pers[#"team"];
+		self.sessionstate = "dead";
+		[[level.spawnspectator]]();
+		if(globallogic_utils::isvalidclass(self.pers[#"class"]))
 		{
-			[[level.spawnspectator]]();
-			self.sessionteam = "spectator";
-			self.sessionstate = "spectator";
-			self thread spectate_player_watcher();
+			self thread [[level.spawnclient]]();
 		}
-		else
-		{
-			self.sessionteam = self.pers[#"team"];
-			self.sessionstate = "dead";
-			[[level.spawnspectator]]();
-			if(globallogic_utils::isvalidclass(self.pers[#"class"]))
-			{
-				self thread [[level.spawnclient]]();
-			}
-			self thread spectating::setspectatepermissions();
-		}
+		self thread spectating::setspectatepermissions();
 	}
 	if(self.sessionteam != "spectator")
 	{
 		self thread spawning::onspawnplayer_unified(1);
 	}
-	profilelog_endtiming(4, (("gs=" + game.state) + " zom=") + sessionmodeiszombiesgame());
+	profilelog_endtiming(4, "gs=" + game.state + " zom=" + sessionmodeiszombiesgame());
 	if(!isdefined(level.players))
 	{
 		level.players = [];
@@ -337,14 +334,14 @@ function spectate_player_watcher()
 		else
 		{
 			/#
-				self hud::showperks();
-			#/
-			if(!level.splitscreen && !level.hardcoremode && getdvarint(#"scr_showperksonspawn", 0) == 1 && game.state != "" && !isdefined(self.perkhudelem))
-			{
-				if(level.perksenabled == 1)
+				if(!level.splitscreen && !level.hardcoremode && getdvarint(#"scr_showperksonspawn", 0) == 1 && game.state != "" && !isdefined(self.perkhudelem))
 				{
+					if(level.perksenabled == 1)
+					{
+						self hud::showperks();
+					}
 				}
-			}
+			#/
 			count = 0;
 			for(i = 0; i < level.players.size; i++)
 			{
@@ -365,15 +362,12 @@ function spectate_player_watcher()
 				}
 				self.watchingactiveclient = 1;
 			}
-			else
+			else if(self.watchingactiveclient)
 			{
-				if(self.watchingactiveclient)
-				{
-					[[level.onspawnspectator]]();
-					self val::set(#"spectate", "freezecontrols", 1);
-				}
-				self.watchingactiveclient = 0;
+				[[level.onspawnspectator]]();
+				self val::set(#"spectate", "freezecontrols", 1);
 			}
+			self.watchingactiveclient = 0;
 			wait(0.5);
 		}
 	}
@@ -391,11 +385,11 @@ function spectate_player_watcher()
 function callback_playermigrated()
 {
 	/#
-		println((("" + self.name) + "") + gettime());
+		println("" + self.name + "" + gettime());
 	#/
 	self thread inform_clientvm_of_migration();
 	level.hostmigrationreturnedplayercount++;
-	if(level.hostmigrationreturnedplayercount >= ((level.players.size * 2) / 3))
+	if(level.hostmigrationreturnedplayercount >= level.players.size * 2 / 3)
 	{
 		/#
 			println("");
@@ -434,7 +428,7 @@ function arraytostring(inputarray)
 	for(i = 0; i < inputarray.size; i++)
 	{
 		targetstring = targetstring + inputarray[i];
-		if(i != (inputarray.size - 1))
+		if(i != inputarray.size - 1)
 		{
 			targetstring = targetstring + ",";
 		}
@@ -549,7 +543,7 @@ function callback_playerdisconnect()
 	if(isdefined(self.score) && isdefined(self.pers) && isdefined(self.pers[#"team"]))
 	{
 		/#
-			print((("" + self.pers[#"team"]) + "") + self.score);
+			print("" + self.pers[#"team"] + "" + self.score);
 		#/
 		level.dropteam = level.dropteam + 1;
 	}
@@ -597,7 +591,7 @@ function callback_playerdisconnect()
 		self globallogic::removedisconnectedplayerfromplacement();
 	}
 	globallogic::updateteamstatus();
-	profilelog_endtiming(5, (("gs=" + game.state) + " zom=") + sessionmodeiszombiesgame());
+	profilelog_endtiming(5, "gs=" + game.state + " zom=" + sessionmodeiszombiesgame());
 }
 
 /*

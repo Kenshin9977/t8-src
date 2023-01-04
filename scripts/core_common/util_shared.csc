@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_72d4466ce2e2cc7b;
+hashed-2\script_72d4466ce2e2cc7b.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\system_shared.csc;
 #using scripts\core_common\util_shared.csc;
@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"util_shared", &__init__, undefined, undefined);
 }
@@ -33,7 +33,7 @@ function __init__()
 {
 	function_73fab74d();
 	register_clientfields();
-	namespace_1e38a8f6::init();
+	cschashed-2\script_72d4466ce2e2cc7b::init();
 }
 
 /*
@@ -466,7 +466,7 @@ function function_e532f5da(n_timeout, ent1, string1, ent2, string2, ent3, string
 	{
 		ent5 endon(string5);
 	}
-	ent1 waittilltimeout(n_timeout, string1);
+	ent1 waittill_timeout(n_timeout, string1);
 }
 
 /*
@@ -761,44 +761,29 @@ function single_thread(entity, func, arg1, arg2, arg3, arg4, arg5, arg6)
 	{
 		entity thread [[func]](arg1, arg2, arg3, arg4, arg5, arg6);
 	}
+	else if(isdefined(arg5))
+	{
+		entity thread [[func]](arg1, arg2, arg3, arg4, arg5);
+	}
+	else if(isdefined(arg4))
+	{
+		entity thread [[func]](arg1, arg2, arg3, arg4);
+	}
+	else if(isdefined(arg3))
+	{
+		entity thread [[func]](arg1, arg2, arg3);
+	}
+	else if(isdefined(arg2))
+	{
+		entity thread [[func]](arg1, arg2);
+	}
+	else if(isdefined(arg1))
+	{
+		entity thread [[func]](arg1);
+	}
 	else
 	{
-		if(isdefined(arg5))
-		{
-			entity thread [[func]](arg1, arg2, arg3, arg4, arg5);
-		}
-		else
-		{
-			if(isdefined(arg4))
-			{
-				entity thread [[func]](arg1, arg2, arg3, arg4);
-			}
-			else
-			{
-				if(isdefined(arg3))
-				{
-					entity thread [[func]](arg1, arg2, arg3);
-				}
-				else
-				{
-					if(isdefined(arg2))
-					{
-						entity thread [[func]](arg1, arg2);
-					}
-					else
-					{
-						if(isdefined(arg1))
-						{
-							entity thread [[func]](arg1);
-						}
-						else
-						{
-							entity thread [[func]]();
-						}
-					}
-				}
-			}
-		}
+		entity thread [[func]]();
 	}
 }
 
@@ -1129,7 +1114,7 @@ function get_eye()
 */
 function spawn_player_arms()
 {
-	arms = spawn(self getlocalclientnumber(), self.origin + (vectorscale((0, 0, -1), 1000)), "script_model");
+	arms = spawn(self getlocalclientnumber(), self.origin + vectorscale((0, 0, -1), 1000), "script_model");
 	if(isdefined(level.player_viewmodel))
 	{
 		arms setmodel(level.player_viewmodel);
@@ -1194,11 +1179,11 @@ function is_valid_type_for_callback(type)
 		case "vehicle":
 		case "plane":
 		{
-			return true;
+			return 1;
 		}
 		default:
 		{
-			return false;
+			return 0;
 		}
 	}
 }
@@ -1381,7 +1366,7 @@ function server_wait(localclientnum, seconds, waitbetweenchecks, level_endon)
 		waitcompletedsuccessfully = 0;
 		starttime = getservertime(0);
 		lasttime = starttime;
-		endtime = starttime + (int(seconds * 1000));
+		endtime = starttime + int(seconds * 1000);
 		while(getservertime(0) < endtime && getservertime(0) >= lasttime)
 		{
 			lasttime = getservertime(0);
@@ -1435,17 +1420,17 @@ function function_fbce7263(team_a, team_b)
 {
 	if(team_a === team_b)
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(team_a) || !isdefined(team_b))
 	{
-		return true;
+		return 1;
 	}
 	if(function_b37afded(team_a, team_b))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1478,24 +1463,24 @@ function isenemyplayer(player)
 	#/
 	if(!isplayer(player))
 	{
-		return false;
+		return 0;
 	}
 	if(player.team != "free")
 	{
 		if(player.team === self.team)
 		{
-			return false;
+			return 0;
 		}
 		if(function_b37afded(player.team, self.team))
 		{
-			return false;
+			return 0;
 		}
 	}
 	else if(player == self)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1512,25 +1497,25 @@ function function_50ed1561(localclientnum)
 	function_89a98f85();
 	if(!isdefined(self))
 	{
-		return false;
+		return 0;
 	}
 	if(!self function_21c0fa55())
 	{
-		return false;
+		return 0;
 	}
 	if(function_65b9eb0f(localclientnum))
 	{
-		return false;
+		return 0;
 	}
 	if(localclientnum !== self getlocalclientnumber())
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.localplayers[localclientnum]) && self getentitynumber() != level.localplayers[localclientnum] getentitynumber())
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1546,13 +1531,13 @@ function is_player_view_linked_to_entity(localclientnum)
 {
 	if(function_fd3d58c7(localclientnum))
 	{
-		return true;
+		return 1;
 	}
 	if(function_e75c64a4(localclientnum))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1595,7 +1580,7 @@ function note_elapsed_time(start_time, label = "unspecified")
 		{
 			elapsed_time = int(elapsed_time);
 		}
-		msg = ((label + "") + elapsed_time) + "";
+		msg = label + "" + elapsed_time + "";
 		profileprintln(msg);
 		iprintlnbold(msg);
 	#/
@@ -1640,7 +1625,7 @@ function note_elapsed_times(elapsed_time_array, label = "unspecified")
 		{
 			return;
 		}
-		msg = (label + "") + elapsed_time_array.size;
+		msg = label + "" + elapsed_time_array.size;
 		profileprintln(msg);
 		if(elapsed_time_array.size == 0)
 		{
@@ -1669,16 +1654,16 @@ function note_elapsed_times(elapsed_time_array, label = "unspecified")
 			{
 				elapsed_time = int(elapsed_time);
 			}
-			msg = ((label + "") + elapsed_time) + "";
+			msg = label + "" + elapsed_time + "";
 			profileprintln(msg);
 		}
 		average_elapsed_time = total_elapsed_time / elapsed_time_array.size;
-		msg = ((label + "") + average_elapsed_time) + "";
+		msg = label + "" + average_elapsed_time + "";
 		profileprintln(msg);
 		iprintlnbold(msg);
-		msg = ((label + "") + largest_elapsed_time) + "";
+		msg = label + "" + largest_elapsed_time + "";
 		profileprintln(msg);
-		msg = ((label + "") + smallest_elapsed_time) + "";
+		msg = label + "" + smallest_elapsed_time + "";
 		profileprintln(msg);
 	#/
 }
@@ -1803,9 +1788,9 @@ function is_gib_restricted_build()
 {
 	if(!(ismaturecontentenabled() && isshowgibsenabled()))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1922,17 +1907,17 @@ function ent_already_in_trigger(trig)
 {
 	if(!isdefined(self._triggers))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(self._triggers[trig getentitynumber()]))
 	{
-		return false;
+		return 0;
 	}
 	if(!self._triggers[trig getentitynumber()])
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -2163,7 +2148,7 @@ function releaseobjid(localclientnum, objid)
 */
 function is_safehouse(str_next_map = function_53bbf9d2())
 {
-	return false;
+	return 0;
 }
 
 /*
@@ -2194,23 +2179,20 @@ function button_held_think(which_button)
 					self._holding_button[which_button] = 0;
 				}
 			}
-			else
+			else if(self [[level._button_funcs[which_button]]]())
 			{
-				if(self [[level._button_funcs[which_button]]]())
+				if(time_started == 0)
 				{
-					if(time_started == 0)
-					{
-						time_started = gettime();
-					}
-					if(gettime() - time_started > 250)
-					{
-						self._holding_button[which_button] = 1;
-					}
+					time_started = gettime();
 				}
-				else if(time_started != 0)
+				if(gettime() - time_started > 250)
 				{
-					time_started = 0;
+					self._holding_button[which_button] = 1;
 				}
+			}
+			else if(time_started != 0)
+			{
+				time_started = 0;
 			}
 			waitframe(1);
 		}
@@ -2628,11 +2610,11 @@ function function_35aed314(teama, teamb)
 	teamb = get_team_mapping(teamb);
 	if(!isdefined(teama) || !isdefined(teamb))
 	{
-		return false;
+		return 0;
 	}
 	if(teama == teamb)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.var_766875b1))
 	{
@@ -2640,26 +2622,26 @@ function function_35aed314(teama, teamb)
 		{
 			if(#"any" == level.var_766875b1[teama])
 			{
-				return true;
+				return 1;
 			}
 			if(teamb == level.var_766875b1[teama])
 			{
-				return true;
+				return 1;
 			}
 		}
 		if(isdefined(level.var_766875b1[teamb]))
 		{
 			if(#"any" == level.var_766875b1[teamb])
 			{
-				return true;
+				return 1;
 			}
 			if(teama == level.var_766875b1[teamb])
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2765,7 +2747,7 @@ function function_8570168d()
 	/#
 		if(getdvar(#"hash_49e94b7aefac4f49", 0))
 		{
-			return true;
+			return 1;
 		}
 	#/
 	if(sessionmodeismultiplayergame())
@@ -2773,10 +2755,10 @@ function function_8570168d()
 		mode = function_bea73b01();
 		if(mode == 4)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2793,9 +2775,9 @@ function function_bca268b3()
 	mode = function_bea73b01();
 	if(mode == 3)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2908,7 +2890,7 @@ function function_48e57e36(var_1f1d12d8)
 	{
 		if(var_1f1d12d8[i] >= "0" && var_1f1d12d8[i] <= "9")
 		{
-			decimal = decimal + (int(var_1f1d12d8[i]) * base);
+			decimal = decimal + int(var_1f1d12d8[i]) * base;
 			base = base * 16;
 			continue;
 		}
@@ -2918,39 +2900,27 @@ function function_48e57e36(var_1f1d12d8)
 			{
 				number = 10;
 			}
-			else
+			else if(var_1f1d12d8[i] == "b")
 			{
-				if(var_1f1d12d8[i] == "b")
-				{
-					number = 11;
-				}
-				else
-				{
-					if(var_1f1d12d8[i] == "c")
-					{
-						number = 12;
-					}
-					else
-					{
-						if(var_1f1d12d8[i] == "d")
-						{
-							number = 13;
-						}
-						else
-						{
-							if(var_1f1d12d8[i] == "e")
-							{
-								number = 14;
-							}
-							else if(var_1f1d12d8[i] == "f")
-							{
-								number = 15;
-							}
-						}
-					}
-				}
+				number = 11;
 			}
-			decimal = decimal + (number * base);
+			else if(var_1f1d12d8[i] == "c")
+			{
+				number = 12;
+			}
+			else if(var_1f1d12d8[i] == "d")
+			{
+				number = 13;
+			}
+			else if(var_1f1d12d8[i] == "e")
+			{
+				number = 14;
+			}
+			else if(var_1f1d12d8[i] == "f")
+			{
+				number = 15;
+			}
+			decimal = decimal + number * base;
 			base = base * 16;
 		}
 	}
@@ -2969,7 +2939,7 @@ function function_48e57e36(var_1f1d12d8)
 function function_e2e9d901(localclientnum, menu_path, commands)
 {
 	/#
-		adddebugcommand(localclientnum, ((("" + menu_path) + "") + commands) + "");
+		adddebugcommand(localclientnum, "" + menu_path + "" + commands + "");
 	#/
 }
 
@@ -2985,7 +2955,7 @@ function function_e2e9d901(localclientnum, menu_path, commands)
 function function_d84da933(localclientnum, menu_path)
 {
 	/#
-		adddebugcommand(localclientnum, ("" + menu_path) + "");
+		adddebugcommand(localclientnum, "" + menu_path + "");
 	#/
 }
 

@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2255a7ad3edc838f;
+#using hashed-3\bot.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -22,7 +22,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"spawner", &__init__, &__main__, undefined);
 }
@@ -693,16 +693,13 @@ function go_to_node_using_funcs(node, get_target_func, set_goal_func_quits, opti
 		{
 			self thread ai::force_goal(get_goal(self.target));
 		}
+		else if(isdefined(node) && (isdefined(node.script_forcegoal) && node.script_forcegoal))
+		{
+			self thread ai::force_goal(get_goal(self.target));
+		}
 		else
 		{
-			if(isdefined(node) && (isdefined(node.script_forcegoal) && node.script_forcegoal))
-			{
-				self thread ai::force_goal(get_goal(self.target));
-			}
-			else
-			{
-				[[set_goal_func_quits]](node);
-			}
+			[[set_goal_func_quits]](node);
 		}
 		self waittill(#"goal");
 		[[optional_arrived_at_node_func]](node);
@@ -719,7 +716,7 @@ function go_to_node_using_funcs(node, get_target_func, set_goal_func_quits, opti
 			if(!self flag::exists(node.script_ent_flag_set))
 			{
 				/#
-					assertmsg(("" + node.script_ent_flag_set) + "");
+					assertmsg("" + node.script_ent_flag_set + "");
 				#/
 			}
 			self flag::set(node.script_ent_flag_set);
@@ -729,7 +726,7 @@ function go_to_node_using_funcs(node, get_target_func, set_goal_func_quits, opti
 			if(!self flag::exists(node.script_ent_flag_clear))
 			{
 				/#
-					assertmsg(("" + node.script_ent_flag_clear) + "");
+					assertmsg("" + node.script_ent_flag_clear + "");
 				#/
 			}
 			self flag::clear(node.script_ent_flag_clear);
@@ -794,7 +791,7 @@ function go_to_node_wait_for_player(node, get_target_func, dist)
 		player = players[i];
 		if(distancesquared(player.origin, node.origin) < distancesquared(self.origin, node.origin))
 		{
-			return true;
+			return 1;
 		}
 	}
 	vec = anglestoforward(self.angles);
@@ -825,7 +822,7 @@ function go_to_node_wait_for_player(node, get_target_func, dist)
 		value = vec2[i];
 		if(vectordot(vec, value) > 0)
 		{
-			return true;
+			return 1;
 		}
 	}
 	dist2rd = dist * dist;
@@ -834,10 +831,10 @@ function go_to_node_wait_for_player(node, get_target_func, dist)
 		player = players[i];
 		if(distancesquared(player.origin, self.origin) < dist2rd)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1080,10 +1077,10 @@ function function_fe02300()
 		}
 		foreach(aigroup in var_e7463378)
 		{
-			cmd = ((("" + aigroup) + "") + aigroup) + "";
+			cmd = "" + aigroup + "" + aigroup + "";
 			adddebugcommand(cmd);
 		}
-		cmd = ((("" + "") + "") + "") + "";
+		cmd = "" + "" + "" + "" + "";
 		adddebugcommand(cmd);
 		while(true)
 		{
@@ -1310,27 +1307,27 @@ function spawn(b_force = 0, str_targetname, v_origin, v_angles, bignorespawningl
 	}
 	if(isactorspawner(self))
 	{
-		if(isdefined(self.spawnflags) && (self.spawnflags & 2) == 2)
+		if(isdefined(self.spawnflags) && self.spawnflags & 2 == 2)
 		{
 			makeroom = 1;
 		}
-		if(isdefined(self.spawnflags) && (self.spawnflags & 128) == 128)
+		if(isdefined(self.spawnflags) && self.spawnflags & 128 == 128)
 		{
 			deleteonzerocount = 1;
 		}
 	}
 	else if(isvehiclespawner(self))
 	{
-		if(isdefined(self.spawnflags) && (self.spawnflags & 8) == 8)
+		if(isdefined(self.spawnflags) && self.spawnflags & 8 == 8)
 		{
 			makeroom = 1;
 		}
 	}
-	if(b_force || (isdefined(self.spawnflags) && (self.spawnflags & 16) == 16) || isdefined(self.script_forcespawn))
+	if(b_force || (isdefined(self.spawnflags) && self.spawnflags & 16 == 16) || isdefined(self.script_forcespawn))
 	{
 		force_spawn = 1;
 	}
-	if(isdefined(self.spawnflags) && (self.spawnflags & 64) == 64)
+	if(isdefined(self.spawnflags) && self.spawnflags & 64 == 64)
 	{
 		infinitespawn = 1;
 	}
@@ -1350,40 +1347,34 @@ function spawn(b_force = 0, str_targetname, v_origin, v_angles, bignorespawningl
 				}
 				archetype_spawner = level.archetype_spawners[archetype];
 			}
-			else
+			else if(self.team == #"allies")
 			{
-				if(self.team == #"allies")
+				archetype = getdvarstring(#"feature_ai_ally_archetype");
+				if(getdvarstring(#"feature_ai_archetype_override") == "")
 				{
 					archetype = getdvarstring(#"feature_ai_ally_archetype");
-					if(getdvarstring(#"feature_ai_archetype_override") == "")
-					{
-						archetype = getdvarstring(#"feature_ai_ally_archetype");
-					}
-					archetype_spawner = level.archetype_spawners[archetype];
 				}
-				else if(self.team == #"team3")
+				archetype_spawner = level.archetype_spawners[archetype];
+			}
+			else if(self.team == #"team3")
+			{
+				if(getdvarstring(#"feature_ai_archetype_override") == #"enemy")
 				{
-					if(getdvarstring(#"feature_ai_archetype_override") == #"enemy")
-					{
-						archetype = getdvarstring(#"feature_ai_enemy_archetype");
-					}
-					else
-					{
-						if(getdvarstring(#"feature_ai_archetype_override") == "")
-						{
-							archetype = getdvarstring(#"feature_ai_ally_archetype");
-						}
-						else
-						{
-							archetype = getdvarstring(#"feature_ai_enemy_archetype");
-						}
-					}
+					archetype = getdvarstring(#"feature_ai_enemy_archetype");
+				}
+				else if(getdvarstring(#"feature_ai_archetype_override") == "")
+				{
+					archetype = getdvarstring(#"feature_ai_ally_archetype");
+				}
+				else
+				{
+					archetype = getdvarstring(#"feature_ai_enemy_archetype");
+				}
+				archetype_spawner = level.archetype_spawners[archetype];
+				if(!isdefined(archetype_spawner))
+				{
+					archetype = getdvarstring(#"feature_ai_ally_archetype");
 					archetype_spawner = level.archetype_spawners[archetype];
-					if(!isdefined(archetype_spawner))
-					{
-						archetype = getdvarstring(#"feature_ai_ally_archetype");
-						archetype_spawner = level.archetype_spawners[archetype];
-					}
 				}
 			}
 			if(isspawner(archetype_spawner))
@@ -1411,7 +1402,7 @@ function spawn(b_force = 0, str_targetname, v_origin, v_angles, bignorespawningl
 				archetype_spawner.targetname = originaltargetname;
 				archetype_spawner.origin = originalorigin;
 				archetype_spawner.angles = originalangles;
-				if(isdefined(archetype_spawner.spawnflags) && (archetype_spawner.spawnflags & 64) == 64)
+				if(isdefined(archetype_spawner.spawnflags) && archetype_spawner.spawnflags & 64 == 64)
 				{
 					archetype_spawner.count++;
 				}
@@ -1578,7 +1569,7 @@ function check_player_requirements()
 		if(n_player_count < self.script_minplayers)
 		{
 			self delete();
-			return false;
+			return 0;
 		}
 	}
 	if(isdefined(self.script_numplayers))
@@ -1586,7 +1577,7 @@ function check_player_requirements()
 		if(n_player_count < self.script_numplayers)
 		{
 			self delete();
-			return false;
+			return 0;
 		}
 	}
 	if(isdefined(self.script_maxplayers))
@@ -1594,10 +1585,10 @@ function check_player_requirements()
 		if(n_player_count > self.script_maxplayers)
 		{
 			self delete();
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1620,10 +1611,10 @@ function spawn_failed(spawn)
 		waittillframeend();
 		if(isalive(spawn))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1670,7 +1661,7 @@ function set_ai_group_cleared_count(aigroup, count)
 function waittill_ai_group_cleared(aigroup)
 {
 	/#
-		assert(isdefined(level._ai_group[aigroup]), ("" + aigroup) + "");
+		assert(isdefined(level._ai_group[aigroup]), "" + aigroup + "");
 	#/
 	level flag::wait_till(aigroup + "_cleared");
 }
@@ -2107,21 +2098,18 @@ function simple_spawn(name_or_spawners, spawn_func, vararg)
 	{
 		spawners = getentarray(name_or_spawners, "targetname");
 		/#
-			assert(spawners.size, ("" + name_or_spawners) + "");
+			assert(spawners.size, "" + name_or_spawners + "");
 		#/
 	}
-	else
+	else if(!isdefined(name_or_spawners))
 	{
-		if(!isdefined(name_or_spawners))
-		{
-			name_or_spawners = [];
-		}
-		else if(!isarray(name_or_spawners))
-		{
-			name_or_spawners = array(name_or_spawners);
-		}
-		spawners = name_or_spawners;
+		name_or_spawners = [];
 	}
+	else if(!isarray(name_or_spawners))
+	{
+		name_or_spawners = array(name_or_spawners);
+	}
+	spawners = name_or_spawners;
 	a_spawned = [];
 	foreach(sp in spawners)
 	{
@@ -2177,7 +2165,7 @@ function simple_spawn_single(name_or_spawner, spawn_func, vararg)
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init_female_spawn()
+autoexec function init_female_spawn()
 {
 	level.female_percent = 0;
 	set_female_percent(30);

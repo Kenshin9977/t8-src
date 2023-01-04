@@ -223,7 +223,7 @@ function startmicrowavefx(localclientnum)
 	while(true)
 	{
 		/#
-			if(getdvarint(#"hash_93503b23ed2be27", 0))
+			if(getdvarint(#"scr_microwave_turret_fx_debug", 0))
 			{
 				turret.should_update_fx = 1;
 				microwavefxent.fxhashs[#"center"] = 0;
@@ -249,7 +249,7 @@ function startmicrowavefx(localclientnum)
 		traceright = bullettrace(origin, origin - var_e2e9fefa, 0, turret);
 		traceleft = bullettrace(origin, origin + var_e2e9fefa, 0, turret);
 		/#
-			if(getdvarint(#"hash_93503b23ed2be27", 0))
+			if(getdvarint(#"scr_microwave_turret_fx_debug", 0))
 			{
 				debug_trace(origin, trace);
 				debug_trace(origin, traceright);
@@ -314,8 +314,8 @@ function microwavefxhash(trace, origin, name)
 	counter = 2;
 	for(i = 0; i < 5; i++)
 	{
-		endofhalffxsq = ((i * 150) + 125) * ((i * 150) + 125);
-		endoffullfxsq = ((i * 150) + 200) * ((i * 150) + 200);
+		endofhalffxsq = i * 150 + 125 * i * 150 + 125;
+		endoffullfxsq = i * 150 + 200 * i * 150 + 200;
 		tracedistsq = distancesquared(origin, trace[#"position"]);
 		if(tracedistsq >= endofhalffxsq || i == 0)
 		{
@@ -411,7 +411,7 @@ function stop_fx_on_tag(localclientnum, fxname, tag)
 function render_debug_sphere(tag, color, fxname)
 {
 	/#
-		if(getdvarint(#"hash_93503b23ed2be27", 0))
+		if(getdvarint(#"scr_microwave_turret_fx_debug", 0))
 		{
 			origin = self gettagorigin(tag);
 			sphere(origin, 2, color, 0.75, 1, 10, 100);
@@ -466,8 +466,8 @@ function playmicrowavefx(localclientnum, trace, traceright, traceleft, origin)
 {
 	for(i = 0; i < 5; i++)
 	{
-		endofhalffxsq = ((i * 150) + 125) * ((i * 150) + 125);
-		endoffullfxsq = ((i * 150) + 200) * ((i * 150) + 200);
+		endofhalffxsq = i * 150 + 125 * i * 150 + 125;
+		endoffullfxsq = i * 150 + 200 * i * 150 + 200;
 		tracedistsq = distancesquared(origin, trace[#"position"]);
 		startfx = tracedistsq >= endofhalffxsq || i == 0;
 		fxname = (tracedistsq < endoffullfxsq ? "killstreaks/fx_sg_distortion_cone_ash_sm" : "killstreaks/fx_sg_distortion_cone_ash");

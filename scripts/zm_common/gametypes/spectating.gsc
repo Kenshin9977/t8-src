@@ -14,10 +14,9 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
-	system::register(#"zm_spectating", &__init__, undefined, undefined);
-}
+	system::register(#"zm_spectating", &__init__, undefined, undefined);}
 
 /*
 	Name: __init__
@@ -191,10 +190,10 @@ function otherlocalplayerstillalive()
 		}
 		if(isalive(level.players[index]))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -293,23 +292,20 @@ function setspectatepermissions()
 				self allowspectateteam("freelook", 0);
 				self allowspectateteam("localplayers", 1);
 			}
+			else if(isdefined(team) && isdefined(level.teams[team]))
+			{
+				self allowspectateteam(team, 1);
+				self allowspectateallteamsexceptteam(team, 0);
+				self allowspectateteam("freelook", 0);
+				self allowspectateteam("none", 0);
+				self allowspectateteam("localplayers", 1);
+			}
 			else
 			{
-				if(isdefined(team) && isdefined(level.teams[team]))
-				{
-					self allowspectateteam(team, 1);
-					self allowspectateallteamsexceptteam(team, 0);
-					self allowspectateteam("freelook", 0);
-					self allowspectateteam("none", 0);
-					self allowspectateteam("localplayers", 1);
-				}
-				else
-				{
-					self allowspectateallteams(0);
-					self allowspectateteam("freelook", 0);
-					self allowspectateteam("none", 0);
-					self allowspectateteam("localplayers", 1);
-				}
+				self allowspectateallteams(0);
+				self allowspectateteam("freelook", 0);
+				self allowspectateteam("none", 0);
+				self allowspectateteam("localplayers", 1);
 			}
 			break;
 		}

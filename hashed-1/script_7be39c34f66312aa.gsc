@@ -65,7 +65,7 @@ function magic_box_update()
 	self endon(#"end_game");
 	util::registerclientsys("box_indicator");
 	util::setclientsysstate("box_indicator", level._pentagon_no_power);
-	if(namespace_59ff1d6c::function_901b751c(#"hash_4e0ec3fe56f08b47") == 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_4e0ec3fe56f08b47") == 0)
 	{
 		return;
 	}
@@ -76,16 +76,13 @@ function magic_box_update()
 		{
 			box_mode = "no_power";
 		}
+		else if(level.zombie_vars[#"zombie_powerup_fire_sale_on"] === 1)
+		{
+			box_mode = "fire_sale";
+		}
 		else
 		{
-			if(level.zombie_vars[#"zombie_powerup_fire_sale_on"] === 1)
-			{
-				box_mode = "fire_sale";
-			}
-			else
-			{
-				box_mode = "box_available";
-			}
+			box_mode = "box_available";
 		}
 		switch(box_mode)
 		{

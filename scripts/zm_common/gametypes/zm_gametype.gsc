@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_256b8879317373de;
-#using script_4194df57536e11ed;
+#using hashed-2\player_201.gsc;
+#using hashed-3\initial_black.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
@@ -46,7 +46,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_gametype", &__init__, undefined, undefined);
 }
@@ -243,7 +243,7 @@ function do_game_mode_shellshock()
 */
 function canplayersuicide()
 {
-	return false;
+	return 0;
 }
 
 /*
@@ -295,7 +295,7 @@ function onspawnintermission()
 	if(spawnpoints.size < 1)
 	{
 		/#
-			println(("" + spawnpointname) + "");
+			println("" + spawnpointname + "");
 		#/
 		return;
 	}
@@ -414,7 +414,7 @@ function onfindvalidspawnpoint()
 		{
 			location = level.default_start_location;
 		}
-		match_string = (level.scr_zm_ui_gametype + "_") + location;
+		match_string = level.scr_zm_ui_gametype + "_" + location;
 		spawnpoints = [];
 		structs = struct::get_array("initial_spawn", "script_noteworthy");
 		if(isdefined(structs))
@@ -602,16 +602,13 @@ function onroundendgame(roundwinner)
 	{
 		winner = "tie";
 	}
+	else if(game.stat[#"roundswon"][#"axis"] > game.stat[#"roundswon"][#"allies"])
+	{
+		winner = #"axis";
+	}
 	else
 	{
-		if(game.stat[#"roundswon"][#"axis"] > game.stat[#"roundswon"][#"allies"])
-		{
-			winner = #"axis";
-		}
-		else
-		{
-			winner = #"allies";
-		}
+		winner = #"allies";
 	}
 	return winner;
 }
@@ -970,7 +967,7 @@ function onplayerspawned()
 		}
 		if(!(isdefined(weapons_restored) && weapons_restored))
 		{
-			self zm_loadout::give_start_weapon(1);
+			self cschashed-2\script_709bf7c56eb65adf::give_start_weapon(1);
 		}
 		weapons_restored = 0;
 		if(isdefined(level._team_loadout))
@@ -1074,7 +1071,7 @@ function initialblackend()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_788fb510(value)
+private function function_788fb510(value)
 {
 	if(!isdefined(value))
 	{

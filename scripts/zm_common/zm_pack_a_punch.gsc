@@ -2,11 +2,11 @@
 #using script_1254ac024174d9c0;
 #using script_14f4a3c583c77d4b;
 #using script_301f64a4090c381a;
-#using script_47fb62300ac0bd60;
-#using script_5b18db57724ff7be;
+#using hashed-2\stats.gsc;
+#using hashed-1\zm_camos.gsc;
 #using script_698dd790cdc4965f;
 #using script_6e3c826b1814cab6;
-#using script_ab890501c40b73c;
+#using hashed-3\contracts.gsc;
 #using scripts\core_common\aat_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -47,7 +47,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_pack_a_punch", &__init__, &__main__, undefined);
 }
@@ -98,7 +98,7 @@ function __main__()
 	{
 		level.pap_zbarrier_state_func = &process_pap_zbarrier_state;
 	}
-	if(namespace_59ff1d6c::function_901b751c(#"hash_19d48a0d4490b0a2") == 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_19d48a0d4490b0a2") == 0)
 	{
 		var_ed82708a = getentarray("zm_pack_a_punch", "targetname");
 		foreach(var_4db9b7a6 in var_ed82708a)
@@ -127,7 +127,7 @@ function __main__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private spawn_init()
+private function spawn_init()
 {
 	if(isdefined(level.var_7199d651) && level.var_7199d651)
 	{
@@ -244,7 +244,7 @@ function private spawn_init()
 		}
 		else
 		{
-			zbarriers[i] thread pap_power_on_init();
+			zbarriers[i] thread function_d7c7c44f();
 		}
 		if(isdefined(level.pack_a_punch.custom_power_think))
 		{
@@ -328,7 +328,7 @@ function function_a2e4892a()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_6309e7d5()
+private function function_6309e7d5()
 {
 	zm_pap_util::set_interaction_height(44);
 	zm_pap_util::function_530eb959(112);
@@ -347,7 +347,7 @@ function private function_6309e7d5()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_c6d69354()
+private function function_c6d69354()
 {
 	zm_pap_util::set_interaction_height(60);
 	zm_pap_util::function_530eb959(112);
@@ -366,17 +366,17 @@ function private function_c6d69354()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private get_start_state()
+private function get_start_state()
 {
-	if(namespace_59ff1d6c::function_901b751c(#"hash_19d48a0d4490b0a2") == 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_19d48a0d4490b0a2") == 0)
 	{
-		return false;
+		return 0;
 	}
-	if(isdefined(level.var_ef785c4c) && level.var_ef785c4c || namespace_59ff1d6c::function_901b751c(#"hash_19d48a0d4490b0a2") == 2)
+	if(isdefined(level.var_ef785c4c) && level.var_ef785c4c || cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_19d48a0d4490b0a2") == 2)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -392,11 +392,11 @@ function function_615ef6fe()
 {
 	self endon(#"hash_404acc7ce223033");
 	self flag::wait_till("Pack_A_Punch_on");
-	self thread pap_power_on_init();
+	self thread function_d7c7c44f();
 }
 
 /*
-	Name: pap_power_on_init
+	Name: function_d7c7c44f
 	Namespace: zm_pack_a_punch
 	Checksum: 0xC8426B15
 	Offset: 0x17D8
@@ -404,7 +404,7 @@ function function_615ef6fe()
 	Parameters: 0
 	Flags: Linked
 */
-function pap_power_on_init()
+function function_d7c7c44f()
 {
 	self playloopsound(#"zmb_perks_packa_loop");
 	level thread shutoffpapsounds(self, self.packa_rollers, self.packa_timer);
@@ -457,7 +457,7 @@ function function_bb629351(b_on, str_state = "power_on", str_waittill)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private turn_on(origin, radius)
+private function turn_on(origin, radius)
 {
 	if(isstruct(self) && isdefined(self.target))
 	{
@@ -498,7 +498,7 @@ function private turn_on(origin, radius)
 		return;
 	}
 	pap_machine.unitrigger_stub.origin = pap_machine.origin + level.pack_a_punch.var_fcdf795b;
-	pap_machine.unitrigger_stub.angles = pap_machine.angles + (vectorscale((0, -1, 0), 90));
+	pap_machine.unitrigger_stub.angles = pap_machine.angles + vectorscale((0, -1, 0), 90);
 	zm_unitrigger::register_static_unitrigger(pap_machine.unitrigger_stub, &function_72cf5db2);
 	zm_unitrigger::function_c4a5fdf5(pap_machine.unitrigger_stub, 1);
 	pap_machine flag::set("pap_waiting_for_user");
@@ -518,7 +518,7 @@ function private turn_on(origin, radius)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private turn_off(origin, radius)
+private function turn_off(origin, radius)
 {
 	if(self iszbarrier())
 	{
@@ -585,7 +585,7 @@ function is_on()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_e13fa347()
+private function function_e13fa347()
 {
 	if(isdefined(self.one_time_cost))
 	{
@@ -613,7 +613,7 @@ function private function_e13fa347()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private toggle_think(powered_on)
+private function toggle_think(powered_on)
 {
 	while(!clientfield::function_6b3b55da())
 	{
@@ -642,7 +642,7 @@ function private toggle_think(powered_on)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_64416c32(delta, origin, radius)
+private function function_64416c32(delta, origin, radius)
 {
 	if(isdefined(self.target))
 	{
@@ -657,10 +657,10 @@ function private function_64416c32(delta, origin, radius)
 		}
 		if(distancesquared(paporigin, origin) < radius * radius)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -682,15 +682,12 @@ function function_c0bdaa76(b_on)
 		}
 		zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, &function_72cf5db2);
 	}
-	else
+	else if(!(isdefined(self.unitrigger_stub.registered) && self.unitrigger_stub.registered))
 	{
-		if(!(isdefined(self.unitrigger_stub.registered) && self.unitrigger_stub.registered))
-		{
-			return;
-		}
-		self flag::wait_till("pap_waiting_for_user");
-		zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
+		return;
 	}
+	self flag::wait_till("pap_waiting_for_user");
+	zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
 }
 
 /*
@@ -702,7 +699,7 @@ function function_c0bdaa76(b_on)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_72cf5db2()
+private function function_72cf5db2()
 {
 	self endon(#"hash_672bc8ddbec0fa33", #"death");
 	pap_machine = self.stub.zbarrier;
@@ -788,9 +785,9 @@ function function_ec9ac3b2(e_player, current_weapon)
 {
 	if(e_player namespace_e38c57c1::function_3da195ec(current_weapon))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -806,7 +803,7 @@ function function_d0288a41()
 {
 	if(isdefined(self.var_61d0df53) && self.var_61d0df53)
 	{
-		return true;
+		return 1;
 	}
 }
 
@@ -819,33 +816,33 @@ function function_d0288a41()
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_8a5fe651(pap_machine, current_weapon)
+private function function_8a5fe651(pap_machine, current_weapon)
 {
 	if(isdefined(level.pack_a_punch.custom_validation))
 	{
 		valid = pap_machine [[level.pack_a_punch.custom_validation]](self);
 		if(!valid)
 		{
-			return false;
+			return 0;
 		}
 	}
 	if(!self zm_magicbox::can_buy_weapon(0) || self laststand::player_is_in_laststand() || (isdefined(self.intermission) && self.intermission) || self isthrowinggrenade() || namespace_497ab7da::is_active() || namespace_83dc3729::is_active() || (!self zm_weapons::can_upgrade_weapon(current_weapon) && !zm_weapons::weapon_supports_aat(current_weapon)))
 	{
-		return false;
+		return 0;
 	}
 	if(self isswitchingweapons())
 	{
 		wait(0.1);
 		if(!isdefined(self) || (isdefined(self) && self isswitchingweapons()))
 		{
-			return false;
+			return 0;
 		}
 	}
 	if(!zm_weapons::is_weapon_or_base_included(current_weapon))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -857,7 +854,7 @@ function private function_8a5fe651(pap_machine, current_weapon)
 	Parameters: 6
 	Flags: Linked, Private
 */
-function private function_222c0292(current_weapon, packa_rollers, pap_machine, var_376755db, var_9c076b6 = 0, var_aa0d72d4 = 0)
+private function function_222c0292(current_weapon, packa_rollers, pap_machine, var_376755db, var_9c076b6 = 0, var_aa0d72d4 = 0)
 {
 	pap_machine.pack_player = self;
 	pap_machine flag::clear("pap_waiting_for_user");
@@ -949,7 +946,7 @@ function private function_222c0292(current_weapon, packa_rollers, pap_machine, v
 				#/
 				self zm_stats::increment_challenge_stat(#"hash_300fdf15a515feda", undefined, 1);
 				self stats::inc_stat(#"hash_162f9b6a10fa7d66", current_weapon.name, #"hash_5d5a976d59876880", #"statvalue", 1);
-				self zm_challenges::function_e40c9d13();
+				self namespace_ff457ca2::function_e40c9d13();
 			}
 		}
 	}
@@ -978,7 +975,7 @@ function private function_222c0292(current_weapon, packa_rollers, pap_machine, v
 	Parameters: 5
 	Flags: Linked, Private
 */
-function private third_person_weapon_upgrade(current_weapon, var_eaad2188, upgrade_weapon, packa_rollers, pap_machine)
+private function third_person_weapon_upgrade(current_weapon, var_eaad2188, upgrade_weapon, packa_rollers, pap_machine)
 {
 	pap_machine endon(#"hash_672bc8ddbec0fa33");
 	var_d85decd8 = self getbuildkitweapon(current_weapon);
@@ -992,11 +989,11 @@ function private third_person_weapon_upgrade(current_weapon, var_eaad2188, upgra
 		}
 	#/
 	pap_machine.unitrigger_stub.current_weapon = var_d85decd8;
-	var_27024943 = self zm_camos::function_6f75f3d3(var_d85decd8, var_eaad2188);
-	pap_machine.unitrigger_stub.var_f716c676 = self zm_camos::function_7c982eb6(var_d85decd8);
+	var_27024943 = self namespace_f063c3a8::function_6f75f3d3(var_d85decd8, var_eaad2188);
+	pap_machine.unitrigger_stub.var_f716c676 = self namespace_f063c3a8::function_7c982eb6(var_d85decd8);
 	pap_machine.unitrigger_stub.current_weapon_options = self getbuildkitweaponoptions(pap_machine.unitrigger_stub.current_weapon, var_27024943, pap_machine.unitrigger_stub.var_f716c676);
 	pap_machine.unitrigger_stub.upgrade_weapon = var_1eca29de;
-	pap_machine.unitrigger_stub.var_3ded6a21 = self zm_camos::function_4f727cf5(var_d85decd8, var_eaad2188, 1);
+	pap_machine.unitrigger_stub.var_3ded6a21 = self namespace_f063c3a8::function_4f727cf5(var_d85decd8, var_eaad2188, 1);
 	pap_machine.unitrigger_stub.upgrade_weapon_options = self getbuildkitweaponoptions(pap_machine.unitrigger_stub.upgrade_weapon, pap_machine.unitrigger_stub.var_3ded6a21, pap_machine.unitrigger_stub.var_f716c676);
 	pap_machine setweapon(pap_machine.unitrigger_stub.current_weapon);
 	pap_machine setweaponoptions(pap_machine.unitrigger_stub.current_weapon_options);
@@ -1010,7 +1007,7 @@ function private third_person_weapon_upgrade(current_weapon, var_eaad2188, upgra
 	origin_base = pap_machine.origin;
 	angles_base = pap_machine.angles;
 	forward = anglestoforward(angles_base + angles_offset);
-	interact_offset = origin_offset + (forward * -25);
+	interact_offset = origin_offset + forward * -25;
 	offsetdw = vectorscale((1, 1, 1), 3);
 	var_397d50da = (isdefined(level.var_fbca9d31) ? level.var_fbca9d31 : 3.35);
 	if(self hasperk(#"hash_37aa3a5919757781"))
@@ -1018,16 +1015,13 @@ function private third_person_weapon_upgrade(current_weapon, var_eaad2188, upgra
 		pap_machine playsound(#"hash_552a43efc3f770d");
 		var_397d50da = min(var_397d50da, 1.25);
 	}
+	else if(util::function_5df4294() === #"zstandard")
+	{
+		pap_machine playsound(#"hash_552a43efc3f770d");
+	}
 	else
 	{
-		if(util::function_5df4294() === #"zstandard")
-		{
-			pap_machine playsound(#"hash_552a43efc3f770d");
-		}
-		else
-		{
-			pap_machine playsound(#"zmb_perks_packa_upgrade");
-		}
+		pap_machine playsound(#"zmb_perks_packa_upgrade");
 	}
 	wait(var_397d50da);
 	pap_machine setweapon(pap_machine.unitrigger_stub.upgrade_weapon);
@@ -1052,7 +1046,7 @@ function private third_person_weapon_upgrade(current_weapon, var_eaad2188, upgra
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_ecb78870()
+private function function_ecb78870()
 {
 	self flag::set("pap_in_retrigger_delay");
 	wait(level.var_a3b71a00);
@@ -1068,7 +1062,7 @@ function private function_ecb78870()
 	Parameters: 6
 	Flags: Linked, Private
 */
-function private wait_for_player_to_take(player, weapon, packa_timer, var_a86430cb, var_9c076b6 = 0, var_aa0d72d4 = 0)
+private function wait_for_player_to_take(player, weapon, packa_timer, var_a86430cb, var_9c076b6 = 0, var_aa0d72d4 = 0)
 {
 	self endon(#"death");
 	pap_machine = self.stub.zbarrier;
@@ -1103,7 +1097,7 @@ function private wait_for_player_to_take(player, weapon, packa_timer, var_a86430
 					iprintlnbold("");
 				}
 			#/
-			if(zm_utility::is_player_valid(player) && !player zm_utility::is_drinking() && !zm_loadout::is_placeable_mine(current_weapon) && !zm_equipment::is_equipment(current_weapon) && !player zm_utility::is_player_revive_tool(current_weapon) && level.weaponnone != current_weapon && !player zm_equipment::hacker_active())
+			if(zm_utility::is_player_valid(player) && !player zm_utility::is_drinking() && !cschashed-2\script_709bf7c56eb65adf::is_placeable_mine(current_weapon) && !zm_equipment::is_equipment(current_weapon) && !player zm_utility::is_player_revive_tool(current_weapon) && level.weaponnone != current_weapon && !player zm_equipment::hacker_active())
 			{
 				demo::bookmark(#"zm_player_grabbed_packapunch", gettime(), player);
 				potm::bookmark(#"zm_player_grabbed_packapunch", gettime(), player);
@@ -1155,7 +1149,7 @@ function private wait_for_player_to_take(player, weapon, packa_timer, var_a86430
 						pap_machine.unitrigger_stub.var_3ae1dddb = 0;
 					}
 					player thread aat::acquire(upgrade_weapon, undefined, pap_machine.unitrigger_stub.var_da1ddb37);
-					player zm_pap_util::repack_weapon(upgrade_weapon, pap_machine.unitrigger_stub.var_3ae1dddb + var_5023ce90);
+					player zm_pap_util::function_18994aca(upgrade_weapon, pap_machine.unitrigger_stub.var_3ae1dddb + var_5023ce90);
 					aatobj = player aat::getaatonweapon(upgrade_weapon);
 					if(isdefined(aatobj))
 					{
@@ -1194,8 +1188,8 @@ function private wait_for_player_to_take(player, weapon, packa_timer, var_a86430
 				}
 				if(isdefined(player.var_655c0753) && player.var_655c0753 && (!(isdefined(pap_machine.var_b64e889a) && pap_machine.var_b64e889a)))
 				{
-					new_clip = player.restore_clip + (upgrade_weapon.clipsize - player.restore_clip_size);
-					new_stock = player.restore_stock + (upgrade_weapon.maxammo - player.restore_max);
+					new_clip = player.restore_clip + upgrade_weapon.clipsize - player.restore_clip_size;
+					new_stock = player.restore_stock + upgrade_weapon.maxammo - player.restore_max;
 					player setweaponammostock(upgrade_weapon, new_stock);
 					player setweaponammoclip(upgrade_weapon, new_clip);
 				}
@@ -1225,7 +1219,7 @@ function private wait_for_player_to_take(player, weapon, packa_timer, var_a86430
 	Parameters: 6
 	Flags: Linked, Private
 */
-function private wait_for_timeout(weapon, packa_timer, player, var_a86430cb, var_9c076b6 = 0, var_aa0d72d4 = 0)
+private function wait_for_timeout(weapon, packa_timer, player, var_a86430cb, var_9c076b6 = 0, var_aa0d72d4 = 0)
 {
 	self endon(#"pap_taken");
 	if(isdefined(player) && isdefined(player.var_14361e0c))
@@ -1285,7 +1279,7 @@ function private wait_for_timeout(weapon, packa_timer, player, var_a86430cb, var
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private wait_for_disconnect(player)
+private function wait_for_disconnect(player)
 {
 	self endon(#"pap_taken", #"pap_timeout");
 	while(isdefined(player))
@@ -1307,7 +1301,7 @@ function private wait_for_disconnect(player)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private destroy_weapon_in_blackout()
+private function destroy_weapon_in_blackout()
 {
 	pap_machine = self;
 	pap_machine endon(#"pap_timeout", #"pap_taken", #"pap_player_disconnected");
@@ -1327,10 +1321,10 @@ function private destroy_weapon_in_blackout()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_f0fe4bae(s_unitrigger_stub)
+private function function_f0fe4bae(s_unitrigger_stub)
 {
 	original_weapon = self getcurrentweapon();
-	if(original_weapon != level.weaponnone && !zm_loadout::is_placeable_mine(original_weapon) && !zm_equipment::is_equipment(original_weapon))
+	if(original_weapon != level.weaponnone && !cschashed-2\script_709bf7c56eb65adf::is_placeable_mine(original_weapon) && !zm_equipment::is_equipment(original_weapon))
 	{
 		s_aat = self aat::getaatonweapon(original_weapon);
 		if(isdefined(s_aat))
@@ -1360,7 +1354,7 @@ function private function_f0fe4bae(s_unitrigger_stub)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private shutoffpapsounds(pap_machine, var_884bde3, var_1e9dad36)
+private function shutoffpapsounds(pap_machine, var_884bde3, var_1e9dad36)
 {
 	pap_machine endon(#"hash_404acc7ce223033");
 	while(true)
@@ -1383,7 +1377,7 @@ function private shutoffpapsounds(pap_machine, var_884bde3, var_1e9dad36)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private turnonpapsounds(pap_machine)
+private function turnonpapsounds(pap_machine)
 {
 	pap_machine flag::wait_till("Pack_A_Punch_on");
 	pap_machine playloopsound(#"zmb_perks_packa_loop");
@@ -1398,7 +1392,7 @@ function private turnonpapsounds(pap_machine)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_initial()
+private function pap_initial()
 {
 	self setzbarrierpiecestate(0, "closed");
 	if(isdefined(self.unitrigger_stub.var_1f0dbe42))
@@ -1416,7 +1410,7 @@ function private pap_initial()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_power_off()
+private function pap_power_off()
 {
 	self setzbarrierpiecestate(0, "closing");
 }
@@ -1430,7 +1424,7 @@ function private pap_power_off()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_power_on()
+private function pap_power_on()
 {
 	self endon(#"zbarrier_state_change");
 	self setzbarrierpiecestate(0, "opening");
@@ -1451,7 +1445,7 @@ function private pap_power_on()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_powered()
+private function pap_powered()
 {
 	self endon(#"zbarrier_state_change");
 	self setzbarrierpiecestate(4, "closed");
@@ -1470,7 +1464,7 @@ function private pap_powered()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_take_gun()
+private function pap_take_gun()
 {
 	self setzbarrierpiecestate(1, "opening");
 	self setzbarrierpiecestate(3, "opening");
@@ -1490,7 +1484,7 @@ function private pap_take_gun()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_eject_gun()
+private function pap_eject_gun()
 {
 	self setzbarrierpiecestate(1, "closing");
 	self setzbarrierpiecestate(3, "closing");
@@ -1505,7 +1499,7 @@ function private pap_eject_gun()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_leaving()
+private function pap_leaving()
 {
 	self setzbarrierpiecestate(5, "closing");
 	do
@@ -1526,7 +1520,7 @@ function private pap_leaving()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private pap_arriving()
+private function pap_arriving()
 {
 	self endon(#"zbarrier_state_change");
 	self setzbarrierpiecestate(0, "opening");
@@ -1546,7 +1540,7 @@ function private pap_arriving()
 	Parameters: 0
 	Flags: Private
 */
-function private get_pap_zbarrier_state()
+private function get_pap_zbarrier_state()
 {
 	return self.state;
 }
@@ -1560,7 +1554,7 @@ function private get_pap_zbarrier_state()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private set_pap_zbarrier_state(state)
+private function set_pap_zbarrier_state(state)
 {
 	for(i = 0; i < self getnumzbarrierpieces(); i++)
 	{
@@ -1591,7 +1585,7 @@ function private set_pap_zbarrier_state(state)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private process_pap_zbarrier_state(state)
+private function process_pap_zbarrier_state(state)
 {
 	switch(state)
 	{
@@ -1740,36 +1734,36 @@ function function_41cd6368(str_state)
 		{
 			self thread function_7c1b15f2();
 			self.state = "take_gun";
-			return false;
+			return 0;
 		}
 		case "eject_gun":
 		{
 			self thread function_2bb87d58();
 			self.state = "eject_gun";
-			return false;
+			return 0;
 		}
 		case "arriving":
 		{
 			self showzbarrierpiece(4);
 			self thread function_e0fbd38a();
 			self.state = "arriving";
-			return false;
+			return 0;
 		}
 		case "leaving":
 		{
 			self showzbarrierpiece(4);
 			self thread function_d896758();
 			self.state = "leaving";
-			return false;
+			return 0;
 		}
 		case "powered":
 		{
 			self setzbarrierpiecestate(3, "closed");
 			self setzbarrierpiecestate(5, "closed");
-			return true;
+			return 1;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -1781,7 +1775,7 @@ function function_41cd6368(str_state)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_7c1b15f2()
+private function function_7c1b15f2()
 {
 	self showzbarrierpiece(4);
 	var_f27ec4b6 = function_acd31f7d();
@@ -1798,7 +1792,7 @@ function private function_7c1b15f2()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_2bb87d58()
+private function function_2bb87d58()
 {
 	self showzbarrierpiece(4);
 	var_f27ec4b6 = function_acd31f7d();
@@ -1815,7 +1809,7 @@ function private function_2bb87d58()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_acd31f7d()
+private function function_acd31f7d()
 {
 	var_d2fd7259 = weapons::getbaseweapon(self.unitrigger_stub.current_weapon);
 	if(isdefined(level.var_48c45225) && isinarray(level.var_48c45225, var_d2fd7259.name))

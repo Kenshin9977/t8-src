@@ -5,54 +5,67 @@
 #using scripts\core_common\system_shared.gsc;
 #using scripts\core_common\util_shared.gsc;
 
-class ccontainer 
+#namespace ccontainer;
+
+/*
+	Name: __constructor
+	Namespace: ccontainer
+	Checksum: 0x80F724D1
+	Offset: 0x180
+	Size: 0x4
+	Parameters: 0
+	Flags: 8
+*/
+function __constructor()
 {
-	var m_e_container;
+}
 
-	/*
-		Name: constructor
-		Namespace: ccontainer
-		Checksum: 0x80F724D1
-		Offset: 0x180
-		Size: 0x4
-		Parameters: 0
-		Flags: 8
-	*/
-	constructor()
-	{
-	}
+/*
+	Name: __destructor
+	Namespace: ccontainer
+	Checksum: 0x80F724D1
+	Offset: 0x190
+	Size: 0x4
+	Parameters: 0
+	Flags: 16
+*/
+function __destructor()
+{
+}
 
-	/*
-		Name: destructor
-		Namespace: ccontainer
-		Checksum: 0x80F724D1
-		Offset: 0x190
-		Size: 0x4
-		Parameters: 0
-		Flags: 16
-	*/
-	destructor()
-	{
-	}
-
-	/*
-		Name: init_xmodel
-		Namespace: ccontainer
-		Checksum: 0x44ECFC2
-		Offset: 0x1A0
-		Size: 0x5A
-		Parameters: 3
-		Flags: None
-	*/
-	function init_xmodel(str_xmodel = "script_origin", v_origin, v_angles)
-	{
-		self.m_e_container = util::spawn_model(str_xmodel, v_origin, v_angles);
-		return m_e_container;
-	}
-
+/*
+	Name: init_xmodel
+	Namespace: ccontainer
+	Checksum: 0x44ECFC2
+	Offset: 0x1A0
+	Size: 0x5A
+	Parameters: 3
+	Flags: None
+*/
+function init_xmodel(str_xmodel = "script_origin", v_origin, v_angles)
+{
+	self.m_e_container = util::spawn_model(str_xmodel, v_origin, v_angles);
+	return self.m_e_container;
 }
 
 #namespace containers;
+
+/*
+	Name: ccontainer
+	Namespace: containers
+	Checksum: 0x767F80A7
+	Offset: 0x208
+	Size: 0xB6
+	Parameters: 0
+	Flags: AutoExec, Private, 128
+*/
+private autoexec function ccontainer()
+{
+	classes.ccontainer[0] = spawnstruct();
+	classes.ccontainer[0].__vtable[867014925] = &ccontainer::init_xmodel;
+	classes.ccontainer[0].__vtable[913321084] = &ccontainer::__destructor;
+	classes.ccontainer[0].__vtable[674154906] = &ccontainer::__constructor;
+}
 
 /*
 	Name: function_89f2df9
@@ -63,7 +76,7 @@ class ccontainer
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"containers", &__init__, undefined, undefined);
 }
@@ -120,7 +133,9 @@ function init()
 */
 function setup_container_scriptbundle(s_bundle, s_container_instance)
 {
-	c_container = new ccontainer();
+	object = new ccontainer();
+	[[ object ]]->__constructor();
+	c_container = object;
 	c_container.m_s_container_bundle = s_bundle;
 	c_container.m_s_fxanim_bundle = struct::get_script_bundle("scene", s_bundle.theeffectbundle);
 	c_container.m_s_container_instance = s_container_instance;
@@ -266,7 +281,7 @@ function setup_locker_double_doors(str_left_door_name, str_right_door_name, cent
 		if(isdefined(center_point_offset))
 		{
 			v_forward = anglestoforward(e_left_door.angles);
-			v_search_pos = e_left_door.origin + (v_forward * center_point_offset);
+			v_search_pos = e_left_door.origin + v_forward * center_point_offset;
 		}
 		else
 		{
@@ -313,7 +328,7 @@ function get_closest_ent_from_array(v_pos, a_ents)
 */
 function create_locker_doors(e_left_door, e_right_door, door_open_angle, door_open_time)
 {
-	v_locker_pos = (e_left_door.origin + e_right_door.origin) / 2;
+	v_locker_pos = e_left_door.origin + e_right_door.origin / 2;
 	n_trigger_radius = 48;
 	e_trigger = create_locker_trigger(v_locker_pos, n_trigger_radius, "Press [{+activate}] to open");
 	e_trigger waittill(#"trigger");

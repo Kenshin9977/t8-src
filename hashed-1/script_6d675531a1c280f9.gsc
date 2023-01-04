@@ -6,11 +6,11 @@
 #using scripts\zm_common\gametypes\zm_gametype.gsc;
 #using scripts\zm_common\zm_stats.gsc;
 
-#namespace namespace_3e503b25;
+#namespace cschashed-3\script_e5a0131b3f07a65;
 
 /*
 	Name: main
-	Namespace: namespace_3e503b25
+	Namespace: cschashed-3\script_e5a0131b3f07a65
 	Checksum: 0x55EB4A51
 	Offset: 0x98
 	Size: 0x24
@@ -19,6 +19,6 @@
 */
 event main(eventstruct)
 {
-	namespace_f838b0ea::main(eventstruct);
+	cschashed-2\script_660bfc5cf7a0646b::main(eventstruct);
 }
 

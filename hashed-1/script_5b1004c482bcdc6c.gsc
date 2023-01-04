@@ -6,25 +6,25 @@
 #using scripts\core_common\util_shared.gsc;
 #using scripts\mp_common\draft.gsc;
 
-#namespace namespace_1261609;
+#namespace cschashed-1\script_7b95b0c4948e03f8;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_1261609
+	Namespace: cschashed-1\script_7b95b0c4948e03f8
 	Checksum: 0xC9F02658
 	Offset: 0xC8
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_33946b9507c6ec22", &__init__, &__main__, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_1261609
+	Namespace: cschashed-1\script_7b95b0c4948e03f8
 	Checksum: 0x60A82057
 	Offset: 0x118
 	Size: 0x24
@@ -38,7 +38,7 @@ function __init__()
 
 /*
 	Name: __main__
-	Namespace: namespace_1261609
+	Namespace: cschashed-1\script_7b95b0c4948e03f8
 	Checksum: 0xDEC49F0A
 	Offset: 0x148
 	Size: 0x2C
@@ -55,7 +55,7 @@ function __main__()
 
 /*
 	Name: function_98a0917d
-	Namespace: namespace_1261609
+	Namespace: cschashed-1\script_7b95b0c4948e03f8
 	Checksum: 0x5D89E816
 	Offset: 0x180
 	Size: 0x94
@@ -68,13 +68,13 @@ function function_98a0917d()
 	wait(getdvarfloat(#"hash_68cf1e8e429452b0", 0));
 	if(util::isfirstround())
 	{
-		level thread scene::play(#"p8_fxanim_mp_fir_flyover_bundle", "Shot 2");
+		level thread scene::play(#"hash_6f21f534621fe2ee", "Shot 2");
 	}
 }
 
 /*
 	Name: function_2cdcf5c3
-	Namespace: namespace_1261609
+	Namespace: cschashed-1\script_7b95b0c4948e03f8
 	Checksum: 0x25CB11A4
 	Offset: 0x220
 	Size: 0xB4
@@ -93,15 +93,15 @@ function function_2cdcf5c3()
 		{
 			waitframe(1);
 		}
-		level thread scene::play(#"p8_fxanim_mp_fir_flyover_bundle", "Shot 1");
+		level thread scene::play(#"hash_6f21f534621fe2ee", "Shot 1");
 		return;
 	}
-	level scene::skipto_end(#"p8_fxanim_mp_fir_flyover_bundle");
+	level scene::skipto_end(#"hash_6f21f534621fe2ee");
 }
 
 /*
 	Name: function_2085db3b
-	Namespace: namespace_1261609
+	Namespace: cschashed-1\script_7b95b0c4948e03f8
 	Checksum: 0x6A46A7AE
 	Offset: 0x2E0
 	Size: 0x9C
@@ -112,9 +112,9 @@ function function_2085db3b()
 {
 	/#
 		mapname = util::function_53bbf9d2();
-		adddebugcommand(("" + mapname) + "");
-		adddebugcommand(("" + mapname) + "");
-		adddebugcommand(("" + mapname) + "");
+		adddebugcommand("" + mapname + "");
+		adddebugcommand("" + mapname + "");
+		adddebugcommand("" + mapname + "");
 	#/
 }
 

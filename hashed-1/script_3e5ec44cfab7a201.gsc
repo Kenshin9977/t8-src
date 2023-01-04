@@ -3,18 +3,18 @@
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\struct.gsc;
 
-#namespace namespace_617a54f4;
+#namespace cschashed-2\script_624a704d0f6bf28d;
 
 /*
 	Name: function_d8383812
-	Namespace: namespace_617a54f4
+	Namespace: cschashed-2\script_624a704d0f6bf28d
 	Checksum: 0x88D09089
 	Offset: 0xC0
 	Size: 0x204
 	Parameters: 6
 	Flags: None
 */
-function function_d8383812(id, version, var_a1261809, var_3f541f5f, var_9a323ebf, var_b8d19839 = 0)
+function function_d8383812(id, var_948bda55, var_a1261809, var_3f541f5f, var_9a323ebf, var_b8d19839 = 0)
 {
 	if(!isdefined(level.var_d2540500))
 	{
@@ -44,7 +44,7 @@ function function_d8383812(id, version, var_a1261809, var_3f541f5f, var_9a323ebf
 
 /*
 	Name: function_3f808d3d
-	Namespace: namespace_617a54f4
+	Namespace: cschashed-2\script_624a704d0f6bf28d
 	Checksum: 0x4E5E99B1
 	Offset: 0x2D0
 	Size: 0x42
@@ -63,7 +63,7 @@ function function_3f808d3d(id)
 
 /*
 	Name: function_2a94055d
-	Namespace: namespace_617a54f4
+	Namespace: cschashed-2\script_624a704d0f6bf28d
 	Checksum: 0xE7901836
 	Offset: 0x320
 	Size: 0x6A
@@ -83,14 +83,14 @@ function function_2a94055d(id)
 
 /*
 	Name: function_88cb5e47
-	Namespace: namespace_617a54f4
+	Namespace: cschashed-2\script_624a704d0f6bf28d
 	Checksum: 0x31AFCEC6
 	Offset: 0x398
 	Size: 0x174
 	Parameters: 1
 	Flags: Private
 */
-function private function_88cb5e47(params)
+private function function_88cb5e47(params)
 {
 	if(self.is_exploding !== 1 && isdefined(params.eattacker) && params.eattacker.classname === "worldspawn")
 	{

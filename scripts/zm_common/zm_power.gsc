@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6e3c826b1814cab6;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -28,7 +28,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_power", &__init__, &__main__, undefined);
 }
@@ -414,7 +414,7 @@ function standard_powered_items()
 			powered_perk thread zone_controlled_perk(trigger.script_int);
 		}
 	}
-	if(namespace_59ff1d6c::function_901b751c(#"hash_29004a67830922b6") != 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_29004a67830922b6") != 0)
 	{
 		zombie_doors = getentarray("zombie_door", "targetname");
 		foreach(door in zombie_doors)
@@ -682,7 +682,7 @@ function add_local_power(origin, radius)
 {
 	localpower = spawnstruct();
 	/#
-		println(((("" + origin) + "") + radius) + "");
+		println("" + origin + "" + radius + "");
 	#/
 	localpower.origin = origin;
 	localpower.radius = radius;
@@ -740,7 +740,7 @@ function move_local_power(localpower, origin)
 function end_local_power(localpower)
 {
 	/#
-		println(((("" + localpower.origin) + "") + localpower.radius) + "");
+		println("" + localpower.origin + "" + localpower.radius + "");
 	#/
 	if(isdefined(localpower.enabled_list))
 	{
@@ -772,11 +772,11 @@ function has_local_power(origin)
 		{
 			if(distancesquared(localpower.origin, origin) < localpower.radius * localpower.radius)
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1004,13 +1004,13 @@ function door_range(delta, origin, radius)
 {
 	if(delta < 0)
 	{
-		return false;
+		return 0;
 	}
 	if(distancesquared(self.target.origin, origin) < radius * radius)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1127,15 +1127,15 @@ function zombie_range(delta, origin, radius)
 {
 	if(delta > 0)
 	{
-		return false;
+		return 0;
 	}
 	self.zombies = array::get_all_closest(origin, zombie_utility::get_round_enemy_array(), undefined, undefined, radius);
 	if(!isdefined(self.zombies))
 	{
-		return false;
+		return 0;
 	}
 	self.power = 1;
-	return true;
+	return 1;
 }
 
 /*
@@ -1214,10 +1214,10 @@ function perk_range(delta, origin, radius)
 		}
 		if(distancesquared(perkorigin, origin) < radius * radius)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -1232,7 +1232,7 @@ function perk_range(delta, origin, radius)
 function perk_power_on(origin, radius)
 {
 	/#
-		println(("" + self.target zm_perks::getvendingmachinenotify()) + "");
+		println("" + self.target zm_perks::getvendingmachinenotify() + "");
 	#/
 	level notify(self.target zm_perks::getvendingmachinenotify() + "_on");
 	zm_perks::perk_unpause(self.target.script_noteworthy);
@@ -1258,7 +1258,7 @@ function perk_power_off(origin, radius)
 		}
 	}
 	/#
-		println(("" + self.target.script_noteworthy) + "");
+		println("" + self.target.script_noteworthy + "");
 	#/
 	self.target notify(#"death");
 	self.target thread zm_perks::vending_trigger_think();
@@ -1297,7 +1297,7 @@ function turn_power_on_and_open_doors(power_zone)
 	{
 		player zm_stats::function_8f10788e("boas_power_turnedon");
 	}
-	if(namespace_59ff1d6c::function_901b751c(#"hash_29004a67830922b6") != 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_29004a67830922b6") != 0)
 	{
 		zombie_doors = getentarray("zombie_door", "targetname");
 		foreach(door in zombie_doors)
@@ -1351,7 +1351,7 @@ function turn_power_off_and_close_doors(power_zone)
 		level flag::clear("power_on" + power_zone);
 		level clientfield::set("zombie_power_off", power_zone);
 	}
-	if(namespace_59ff1d6c::function_901b751c(#"hash_29004a67830922b6") != 0)
+	if(cschashed-3\script_12282e6b2cc91b42::function_901b751c(#"hash_29004a67830922b6") != 0)
 	{
 		zombie_doors = getentarray("zombie_door", "targetname");
 		foreach(door in zombie_doors)

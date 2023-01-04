@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_2255a7ad3edc838f;
+#using hashed-3\bot.gsc;
 #using script_6158278c8647d8a9;
-#using script_68d2ee1489345a1d;
+#using hashed-2\killstreaks_312.gsc;
 #using script_ee56e8b680377b6;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"bot_action", &__init__, undefined, undefined);
 }
@@ -66,8 +66,7 @@ function function_66dacac1()
 	register_action(#"hash_434716893aa869f3", &weapon_rank, &function_294f4909, &function_e73c8946);
 	register_action(#"hash_4c707ba80bf09cec", &weapon_rank, &function_294f4909, &function_22e2ba8c);
 	register_action(#"hash_3d7dd2878425bcce", &weapon_rank, &function_2bc7472b, &function_36ca6d92);
-	register_action(#"fire_grenade", &weapon_rank, &registersndrampend_death, &fire_grenade);
-	register_action(#"fire_rocketlauncher", &weapon_rank, &function_a365f27e, &fire_rocketlauncher);
+	register_action(#"fire_grenade", &weapon_rank, &registersndrampend_death, &fire_grenade);	register_action(#"fire_rocketlauncher", &weapon_rank, &function_a365f27e, &fire_rocketlauncher);
 	register_action(#"fire_locked_rocketlauncher", &weapon_rank, &function_4de5fcc3, &fire_locked_rocketlauncher);
 }
 
@@ -203,7 +202,7 @@ function update()
 		self notify(#"hash_347a612b61067eb3");
 		/#
 			var_2b41fd19 = (self.bot.var_b594a2cd.forced ? "" : "");
-			record3dtext(("" + function_9e72a96(self.bot.action.name)) + var_2b41fd19, self.origin, (1, 0, 1), "", self, 0.5);
+			record3dtext("" + function_9e72a96(self.bot.action.name) + var_2b41fd19, self.origin, (1, 0, 1), "", self, 0.5);
 		#/
 		return;
 	}
@@ -224,10 +223,10 @@ function force(actionname, weapon, target)
 	action = get_action(actionname);
 	if(!isdefined(action))
 	{
-		return false;
+		return 0;
 	}
 	self function_fced7d8a(action, weapon, target);
-	return true;
+	return 1;
 }
 
 /*
@@ -313,7 +312,7 @@ function function_4a53ae1f()
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_fced7d8a(action, weapon, target)
+private function function_fced7d8a(action, weapon, target)
 {
 	self.bot.var_e6a1f475 = {#forced:1, #target:target, #weapon:weapon, #action:action};
 	self reset();
@@ -368,7 +367,7 @@ function function_36052a7f(weaponname)
 		if(!isdefined(level.botweapons[weaponname]))
 		{
 			/#
-				assertmsg(("" + function_9e72a96(weaponname)) + "");
+				assertmsg("" + function_9e72a96(weaponname) + "");
 			#/
 		}
 	#/
@@ -635,7 +634,7 @@ function function_9480d296()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private execution_loop()
+private function execution_loop()
 {
 	self endon(#"hash_5b4f399c08222e2", #"death", #"entering_last_stand", #"enter_vehicle", #"animscripted_start");
 	level endon(#"game_ended");
@@ -667,9 +666,9 @@ function private execution_loop()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_e7b123e8(var_b594a2cd)
+private function function_e7b123e8(var_b594a2cd)
 {
-	self endoncallback(&function_7a456ee0, #"hash_5b4f399c08222e2", #"death", #"entering_last_stand", #"enter_vehicle", #"animscripted_start");
+	self endon_callback(&function_7a456ee0, #"hash_5b4f399c08222e2", #"death", #"entering_last_stand", #"enter_vehicle", #"animscripted_start");
 	level endon(#"game_ended");
 	action = var_b594a2cd.action;
 	self.bot.action = action;
@@ -683,7 +682,7 @@ function private function_e7b123e8(var_b594a2cd)
 	if(executetime == finishtime)
 	{
 		/#
-			self botprinterror(("" + function_9e72a96(action.name)) + "");
+			self botprinterror("" + function_9e72a96(action.name) + "");
 		#/
 		self waittill(#"hash_347a612b61067eb3");
 	}
@@ -700,7 +699,7 @@ function private function_e7b123e8(var_b594a2cd)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_7a456ee0(notifyhash)
+private function function_7a456ee0(notifyhash)
 {
 	if(!self bot::initialized())
 	{
@@ -719,7 +718,7 @@ function private function_7a456ee0(notifyhash)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private action_timeout(actionname)
+private function action_timeout(actionname)
 {
 	self endon(#"hash_5b4f399c08222e2", #"death", #"entering_last_stand", #"enter_vehicle", #"animscripted_start", #"hash_1728f8b5de3bde13");
 	level endon(#"game_ended");
@@ -729,7 +728,7 @@ function private action_timeout(actionname)
 		return;
 	}
 	/#
-		self botprintwarning(((("" + function_9e72a96(actionname)) + "") + 10) + "");
+		self botprintwarning("" + function_9e72a96(actionname) + "" + 10 + "");
 	#/
 	self notify(#"hash_5b4f399c08222e2");
 }
@@ -833,7 +832,7 @@ function function_9e181b0f()
 						}
 					}
 				}
-				record3dtext(((((headerstr + function_9e72a96(var_b594a2cd.action.name)) + "") + recordrank) + "") + recordweight, self.origin, color, "", self, 0.5);
+				record3dtext(headerstr + function_9e72a96(var_b594a2cd.action.name) + "" + recordrank + "" + recordweight, self.origin, color, "", self, 0.5);
 				if(isdefined(var_b594a2cd.weapon) && isdefined(self.bot.var_c4fbaffc[var_b594a2cd.weapon]))
 				{
 					foreach(str in self.bot.var_c4fbaffc[var_b594a2cd.weapon])
@@ -1227,7 +1226,7 @@ function function_317d4797(weapon, var_c300ee65)
 	Parameters: 2
 	Flags: None
 */
-function registermus_gramophone_electricreactidgunterminate(weapon, var_c300ee65)
+function function_6d366261(weapon, var_c300ee65)
 {
 	self set_weapon_rank(weapon, 998, "Secondary offhand weapon");
 	self factor_ammo(weapon, var_c300ee65);
@@ -1312,7 +1311,7 @@ function set_weapon_rank(weapon, rank, reason)
 	self.bot.var_20ba0819[weapon] = rank;
 	/#
 		rankstr = (isdefined(rank) ? rank : "");
-		self.bot.var_c4fbaffc[weapon] = array((weapon.name + "") + rankstr);
+		self.bot.var_c4fbaffc[weapon] = array(weapon.name + "" + rankstr);
 		if(isdefined(reason))
 		{
 			self.bot.var_c4fbaffc[weapon][self.bot.var_c4fbaffc[weapon].size] = "" + reason;
@@ -1338,7 +1337,7 @@ function modify_weapon_rank(weapon, amount, reason)
 	self.bot.var_20ba0819[weapon] = self.bot.var_20ba0819[weapon] + amount;
 	/#
 		sign = (amount > 0 ? "" : "");
-		self.bot.var_c4fbaffc[weapon][self.bot.var_c4fbaffc[weapon].size] = ((("" + sign) + amount) + "") + reason;
+		self.bot.var_c4fbaffc[weapon][self.bot.var_c4fbaffc[weapon].size] = "" + sign + amount + "" + reason;
 	#/
 }
 
@@ -1355,7 +1354,7 @@ function factor_ammo(weapon, var_c300ee65)
 {
 	clipammo = self clip_ammo(weapon);
 	stockammo = self getweaponammostock(weapon);
-	if((clipammo + stockammo) <= 0)
+	if(clipammo + stockammo <= 0)
 	{
 		if(weapon.isgadget)
 		{
@@ -1391,7 +1390,7 @@ function factor_damage_range(weapon, var_c300ee65)
 	{
 		self modify_weapon_rank(weapon, 1, "In max damage range");
 	}
-	else if(var_c300ee65.distsq >= (weapon.mindamagerange * weapon.mindamagerange))
+	else if(var_c300ee65.distsq >= weapon.mindamagerange * weapon.mindamagerange)
 	{
 		if(weapon.weapclass == "spread")
 		{
@@ -1470,16 +1469,13 @@ function factor_rocketlauncher_overkill(weapon, var_c300ee65)
 	{
 		self set_weapon_rank(weapon, undefined, "Max Health is undefined");
 	}
+	else if(var_c300ee65.maxhealth >= 400)
+	{
+		self modify_weapon_rank(weapon, 2, "Enemy Max Health " + var_c300ee65.maxhealth + " >= " + 400);
+	}
 	else
 	{
-		if(var_c300ee65.maxhealth >= 400)
-		{
-			self modify_weapon_rank(weapon, 2, ("Enemy Max Health " + var_c300ee65.maxhealth) + (" >= ") + 400);
-		}
-		else
-		{
-			self modify_weapon_rank(weapon, -1, ("Enemy Max Health " + var_c300ee65.maxhealth) + (" < ") + 400);
-		}
+		self modify_weapon_rank(weapon, -1, "Enemy Max Health " + var_c300ee65.maxhealth + " < " + 400);
 	}
 }
 
@@ -1504,7 +1500,7 @@ function utility_color(utility, targetutility)
 		{
 			return colorscale[0];
 		}
-		utilityindex = (utility * colorscale.size) / targetutility;
+		utilityindex = utility * colorscale.size / targetutility;
 		utilityindex = utilityindex - 1;
 		colorindex = int(utilityindex);
 		colorfrac = utilityindex - colorindex;
@@ -1710,7 +1706,7 @@ function scan_for_threats_weight(var_b594a2cd)
 {
 	var_b594a2cd.target = self.enemy;
 	self function_6d30e629(var_b594a2cd);
-	return false;
+	return 0;
 }
 
 /*
@@ -1733,32 +1729,23 @@ function scan_for_threats(var_b594a2cd)
 			self function_8a2b82ad(var_b594a2cd);
 			self function_e69a1e2e(var_b594a2cd);
 		}
+		else if(!var_fdfb592e && self function_ee402bf6(var_b594a2cd))
+		{
+			self function_8a2b82ad(var_b594a2cd);
+			self function_e69a1e2e(var_b594a2cd);
+		}
+		else if(self function_4fbd6cf1())
+		{
+			self function_3b98ad10();
+		}
+		else if(var_fdfb592e)
+		{
+			self function_8a2b82ad(var_b594a2cd);
+			self aim_at_target(var_b594a2cd);
+		}
 		else
 		{
-			if(!var_fdfb592e && self function_ee402bf6(var_b594a2cd))
-			{
-				self function_8a2b82ad(var_b594a2cd);
-				self function_e69a1e2e(var_b594a2cd);
-			}
-			else
-			{
-				if(self function_4fbd6cf1())
-				{
-					self function_3b98ad10();
-				}
-				else
-				{
-					if(var_fdfb592e)
-					{
-						self function_8a2b82ad(var_b594a2cd);
-						self aim_at_target(var_b594a2cd);
-					}
-					else
-					{
-						self function_2b8f7067();
-					}
-				}
-			}
+			self function_2b8f7067();
 		}
 		self waittill(#"hash_347a612b61067eb3");
 		var_fdfb592e = self is_target_visible(var_b594a2cd);
@@ -1785,24 +1772,18 @@ function function_9e1d8dfe(var_b594a2cd)
 			self function_8a2b82ad(var_b594a2cd);
 			self function_e69a1e2e(var_b594a2cd);
 		}
+		else if(!var_fdfb592e && self function_ee402bf6(var_b594a2cd))
+		{
+			self function_8a2b82ad(var_b594a2cd);
+			self function_e69a1e2e(var_b594a2cd);
+		}
+		else if(self function_4fbd6cf1())
+		{
+			self function_3b98ad10();
+		}
 		else
 		{
-			if(!var_fdfb592e && self function_ee402bf6(var_b594a2cd))
-			{
-				self function_8a2b82ad(var_b594a2cd);
-				self function_e69a1e2e(var_b594a2cd);
-			}
-			else
-			{
-				if(self function_4fbd6cf1())
-				{
-					self function_3b98ad10();
-				}
-				else
-				{
-					self function_2b8f7067();
-				}
-			}
+			self function_2b8f7067();
 		}
 		self waittill(#"hash_347a612b61067eb3");
 		var_fdfb592e = self is_target_visible(var_b594a2cd);
@@ -1909,7 +1890,7 @@ function revive_player_weight(var_b594a2cd)
 		return;
 	}
 	pathenemyfightdist = self.bot.tacbundle.pathenemyfightdist;
-	if(!self ai::get_behavior_attribute("ignorepathenemyfightdist") && isdefined(self.enemy) && isdefined(pathenemyfightdist) && pathenemyfightdist > 0 && distance2dsquared(self.origin, self.enemy.origin) < (pathenemyfightdist * pathenemyfightdist))
+	if(!self ai::get_behavior_attribute("ignorepathenemyfightdist") && isdefined(self.enemy) && isdefined(pathenemyfightdist) && pathenemyfightdist > 0 && distance2dsquared(self.origin, self.enemy.origin) < pathenemyfightdist * pathenemyfightdist)
 	{
 		/#
 			if(!isdefined(var_b594a2cd.debug))
@@ -2136,7 +2117,7 @@ function function_5647e838(var_b594a2cd)
 			{
 				var_b594a2cd.debug = array(var_b594a2cd.debug);
 			}
-			var_b594a2cd.debug[var_b594a2cd.debug.size] = ("" + self.bot.traversal.targetheight) + "";
+			var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + self.bot.traversal.targetheight + "";
 		#/
 		return undefined;
 	}
@@ -2252,13 +2233,13 @@ function reload_weapon_weight(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo >= weapon.clipsize)
 	{
 		return undefined;
 	}
-	if(self bot::in_combat() && clipammo > (weapon.clipsize * 0.2))
+	if(self bot::in_combat() && clipammo > weapon.clipsize * 0.2)
 	{
 		/#
 			if(!isdefined(var_b594a2cd.debug))
@@ -2319,30 +2300,24 @@ function reload_weapon(var_b594a2cd)
 			self function_8a2b82ad(var_b594a2cd);
 			self function_e69a1e2e(var_b594a2cd);
 		}
-		else
+		else if(self function_bb2a8f1b(var_b594a2cd) && self function_3094610b(self.bot.tacbundle.var_82aa37d8))
 		{
-			if(self function_bb2a8f1b(var_b594a2cd) && self function_3094610b(self.bot.tacbundle.var_82aa37d8))
+			if(self function_ca71ffdb())
 			{
-				if(self function_ca71ffdb())
-				{
-					self function_d273d4e7();
-				}
-				else
-				{
-					self function_c17972fc();
-				}
+				self function_d273d4e7();
 			}
 			else
 			{
-				if(self function_4fbd6cf1())
-				{
-					self function_3b98ad10();
-				}
-				else
-				{
-					self function_2b8f7067();
-				}
+				self function_c17972fc();
 			}
+		}
+		else if(self function_4fbd6cf1())
+		{
+			self function_3b98ad10();
+		}
+		else
+		{
+			self function_2b8f7067();
 		}
 		self waittill(#"hash_347a612b61067eb3");
 	}
@@ -2361,13 +2336,13 @@ function function_4d9b6e04()
 {
 	if(level.script == "mp_mountain2")
 	{
-		return true;
+		return 1;
 	}
 	if(level.script == "mp_slums2")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2413,7 +2388,7 @@ function function_abf40e98(var_b594a2cd)
 	}
 	eye = self geteye();
 	forwarddir = anglestoforward(self getplayerangles());
-	traceend = eye + (forwarddir * var_b594a2cd.weapon.var_bfbec33f);
+	traceend = eye + forwarddir * var_b594a2cd.weapon.var_bfbec33f;
 	trace = bullettrace(eye, traceend, 0, self);
 	if(trace[#"fraction"] >= 1)
 	{
@@ -2531,7 +2506,7 @@ function melee_enemy_weight(var_b594a2cd)
 		#/
 		return undefined;
 	}
-	if(!isdefined(self.bot.var_d8397b2) || (gettime() - self.bot.var_d8397b2) > 1000)
+	if(!isdefined(self.bot.var_d8397b2) || gettime() - self.bot.var_d8397b2 > 1000)
 	{
 		self.bot.var_d8397b2 = gettime();
 		self.bot.var_9a77751a = randomfloat(1) < (isdefined(self.bot.tacbundle.var_ecf6111e) ? self.bot.tacbundle.var_ecf6111e : 0);
@@ -2622,7 +2597,7 @@ function function_36505c2d(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo <= 0)
 	{
@@ -2740,7 +2715,7 @@ function function_294f4909(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo <= 0)
 	{
@@ -2832,7 +2807,7 @@ function function_22e2ba8c(var_b594a2cd)
 					else
 					{
 						delaytimesec = randomfloatrange((isdefined(self.bot.tacbundle.var_b9f05fc) ? self.bot.tacbundle.var_b9f05fc : 0), (isdefined(self.bot.tacbundle.var_c850085f) ? self.bot.tacbundle.var_c850085f : 0));
-						self.bot.var_f2b47a08 = gettime() + (int(delaytimesec * 1000));
+						self.bot.var_f2b47a08 = gettime() + int(delaytimesec * 1000);
 					}
 				}
 				if(gettime() >= self.bot.var_f2b47a08)
@@ -2899,7 +2874,7 @@ function function_2bc7472b(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo <= 0)
 	{
@@ -2970,7 +2945,7 @@ function function_36ca6d92(var_b594a2cd)
 	Parameters: 1
 	Flags: Linked
 */
-function registersndrampend_death(var_b594a2cd)
+function function_6eeebed3(var_b594a2cd)
 {
 	var_b594a2cd.target = self.enemy;
 	weapon = var_b594a2cd.weapon;
@@ -3014,7 +2989,7 @@ function registersndrampend_death(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo <= 0)
 	{
@@ -3065,7 +3040,7 @@ function registersndrampend_death(var_b594a2cd)
 	Parameters: 1
 	Flags: Linked
 */
-function fire_grenade(var_b594a2cd)
+function function_7ff3a4df(var_b594a2cd)
 {
 	weapon = var_b594a2cd.weapon;
 	while(!self function_cf788c22() && self function_bb2a8f1b(var_b594a2cd) && self is_target_visible(var_b594a2cd) && self bot::function_828da7a9(weapon))
@@ -3138,7 +3113,7 @@ function function_4de5fcc3(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo <= 0)
 	{
@@ -3244,7 +3219,7 @@ function function_a365f27e(var_b594a2cd)
 		{
 			var_b594a2cd.debug = array(var_b594a2cd.debug);
 		}
-		var_b594a2cd.debug[var_b594a2cd.debug.size] = (("" + clipammo) + "") + weapon.clipsize;
+		var_b594a2cd.debug[var_b594a2cd.debug.size] = "" + clipammo + "" + weapon.clipsize;
 	#/
 	if(clipammo <= 0)
 	{
@@ -3622,16 +3597,13 @@ function function_26c2bce7(var_b594a2cd, var_210136db)
 	{
 		var_b594a2cd.var_210136db = self.scriptenemytag;
 	}
+	else if(isdefined(target.shootattag))
+	{
+		var_b594a2cd.var_210136db = target.shootattag;
+	}
 	else
 	{
-		if(isdefined(target.shootattag))
-		{
-			var_b594a2cd.var_210136db = target.shootattag;
-		}
-		else
-		{
-			var_b594a2cd.var_210136db = var_210136db;
-		}
+		var_b594a2cd.var_210136db = var_210136db;
 	}
 	var_b594a2cd.var_5b865e5e = var_b594a2cd.var_210136db;
 	if(isdefined(target.aimattag))
@@ -3649,7 +3621,7 @@ function function_26c2bce7(var_b594a2cd, var_210136db)
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_627e3d2c(tag, target, var_c8e8809e)
+private function function_627e3d2c(tag, target, var_c8e8809e)
 {
 	if(!isdefined(tag))
 	{
@@ -3685,18 +3657,15 @@ function function_8a2b82ad(var_b594a2cd)
 		{
 			var_b594a2cd.aimpoint = target;
 		}
-		else
+		else if(function_ffa5b184(target))
 		{
-			if(function_ffa5b184(target))
-			{
-				var_b594a2cd.aimpoint = target.var_88f8feeb;
-			}
-			else if(isentity(target))
-			{
-				centroid = target getcentroid();
-				var_b594a2cd.aimpoint = function_627e3d2c(var_b594a2cd.var_210136db, target, centroid);
-				var_b594a2cd.var_97065630 = function_627e3d2c(var_b594a2cd.var_5b865e5e, target, centroid);
-			}
+			var_b594a2cd.aimpoint = target.var_88f8feeb;
+		}
+		else if(isentity(target))
+		{
+			centroid = target getcentroid();
+			var_b594a2cd.aimpoint = function_627e3d2c(var_b594a2cd.var_210136db, target, centroid);
+			var_b594a2cd.var_97065630 = function_627e3d2c(var_b594a2cd.var_5b865e5e, target, centroid);
 		}
 	}
 	else
@@ -3704,7 +3673,7 @@ function function_8a2b82ad(var_b594a2cd)
 		eyes = self geteye();
 		angles = self getplayerangles();
 		fwd = anglestoforward(angles);
-		var_b594a2cd.aimpoint = eyes + (fwd * 300);
+		var_b594a2cd.aimpoint = eyes + fwd * 300;
 	}
 	if(!isdefined(var_b594a2cd.var_97065630))
 	{
@@ -3790,20 +3759,20 @@ function function_d2e41376(var_9d9ae85, eyes, fwd, right, up, var_ea5b64df, clos
 		var_b91ee594 = vectordot(var_24e5c8be, right) < 0;
 		if(var_b91ee594)
 		{
-			aimoffset = right * (randomfloatrange(var_d83e24eb * -1, var_18451fac));
+			aimoffset = right * randomfloatrange(var_d83e24eb * -1, var_18451fac);
 		}
 		else
 		{
-			aimoffset = right * (randomfloatrange(var_18451fac * -1, var_d83e24eb));
+			aimoffset = right * randomfloatrange(var_18451fac * -1, var_d83e24eb);
 		}
 		var_7bbaffc = vectordot(var_24e5c8be, up) < 0;
 		if(var_7bbaffc)
 		{
-			aimoffset = (aimoffset[0], aimoffset[1], (randomfloatrange(var_d83e24eb * -1, var_18451fac)) * 0.5);
+			aimoffset = (aimoffset[0], aimoffset[1], randomfloatrange(var_d83e24eb * -1, var_18451fac) * 0.5);
 		}
 		else
 		{
-			aimoffset = (aimoffset[0], aimoffset[1], (randomfloatrange(var_18451fac * -1, var_d83e24eb)) * 0.5);
+			aimoffset = (aimoffset[0], aimoffset[1], randomfloatrange(var_18451fac * -1, var_d83e24eb) * 0.5);
 		}
 	}
 	return aimoffset;
@@ -3955,7 +3924,7 @@ function function_ecf6dc7a(var_b594a2cd)
 			}
 			var_b594a2cd.debug[var_b594a2cd.debug.size] = "";
 		#/
-		return false;
+		return 0;
 	}
 	if(!self is_target_visible(var_b594a2cd))
 	{
@@ -3970,9 +3939,9 @@ function function_ecf6dc7a(var_b594a2cd)
 			}
 			var_b594a2cd.debug[var_b594a2cd.debug.size] = "";
 		#/
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -4053,14 +4022,14 @@ function function_ee402bf6(var_b594a2cd)
 	{
 		return 0;
 	}
-	if(issentient(target) && (self lastknowntime(target) + 5000) < gettime())
+	if(issentient(target) && self lastknowntime(target) + 5000 < gettime())
 	{
 		return 0;
 	}
 	targetorigin = (isvec(target) ? target : target.origin);
 	targetdistsq = distancesquared(self.origin, targetorigin);
 	var_1d4ad8f2 = self.bot.tacbundle.var_bda90bb9;
-	return targetdistsq <= (var_1d4ad8f2 * var_1d4ad8f2);
+	return targetdistsq <= var_1d4ad8f2 * var_1d4ad8f2;
 }
 
 /*
@@ -4083,7 +4052,7 @@ function function_679b5b7a(var_b594a2cd)
 	targetorigin = (isvec(target) ? target : target.origin);
 	targetdistsq = distancesquared(self.origin, targetorigin);
 	var_97c37e78 = self.bot.tacbundle.maxrange;
-	return targetdistsq <= (var_97c37e78 * var_97c37e78);
+	return targetdistsq <= var_97c37e78 * var_97c37e78;
 }
 
 /*
@@ -4102,13 +4071,13 @@ function function_faa6a59d(var_b594a2cd, range)
 	{
 		return 0;
 	}
-	if(issentient(target) && (self lastknowntime(target) + 5000) < gettime())
+	if(issentient(target) && self lastknowntime(target) + 5000 < gettime())
 	{
 		return 0;
 	}
 	targetorigin = (isvec(target) ? target : target.origin);
 	targetdistsq = distancesquared(self.origin, targetorigin);
-	return targetdistsq <= (range * range);
+	return targetdistsq <= range * range;
 }
 
 /*
@@ -4329,20 +4298,17 @@ function look_along_path()
 		lookpoint = var_104d463;
 		debugcolor = (1, 1, 0);
 	}
+	else if(isdefined(self.overridegoalpos))
+	{
+		lookpoint = self.overridegoalpos;
+		var_e125ba43 = "Override Goal Pos";
+		debugcolor = (1, 0, 1);
+	}
 	else
 	{
-		if(isdefined(self.overridegoalpos))
-		{
-			lookpoint = self.overridegoalpos;
-			var_e125ba43 = "Override Goal Pos";
-			debugcolor = (1, 0, 1);
-		}
-		else
-		{
-			lookpoint = self.goalpos;
-			var_e125ba43 = (self.goalforced ? "Goal Pos (Forced)" : "Goal Pos");
-			debugcolor = (self.goalforced ? (0, 1, 1) : (0, 1, 0));
-		}
+		lookpoint = self.goalpos;
+		var_e125ba43 = (self.goalforced ? "Goal Pos (Forced)" : "Goal Pos");
+		debugcolor = (self.goalforced ? (0, 1, 1) : (0, 1, 0));
 	}
 	viewheight = self getplayerviewheight();
 	lookpoint = lookpoint + (0, 0, viewheight);
@@ -4373,24 +4339,21 @@ function function_412e04fa(node)
 	{
 		if(function_9ccb67a3(node))
 		{
-			if((vectordot(var_831c15e5, self.origin - node.origin)) >= 0)
+			if(vectordot(var_831c15e5, self.origin - node.origin) >= 0)
 			{
 				rotation = rotation * -1;
 			}
 		}
-		else
+		else if(isdefined(self.enemylastseenpos))
 		{
-			if(isdefined(self.enemylastseenpos))
-			{
-				if((vectordot(var_831c15e5, self.enemylastseenpos - self.origin)) >= 0)
-				{
-					rotation = rotation * -1;
-				}
-			}
-			else if(randomint(2) > 0)
+			if(vectordot(var_831c15e5, self.enemylastseenpos - self.origin) >= 0)
 			{
 				rotation = rotation * -1;
 			}
+		}
+		else if(randomint(2) > 0)
+		{
+			rotation = rotation * -1;
 		}
 	}
 	else if(var_a26a51ba)
@@ -4461,7 +4424,7 @@ function function_2b8f7067()
 		var_7607a546.searched = 1;
 		var_b43277fd = [0:var_7607a546];
 		var_d56aeea7 = [0:var_7607a546];
-		v_start_hardpoint_navmesh_collision = [];
+		var_144c6266 = [];
 		var_4a39f740 = [];
 		self.var_77ae9678 = [];
 		while(var_b43277fd.size > 0)
@@ -4476,9 +4439,9 @@ function function_2b8f7067()
 					var_d56aeea7[var_d56aeea7.size] = point;
 					if(var_7607a546.region != point.region)
 					{
-						if(!array::contains(v_start_hardpoint_navmesh_collision, currentpoint))
+						if(!array::contains(var_144c6266, currentpoint))
 						{
-							v_start_hardpoint_navmesh_collision[v_start_hardpoint_navmesh_collision.size] = currentpoint;
+							var_144c6266[var_144c6266.size] = currentpoint;
 						}
 						continue;
 					}
@@ -4499,7 +4462,7 @@ function function_2b8f7067()
 		{
 			point.searched = undefined;
 		}
-		self.var_77ae9678 = arraycombine(v_start_hardpoint_navmesh_collision, var_4a39f740, 0, 0);
+		self.var_77ae9678 = arraycombine(var_144c6266, var_4a39f740, 0, 0);
 	}
 	if(isdefined(self.var_77ae9678) && self.var_77ae9678.size > 0)
 	{
@@ -4575,7 +4538,7 @@ function function_ab4c3550()
 */
 function function_3094610b(limit = 0)
 {
-	return isdefined(self.enemylastseenpos) && isdefined(self.enemylastseentime) && gettime() < (self.enemylastseentime + limit);
+	return isdefined(self.enemylastseenpos) && isdefined(self.enemylastseentime) && gettime() < self.enemylastseentime + limit;
 }
 
 /*
@@ -4822,7 +4785,7 @@ function function_ec16df22(weapon)
 	Parameters: 1
 	Flags: None
 */
-function test_gadget(var_b594a2cd)
+function function_3eff74d6(var_b594a2cd)
 {
 	weapon = var_b594a2cd.weapon;
 	if(!isdefined(weapon))
@@ -4895,7 +4858,7 @@ function function_5de4c088(var_b594a2cd)
 			}
 			var_b594a2cd.debug[var_b594a2cd.debug.size] = "";
 		#/
-		return false;
+		return 0;
 	}
 	if(!self gadgetisready(slot))
 	{
@@ -4910,9 +4873,9 @@ function function_5de4c088(var_b594a2cd)
 			}
 			var_b594a2cd.debug[var_b594a2cd.debug.size] = "";
 		#/
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -5071,11 +5034,11 @@ function function_37256a9b()
 			stockammo = self getweaponammostock(weapon);
 			if(clipammo + stockammo > 0)
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*

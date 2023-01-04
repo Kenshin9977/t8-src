@@ -1,16 +1,16 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_135d37089bbde4f2;
 #using script_18fb8ad2a13d96b;
-#using script_2255a7ad3edc838f;
-#using script_2ca4b414b146b498;
-#using script_2cc4bd7902c3f711;
+#using hashed-3\bot.gsc;
+#using hashed-1\ai_tank.gsc;
+#using hashed-1\ct_shared_warning.gsc;
 #using script_3b7405881c081f6;
-#using script_3b808b326beb9e55;
+#using hashed-1\amws.gsc;
 #using script_490759cf62a1abc8;
 #using script_4a81c26d2ddde9c;
 #using script_5b092d41f1ecae8a;
 #using script_61826ca279ffa0;
-#using script_6c8abe14025b47c4;
+#using hashed-1\killstreaks.gsc;
 #using script_bb99a1f9be8d0a7;
 #using script_ee56e8b680377b6;
 #using scripts\core_common\array_shared.gsc;
@@ -105,19 +105,16 @@ function function_c9ff0dce()
 		{
 			self thread function_2fb096bf();
 		}
-		else
+		else if(level.var_ad7c0539 === 5 && level flag::get("war_machine") || level.var_ad7c0539 === 6 || level.var_ad7c0539 === 7 || level.var_ad7c0539 === 8 || level.var_ad7c0539 === 9)
 		{
-			if(level.var_ad7c0539 === 5 && level flag::get("war_machine") || level.var_ad7c0539 === 6 || level.var_ad7c0539 === 7 || level.var_ad7c0539 === 8 || level.var_ad7c0539 === 9)
+			self thread function_fef38fec();
+		}
+		else if(level.var_ad7c0539 === 10)
+		{
+			wait(0.5);
+			if(isdefined(level.var_2159a10d) && level.var_2159a10d)
 			{
-				self thread function_fef38fec();
-			}
-			else if(level.var_ad7c0539 === 10)
-			{
-				wait(0.5);
-				if(isdefined(level.var_2159a10d) && level.var_2159a10d)
-				{
-					level namespace_8c007aa6::play_vo(#"hash_7dfd3741e740a503", 1);
-				}
+				level namespace_8c007aa6::play_vo(#"hash_7dfd3741e740a503", 1);
 			}
 		}
 		if(level.var_ad7c0539 === 5 && !level flag::get("feet_dry"))
@@ -285,7 +282,7 @@ function function_72ba0df6(einflictor, attacker, idamage, smeansofdeath, weapon,
 			level notify(#"stop_target_nag");
 		}
 		level notify(#"stop_nag");
-		namespace_8c007aa6::function_c72e58c1();
+		namespace_8c007aa6::play_vo_end();
 		namespace_8c007aa6::function_47ece28d();
 		if(level.var_ad7c0539 === 7)
 		{
@@ -313,22 +310,19 @@ function function_72ba0df6(einflictor, attacker, idamage, smeansofdeath, weapon,
 				level flag::set("gib_done");
 			}
 		}
-		else
+		else if(level.var_ad7c0539 === 8)
 		{
-			if(level.var_ad7c0539 === 8)
+			if(isdefined(attacker) && isplayer(attacker) && (weapon == getweapon(#"hero_pineapplegun") || weapon == getweapon(#"hero_pineapple_grenade")))
 			{
-				if(isdefined(attacker) && isplayer(attacker) && (weapon == getweapon(#"hero_pineapplegun") || weapon == getweapon(#"hero_pineapple_grenade")))
-				{
-					level flag::set("window_hit");
-				}
+				level flag::set("window_hit");
 			}
-			else if(level.var_ad7c0539 === 10)
+		}
+		else if(level.var_ad7c0539 === 10)
+		{
+			e_player = namespace_73e1c3e3::get_player();
+			if(!(isdefined(e_player.var_51ff7a58) && e_player.var_51ff7a58) && isalive(e_player) && level.var_ff7ed5c8 < 900)
 			{
-				e_player = namespace_73e1c3e3::get_player();
-				if(!(isdefined(e_player.var_51ff7a58) && e_player.var_51ff7a58) && isalive(e_player) && level.var_ff7ed5c8 < 900)
-				{
-					function_86610592();
-				}
+				function_86610592();
 			}
 		}
 	}
@@ -509,7 +503,7 @@ function function_2f726e0f()
 		namespace_8c007aa6::function_3ca1b77d();
 		level.var_66b3c127 = struct::get_array("s_battery_sticky_grenade_soldiers", "targetname");
 		level.var_9f073b4 = 0;
-		namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		level.players[0] thread function_abd58b32();
 		level.players[0] namespace_8c007aa6::play_vo(#"hash_652da47d15a2ff49", 1);
 		level.var_e72728b8 = array(#"hero_pineapplegun");
@@ -582,7 +576,7 @@ function function_27e2d4aa()
 		namespace_73e1c3e3::function_c2a10fc();
 		wait(0.5);
 	}
-	namespace_8c007aa6::function_c72e58c1();
+	namespace_8c007aa6::play_vo_end();
 	namespace_8c007aa6::function_47ece28d();
 	wait(0.1);
 	level.players[0] namespace_8c007aa6::play_vo(#"hash_4a3fa914d1ccc37c", 1);
@@ -616,7 +610,7 @@ function function_a03539a3()
 		level thread namespace_8c007aa6::play_vo(#"hash_4a3fab14d1ccc6e2");
 		level.var_66b3c127 = struct::get_array("s_battery_behind_cover_soldiers", "targetname");
 		level.var_9f073b4 = 0;
-		namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		level.var_e72728b8 = array(#"hero_pineapplegun");
 		level thread namespace_8c007aa6::function_14b08e49(array(#"hash_5dd04af8bb689afe"), "stop_cover_nag");
 		level.players[0] thread namespace_73e1c3e3::function_61c3d59c(#"hash_50137242db8bc97a", undefined);
@@ -644,7 +638,7 @@ function function_a03539a3()
 		wait(0.5);
 	}
 	level notify(#"hash_4c9c5fbc89779e64");
-	namespace_8c007aa6::function_c72e58c1();
+	namespace_8c007aa6::play_vo_end();
 	namespace_8c007aa6::function_47ece28d();
 	level thread namespace_8c007aa6::play_vo(#"hash_281160c4a36c9dd0", 0);
 	namespace_73e1c3e3::function_c2a10fc();
@@ -714,7 +708,7 @@ function function_bd6468f()
 	{
 		level.var_66b3c127 = struct::get_array("s_war_machine_guys_1", "targetname");
 		level.var_9f073b4 = 0;
-		level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		level.players[0] thread namespace_73e1c3e3::function_61c3d59c(#"hash_67563f152ef388bd", undefined);
 		namespace_8c007aa6::function_3ca1b77d();
 		level.players[0] namespace_8c007aa6::play_vo(#"hash_fbb33cda7463db4", 1);
@@ -776,7 +770,7 @@ function function_bd7019ff()
 	{
 		level.var_66b3c127 = struct::get_array("s_war_machine_aoe_guy_1");
 		level.var_9f073b4 = 0;
-		level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		level.players[0] thread namespace_73e1c3e3::function_61c3d59c(#"hash_2e379a9a40b2463", undefined);
 		level.players[0] thread function_c35855fd(1);
 		while(isalive(level.players[0]) && !level flag::get("dock_cleared_1"))
@@ -799,7 +793,7 @@ function function_bd7019ff()
 		wait(1);
 		level.var_66b3c127 = struct::get_array("s_war_machine_aoe_guy_2");
 		level.var_9f073b4 = 0;
-		level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		level namespace_8c007aa6::play_vo(#"hash_5b2fd595bb586f15", 1);
 		level.players[0] thread function_c35855fd(2);
 		level thread namespace_8c007aa6::function_14b08e49(array(#"hash_73ed12cc4469c57e"), "stop_area_nag");
@@ -863,7 +857,7 @@ function function_8d7d4d37()
 		level.players[0] thread function_76f5d2dc("s_war_machine_wall_bounce_target");
 		level.var_66b3c127 = struct::get_array("s_war_machine_wall_bounce_guys");
 		level.var_9f073b4 = 0;
-		level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		namespace_8c007aa6::function_3ca1b77d();
 		level thread namespace_8c007aa6::play_vo(#"hash_4e12d46aa916d98e", 0);
 		level.players[0] thread function_f47cc92a();
@@ -877,7 +871,7 @@ function function_8d7d4d37()
 			level notify(#"hash_1ed85b84698bdac7");
 			wait(0.5);
 			level.players[0] namespace_73e1c3e3::function_49e0c5bc(0, 0);
-			namespace_8c007aa6::function_c72e58c1();
+			namespace_8c007aa6::play_vo_end();
 			namespace_8c007aa6::function_47ece28d();
 			level flag::clear("enemy_arrived");
 			level notify(#"start_war_machine_wall_bounce_forward_collision");
@@ -925,7 +919,7 @@ function function_de37fc52()
 	{
 		level.var_66b3c127 = struct::get_array("s_war_machine_window_guys", "targetname");
 		level.var_9f073b4 = 0;
-		level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		level thread namespace_8c007aa6::play_vo(#"hash_3dc8e508b25425a5", 0);
 		s_loc = struct::get("s_war_machine_window_target");
 		waypoint = namespace_73e1c3e3::create_waypoint(#"hash_4c8740a012a13b31", s_loc.origin, s_loc.angles, #"any", undefined, 40, undefined);
@@ -940,7 +934,7 @@ function function_de37fc52()
 		if(!level flag::get("window_hit"))
 		{
 			level.players[0] namespace_73e1c3e3::function_49e0c5bc(0, 0);
-			namespace_8c007aa6::function_c72e58c1();
+			namespace_8c007aa6::play_vo_end();
 			namespace_8c007aa6::function_47ece28d();
 		}
 		if(isdefined(waypoint))
@@ -1215,7 +1209,7 @@ function function_8e068518()
 		level.players[0] thread function_f69a6b41();
 		level.var_66b3c127 = struct::get_array("s_killstreak_spawn", "targetname");
 		level.var_9f073b4 = 0;
-		namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+		namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 		wait(0.5);
 		while(level.var_2159a10d && (!(isdefined(level.var_51ff7a58) && level.var_51ff7a58)) && isalive(level.players[0]))
 		{
@@ -1335,7 +1329,7 @@ function function_e17f2b8a()
 				level.players[0] val::set("scorestreak_protect", "takedamage", 0);
 				level.var_66b3c127 = struct::get_array("s_scorestreak_targets");
 				level.var_9f073b4 = 0;
-				level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+				level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 				level.players[0] thread namespace_73e1c3e3::function_61c3d59c(#"hash_2e3f0f83040d38d4", undefined);
 				level.players[0] waittill(#"killstreak_done");
 				namespace_73e1c3e3::function_c2a10fc();
@@ -1344,8 +1338,8 @@ function function_e17f2b8a()
 				wait(5);
 				level.var_3a0d2784 = 0;
 				level.players[0] val::reset("scorestreak_protect", "takedamage");
-				a_bots = level.players[0] namespace_64a487a9::function_dde6edbd();
-				if(isdefined(a_bots) && a_bots.size <= (n_alive * 0.5))
+				var_3f21ce47 = level.players[0] namespace_64a487a9::function_dde6edbd();
+				if(isdefined(a_bots) && a_bots.size <= n_alive * 0.5)
 				{
 					level flag::set("scorestreak_done");
 					level.players[0] namespace_73e1c3e3::function_8881abec();
@@ -1684,77 +1678,65 @@ function function_58c62280(b_keyline, b_ignoreall)
 	{
 		self thread function_f9803d74();
 	}
-	else
+	else if(level.var_ad7c0539 === 5)
 	{
-		if(level.var_ad7c0539 === 5)
+		if(s_loc.script_noteworthy === "war_machine_victim")
 		{
-			if(s_loc.script_noteworthy === "war_machine_victim")
+			self.ignoreall = 1;
+			self.targetname = "war_machine_victim";
+			self thread function_f9803d74();
+			self thread function_a40b5f9c();
+		}
+	}
+	else if(level.var_ad7c0539 === 6)
+	{
+		if(s_loc.script_noteworthy === "war_machine_aoe_pair")
+		{
+			self.ignoreme = 0;
+			self.ignoreall = 0;
+			self thread function_f9803d74();
+			s_goal = struct::get(s_loc.target);
+			self thread namespace_73e1c3e3::function_5b59f3b7(s_goal.origin, s_goal.angles, 8);
+			if(isdefined(s_goal.script_noteworthy))
 			{
-				self.ignoreall = 1;
-				self.targetname = "war_machine_victim";
-				self thread function_f9803d74();
-				self thread function_a40b5f9c();
+				self waittill(#"goal");
+				self namespace_9c817acd::crouch();
 			}
 		}
 		else
 		{
-			if(level.var_ad7c0539 === 6)
-			{
-				if(s_loc.script_noteworthy === "war_machine_aoe_pair")
-				{
-					self.ignoreme = 0;
-					self.ignoreall = 0;
-					self thread function_f9803d74();
-					s_goal = struct::get(s_loc.target);
-					self thread namespace_73e1c3e3::function_5b59f3b7(s_goal.origin, s_goal.angles, 8);
-					if(isdefined(s_goal.script_noteworthy))
-					{
-						self waittill(#"goal");
-						self namespace_9c817acd::crouch();
-					}
-				}
-				else
-				{
-					self.ignoreme = 0;
-					self.ignoreall = 0;
-					self thread function_f9803d74();
-					s_goal = struct::get(s_loc.target);
-					self thread namespace_73e1c3e3::function_1e7b75f2(s_goal);
-				}
-			}
-			else
-			{
-				if(level.var_ad7c0539 === 7)
-				{
-					self thread function_f9803d74();
-					self thread function_35ea89f8(s_loc);
-				}
-				else
-				{
-					if(level.var_ad7c0539 === 8)
-					{
-						s_goal = struct::get(s_loc.target);
-						self thread namespace_73e1c3e3::function_5b59f3b7(s_goal.origin, s_goal.angles, 16);
-					}
-					else if(level.var_ad7c0539 === 10)
-					{
-						if(s_loc.script_noteworthy === "scorestreak_target")
-						{
-							self thread function_f9803d74();
-							s_goal = struct::get(s_loc.target);
-							self thread namespace_73e1c3e3::function_5b59f3b7(s_goal.origin, s_goal.angles, 32);
-						}
-						else
-						{
-							self.ignoreme = 0;
-							self.ignoreall = 0;
-							self thread function_f9803d74();
-							self thread reinforce_enemy(s_loc);
-							self namespace_73e1c3e3::function_b5e31ad(level.players[0], 150, 250);
-						}
-					}
-				}
-			}
+			self.ignoreme = 0;
+			self.ignoreall = 0;
+			self thread function_f9803d74();
+			s_goal = struct::get(s_loc.target);
+			self thread namespace_73e1c3e3::function_1e7b75f2(s_goal);
+		}
+	}
+	else if(level.var_ad7c0539 === 7)
+	{
+		self thread function_f9803d74();
+		self thread function_35ea89f8(s_loc);
+	}
+	else if(level.var_ad7c0539 === 8)
+	{
+		s_goal = struct::get(s_loc.target);
+		self thread namespace_73e1c3e3::function_5b59f3b7(s_goal.origin, s_goal.angles, 16);
+	}
+	else if(level.var_ad7c0539 === 10)
+	{
+		if(s_loc.script_noteworthy === "scorestreak_target")
+		{
+			self thread function_f9803d74();
+			s_goal = struct::get(s_loc.target);
+			self thread namespace_73e1c3e3::function_5b59f3b7(s_goal.origin, s_goal.angles, 32);
+		}
+		else
+		{
+			self.ignoreme = 0;
+			self.ignoreall = 0;
+			self thread function_f9803d74();
+			self thread reinforce_enemy(s_loc);
+			self namespace_73e1c3e3::function_b5e31ad(level.players[0], 150, 250);
 		}
 	}
 }
@@ -1964,7 +1946,7 @@ function function_8670e3b1(s_loc)
 			break;
 		}
 	}
-	a_bots = level.players[0] namespace_64a487a9::function_dde6edbd();
+	var_3f21ce47 = level.players[0] namespace_64a487a9::function_dde6edbd();
 	foreach(bot in a_bots)
 	{
 		bot setlowready(0);
@@ -1996,7 +1978,7 @@ function function_d91a23c7()
 		return;
 	}
 	wait(0.1);
-	a_bots = level.players[0] namespace_64a487a9::function_dde6edbd();
+	var_3f21ce47 = level.players[0] namespace_64a487a9::function_dde6edbd();
 	foreach(bot in a_bots)
 	{
 		if(isalive(bot))
@@ -2235,11 +2217,11 @@ function function_7810b056()
 	level thread namespace_8c007aa6::play_vo(#"hash_56aeede2ec363647", 0);
 	level.var_66b3c127 = struct::get_array("s_battery_clear_room_soldiers", "targetname");
 	level.var_9f073b4 = 0;
-	level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+	level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 	namespace_8c007aa6::function_3ca1b77d();
 	level flag::wait_till("grenade_room_explode");
 	wait(1.5);
-	a_bots = namespace_64a487a9::function_fbe3dcbb();
+	var_3f21ce47 = namespace_64a487a9::function_fbe3dcbb();
 	foreach(bot in a_bots)
 	{
 		bot dodamage(bot.health + 100, bot.origin, self, undefined, undefined, "MOD_GRENADE_SPLASH");
@@ -2262,10 +2244,10 @@ function function_2fb096bf()
 	level notify(#"start_grenade_room_swim_collision");
 	level.var_66b3c127 = struct::get_array("s_battery_clear_room_soldiers", "targetname");
 	level.var_9f073b4 = 0;
-	level thread namespace_64a487a9::activate_bots(level.var_66b3c127.size, #"axis");
+	level thread namespace_64a487a9::function_4d9cfd95(level.var_66b3c127.size, #"axis");
 	level flag::wait_till("grenade_room_explode");
 	wait(1.5);
-	a_bots = namespace_64a487a9::function_fbe3dcbb();
+	var_3f21ce47 = namespace_64a487a9::function_fbe3dcbb();
 	foreach(bot in a_bots)
 	{
 		bot dodamage(bot.health + 100, bot.origin, self, undefined, undefined, "MOD_GRENADE_SPLASH");
@@ -2367,7 +2349,7 @@ function function_45f567b0(s_loc, waypoint)
 function function_ac588971()
 {
 	level endon(#"boat_enemies_dead");
-	a_bots = level.players[0] namespace_64a487a9::function_dde6edbd();
+	var_3f21ce47 = level.players[0] namespace_64a487a9::function_dde6edbd();
 	foreach(bot in a_bots)
 	{
 		bot dodamage(bot.health + 100, bot.origin, level.players[0], undefined, undefined, "MOD_GRENADE_SPLASH");
@@ -2561,7 +2543,7 @@ function function_abc3a00d()
 	level endon(#"combattraining_logic_finished");
 	self endon(#"death");
 	wait(0.25);
-	a_bots = self namespace_64a487a9::function_dde6edbd();
+	var_3f21ce47 = self namespace_64a487a9::function_dde6edbd();
 	foreach(bot in a_bots)
 	{
 		bot dodamage(bot.health + 100, bot.origin + (0, -100, 40), self, undefined, undefined, "MOD_EXPLOSIVE", 0, getweapon(#"hero_pineapplegun"));
@@ -2670,8 +2652,8 @@ function function_5a67767d(v_org)
 	if(isdefined(e_player))
 	{
 		v_to_player = e_player.origin - v_org;
-		ex_elevator_overlight_indicator_ = vectortoangles(v_to_player);
-		playfx("player/fx8_plyr_spawn_distortion", v_org, anglestoforward(ex_elevator_overlight_indicator_), anglestoup(ex_elevator_overlight_indicator_));
+		var_13bbc909 = vectortoangles(v_to_player);
+		playfx("player/fx8_plyr_spawn_distortion", v_org, anglestoforward(var_13bbc909), anglestoup(var_13bbc909));
 	}
 }
 
@@ -2697,7 +2679,7 @@ function reinforce_enemy(s_loc)
 		}
 		level.var_72c3ea74 = array(s_loc);
 		level.var_da5432a2 = 0;
-		namespace_64a487a9::activate_bots(level.var_72c3ea74.size, #"axis");
+		namespace_64a487a9::function_4d9cfd95(level.var_72c3ea74.size, #"axis");
 	}
 }
 

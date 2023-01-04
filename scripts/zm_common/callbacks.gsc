@@ -1,10 +1,10 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_20ac552ee498eb9d;
-#using script_2255a7ad3edc838f;
-#using script_2e7b2ce35bae89d9;
-#using script_35b5ff21c2a0960f;
-#using script_522aeb6ae906391e;
-#using script_79a7e1c31a3e8cc;
+#using hashed-3\bot.gsc;
+#using hashed-1\bot.gsc;
+#using hashed-2\globallogic_vehicle.gsc;
+#using hashed-2\blackboard.gsc;
+#using hashed-2\deployable.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\struct.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -24,7 +24,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"callback", &__init__, undefined, undefined);
 }

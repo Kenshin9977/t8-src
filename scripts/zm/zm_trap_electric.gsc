@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_5660bae5b402a1eb;
-#using script_57f7003580bb15e0;
-#using script_ab890501c40b73c;
+#using hashed-3\zombie_death.gsc;
+#using hashed-2\status_effect.gsc;
+#using hashed-3\contracts.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\struct.gsc;
 #using scripts\core_common\system_shared.gsc;
@@ -20,7 +20,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_trap_electric", &__init__, undefined, undefined);
 }
@@ -77,7 +77,7 @@ function trap_activate_electric()
 		fx_points[i] thread trap_audio(self);
 	}
 	self thread zm_traps::trap_damage();
-	self waittilltimeout(self._trap_duration, #"trap_deactivate");
+	self waittill_timeout(self._trap_duration, #"trap_deactivate");
 	self notify(#"trap_done");
 	level clientfield::set(self.target, 0);
 }
@@ -97,7 +97,7 @@ function trap_audio(trap)
 	sound_origin playsound(#"hash_1fb395621513432f");
 	sound_origin playloopsound(#"hash_177d7a6df8ed0d7b");
 	self thread play_electrical_sound(trap);
-	trap waittilltimeout(trap._trap_duration, #"trap_done");
+	trap waittill_timeout(trap._trap_duration, #"trap_done");
 	if(isdefined(sound_origin))
 	{
 		playsoundatposition(#"hash_3819c6cd06a27f15", sound_origin.origin);

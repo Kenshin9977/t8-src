@@ -1,8 +1,8 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_12282e6b2cc91b42;
-#using script_235cad39dd72e0ac;
-#using script_45e0fb7326469ccf;
-#using script_730b372fb9c41b81;
+hashed-3\script_12282e6b2cc91b42.csc;
+hashed-2\script_235cad39dd72e0ac.csc;
+hashed-2\script_45e0fb7326469ccf.csc;
+hashed-2\script_730b372fb9c41b81.csc;
 #using scripts\core_common\clientfaceanim_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\flagsys_shared.csc;

@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_47fb62300ac0bd60;
+#using hashed-2\stats.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\flag_shared.gsc;
 #using scripts\core_common\medals_shared.gsc;
@@ -19,7 +19,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"popups", &__init__, undefined, undefined);
 }
@@ -159,13 +159,13 @@ function devgui_notif_getchallengestablename(tableid)
 	/#
 		if(sessionmodeiscampaigngame())
 		{
-			return (#"hash_929b58638c59880" + tableid) + "";
+			return #"hash_929b58638c59880" + tableid + "";
 		}
 		if(sessionmodeiszombiesgame())
 		{
-			return (#"hash_34a621a5800b5b4a" + tableid) + "";
+			return #"hash_34a621a5800b5b4a" + tableid + "";
 		}
-		return (#"hash_287cf26422669b76" + tableid) + "";
+		return #"hash_287cf26422669b76" + tableid + "";
 	#/
 }
 
@@ -306,7 +306,7 @@ function notif_devgui_rank()
 				display_level = "" + display_level;
 			}
 			util::waittill_can_add_debug_command();
-			adddebugcommand(((((((notif_rank_devgui_base + display_level) + "") + "") + "") + "") + i) + "");
+			adddebugcommand(notif_rank_devgui_base + display_level + "" + "" + "" + "" + i + "");
 		}
 		waitframe(1);
 		level thread notif_devgui_rank_up_think();
@@ -456,9 +456,9 @@ function notif_devgui_gun_rank()
 			{
 				foreach(attachment, attachment_data in attachment_group[#"attachments"])
 				{
-					devgui_cmd_gun_path = (((notif_gun_rank_devgui_base + function_9e72a96(group_name)) + "") + function_9e72a96(gun_group[gun][#"ref"]) + "") + function_9e72a96(attachment);
+					devgui_cmd_gun_path = notif_gun_rank_devgui_base + function_9e72a96(group_name) + "" + function_9e72a96(gun_group[gun][#"ref"]) + "" + function_9e72a96(attachment);
 					util::waittill_can_add_debug_command();
-					adddebugcommand(((((((((((((((((((devgui_cmd_gun_path + "") + "") + "") + "") + "") + attachment_data[#"xp"]) + "") + "") + "") + attachment_data[#"itemindex"]) + "") + "") + "") + gun_group[gun][#"itemindex"]) + "") + "") + "") + attachment_data[#"rankid"]) + "");
+					adddebugcommand(devgui_cmd_gun_path + "" + "" + "" + "" + "" + attachment_data[#"xp"] + "" + "" + "" + attachment_data[#"itemindex"] + "" + "" + "" + gun_group[gun][#"itemindex"] + "" + "" + "" + attachment_data[#"rankid"] + "");
 				}
 			}
 			waitframe(1);
@@ -531,9 +531,9 @@ function notif_devgui_challenges()
 						challengetierstring = "" + challengetier;
 					}
 					name = tablelookupcolumnforrow(tablename, j, 5);
-					devgui_cmd_challenge_path = (((((notif_challenges_devgui_base + function_9e72a96(type)) + "") + function_9e72a96(name) + "") + challengetierstring) + "") + challengeid;
+					devgui_cmd_challenge_path = notif_challenges_devgui_base + function_9e72a96(type) + "" + function_9e72a96(name) + "" + challengetierstring + "" + challengeid;
 					util::waittill_can_add_debug_command();
-					adddebugcommand(((((((((((devgui_cmd_challenge_path + "") + "") + "") + "") + "") + j) + "") + "") + "") + i) + "");
+					adddebugcommand(devgui_cmd_challenge_path + "" + "" + "" + "" + "" + j + "" + "" + "" + i + "");
 					if(int(challengeid) % 10)
 					{
 						waitframe(1);
@@ -581,49 +581,37 @@ function notif_devgui_challenges_think()
 			{
 				type = 0;
 			}
+			else if(type == "")
+			{
+				itemindex = 4;
+				type = 3;
+			}
+			else if(type == "")
+			{
+				itemindex = 1;
+				type = 4;
+			}
+			else if(type == "")
+			{
+				type = 2;
+			}
+			else if(type == "")
+			{
+				type = 5;
+			}
 			else
 			{
-				if(type == "")
+				itemindex = getdvarint(#"hash_1a10d0fbf3a34f63", 0);
+				if(itemindex == 0)
 				{
-					itemindex = 4;
-					type = 3;
-				}
-				else
-				{
-					if(type == "")
+					currentweaponname = player.currentweapon.name;
+					itemindex = getitemindexfromref(currentweaponname);
+					if(itemindex == 0)
 					{
-						itemindex = 1;
-						type = 4;
-					}
-					else
-					{
-						if(type == "")
-						{
-							type = 2;
-						}
-						else
-						{
-							if(type == "")
-							{
-								type = 5;
-							}
-							else
-							{
-								itemindex = getdvarint(#"hash_1a10d0fbf3a34f63", 0);
-								if(itemindex == 0)
-								{
-									currentweaponname = player.currentweapon.name;
-									itemindex = getitemindexfromref(currentweaponname);
-									if(itemindex == 0)
-									{
-										itemindex = 225;
-									}
-								}
-								type = 1;
-							}
-						}
+						itemindex = 225;
 					}
 				}
+				type = 1;
 			}
 			xpreward = int(tablelookupcolumnforrow(tablename, row, 6));
 			challengeid = int(tablelookupcolumnforrow(tablename, row, 0));
@@ -810,9 +798,9 @@ function shoulddisplayteammessages()
 {
 	if(level.hardcoremode == 1 || level.splitscreen == 1)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

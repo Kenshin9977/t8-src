@@ -63,67 +63,66 @@ function function_78c32556(cmd)
 			case "hash_50d92ca3c6c7c2a8":
 			{
 				level thread function_4110a06f();
-				return true;
+				return 1;
 			}
 			case "gear_up":
 			{
-				level thread namespace_74905749::gear_up();
-				return true;
+				level thread cschashed-2\script_52ab76d6216ed2cc::gear_up();
+				return 1;
 			}
 			case "hash_672373a99384fb53":
 			{
 				level thread function_853d8116();
-				return true;
+				return 1;
 			}
 			case "hash_5634a634a8ffec47":
 			{
 				level thread function_1d9dddd0();
-				return true;
+				return 1;
 			}
-			case "move_pap":
-			{
+			case "move_pap":			{
 				level thread function_10dafedb();
-				return true;
+				return 1;
 			}
 			case "hash_74823c0e0a29545b":
 			{
 				give_flare("");
-				return true;
+				return 1;
 			}
 			case "hash_130280144168a5e7":
 			{
 				give_flare("");
-				return true;
+				return 1;
 			}
 			case "hash_2972e55f40fe8050":
 			{
 				give_flare("");
-				return true;
+				return 1;
 			}
 			case "hash_59b568ce3fe548b6":
 			{
 				level thread function_649d5f75();
-				return true;
+				return 1;
 			}
 			case "hash_be17a68845640e4":
 			{
 				level thread function_a368f5ed("");
-				return true;
+				return 1;
 			}
 			case "hash_5c17aed53086a4e8":
 			{
 				level thread function_a368f5ed("");
-				return true;
+				return 1;
 			}
 			case "hash_2474089e18afbc3":
 			{
 				level thread function_a368f5ed("");
-				return true;
+				return 1;
 			}
 			case "hash_515fa2d180024bd3":
 			{
 				level thread function_a368f5ed("");
-				return true;
+				return 1;
 			}
 			case "hash_687e53bfcb79ec3b":
 			{
@@ -210,7 +209,7 @@ function function_10dafedb()
 	/#
 		if(!level flag::get(""))
 		{
-			level.s_pap_quest.var_4ee2e2ab = 0;
+			level.var_7759c77d.var_4ee2e2ab = 0;
 			level flag::set("");
 			return;
 		}
@@ -241,16 +240,13 @@ function function_1d9dddd0()
 				zm_zodt8::change_water_height_aft(0);
 			}
 		}
+		else if(level.e_clip_water_aft clientfield::get("") != 0)
+		{
+			iprintlnbold("");
+		}
 		else
 		{
-			if(level.e_clip_water_aft clientfield::get("") != 0)
-			{
-				iprintlnbold("");
-			}
-			else
-			{
-				zm_zodt8::change_water_height_aft(1);
-			}
+			zm_zodt8::change_water_height_aft(1);
 		}
 	#/
 }
@@ -278,16 +274,13 @@ function function_853d8116()
 				zm_zodt8::change_water_height_fore(0);
 			}
 		}
+		else if(level.e_clip_water_fore clientfield::get("") != 0)
+		{
+			iprintlnbold("");
+		}
 		else
 		{
-			if(level.e_clip_water_fore clientfield::get("") != 0)
-			{
-				iprintlnbold("");
-			}
-			else
-			{
-				zm_zodt8::change_water_height_fore(1);
-			}
+			zm_zodt8::change_water_height_fore(1);
 		}
 	#/
 }
@@ -305,7 +298,7 @@ function function_649d5f75()
 {
 	/#
 		a_e_players = getplayers();
-		namespace_4a807bff::function_8498110e(a_e_players[0]);
+		cschashed-2\script_54a67b7ed7b385e6::function_8498110e(a_e_players[0]);
 	#/
 }
 
@@ -328,22 +321,22 @@ function function_a368f5ed(var_99416cd7)
 			{
 				case "decay":
 				{
-					namespace_4a807bff::function_ca37502d(e_player);
+					cschashed-2\script_54a67b7ed7b385e6::function_ca37502d(e_player);
 					break;
 				}
 				case "plasma":
 				{
-					namespace_4a807bff::function_1b182e8c(e_player);
+					cschashed-2\script_54a67b7ed7b385e6::function_1b182e8c(e_player);
 					break;
 				}
 				case "purity":
 				{
-					namespace_4a807bff::function_b9b7b8c(e_player);
+					cschashed-2\script_54a67b7ed7b385e6::function_b9b7b8c(e_player);
 					break;
 				}
 				case "radiance":
 				{
-					namespace_4a807bff::function_b3695700(e_player);
+					cschashed-2\script_54a67b7ed7b385e6::function_b3695700(e_player);
 					break;
 				}
 			}
@@ -397,7 +390,7 @@ function give_flare(str_color)
 	Parameters: 1
 	Flags: Private
 */
-function private function_51855e65(round_number)
+private function function_51855e65(round_number)
 {
 	/#
 		var_efac84b3 = array(0, 500, 1000, 1000, 1400, 4000, 5000, 5500, 5500, 5500, 8000, 8000, 8000, 8000, 9000, 9000, 9000, 9500, 9500, 9500, 9500, 11000, 11000, 11000, 11000, 13000, 13000, 13000, 13000, 14000);
@@ -436,16 +429,16 @@ function private function_51855e65(round_number)
 		}
 		if(round_number >= 9)
 		{
-			namespace_b22c99a5::function_3e209fb6();
+			cschashed-1\script_3d5821d793ed4c6::function_3e209fb6();
 		}
 		if(round_number >= 13)
 		{
-			level.s_pap_quest.var_4ee2e2ab = 0;
+			level.var_7759c77d.var_4ee2e2ab = 0;
 			level flag::set("");
 		}
 		if(round_number >= 24)
 		{
-			namespace_b22c99a5::function_9c71b46f();
+			cschashed-1\script_3d5821d793ed4c6::function_9c71b46f();
 		}
 	#/
 }

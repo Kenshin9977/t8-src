@@ -1,14 +1,14 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_1611421ee9b880d3;
-#using script_1de1583a62cc580f;
-#using script_23037fdea02db280;
-#using script_2c454d63a96d2d0b;
-#using script_356ad5dd4af06a33;
-#using script_3619535866efa23a;
-#using script_3a10f19f96036e97;
+hashed-3\script_1611421ee9b880d3.csc;
+hashed-1\script_1de1583a62cc580f.csc;
+hashed-3\script_23037fdea02db280.csc;
+hashed-1\script_2c454d63a96d2d0b.csc;
+hashed-2\script_356ad5dd4af06a33.csc;
+hashed-3\script_3619535866efa23a.csc;
+hashed-1\script_3a10f19f96036e97.csc;
 #using script_578af034e151f03e;
-#using script_67051bc8c81031aa;
-#using script_784bc1aee23dbf1f;
+hashed-3\script_67051bc8c81031aa.csc;
+hashed-2\script_784bc1aee23dbf1f.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\exploder_shared.csc;
 #using scripts\core_common\renderoverridebundle.csc;
@@ -33,7 +33,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec opt_in()
+autoexec function opt_in()
 {
 	level.aat_in_use = 1;
 	level.bgb_in_use = 1;

@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"fx", &__init__, undefined, undefined);
 }
@@ -106,7 +106,7 @@ function validate(fxid, origin)
 		if(!isdefined(level._effect[fxid]))
 		{
 			/#
-				assertmsg((("" + fxid) + "") + origin);
+				assertmsg("" + fxid + "" + origin);
 			#/
 		}
 	#/

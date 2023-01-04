@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6ce38ab036223e6e;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -38,7 +38,7 @@ function register_game_module(index, module_name, pre_init_func, post_init_func,
 		if(isdefined(level._game_modules[i].index) && level._game_modules[i].index == index)
 		{
 			/#
-				assert(level._game_modules[i].index != index, ("" + index) + "");
+				assert(level._game_modules[i].index != index, "" + index + "");
 			#/
 		}
 	}
@@ -74,7 +74,7 @@ function set_current_game_module(game_module_index)
 	if(!isdefined(game_module))
 	{
 		/#
-			assert(isdefined(game_module), ("" + game_module_index) + "");
+			assert(isdefined(game_module), "" + game_module_index + "");
 		#/
 		return;
 	}

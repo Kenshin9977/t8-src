@@ -2,11 +2,11 @@
 #using script_5cc4813bae17d230;
 #using scripts\core_common\util_shared.csc;
 
-#namespace namespace_7dc0077c;
+#namespace zombiekilledwhilegettingpulleddie;
 
 /*
 	Name: main
-	Namespace: namespace_7dc0077c
+	Namespace: zombiekilledwhilegettingpulleddie
 	Checksum: 0x28D9ECB6
 	Offset: 0x78
 	Size: 0xE2

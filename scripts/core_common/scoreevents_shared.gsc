@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_bc839bb0e693558;
+#using hashed-3\ability_power.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\contracts_shared.gsc;
 #using scripts\core_common\rank_shared.gsc;
@@ -160,11 +160,11 @@ function shouldaddrankxp(player)
 {
 	if(level.gametype == "fr")
 	{
-		return false;
+		return 0;
 	}
 	if(level.gametype == "zclassic" && (isdefined(level.var_5164a0ca) && level.var_5164a0ca))
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.var_4f654f3a) && level.var_4f654f3a)
 	{
@@ -176,17 +176,17 @@ function shouldaddrankxp(player)
 			}
 			println("" + playername);
 		#/
-		return false;
+		return 0;
 	}
 	if(!isdefined(level.rankcap) || level.rankcap == 0)
 	{
-		return true;
+		return 1;
 	}
 	if(player.pers[#"plevel"] > 0 || player.pers[#"rank"] > level.rankcap)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -240,9 +240,9 @@ function isregisteredevent(type)
 {
 	if(isdefined(level.scoreinfo[type]))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -293,7 +293,7 @@ function function_2b96d7dc()
 			table_name = table_name + arg;
 			if(index < args.size - 1)
 			{
-				table_name = table_name + ("/");
+				table_name = table_name + "/";
 			}
 		}
 	}
@@ -325,21 +325,18 @@ function getscoreeventtablename(gametype)
 	{
 		prefix = #"hash_3bebadbc9db1102b";
 	}
-	else
+	else if(sessionmodeiszombiesgame())
 	{
-		if(sessionmodeiszombiesgame())
-		{
-			prefix = #"hash_5f114025234e912f";
-		}
-		else if(function_f99d2668())
-		{
-			prefix = #"hash_2bedaa060f1bcc0f";
-		}
+		prefix = #"hash_5f114025234e912f";
+	}
+	else if(function_f99d2668())
+	{
+		prefix = #"hash_2bedaa060f1bcc0f";
 	}
 	gametype = function_ea13f55(gametype, "_hc", "");
 	gametype = function_ea13f55(gametype, "_cwl", "");
 	gametype = function_ea13f55(gametype, "_bb", "");
-	tablename = ((prefix + "_") + gametype) + ".csv";
+	tablename = prefix + "_" + gametype + ".csv";
 	if(!(isdefined(isassetloaded("stringtable", tablename)) && isassetloaded("stringtable", tablename)))
 	{
 		tablename = prefix + "_base.csv";

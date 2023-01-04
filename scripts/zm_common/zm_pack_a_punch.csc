@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_14d2d89964cae0b1;
-#using script_158d50d476435605;
+hashed-2\script_14d2d89964cae0b1.csc;
+hashed-2\script_158d50d476435605.csc;
 #using scripts\core_common\array_shared.csc;
 #using scripts\core_common\audio_shared.csc;
 #using scripts\core_common\callbacks_shared.csc;
@@ -24,7 +24,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_pack_a_punch", &__init__, undefined, undefined);
 }
@@ -61,7 +61,7 @@ function function_5c574877(params)
 {
 	if(isdefined(params.piece) && isdefined(params.piece.weapon))
 	{
-		params.piece activecamo::function_cbfd8fd6(params.localclientnum);
+		params.piece cschashed-2\script_158d50d476435605::function_cbfd8fd6(params.localclientnum);
 	}
 }
 
@@ -76,21 +76,18 @@ function function_5c574877(params)
 */
 function on_localplayer_spawned(localclientnum)
 {
-	n_story = zm_utility::function_166646a6();
+	var_b2b2a358 = zm_utility::function_166646a6();
 	if(isdefined(level.var_59d3631c))
 	{
 		forcestreamxmodel(level.var_59d3631c, 1, 0);
 	}
-	else
+	else if(n_story == 1)
 	{
-		if(n_story == 1)
-		{
-			forcestreamxmodel(#"p7_zm_vending_packapunch_on", 1, 0);
-		}
-		else if(n_story == 2)
-		{
-			forcestreamxmodel(#"hash_4efdd19dfd268f23", 1, 0);
-		}
+		forcestreamxmodel(#"p7_zm_vending_packapunch_on", 1, 0);
+	}
+	else if(n_story == 2)
+	{
+		forcestreamxmodel(#"hash_4efdd19dfd268f23", 1, 0);
 	}
 }
 
@@ -105,42 +102,33 @@ function on_localplayer_spawned(localclientnum)
 */
 function pap_force_stream(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwastimejump)
 {
-	n_story = zm_utility::function_166646a6();
+	var_b2b2a358 = zm_utility::function_166646a6();
 	if(newval)
 	{
 		if(isdefined(level.var_59d3631c))
 		{
 			forcestreamxmodel(level.var_59d3631c);
 		}
-		else
+		else if(n_story == 1)
 		{
-			if(n_story == 1)
-			{
-				forcestreamxmodel(#"p7_zm_vending_packapunch_on");
-			}
-			else if(n_story == 2)
-			{
-				forcestreamxmodel(#"hash_4efdd19dfd268f23");
-			}
+			forcestreamxmodel(#"p7_zm_vending_packapunch_on");
+		}
+		else if(n_story == 2)
+		{
+			forcestreamxmodel(#"hash_4efdd19dfd268f23");
 		}
 	}
-	else
+	else if(isdefined(level.var_59d3631c))
 	{
-		if(isdefined(level.var_59d3631c))
-		{
-			stopforcestreamingxmodel(level.var_59d3631c);
-		}
-		else
-		{
-			if(n_story == 1)
-			{
-				stopforcestreamingxmodel(#"p7_zm_vending_packapunch_on");
-			}
-			else if(n_story == 2)
-			{
-				stopforcestreamingxmodel(#"hash_4efdd19dfd268f23");
-			}
-		}
+		stopforcestreamingxmodel(level.var_59d3631c);
+	}
+	else if(n_story == 1)
+	{
+		stopforcestreamingxmodel(#"p7_zm_vending_packapunch_on");
+	}
+	else if(n_story == 2)
+	{
+		stopforcestreamingxmodel(#"hash_4efdd19dfd268f23");
 	}
 }
 
@@ -159,18 +147,15 @@ function function_2a80c24d(localclientnum, oldval, newval, bnewent, binitialsnap
 	{
 		function_f74ad2c1(localclientnum, 4, "fx_tag_mid_jnt");
 	}
-	else
+	else if(isdefined(self.var_1aedd735))
 	{
-		if(isdefined(self.n_pap_idle_fx))
-		{
-			stopfx(localclientnum, self.n_pap_idle_fx);
-			self.n_pap_idle_fx = undefined;
-		}
-		wait(1);
-		if(isdefined(self.var_4d7e8438))
-		{
-			self.var_4d7e8438 delete();
-		}
+		stopfx(localclientnum, self.var_1aedd735);
+		self.var_1aedd735 = undefined;
+	}
+	wait(1);
+	if(isdefined(self.var_4d7e8438))
+	{
+		self.var_4d7e8438 delete();
 	}
 }
 
@@ -183,21 +168,21 @@ function function_2a80c24d(localclientnum, oldval, newval, bnewent, binitialsnap
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private function_f74ad2c1(localclientnum, n_piece_index, str_tag)
+private function function_f74ad2c1(localclientnum, n_piece_index, str_tag)
 {
 	mdl_piece = self zbarriergetpiece(n_piece_index);
 	if(isdefined(self.var_4d7e8438))
 	{
 		self.var_4d7e8438 delete();
 	}
-	if(isdefined(self.n_pap_idle_fx))
+	if(isdefined(self.var_1aedd735))
 	{
-		deletefx(localclientnum, self.n_pap_idle_fx);
+		deletefx(localclientnum, self.var_1aedd735);
 		self.var_8513edc0 = undefined;
 	}
 	self.var_4d7e8438 = util::spawn_model(localclientnum, "tag_origin", mdl_piece gettagorigin(str_tag), mdl_piece gettagangles(str_tag));
 	self.var_4d7e8438 linkto(mdl_piece, str_tag);
-	self.n_pap_idle_fx = util::playfxontag(localclientnum, level._effect[#"hash_2ab769386115d75c"], self.var_4d7e8438, "tag_origin");
+	self.var_1aedd735 = util::playfxontag(localclientnum, level._effect[#"hash_2ab769386115d75c"], self.var_4d7e8438, "tag_origin");
 }
 
 /*
@@ -215,18 +200,15 @@ function pap_working_fx_handler(localclientnum, oldval, newval, bnewent, binitia
 	{
 		pap_play_fx(localclientnum, 0, "base_jnt");
 	}
-	else
+	else if(isdefined(self.n_pap_fx))
 	{
-		if(isdefined(self.n_pap_fx))
-		{
-			stopfx(localclientnum, self.n_pap_fx);
-			self.n_pap_fx = undefined;
-		}
-		wait(1);
-		if(isdefined(self.mdl_fx))
-		{
-			self.mdl_fx delete();
-		}
+		stopfx(localclientnum, self.n_pap_fx);
+		self.n_pap_fx = undefined;
+	}
+	wait(1);
+	if(isdefined(self.mdl_fx))
+	{
+		self.mdl_fx delete();
 	}
 }
 
@@ -239,7 +221,7 @@ function pap_working_fx_handler(localclientnum, oldval, newval, bnewent, binitia
 	Parameters: 3
 	Flags: Linked, Private
 */
-function private pap_play_fx(localclientnum, n_piece_index, str_tag)
+private function pap_play_fx(localclientnum, n_piece_index, str_tag)
 {
 	mdl_piece = self zbarriergetpiece(n_piece_index);
 	if(isdefined(self.mdl_fx))

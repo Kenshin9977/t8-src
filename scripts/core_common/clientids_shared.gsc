@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"clientids", &__init__, undefined, undefined);
 }
@@ -65,7 +65,7 @@ function on_player_connect()
 		level.clientid++;
 	}
 	/#
-		println((("" + self.name) + "") + self.clientid);
+		println("" + self.name + "" + self.clientid);
 	#/
 }
 

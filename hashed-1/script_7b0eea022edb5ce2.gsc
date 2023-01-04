@@ -1,11 +1,11 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_24c32478acf44108;
-#using script_256b8879317373de;
-#using script_35598499769dbb3d;
-#using script_3f9e0dc8454d98e1;
-#using script_42ac6fc8b2ff0f3e;
+#using hashed-2\player_201.gsc;
+#using hashed-3\gib.gsc;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-2\riotshield.gsc;
 #using script_4d000493c57bb851;
-#using script_5660bae5b402a1eb;
+#using hashed-3\zombie_death.gsc;
 #using script_6e3c826b1814cab6;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
@@ -30,25 +30,25 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_b13f32ef;
+#namespace cschashed-3\script_57233e021a270c56;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x6D7EF02F
 	Offset: 0x170
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_67501a71e89fb822", &__init__, &__main__, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0xF7458B1
 	Offset: 0x1C0
 	Size: 0x7E
@@ -59,12 +59,11 @@ function __init__()
 {
 	level.var_96059a93 = getweapon(#"zhield_zpear_dw");
 	level.var_85ed93f4 = getweapon(#"hash_136814846f94f0cd");
-	level.var_ce3aa8a8 = getweapon(#"zhield_zpear_turret");
-}
+	level.var_ce3aa8a8 = getweapon(#"zhield_zpear_turret");}
 
 /*
 	Name: __main__
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x180208F
 	Offset: 0x248
 	Size: 0x1E
@@ -78,7 +77,7 @@ function __main__()
 
 /*
 	Name: function_64ff58da
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x13FF5CC9
 	Offset: 0x270
 	Size: 0x18
@@ -93,7 +92,7 @@ function function_64ff58da(color, var_6ab2cf36)
 
 /*
 	Name: function_4b03aab
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x80C02641
 	Offset: 0x290
 	Size: 0x64
@@ -112,7 +111,7 @@ function function_4b03aab(weapon)
 
 /*
 	Name: function_dcdaf81c
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x32373E77
 	Offset: 0x300
 	Size: 0x42C
@@ -198,7 +197,7 @@ function function_dcdaf81c(weapon, riotshield_knockdown_range, riotshield_gib_ra
 
 /*
 	Name: function_80a146c1
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x972C1556
 	Offset: 0x738
 	Size: 0xFC
@@ -229,7 +228,7 @@ function function_80a146c1(player, weapon)
 
 /*
 	Name: function_a5ed9221
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0xC882CD49
 	Offset: 0x840
 	Size: 0x226
@@ -250,7 +249,7 @@ function function_a5ed9221(weapon)
 	forward_view_angles = self getweaponforwarddir();
 	end_pos = view_pos + vectorscale(forward_view_angles, 64);
 	/#
-		sphere(end_pos, 48, (1, 0, 0), 0.1, 1, 16, int(5 * (1 / (float(function_60d95f53()) / 1000))));
+		sphere(end_pos, 48, (1, 0, 0), 0.1, 1, 16, int(5 * 1 / float(function_60d95f53()) / 1000));
 	#/
 	a_e_targets = array::get_all_closest(end_pos, a_e_targets, undefined, undefined, 48);
 	if(!isdefined(a_e_targets) || a_e_targets.size < 1)
@@ -270,7 +269,7 @@ function function_a5ed9221(weapon)
 
 /*
 	Name: function_376cd4f6
-	Namespace: namespace_b13f32ef
+	Namespace: cschashed-3\script_57233e021a270c56
 	Checksum: 0x2C69EA80
 	Offset: 0xA70
 	Size: 0x3DE

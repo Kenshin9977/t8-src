@@ -17,7 +17,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register("renderoverridebundle", &__init__, undefined, undefined);
 }
@@ -35,7 +35,7 @@ function __init__()
 {
 	level.renderoverridebundle = {#hash_383fe4d6:[], #hash_275d5e63:[]};
 	callback::on_localclient_connect(&function_d7ae6bbb);
-	function_f72f089c(#"hash_ebb37dab2ee0ae3", (sessionmodeiscampaigngame() ? #"hash_461520942fd1154d" : #"rob_sonar_set_friendlyequip_mp"), &function_6803f977);
+	function_f72f089c(#"hash_ebb37dab2ee0ae3", (sessionmodeiscampaigngame() ? #"hash_461520942fd1154d" : #"hash_462904942fe18ec3"), &function_6803f977);
 	function_f72f089c(#"hash_16bdbd0b3de5c91a", #"hash_71fbf1094f57b910", &function_fac25f84);
 }
 
@@ -66,27 +66,27 @@ function function_d7ae6bbb(clientnum)
 	Parameters: 4
 	Flags: Private
 */
-function private function_25996839(var_166900a8, bundle, validity_func, var_35a2c593)
+private function function_25996839(var_166900a8, bundle, validity_func, var_35a2c593)
 {
 	/#
 		var_3a009b84 = level.renderoverridebundle.var_383fe4d6[var_166900a8];
 		if(!isdefined(var_3a009b84))
 		{
-			return false;
+			return 0;
 		}
 		if(var_3a009b84.bundle != bundle)
 		{
-			return true;
+			return 1;
 		}
 		if(var_3a009b84.validity_func != validity_func)
 		{
-			return true;
+			return 1;
 		}
 		if(var_3a009b84.var_35a2c593 != var_35a2c593)
 		{
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	#/
 }
 
@@ -99,7 +99,7 @@ function private function_25996839(var_166900a8, bundle, validity_func, var_35a2
 	Parameters: 6
 	Flags: Linked
 */
-function function_f72f089c(var_166900a8, bundle, validity_func, var_35a2c593, default_bundle, var_e156fd4)
+function function_f72f089c(var_166900a8, bundle, validity_func, var_35a2c593, var_5b9ba288, var_e156fd4)
 {
 	/#
 		assert(isdefined(level.renderoverridebundle));
@@ -113,7 +113,7 @@ function function_f72f089c(var_166900a8, bundle, validity_func, var_35a2c593, de
 			assert(!function_25996839(var_166900a8, bundle, validity_func, var_35a2c593));
 		#/
 	#/
-	level.renderoverridebundle.var_383fe4d6[var_166900a8] = {#hash_e156fd4:var_e156fd4, #default_bundle:default_bundle, #hash_1a5b7293:0, #hash_35a2c593:var_35a2c593, #validity_func:validity_func, #bundle:bundle};
+	level.renderoverridebundle.var_383fe4d6[var_166900a8] = {#hash_e156fd4:var_e156fd4, #hash_5b9ba288:var_5b9ba288, #hash_1a5b7293:0, #hash_35a2c593:var_35a2c593, #validity_func:validity_func, #bundle:bundle};
 }
 
 /*
@@ -215,7 +215,7 @@ function start_bundle(flag, bundle)
 	{
 		self flag::toggle(flag);
 		self function_bf9d3071(bundle);
-		self notify(("kill" + flag) + bundle);
+		self notify("kill" + flag + bundle);
 	}
 }
 
@@ -228,9 +228,9 @@ function start_bundle(flag, bundle)
 	Parameters: 3
 	Flags: Linked
 */
-function stop_bundle(flag, bundle, var_e156fd4)
+function function_40d0d1e0(flag, bundle, var_e156fd4)
 {
-	self notify(("kill" + flag) + bundle);
+	self notify("kill" + flag + bundle);
 	if(flag::get(flag))
 	{
 		self flag::toggle(flag);
@@ -277,7 +277,7 @@ function fade_bundle(localclientnum, flag, bundle, fadeduration)
 function function_9e7290f5(currenttime, elapsedtime, localclientnum, fadeduration, from, to, bundle)
 {
 	percent = elapsedtime / fadeduration;
-	amount = (to * percent) + (from * (1 - percent));
+	amount = to * percent + from * 1 - percent;
 	self function_78233d29(bundle, "", #"alpha", amount);
 }
 
@@ -338,25 +338,22 @@ function function_c8d97b8e(local_client_num, flag, var_166900a8)
 	{
 		if(isdefined(var_80292ef8.default_bundle))
 		{
-			self stop_bundle(flag, var_80292ef8.default_bundle, 1);
+			self function_40d0d1e0(flag, var_80292ef8.default_bundle, 1);
 		}
-		self start_bundle(flag, var_80292ef8.bundle);
+		self function_1bde0473(flag, var_80292ef8.bundle);
+	}
+	else if(var_80292ef8.var_1a5b7293 && isdefined(var_80292ef8.default_bundle))
+	{
+		self function_40d0d1e0(flag, var_80292ef8.bundle, 1);
+		self function_1bde0473(flag, var_80292ef8.default_bundle);
+		var_80292ef8.var_1a5b7293 = 0;
 	}
 	else
 	{
-		if(var_80292ef8.var_1a5b7293 && isdefined(var_80292ef8.default_bundle))
+		self function_40d0d1e0(flag, var_80292ef8.bundle, var_80292ef8.var_e156fd4);
+		if(isdefined(var_80292ef8.default_bundle))
 		{
-			self stop_bundle(flag, var_80292ef8.bundle, 1);
-			self start_bundle(flag, var_80292ef8.default_bundle);
-			var_80292ef8.var_1a5b7293 = 0;
-		}
-		else
-		{
-			self stop_bundle(flag, var_80292ef8.bundle, var_80292ef8.var_e156fd4);
-			if(isdefined(var_80292ef8.default_bundle))
-			{
-				self stop_bundle(flag, var_80292ef8.default_bundle, var_80292ef8.var_e156fd4);
-			}
+			self function_40d0d1e0(flag, var_80292ef8.var_5b9ba288, var_80292ef8.var_e156fd4);
 		}
 	}
 	entity_num = self getentitynumber();
@@ -384,19 +381,19 @@ function function_6803f977(local_client_num, bundle)
 {
 	if(!self function_4e0ca360() || self.team === #"free")
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.vision_pulse) && (isdefined(level.vision_pulse[local_client_num]) && level.vision_pulse[local_client_num]))
 	{
-		return false;
+		return 0;
 	}
 	player = function_5c10bd79(local_client_num);
 	if(player.var_33b61b6f === 1)
 	{
 		bundle.var_e156fd4 = 1;
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -412,19 +409,19 @@ function function_ce7fd1b9(local_client_num, bundle)
 {
 	if(self function_21c0fa55())
 	{
-		return false;
+		return 0;
 	}
 	if(self function_4e0ca360() && self.team !== #"free")
 	{
-		return false;
+		return 0;
 	}
 	player = function_5c10bd79(local_client_num);
 	if(player.var_33b61b6f === 1)
 	{
 		bundle.var_e156fd4 = 1;
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -440,13 +437,13 @@ function function_fac25f84(local_client_num, bundle)
 {
 	if(level.gameended)
 	{
-		return false;
+		return 0;
 	}
 	if(!shoutcaster::is_shoutcaster(local_client_num))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*

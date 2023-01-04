@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_24c32478acf44108;
 #using script_27c22e1d8df4d852;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6021ce59143452c3;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\laststand_shared.gsc;
@@ -20,7 +20,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_40e5fe122d652dc4", &__init__, undefined, undefined);
 }
@@ -36,12 +36,12 @@ function autoexec function_89f2df9()
 */
 function __init__()
 {
-	if(!zm_trial::function_b47f6aba())
+	if(!cschashed-1\script_3c362258ff800237::function_b47f6aba())
 	{
 		return;
 	}
-	zm_trial::register_challenge(#"hash_d126cef79ee236d", &function_d1de6a85, &function_9e7b3f4d);
-	namespace_9ff9f642::register_slowdown(#"hash_40e5fe122d652dc4", 1.5);
+	cschashed-1\script_3c362258ff800237::register_challenge(#"hash_d126cef79ee236d", &function_d1de6a85, &function_9e7b3f4d);
+	cschashed-3\script_d67878983e3d7c::register_slowdown(#"hash_40e5fe122d652dc4", 1.5);
 }
 
 /*
@@ -53,7 +53,7 @@ function __init__()
 	Parameters: 0
 	Flags: Private
 */
-function private function_d1de6a85()
+private function function_d1de6a85()
 {
 	level thread function_4458377c();
 	level thread zm_utility::play_sound_2d("zmb_trial_horror_round_start");
@@ -68,7 +68,7 @@ function private function_d1de6a85()
 	Parameters: 1
 	Flags: Private
 */
-function private function_9e7b3f4d(round_reset)
+private function function_9e7b3f4d(round_reset)
 {
 }
 
@@ -81,7 +81,7 @@ function private function_9e7b3f4d(round_reset)
 	Parameters: 0
 	Flags: Private
 */
-function private function_4458377c()
+private function function_4458377c()
 {
 	level endon(#"hash_7646638df88a3656");
 	while(true)
@@ -126,10 +126,10 @@ function function_fe65f5a6(var_b7358df3, e_player, n_timeout = 1)
 	{
 		self waittill(#"completed_emerging_into_playable_area");
 	}
-	self thread namespace_9ff9f642::slowdown(#"hash_40e5fe122d652dc4", 0.75);
+	self thread cschashed-3\script_d67878983e3d7c::slowdown(#"hash_40e5fe122d652dc4", 0.75);
 	n_delay_time = randomfloatrange(2, 5);
 	wait(n_delay_time);
-	self thread namespace_9ff9f642::slowdown(#"hash_40e5fe122d652dc4", var_b7358df3);
+	self thread cschashed-3\script_d67878983e3d7c::slowdown(#"hash_40e5fe122d652dc4", var_b7358df3);
 	self playsound(#"hash_46661e1d0062f53b");
 	if(math::cointoss(20))
 	{
@@ -148,10 +148,10 @@ function function_fe65f5a6(var_b7358df3, e_player, n_timeout = 1)
 		{
 			break;
 		}
-		n_timer = n_timer + (float(function_60d95f53()) / 1000);
+		n_timer = n_timer + float(function_60d95f53()) / 1000;
 		waitframe(1);
 	}
-	self thread namespace_9ff9f642::slowdown(#"hash_40e5fe122d652dc4", 0.75);
+	self thread cschashed-3\script_d67878983e3d7c::slowdown(#"hash_40e5fe122d652dc4", 0.75);
 	self.var_cda2fa8 = undefined;
 }
 
@@ -166,7 +166,7 @@ function function_fe65f5a6(var_b7358df3, e_player, n_timeout = 1)
 */
 function is_active()
 {
-	challenge = zm_trial::function_a36e8c38(#"hash_d126cef79ee236d");
+	challenge = cschashed-1\script_3c362258ff800237::function_a36e8c38(#"hash_d126cef79ee236d");
 	return isdefined(challenge);
 }
 

@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f9e0dc8454d98e1;
-#using script_522aeb6ae906391e;
-#using script_59f07c660e6710a5;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-2\blackboard.gsc;
+#using hashed-2\ai_interface.gsc;
 #using script_5d84e90feb36ef87;
 #using scripts\core_common\spawner_shared.gsc;
 
@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec main()
+autoexec function main()
 {
 	registerbehaviorscriptfunctions();
 	spawner::add_archetype_spawn_function(#"blight_father", &function_a27b7fcf);
@@ -32,7 +32,7 @@ function autoexec main()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_a27b7fcf()
+private function function_a27b7fcf()
 {
 	blackboard::createblackboardforentity(self);
 	ai::createinterfaceforentity(self);
@@ -48,7 +48,7 @@ function private function_a27b7fcf()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_aefef9ae(entity)
+private function function_aefef9ae(entity)
 {
 	entity.__blackboard = undefined;
 	entity function_a27b7fcf();
@@ -70,7 +70,7 @@ function private function_aefef9ae(entity)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private registerbehaviorscriptfunctions()
+private function registerbehaviorscriptfunctions()
 {
 }
 
@@ -112,7 +112,7 @@ function function_e286179f(spawner, location)
 	Parameters: 1
 	Flags: Private
 */
-function private function_ac921de9(entity)
+private function function_ac921de9(entity)
 {
 	entity melee();
 }

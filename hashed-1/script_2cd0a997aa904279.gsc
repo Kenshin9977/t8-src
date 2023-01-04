@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_174ebb9642933bf7;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_58c342edd81589fb;
 #using script_59a783d756554a80;
 #using script_6ce38ab036223e6e;
@@ -35,32 +35,29 @@ function init()
 {
 	if(zm_utility::is_classic())
 	{
-		namespace_c402654::function_aec3446d(0);
+		cschashed-1\script_5fb8da2731850d9e::function_aec3446d(0);
 		level.var_2f14be05 = 15;
 		level.var_35a23da4 = 25;
 		namespace_c3287616::function_376e51ef(#"nova_crawler");
 		namespace_c3287616::function_376e51ef(#"zombie_dog", level.var_2f14be05);
 		level.var_819e7dfd[#"zombie_dog"].var_87ed2709 = &function_6fa16bd2;
 	}
-	else
+	else if(zm_utility::is_trials())
 	{
-		if(zm_utility::is_trials())
-		{
-			level.var_2f14be05 = 10;
-			level.var_35a23da4 = 11;
-			namespace_c3287616::function_376e51ef(#"nova_crawler");
-			namespace_c3287616::function_376e51ef(#"zombie_dog", level.var_2f14be05);
-			level.dog_round_track_override = &namespace_c402654::function_246a0760;
-			namespace_c402654::function_aec3446d(0);
-			level.var_807ffa2e = &namespace_df88241c::function_5b0522fa;
-			namespace_df88241c::function_c44636f2(0);
-			namespace_c3287616::function_df803678(&namespace_c402654::function_ed67c5e7);
-		}
-		else if(zm_utility::is_standard())
-		{
-			level.var_2f14be05 = 10;
-			level.var_35a23da4 = 15;
-		}
+		level.var_2f14be05 = 10;
+		level.var_35a23da4 = 11;
+		namespace_c3287616::function_376e51ef(#"nova_crawler");
+		namespace_c3287616::function_376e51ef(#"zombie_dog", level.var_2f14be05);
+		level.dog_round_track_override = &cschashed-1\script_5fb8da2731850d9e::function_246a0760;
+		cschashed-1\script_5fb8da2731850d9e::function_aec3446d(0);
+		level.var_807ffa2e = &namespace_df88241c::function_5b0522fa;
+		namespace_df88241c::function_c44636f2(0);
+		namespace_c3287616::function_df803678(&cschashed-1\script_5fb8da2731850d9e::function_ed67c5e7);
+	}
+	else if(zm_utility::is_standard())
+	{
+		level.var_2f14be05 = 10;
+		level.var_35a23da4 = 15;
 	}
 	level.var_819e7dfd[#"nova_crawler"].var_ef500cb7 = &crawler_round_spawn;
 	level.var_819e7dfd[#"nova_crawler"].var_87ed2709 = &function_dd836251;
@@ -126,7 +123,7 @@ function function_6fa16bd2(b_force_spawn = 0, var_eb3a8721)
 	}
 	else
 	{
-		b_result = namespace_c402654::function_62db7b1c(b_force_spawn, var_eb3a8721);
+		b_result = cschashed-1\script_5fb8da2731850d9e::function_62db7b1c(b_force_spawn, var_eb3a8721);
 	}
 	return b_result;
 }
@@ -243,8 +240,7 @@ function function_a409c2a7(e_target)
 function function_13f107c4(ai, ent)
 {
 	ai endon(#"death");
-	ai val::set(#"crawler_spawn", "allowdeath", 0);
-	ai setfreecameralockonallowed(0);
+	ai val::set(#"crawler_spawn", "allowdeath", 0);	ai setfreecameralockonallowed(0);
 	wait(1);
 	ai clientfield::increment("crawler_portal_spawn_fx");
 	wait(1.5);
@@ -266,12 +262,10 @@ function function_13f107c4(ai, ent)
 	/#
 		assert(isalive(ai), "");
 	#/
-	ai val::reset(#"crawler_spawn", "allowdeath");
-	wait(0.1);
+	ai val::reset(#"crawler_spawn", "allowdeath");	wait(0.1);
 	ai show();
 	ai setfreecameralockonallowed(1);
-	ai val::reset(#"crawler_spawn", "ignoreme");
-	ai notify(#"spawn_complete");
+	ai val::reset(#"crawler_spawn", "ignoreme");	ai notify(#"spawn_complete");
 	ai notify(#"visible");
 }
 
@@ -367,9 +361,9 @@ function crawler_round_spawn()
 	if(isdefined(ai))
 	{
 		level.zombie_total--;
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -426,9 +420,9 @@ function function_fe02a12f()
 	if(isdefined(ai))
 	{
 		level.zombie_total--;
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*

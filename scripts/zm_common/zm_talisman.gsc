@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_14f4a3c583c77d4b;
-#using script_3f9e0dc8454d98e1;
-#using script_47fb62300ac0bd60;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-2\stats.gsc;
 #using script_6e3c826b1814cab6;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
@@ -40,8 +40,8 @@ function init()
 */
 function on_player_connect()
 {
-	var_e18c5d7 = self zm_loadout::function_2dfb9150("talisman1");
-	s_talisman = getunlockableiteminfofromindex(var_e18c5d7, 4);
+	var_e18c5d7 = self cschashed-2\script_709bf7c56eb65adf::function_2dfb9150("talisman1");
+	var_eb3fb8f4 = getunlockableiteminfofromindex(var_e18c5d7, 4);
 	var_ea4558f5 = function_b143666d(var_e18c5d7, 4);
 	n_remaining = 0;
 	if(isdefined(s_talisman))
@@ -50,21 +50,21 @@ function on_player_connect()
 		{
 			var_ea4558f5.var_14c94e49 = 0;
 		}
-		s_talisman.rarity = var_ea4558f5.var_14c94e49;
-		n_remaining = self function_bd6a3188(s_talisman.var_3cf2d21);
+		var_eb3fb8f4.rarity = var_ea4558f5.var_14c94e49;
+		n_remaining = self function_bd6a3188(var_eb3fb8f4.var_3cf2d21);
 	}
 	var_88049519 = 0;
-	if(isdefined(s_talisman) && namespace_59ff1d6c::function_ff4557dc(s_talisman) && n_remaining > 0)
+	if(isdefined(var_eb3fb8f4) && cschashed-3\script_12282e6b2cc91b42::function_ff4557dc(s_talisman) && n_remaining > 0)
 	{
-		var_240061ef = s_talisman.var_3cf2d21;
+		var_240061ef = var_eb3fb8f4.var_3cf2d21;
 		if(isdefined(level.var_e1074d3e[var_240061ef]))
 		{
-			if(isdefined(level.var_e1074d3e[var_240061ef].activate_talisman) && (!(isdefined(level.var_e1074d3e[var_240061ef].is_activated[self.clientid]) && level.var_e1074d3e[var_240061ef].is_activated[self.clientid])))
+			if(isdefined(level.var_e1074d3e[var_240061ef].var_fd7e329b) && (!(isdefined(level.var_e1074d3e[var_240061ef].is_activated[self.clientid]) && level.var_e1074d3e[var_240061ef].is_activated[self.clientid])))
 			{
 				self thread function_954b9083(var_240061ef);
 				self thread [[level.var_e1074d3e[var_240061ef].activate_talisman]]();
 				level.var_e1074d3e[var_240061ef].is_activated[self.clientid] = 1;
-				self recordmapevent(30, gettime(), self.origin, level.round_number, s_talisman.var_2f8e25b8, (isdefined(self.health) ? self.health : 0));
+				self recordmapevent(30, gettime(), self.origin, level.round_number, var_eb3fb8f4.var_2f8e25b8, (isdefined(self.health) ? self.health : 0));
 				var_88049519 = 1;
 			}
 		}
@@ -73,7 +73,7 @@ function on_player_connect()
 	{
 		if(n_remaining > 0)
 		{
-			self thread namespace_59ff1d6c::function_2717f4b3();
+			self thread cschashed-3\script_12282e6b2cc91b42::function_2717f4b3();
 		}
 		else
 		{
@@ -98,15 +98,15 @@ function on_player_disconnect()
 	{
 		return;
 	}
-	var_e18c5d7 = self zm_loadout::function_2dfb9150("talisman1");
-	s_talisman = getunlockableiteminfofromindex(var_e18c5d7, 4);
+	var_e18c5d7 = self cschashed-2\script_709bf7c56eb65adf::function_2dfb9150("talisman1");
+	var_eb3fb8f4 = getunlockableiteminfofromindex(var_e18c5d7, 4);
 	var_ea4558f5 = function_b143666d(var_e18c5d7, 4);
 	if(isdefined(s_talisman))
 	{
-		var_240061ef = s_talisman.var_3cf2d21;
+		var_240061ef = var_eb3fb8f4.var_3cf2d21;
 		if(isdefined(level.var_e1074d3e[var_240061ef]))
 		{
-			if(isdefined(level.var_e1074d3e[var_240061ef].activate_talisman) && (isdefined(level.var_e1074d3e[var_240061ef].is_activated[self.clientid]) && level.var_e1074d3e[var_240061ef].is_activated[self.clientid]))
+			if(isdefined(level.var_e1074d3e[var_240061ef].var_fd7e329b) && (isdefined(level.var_e1074d3e[var_240061ef].is_activated[self.clientid]) && level.var_e1074d3e[var_240061ef].is_activated[self.clientid]))
 			{
 				level.var_e1074d3e[var_240061ef].is_activated[self.clientid] = 0;
 			}
@@ -152,7 +152,7 @@ function function_88a60d36(var_240061ef, activate_talisman)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_954b9083(var_240061ef)
+private function function_954b9083(var_240061ef)
 {
 	level endon(#"game_ended");
 	self endon(#"disconnect");

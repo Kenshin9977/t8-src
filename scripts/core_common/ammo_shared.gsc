@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_18f0d22c75b141a7;
-#using script_4c5c4a64a59247a2;
-#using script_8988fdbc78d6c53;
+#using hashed-2\loadout.gsc;
+#using hashed-1\shared.gsc;
+#using hashed-3\weaponobjects.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\hud_shared.gsc;
 #using scripts\core_common\throttle_shared.gsc;
@@ -17,11 +17,13 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec main()
+autoexec function main()
 {
 	if(!isdefined(level.ai_ammo_throttle))
 	{
-		level.ai_ammo_throttle = new throttle();
+		object = new throttle();
+		[[ object ]]->__constructor();
+		level.ai_ammo_throttle = object;
 		[[ level.ai_ammo_throttle ]]->initialize(1, 0.1);
 	}
 }
@@ -51,7 +53,8 @@ function dropaiammo()
 	if(isdefined(droppedweapon))
 	{
 		droppedweapon thread ammo_pouch_think();
-		droppedweapon setcontents(droppedweapon setcontents(0) & (~(((32768 | 67108864) | 8388608) | 33554432)));
+		~droppedweapon;
+		droppedweapon setcontents(droppedweapon setcontents(0) & 32768 | 67108864 | 8388608 | 33554432);
 	}
 }
 
@@ -96,23 +99,17 @@ function ammo_pouch_think()
 				maxammo = weapon.maxammo;
 			}
 		}
-		else
+		else if(weapon == player.grenadetypeprimary && isdefined(player.grenadetypeprimarycount) && player.grenadetypeprimarycount > 0)
 		{
-			if(weapon == player.grenadetypeprimary && isdefined(player.grenadetypeprimarycount) && player.grenadetypeprimarycount > 0)
-			{
-				maxammo = player.grenadetypeprimarycount;
-			}
-			else
-			{
-				if(weapon == player.grenadetypesecondary && isdefined(player.grenadetypesecondarycount) && player.grenadetypesecondarycount > 0)
-				{
-					maxammo = player.grenadetypesecondarycount;
-				}
-				else if(weapon.isheavyweapon && (isdefined(level.overrideammodropheavyweapon) && level.overrideammodropheavyweapon))
-				{
-					maxammo = weapon.maxammo;
-				}
-			}
+			maxammo = player.grenadetypeprimarycount;
+		}
+		else if(weapon == player.grenadetypesecondary && isdefined(player.grenadetypesecondarycount) && player.grenadetypesecondarycount > 0)
+		{
+			maxammo = player.grenadetypesecondarycount;
+		}
+		else if(weapon.isheavyweapon && (isdefined(level.overrideammodropheavyweapon) && level.overrideammodropheavyweapon))
+		{
+			maxammo = weapon.maxammo;
 		}
 		if(isdefined(level.customloadoutscavenge))
 		{
@@ -168,9 +165,9 @@ function ammo_pouch_think()
 		clip = clip * getdvarfloat(#"scavenger_clip_multiplier", 1);
 		clip = int(clip);
 		maxammo = weapon.maxammo;
-		if(stock < maxammo - (clip * 3))
+		if(stock < maxammo - clip * 3)
 		{
-			ammo = stock + (clip * 3);
+			ammo = stock + clip * 3;
 			player setweaponammostock(weapon, ammo);
 			continue;
 		}

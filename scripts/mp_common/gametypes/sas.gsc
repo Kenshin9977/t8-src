@@ -1,10 +1,10 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_18f0d22c75b141a7;
-#using script_2255a7ad3edc838f;
-#using script_2c49ae69cd8ce30c;
-#using script_47fb62300ac0bd60;
-#using script_5399f402045d7abd;
-#using script_56ca01b3b31455b5;
+#using hashed-2\loadout.gsc;
+#using hashed-3\bot.gsc;
+#using hashed-1\player_36.gsc;
+#using hashed-2\stats.gsc;
+#using hashed-3\weapon_utils.gsc;
+#using hashed-2\ability_util.gsc;
 #using script_788472602edbe3b9;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\bots\bot_action.gsc;
@@ -262,39 +262,30 @@ function onplayerkilled(einflictor, attacker, idamage, smeansofdeath, weapon, vd
 			attacker globallogic_score::givepointstowin(int(level.pointspermeleekill));
 			scoreevents::processscoreevent(#"hash_6c8030eb05b53d5a", attacker, self, weapon);
 		}
-		else
+		else if(weapon == level.weapon_sas_primary_weapon)
 		{
-			if(weapon == level.weapon_sas_primary_weapon)
+			attacker.killswithprimary++;
+			if(attacker.killswithbothawarded == 0 && attacker.killswithsecondary > 0)
 			{
-				attacker.killswithprimary++;
-				if(attacker.killswithbothawarded == 0 && attacker.killswithsecondary > 0)
-				{
-					attacker.killswithbothawarded = 1;
-				}
-				attacker globallogic_score::givepointstowin(level.pointsperprimarykill);
-				scoreevents::processscoreevent(#"hash_614b27b37ccee280", attacker, self, weapon);
+				attacker.killswithbothawarded = 1;
 			}
-			else
+			attacker globallogic_score::givepointstowin(level.pointsperprimarykill);
+			scoreevents::processscoreevent(#"hash_614b27b37ccee280", attacker, self, weapon);
+		}
+		else if(weapon == level.weapon_sas_primary_grenade_weapon)
+		{
+			attacker globallogic_score::givepointstowin(int(level.pointsperprimarygrenadekill));
+		}
+		else if(weapon == level.weapon_sas_secondary_weapon)
+		{
+			attacker.killswithsecondary++;
+			if(attacker.killswithbothawarded == 0 && attacker.killswithprimary > 0)
 			{
-				if(weapon == level.weapon_sas_primary_grenade_weapon)
-				{
-					attacker globallogic_score::givepointstowin(int(level.pointsperprimarygrenadekill));
-				}
-				else
-				{
-					if(weapon == level.weapon_sas_secondary_weapon)
-					{
-						attacker.killswithsecondary++;
-						if(attacker.killswithbothawarded == 0 && attacker.killswithprimary > 0)
-						{
-							attacker.killswithbothawarded = 1;
-						}
-					}
-					attacker globallogic_score::givepointstowin(level.pointspersecondarykill);
-					scoreevents::processscoreevent(#"hash_25ec47f9609803a9", attacker, self, weapon);
-				}
+				attacker.killswithbothawarded = 1;
 			}
 		}
+		attacker globallogic_score::givepointstowin(level.pointspersecondarykill);
+		scoreevents::processscoreevent(#"hash_25ec47f9609803a9", attacker, self, weapon);
 		if(isdefined(level.setbackweapon) && weapon == level.setbackweapon)
 		{
 			self.pers[#"humiliated"]++;

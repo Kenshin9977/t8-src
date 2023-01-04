@@ -27,7 +27,7 @@ function init(str_flag, b_val = 0)
 		if(!isdefined(level.first_frame))
 		{
 			/#
-				assert(!isdefined(self.flag[str_flag]), ("" + str_flag) + "");
+				assert(!isdefined(self.flag[str_flag]), "" + str_flag + "");
 			#/
 		}
 	#/
@@ -62,7 +62,7 @@ function set(str_flag)
 {
 	/#
 		/#
-			assert(exists(str_flag), ("" + function_9e72a96(str_flag)) + "");
+			assert(exists(str_flag), "" + function_9e72a96(str_flag) + "");
 		#/
 	#/
 	self.flag[str_flag] = 1;
@@ -83,7 +83,7 @@ function increment(str_flag)
 {
 	/#
 		/#
-			assert(exists(str_flag), ("" + function_9e72a96(str_flag)) + "");
+			assert(exists(str_flag), "" + function_9e72a96(str_flag) + "");
 		#/
 	#/
 	self.flag_count[str_flag]++;
@@ -103,7 +103,7 @@ function decrement(str_flag)
 {
 	/#
 		/#
-			assert(exists(str_flag), ("" + function_9e72a96(str_flag)) + "");
+			assert(exists(str_flag), "" + function_9e72a96(str_flag) + "");
 		#/
 	#/
 	/#
@@ -204,7 +204,7 @@ function set_for_time(n_time, str_flag)
 function clear(str_flag)
 {
 	/#
-		assert(exists(str_flag), ("" + str_flag) + "");
+		assert(exists(str_flag), "" + str_flag + "");
 	#/
 	if(self.flag[str_flag])
 	{
@@ -247,7 +247,7 @@ function toggle(str_flag)
 function get(str_flag)
 {
 	/#
-		assert(exists(str_flag), ("" + str_flag) + "");
+		assert(exists(str_flag), "" + str_flag + "");
 	#/
 	return self.flag[str_flag];
 }
@@ -267,10 +267,10 @@ function get_any(array)
 	{
 		if(get(str_flag))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -288,10 +288,10 @@ function get_all(array)
 	{
 		if(!get(str_flag))
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -591,12 +591,7 @@ function delete(str_flag)
 	{
 		self.flag[str_flag] = undefined;
 	}
-	else
-	{
-		/#
-			println("" + str_flag);
-		#/
-	}
+	println("" + str_flag);
 }
 
 /*
@@ -613,8 +608,8 @@ function script_flag_wait()
 	if(isdefined(self.script_flag_wait))
 	{
 		self wait_till(self.script_flag_wait);
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 

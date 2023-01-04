@@ -68,7 +68,7 @@ function function_6799fbc4(localclientnum, oldval, newval, bnewent, binitialsnap
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_c06aed2(localclientnum)
+private function function_c06aed2(localclientnum)
 {
 	self show();
 	self notify(#"set_visible");
@@ -83,7 +83,7 @@ function private function_c06aed2(localclientnum)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_59cd4ca1(localclientnum)
+private function function_59cd4ca1(localclientnum)
 {
 	self hide();
 	self notify(#"hash_488fe0f467820fcf");

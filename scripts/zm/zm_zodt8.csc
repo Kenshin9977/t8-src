@@ -1,15 +1,15 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_13e019f139d2aa4e;
-#using script_234f79e7e5737561;
-#using script_27ba6748d83412fd;
-#using script_2a907fffc74a075d;
-#using script_2c454d63a96d2d0b;
-#using script_52ab76d6216ed2cc;
-#using script_54a67b7ed7b385e6;
+hashed-2\script_13e019f139d2aa4e.csc;
+hashed-2\script_234f79e7e5737561.csc;
+hashed-2\script_27ba6748d83412fd.csc;
+hashed-1\script_2a907fffc74a075d.csc;
+hashed-1\script_2c454d63a96d2d0b.csc;
+hashed-2\script_52ab76d6216ed2cc.csc;
+hashed-2\script_54a67b7ed7b385e6.csc;
 #using script_5504fe574aed77a8;
-#using script_67051bc8c81031aa;
-#using script_67b98aa634d9decc;
-#using script_74f5ae6ffc8bd614;
+hashed-3\script_67051bc8c81031aa.csc;
+hashed-2\script_67b98aa634d9decc.csc;
+hashed-2\script_74f5ae6ffc8bd614.csc;
 #using scripts\core_common\audio_shared.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
@@ -38,7 +38,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec opt_in()
+autoexec function opt_in()
 {
 	level.aat_in_use = 1;
 	level.bgb_in_use = 1;
@@ -89,11 +89,11 @@ event main(eventstruct)
 	level.var_59d3631c = #"hash_129339f4a4da8ea2";
 	level.var_d0ab70a2 = #"hash_3180c9ba4da02927";
 	namespace_e80d0291::init();
-	namespace_74905749::init();
-	namespace_4a807bff::init();
+	cschashed-2\script_52ab76d6216ed2cc::init();
+	cschashed-2\script_54a67b7ed7b385e6::init();
 	namespace_b45e3f05::init();
-	namespace_57873b62::init();
-	namespace_8f39dfb1::init();
+	cschashed-1\script_2a907fffc74a075d::init();
+	cschashed-2\script_74f5ae6ffc8bd614::init();
 	load::main();
 	function_99e9d1fa();
 	init_flags();
@@ -137,8 +137,8 @@ function on_localplayer_spawned(localclientnum)
 function function_2dca9b5b(localclientnum, var_630fc8b)
 {
 	level endon(#"game_ended");
-	self endoncallback(&function_853e8354, #"death");
-	b_underwater = var_630fc8b;
+	self endon_callback(&function_853e8354, #"death");
+	var_50a1494c = var_630fc8b;
 	while(isalive(self))
 	{
 		if(self isplayerswimmingunderwater())
@@ -172,8 +172,8 @@ function function_efae9657(localclientnum, var_630fc8b)
 	self notify("505c3419935f4f3e");
 	self endon("505c3419935f4f3e");
 	level endon(#"game_ended");
-	self endoncallback(&function_853e8354, #"death");
-	b_underwater = var_630fc8b;
+	self endon_callback(&function_853e8354, #"death");
+	var_50a1494c = var_630fc8b;
 	if(isalive(self))
 	{
 		var_8eeea2b6 = postfx::function_556665f2(#"hash_5249b3ef8b2f1988");
@@ -185,20 +185,16 @@ function function_efae9657(localclientnum, var_630fc8b)
 				self thread postfx::playpostfxbundle(#"hash_5249b3ef8b2f1988");
 			}
 		}
+		else if(self clientfield::get_to_player("" + #"boiler_fx"))		{
+			setpbgactivebank(localclientnum, 4);
+		}
 		else
 		{
-			if(self clientfield::get_to_player("" + #"boiler_fx"))
-			{
-				setpbgactivebank(localclientnum, 4);
-			}
-			else
-			{
-				setpbgactivebank(localclientnum, 1);
-			}
-			if(var_8eeea2b6)
-			{
-				self thread postfx::stoppostfxbundle(#"hash_5249b3ef8b2f1988");
-			}
+			setpbgactivebank(localclientnum, 1);
+		}
+		if(var_8eeea2b6)
+		{
+			self thread postfx::stoppostfxbundle(#"hash_5249b3ef8b2f1988");
 		}
 	}
 	while(isalive(self))
@@ -239,8 +235,7 @@ function function_33eae096(localclientnum, b_underwater)
 	else
 	{
 		self notify(#"hash_32c7af154e6c4ded");
-		if(self clientfield::get_to_player("" + #"boiler_fx"))
-		{
+		if(self clientfield::get_to_player("" + #"boiler_fx"))		{
 			setpbgactivebank(localclientnum, 4);
 		}
 		else
@@ -283,7 +278,7 @@ function function_24f8e5f9()
 function function_3353845b(localclientnum)
 {
 	level endon(#"game_ended");
-	self endoncallback(&function_853e8354, #"death");
+	self endon_callback(&function_853e8354, #"death");
 	self endon(#"hash_32c7af154e6c4ded");
 	n_waittime = 5;
 	var_d82f94cd = int(180 * 1000);
@@ -297,7 +292,7 @@ function function_3353845b(localclientnum)
 		wait(n_waittime);
 		if(n_chance >= randomint(100))
 		{
-			if(self.var_655d9e4b === 0 || (gettime() - var_d82f94cd) >= self.var_655d9e4b)
+			if(self.var_655d9e4b === 0 || gettime() - var_d82f94cd >= self.var_655d9e4b)
 			{
 				self playsound(localclientnum, self.var_e95193b8[function_21a3a673(0, 2)][self.var_25e6f383]);
 				self.var_655d9e4b = gettime();
@@ -354,23 +349,23 @@ function function_5b0384a(localclientnum, oldval, newval, bnewent, binitialsnap,
 	{
 		case 0:
 		{
-			level scene::stop(#"p8_fxanim_zm_zod_cargo_hold_net_bundle", 1);
-			level scene::delete_scene_spawned_ents(localclientnum, #"p8_fxanim_zm_zod_cargo_hold_net_bundle");
+			level scene::stop(#"hash_1c8acc6c63abae2b", 1);
+			level scene::delete_scene_spawned_ents(localclientnum, #"hash_1c8acc6c63abae2b");
 			break;
 		}
 		case 1:
 		{
-			level thread scene::init(#"p8_fxanim_zm_zod_cargo_hold_net_bundle");
+			level thread scene::init(#"hash_1c8acc6c63abae2b");
 			break;
 		}
 		case 2:
 		{
-			level thread scene::play(#"p8_fxanim_zm_zod_cargo_hold_net_bundle", "Shot 2");
+			level thread scene::play(#"hash_1c8acc6c63abae2b", "Shot 2");
 			break;
 		}
 		case 3:
 		{
-			level thread scene::play(#"p8_fxanim_zm_zod_cargo_hold_net_bundle", "Shot 3");
+			level thread scene::play(#"hash_1c8acc6c63abae2b", "Shot 3");
 			break;
 		}
 	}
@@ -509,7 +504,7 @@ function update_wave_water_height(localclientnum, oldval, newval, bnewent, binit
 	{
 		var_b965688c = function_67b634e6(self.origin);
 		setwavewaterheight(var_b965688c, self.origin[2]);
-		elmids(var_b965688c, self.angles[2] * -1);
+		function_d57eff0c(var_b965688c, self.angles[2] * -1);
 	}
 }
 
@@ -574,7 +569,7 @@ function function_6749eef5(localclientnum)
 	while(isdefined(self) && self flag::get("update_water"))
 	{
 		setwavewaterheight(var_b965688c, self.origin[2]);
-		elmids(var_b965688c, self.angles[2] * -1);
+		function_d57eff0c(var_b965688c, self.angles[2] * -1);
 		waitframe(1);
 	}
 	function_c1129a39(var_b965688c, (0, 0, 0), 0);
@@ -801,41 +796,34 @@ function sentinel_artifact_activated(localclientnum, oldval, newval, bnewent, bi
 		self function_bf9d3071(#"hash_1589a47f2fdc6c67");
 		self.sfx_id = self playloopsound(#"hash_66df9cab2c64f968");
 	}
-	else
+	else if(newval == 2)
 	{
-		if(newval == 2)
+		if(isdefined(self.sfx_id))
 		{
-			if(isdefined(self.sfx_id))
-			{
-				self stoploopsound(self.sfx_id);
-			}
-			self playsound(localclientnum, #"hash_75b9c9ad6ebe8af2");
-			self function_5d482e78(#"hash_1589a47f2fdc6c67");
-			if(isdefined(self.fx))
-			{
-				stopfx(localclientnum, self.fx);
-				self.fx = undefined;
-			}
-			util::playfxontag(localclientnum, level._effect[#"sentinel_activate"], self, "tag_fx_x_pos");
-			while(isdefined(self) && self.model !== #"hash_2c0078538e398b4f")
-			{
-				waitframe(1);
-			}
-			self.fx = util::playfxontag(localclientnum, level._effect[#"hash_2b40b14fc8577053"], self, "tag_fx_x_pos");
+			self stoploopsound(self.sfx_id);
+		}
+		self playsound(localclientnum, #"hash_75b9c9ad6ebe8af2");
+		self function_5d482e78(#"hash_1589a47f2fdc6c67");
+		if(isdefined(self.fx))
+		{
+			stopfx(localclientnum, self.fx);
+			self.fx = undefined;
+		}
+		util::playfxontag(localclientnum, level._effect[#"sentinel_activate"], self, "tag_fx_x_pos");		while(isdefined(self) && self.model !== #"hash_2c0078538e398b4f")
+		{
 			waitframe(1);
-			self function_bf9d3071(#"hash_111d3e86bf2007e4");
 		}
-		else
-		{
-			if(isdefined(self.fx))
-			{
-				stopfx(localclientnum, self.fx);
-				self.fx = undefined;
-			}
-			self playsound(localclientnum, #"hash_5de064f33e9e49b8");
-			self playsound(localclientnum, #"hash_3d8fef5997663b17");
-		}
+		self.fx = util::playfxontag(localclientnum, level._effect[#"hash_2b40b14fc8577053"], self, "tag_fx_x_pos");
+		waitframe(1);
+		self function_bf9d3071(#"hash_111d3e86bf2007e4");
 	}
+	else if(isdefined(self.fx))
+	{
+		stopfx(localclientnum, self.fx);
+		self.fx = undefined;
+	}
+	self playsound(localclientnum, #"hash_5de064f33e9e49b8");
+	self playsound(localclientnum, #"hash_3d8fef5997663b17");
 }
 
 /*
@@ -903,7 +891,7 @@ function function_b7fc06b2(localclientnum, oldval, newval, bnewent, binitialsnap
 	wait(25);
 	var_17623425 = 4;
 	n_time = 0;
-	var_1713b028 = (4 - 1) / ((45 - 25) / 1);
+	var_1713b028 = 4 - 1 / 45 - 25 / 1;
 	while(var_17623425 > 1)
 	{
 		n_time = n_time + 1;

@@ -80,7 +80,7 @@ function removechild(element)
 {
 	/#
 		element.parent = undefined;
-		if((self.children[self.children.size - 1]) != element)
+		if(self.children[self.children.size - 1] != element)
 		{
 			self.children[element.index] = self.children[self.children.size - 1];
 			self.children[element.index].index = element.index;
@@ -278,67 +278,61 @@ function setpoint(point, relativepoint, xoffset, yoffset, movetime)
 			offsetx = 0;
 			xfactor = 0;
 		}
-		else
+		else if(relativex == "" || element.alignx == "")
 		{
+			offsetx = int(element.width / 2);
 			if(relativex == "" || element.alignx == "")
 			{
-				offsetx = int(element.width / 2);
-				if(relativex == "" || element.alignx == "")
-				{
-					xfactor = -1;
-				}
-				else
-				{
-					xfactor = 1;
-				}
+				xfactor = -1;
 			}
 			else
 			{
-				offsetx = element.width;
-				if(relativex == "")
-				{
-					xfactor = -1;
-				}
-				else
-				{
-					xfactor = 1;
-				}
+				xfactor = 1;
 			}
 		}
-		self.x = element.x + (offsetx * xfactor);
+		else
+		{
+			offsetx = element.width;
+			if(relativex == "")
+			{
+				xfactor = -1;
+			}
+			else
+			{
+				xfactor = 1;
+			}
+		}
+		self.x = element.x + offsetx * xfactor;
 		if(relativey == element.aligny)
 		{
 			offsety = 0;
 			yfactor = 0;
 		}
-		else
+		else if(relativey == "" || element.aligny == "")
 		{
+			offsety = int(element.height / 2);
 			if(relativey == "" || element.aligny == "")
 			{
-				offsety = int(element.height / 2);
-				if(relativey == "" || element.aligny == "")
-				{
-					yfactor = -1;
-				}
-				else
-				{
-					yfactor = 1;
-				}
+				yfactor = -1;
 			}
 			else
 			{
-				offsety = element.height;
-				if(relativey == "")
-				{
-					yfactor = -1;
-				}
-				else
-				{
-					yfactor = 1;
-				}
+				yfactor = 1;
 			}
 		}
-		self.y = element.y + (offsety * yfactor);
+		else
+		{
+			offsety = element.height;
+			if(relativey == "")
+			{
+				yfactor = -1;
+			}
+			else
+			{
+				yfactor = 1;
+			}
+		}
+		self.y = element.y + offsety * yfactor;
 		self.x = self.x + self.xoffset;
 		self.y = self.y + self.yoffset;
 		switch(self.elemtype)
@@ -376,16 +370,13 @@ function setpointbar(point, relativepoint, xoffset, yoffset)
 		{
 			self.bar.x = self.x;
 		}
+		else if(self.alignx == "")
+		{
+			self.bar.x = self.x - self.width;
+		}
 		else
 		{
-			if(self.alignx == "")
-			{
-				self.bar.x = self.x - self.width;
-			}
-			else
-			{
-				self.bar.x = self.x - (int(self.width / 2));
-			}
+			self.bar.x = self.x - int(self.width / 2);
 		}
 		if(self.aligny == "")
 		{
@@ -430,7 +421,7 @@ function updatebar(barfrac, rateofchange)
 function updatebarscale(barfrac, rateofchange)
 {
 	/#
-		barwidth = int((self.width * barfrac) + 0.5);
+		barwidth = int(self.width * barfrac + 0.5);
 		if(!barwidth)
 		{
 			barwidth = 1;
@@ -438,21 +429,21 @@ function updatebarscale(barfrac, rateofchange)
 		self.bar.frac = barfrac;
 		self.bar setshader(self.bar.shader, barwidth, self.height);
 		/#
-			assert(barwidth <= self.width, (((("" + barwidth) + "") + self.width) + "") + barfrac);
+			assert(barwidth <= self.width, "" + barwidth + "" + self.width + "" + barfrac);
 		#/
 		if(isdefined(rateofchange) && barwidth < self.width)
 		{
 			if(rateofchange > 0)
 			{
 				/#
-					assert(((1 - barfrac) / rateofchange) > 0, (("" + barfrac) + "") + rateofchange);
+					assert(1 - barfrac / rateofchange > 0, "" + barfrac + "" + rateofchange);
 				#/
-				self.bar scaleovertime((1 - barfrac) / rateofchange, self.width, self.height);
+				self.bar scaleovertime(1 - barfrac / rateofchange, self.width, self.height);
 			}
 			else if(rateofchange < 0)
 			{
 				/#
-					assert((barfrac / -1 * rateofchange) > 0, (("" + barfrac) + "") + rateofchange);
+					assert(barfrac / -1 * rateofchange > 0, "" + barfrac + "" + rateofchange);
 				#/
 				self.bar scaleovertime(barfrac / -1 * rateofchange, 1, self.height);
 			}

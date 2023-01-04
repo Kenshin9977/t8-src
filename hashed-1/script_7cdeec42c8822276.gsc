@@ -2,10 +2,10 @@
 #using script_14e569dd391faf67;
 #using script_174ebb9642933bf7;
 #using script_2cd0a997aa904279;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_6ce38ab036223e6e;
 #using script_ab862743b3070a;
-#using script_db06eb511bd9b36;
+#using hashed-3\zm_cleanup.gsc;
 #using scripts\core_common\ai_shared.gsc;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -85,7 +85,7 @@ function function_4074a9e2()
 	zm_powerups::function_41cedb05("bonus_points_team");
 	zm_powerups::function_41cedb05("double_points");
 	/#
-		iprintlnbold(("" + level.var_baf33f0e) + "");
+		iprintlnbold("" + level.var_baf33f0e + "");
 	#/
 	level thread function_88b87834();
 }
@@ -124,7 +124,7 @@ function function_b741acea()
 {
 	level.var_bdc8b034 = [];
 	level.var_bdc8b034[#"zombie"] = namespace_a28acff3::get_zombie_count_for_round(level.var_37769559, level.activeplayers.size);
-	var_d90bc041 = min((level.var_37769559 - 10) / 40, 1);
+	var_d90bc041 = min(level.var_37769559 - 10 / 40, 1);
 	var_82981c27 = lerpfloat(0.1, 0.3, var_d90bc041);
 	var_2f8a58bb = lerpfloat(0.2, 0.4, var_d90bc041);
 	var_8c110732 = randomfloatrange(var_82981c27, var_2f8a58bb);
@@ -257,7 +257,7 @@ function spawn_archetype(str_archetype)
 		}
 		case "zombie_dog":
 		{
-			ai = namespace_c402654::function_62db7b1c();
+			ai = cschashed-1\script_5fb8da2731850d9e::function_62db7b1c();
 			break;
 		}
 		case "nova_crawler":

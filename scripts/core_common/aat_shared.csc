@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"aat", &__init__, undefined, undefined);
 }
@@ -29,7 +29,7 @@ function autoexec function_89f2df9()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __init__()
+private function __init__()
 {
 	level.aat_initializing = 1;
 	level.aat_default_info_name = "none";
@@ -57,7 +57,7 @@ function register(name, localized_string, icon)
 		assert(isdefined(name), "");
 	#/
 	/#
-		assert(!isdefined(level.aat[name]), ("" + name) + "");
+		assert(!isdefined(level.aat[name]), "" + name + "");
 	#/
 	/#
 		assert(isdefined(localized_string), "");

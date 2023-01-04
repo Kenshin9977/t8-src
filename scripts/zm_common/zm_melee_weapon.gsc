@@ -2,7 +2,7 @@
 #using script_1254ac024174d9c0;
 #using script_14f4a3c583c77d4b;
 #using script_7133a4d461308099;
-#using script_ab890501c40b73c;
+#using hashed-3\contracts.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\laststand_shared.gsc;
 #using scripts\core_common\struct.gsc;
@@ -28,7 +28,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"melee_weapon", &__init__, &__main__, undefined);
 }
@@ -42,7 +42,7 @@ function autoexec function_89f2df9()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __init__()
+private function __init__()
 {
 	if(!isdefined(level._melee_weapons))
 	{
@@ -59,7 +59,7 @@ function private __init__()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private __main__()
+private function __main__()
 {
 }
 
@@ -97,7 +97,7 @@ function init(weapon_name, flourish_weapon_name, cost, wallbuy_targetname, hint_
 	{
 		prepare_stub(melee_weapon_structs[i].trigger_stub, weapon, flourish_weapon, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn);
 	}
-	zm_loadout::register_melee_weapon_for_level(weapon.name);
+	cschashed-2\script_709bf7c56eb65adf::register_melee_weapon_for_level(weapon.name);
 	/#
 		if(!isdefined(level.zombie_weapons[weapon]) && (!is_ee || getdvarint(#"hash_11ad6a9695943217", 0)))
 		{
@@ -231,9 +231,9 @@ function set_fallback_weapon(weapon_name, fallback_weapon_name)
 function determine_fallback_weapon()
 {
 	fallback_weapon = level.weaponzmfists;
-	if(isdefined(self zm_loadout::get_player_melee_weapon()) && self hasweapon(self zm_loadout::get_player_melee_weapon()))
+	if(isdefined(self zm_loadout::get_player_melee_weapon()) && self hasweapon(self cschashed-2\script_709bf7c56eb65adf::get_player_melee_weapon()))
 	{
-		melee_weapon = find_melee_weapon(self zm_loadout::get_player_melee_weapon());
+		melee_weapon = find_melee_weapon(self cschashed-2\script_709bf7c56eb65adf::get_player_melee_weapon());
 		if(isdefined(melee_weapon) && isdefined(melee_weapon.fallback_weapon))
 		{
 			return melee_weapon.fallback_weapon;
@@ -296,13 +296,13 @@ function player_can_see_weapon_prompt()
 {
 	if(isdefined(level._allow_melee_weapon_switching) && level._allow_melee_weapon_switching)
 	{
-		return true;
+		return 1;
 	}
-	if(isdefined(self zm_loadout::get_player_melee_weapon()) && self hasweapon(self zm_loadout::get_player_melee_weapon()))
+	if(isdefined(self zm_loadout::get_player_melee_weapon()) && self hasweapon(self cschashed-2\script_709bf7c56eb65adf::get_player_melee_weapon()))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -322,61 +322,27 @@ function function_e5bf8f08(player)
 	{
 		if(!self [[level.func_override_wallbuy_prompt]](player, player_has_weapon))
 		{
-			return false;
+			return 0;
 		}
 	}
-	else
+	else if(cschashed-1\script_6e6840022cbf42f4::is_active())
 	{
-		if(namespace_497ab7da::is_active())
+		return 0;
+	}
+	if(!player_has_weapon && !player zm_utility::is_drinking())
+	{
+		self.stub.cursor_hint = "HINT_WEAPON";
+		cost = zm_weapons::get_weapon_cost(weapon);
+		if(player bgb::is_enabled(#"hash_4a6b297c85fafec1"))
 		{
-			return false;
-		}
-		if(!player_has_weapon && !player zm_utility::is_drinking())
-		{
-			self.stub.cursor_hint = "HINT_WEAPON";
-			cost = zm_weapons::get_weapon_cost(weapon);
-			if(player bgb::is_enabled(#"hash_4a6b297c85fafec1"))
+			if(function_8b1a219a())
 			{
-				if(function_8b1a219a())
-				{
-					self.stub.hint_string = #"hash_7a24a147b8f09767";
-				}
-				else
-				{
-					self.stub.hint_string = #"hash_791fe9da17cf7059";
-				}
-				if(self.stub.var_8d306e51)
-				{
-					self sethintstringforplayer(player, self.stub.hint_string);
-				}
-				else
-				{
-					self sethintstring(self.stub.hint_string);
-				}
+				self.stub.hint_string = #"hash_7a24a147b8f09767";
 			}
 			else
 			{
-				if(function_8b1a219a())
-				{
-					self.stub.hint_string = #"hash_2791ecebb85142c4";
-				}
-				else
-				{
-					self.stub.hint_string = #"hash_60606b68e93a29c8";
-				}
-				if(self.stub.var_8d306e51)
-				{
-					self sethintstringforplayer(player, self.stub.hint_string);
-				}
-				else
-				{
-					self sethintstring(self.stub.hint_string);
-				}
+				self.stub.hint_string = #"hash_791fe9da17cf7059";
 			}
-		}
-		else
-		{
-			self.stub.hint_string = "";
 			if(self.stub.var_8d306e51)
 			{
 				self sethintstringforplayer(player, self.stub.hint_string);
@@ -385,13 +351,41 @@ function function_e5bf8f08(player)
 			{
 				self sethintstring(self.stub.hint_string);
 			}
-			return false;
 		}
+		else if(function_8b1a219a())
+		{
+			self.stub.hint_string = #"hash_2791ecebb85142c4";
+		}
+		else
+		{
+			self.stub.hint_string = #"hash_60606b68e93a29c8";
+		}
+		if(self.stub.var_8d306e51)
+		{
+			self sethintstringforplayer(player, self.stub.hint_string);
+		}
+		else
+		{
+			self sethintstring(self.stub.hint_string);
+		}
+	}
+	else
+	{
+		self.stub.hint_string = "";
+		if(self.stub.var_8d306e51)
+		{
+			self sethintstringforplayer(player, self.stub.hint_string);
+		}
+		else
+		{
+			self sethintstring(self.stub.hint_string);
+		}
+		return 0;
 	}
 	self.stub.cursor_hint = "HINT_WEAPON";
 	self.stub.cursor_hint_weapon = weapon;
 	self setcursorhint(self.stub.cursor_hint, self.stub.cursor_hint_weapon);
-	return true;
+	return 1;
 }
 
 /*
@@ -486,8 +480,8 @@ function trigger_hide(wallbuy_targetname)
 */
 function change_melee_weapon(weapon, current_weapon)
 {
-	current_melee_weapon = self zm_loadout::get_player_melee_weapon();
-	self zm_loadout::set_player_melee_weapon(weapon);
+	current_melee_weapon = self cschashed-2\script_709bf7c56eb65adf::get_player_melee_weapon();
+	self cschashed-2\script_709bf7c56eb65adf::set_player_melee_weapon(weapon);
 	if(current_melee_weapon != level.weaponnone && current_melee_weapon != weapon && self hasweapon(current_melee_weapon))
 	{
 		self takeweapon(current_melee_weapon);
@@ -556,13 +550,13 @@ function melee_weapon_think(weapon, cost, flourish_fn, vo_dialog_id, flourish_we
 			wait(0.1);
 			continue;
 		}
-		if(namespace_497ab7da::is_active())
+		if(cschashed-1\script_6e6840022cbf42f4::is_active())
 		{
 			wait(0.1);
 			continue;
 		}
 		player_has_weapon = player hasweapon(weapon);
-		if(player_has_weapon || player zm_loadout::has_powerup_weapon())
+		if(player_has_weapon || player cschashed-2\script_709bf7c56eb65adf::has_powerup_weapon())
 		{
 			wait(0.1);
 			continue;
@@ -573,7 +567,7 @@ function melee_weapon_think(weapon, cost, flourish_fn, vo_dialog_id, flourish_we
 			continue;
 		}
 		current_weapon = player getcurrentweapon();
-		if(zm_loadout::is_placeable_mine(current_weapon) || zm_equipment::is_equipment(current_weapon))
+		if(cschashed-2\script_709bf7c56eb65adf::is_placeable_mine(current_weapon) || zm_equipment::is_equipment(current_weapon))
 		{
 			wait(0.1);
 			continue;
@@ -682,7 +676,7 @@ function melee_weapon_show(player)
 		yaw = weapon_yaw + 90;
 	}
 	self.og_origin = self.origin;
-	self.origin = self.origin + (anglestoforward((0, yaw, 0)) * 8);
+	self.origin = self.origin + anglestoforward((0, yaw, 0)) * 8;
 	waitframe(1);
 	self show();
 	zm_utility::play_sound_at_pos("weapon_show", self.origin, self);
@@ -720,7 +714,7 @@ function award_melee_weapon(weapon_name)
 */
 function give_melee_weapon(vo_dialog_id, flourish_weapon, weapon, flourish_fn, trigger)
 {
-	self activecamo::function_8d3b94ea(weapon, 1, 0);
+	self cschashed-2\script_158d50d476435605::function_8d3b94ea(weapon, 1, 0);
 	if(isdefined(flourish_fn))
 	{
 		self thread [[flourish_fn]]();
@@ -815,7 +809,7 @@ function do_melee_weapon_flourish_end(original_weapon, flourish_weapon, weapon)
 		self zm_utility::decrement_is_drinking();
 		return;
 	}
-	if(original_weapon != level.weaponbasemelee && !zm_loadout::is_placeable_mine(original_weapon) && !zm_equipment::is_equipment(original_weapon))
+	if(original_weapon != level.weaponbasemelee && !cschashed-2\script_709bf7c56eb65adf::is_placeable_mine(original_weapon) && !zm_equipment::is_equipment(original_weapon))
 	{
 		self zm_weapons::switch_back_primary_weapon(original_weapon);
 	}

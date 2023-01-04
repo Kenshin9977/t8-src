@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"visionset_mgr", &__init__, undefined, undefined);
 }
@@ -352,7 +352,7 @@ function finalize_clientfields()
 function finalize_type_clientfields()
 {
 	/#
-		println(("" + self.type) + "");
+		println("" + self.type + "");
 	#/
 	if(1 >= self.info.size)
 	{
@@ -369,7 +369,7 @@ function finalize_type_clientfields()
 			self.cf_lerp_bit_count = self.info[self.sorted_name_keys[i]].lerp_bit_count;
 		}
 		/#
-			println(((((("" + self.info[self.sorted_name_keys[i]].name) + "") + self.info[self.sorted_name_keys[i]].version) + "") + self.info[self.sorted_name_keys[i]].lerp_step_count) + "");
+			println("" + self.info[self.sorted_name_keys[i]].name + "" + self.info[self.sorted_name_keys[i]].version + "" + self.info[self.sorted_name_keys[i]].lerp_step_count + "");
 		#/
 	}
 	clientfield::register("toplayer", self.cf_slot_name, self.highest_version, self.cf_slot_bit_count, "int", self.cf_slot_cb, 0, 1);
@@ -399,21 +399,21 @@ function validate_info(type, name, version)
 		}
 	}
 	/#
-		assert(i < keys.size, ("" + type) + "");
+		assert(i < keys.size, "" + type + "");
 	#/
 	if(version > level.vsmgr[type].server_version)
 	{
-		return false;
+		return 0;
 	}
 	if(isdefined(level.vsmgr[type].info[name]) && version < level.vsmgr[type].info[name].version)
 	{
 		if(version < level.vsmgr[type].info[name].version)
 		{
-			return false;
+			return 0;
 		}
 		level.vsmgr[type].info[name] = undefined;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -472,7 +472,7 @@ function register_info(type, name, version, lerp_step_count)
 	lower_name = tolower(name);
 	if(!validate_info(type, lower_name, version))
 	{
-		return false;
+		return 0;
 	}
 	add_sorted_name_key(type, lower_name);
 	level.vsmgr[type].info[lower_name] = spawnstruct();
@@ -481,7 +481,7 @@ function register_info(type, name, version, lerp_step_count)
 	{
 		level.vsmgr[type].highest_version = version;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -736,14 +736,11 @@ function demo_spectate_monitor()
 			}
 			level.vsmgr_is_spectating = 1;
 		}
-		else
+		else if(isdefined(level.vsmgr_is_spectating) && level.vsmgr_is_spectating)
 		{
-			if(isdefined(level.vsmgr_is_spectating) && level.vsmgr_is_spectating)
-			{
-				level notify(#"visionset_mgr_reset");
-			}
-			level.vsmgr_is_spectating = 0;
+			level notify(#"visionset_mgr_reset");
 		}
+		level.vsmgr_is_spectating = 0;
 		waitframe(1);
 	}
 }
@@ -805,10 +802,10 @@ function killcam_visionset_vehicle_mismatch(visionset_to, visionset_vehicle, veh
 	{
 		if(isdefined(self.vehicletype) && self.vehicletype != vehicletype)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -826,10 +823,10 @@ function killcam_visionset_player_mismatch(visionset_to, visionset_vehicle)
 	{
 		if(!isplayer(self))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -894,16 +891,13 @@ function visionset_update_cb(localclientnum, type)
 			visionsetnakedlerp(localclientnum, curr_info.visionset_to, level._fv2vs_prev_visionsets[localclientnum], state.curr_lerp);
 		}
 	}
+	else if(curr_info.visionset_type == 6)
+	{
+		visionsetlaststandlerp(localclientnum, curr_info.visionset_to, curr_info.visionset_from, state.curr_lerp);
+	}
 	else
 	{
-		if(curr_info.visionset_type == 6)
-		{
-			visionsetlaststandlerp(localclientnum, curr_info.visionset_to, curr_info.visionset_from, state.curr_lerp);
-		}
-		else
-		{
-			visionsetnakedlerp(localclientnum, curr_info.visionset_to, curr_info.visionset_from, state.curr_lerp);
-		}
+		visionsetnakedlerp(localclientnum, curr_info.visionset_to, curr_info.visionset_from, state.curr_lerp);
 	}
 }
 
@@ -1109,37 +1103,25 @@ function overlay_update_cb(localclientnum, type)
 				{
 					enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale, curr_info.blur_in, curr_info.blur_out, curr_info.should_offset);
 				}
+				else if(isdefined(curr_info.blur_out))
+				{
+					enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale, curr_info.blur_in, curr_info.blur_out);
+				}
+				else if(isdefined(curr_info.blur_in))
+				{
+					enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale, curr_info.blur_in);
+				}
+				else if(isdefined(curr_info.velocity_scale))
+				{
+					enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale);
+				}
+				else if(isdefined(curr_info.velocity_should_scale))
+				{
+					enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale);
+				}
 				else
 				{
-					if(isdefined(curr_info.blur_out))
-					{
-						enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale, curr_info.blur_in, curr_info.blur_out);
-					}
-					else
-					{
-						if(isdefined(curr_info.blur_in))
-						{
-							enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale, curr_info.blur_in);
-						}
-						else
-						{
-							if(isdefined(curr_info.velocity_scale))
-							{
-								enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale, curr_info.velocity_scale);
-							}
-							else
-							{
-								if(isdefined(curr_info.velocity_should_scale))
-								{
-									enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius, curr_info.velocity_should_scale);
-								}
-								else
-								{
-									enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius);
-								}
-							}
-						}
-					}
+					enablespeedblur(localclientnum, curr_info.amount, curr_info.inner_radius, curr_info.outer_radius);
 				}
 			}
 			break;

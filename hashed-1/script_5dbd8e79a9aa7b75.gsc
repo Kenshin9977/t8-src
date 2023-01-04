@@ -1,7 +1,7 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_3f04092ce1e7b07d;
-#using script_522aeb6ae906391e;
-#using script_59f07c660e6710a5;
+#using hashed-2\blackboard.gsc;
+#using hashed-2\ai_interface.gsc;
 #using scripts\core_common\spawner_shared.gsc;
 
 #namespace namespace_1db7ec0e;
@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec init()
+autoexec function init()
 {
 	namespace_70571b3::registernovacrawlerinterfaceattributes();
 	registerbehaviorscriptfunctions();
@@ -31,7 +31,7 @@ function autoexec init()
 	Parameters: 0
 	Flags: Private
 */
-function private function_32107b12()
+private function function_32107b12()
 {
 	/#
 		assert(isdefined(self.ai));
@@ -47,7 +47,7 @@ function private function_32107b12()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_ea4610a7()
+private function function_ea4610a7()
 {
 	blackboard::createblackboardforentity(self);
 	ai::createinterfaceforentity(self);
@@ -64,7 +64,7 @@ function private function_ea4610a7()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_b11c2bcd(entity)
+private function function_b11c2bcd(entity)
 {
 }
 
@@ -77,7 +77,7 @@ function private function_b11c2bcd(entity)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_80f18700(entity)
+private function function_80f18700(entity)
 {
 	self.__blackboard = undefined;
 	self function_ea4610a7();
@@ -92,7 +92,7 @@ function private function_80f18700(entity)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private registerbehaviorscriptfunctions()
+private function registerbehaviorscriptfunctions()
 {
 }
 
@@ -105,7 +105,7 @@ function private registerbehaviorscriptfunctions()
 	Parameters: 1
 	Flags: Private
 */
-function private function_3d50e4d0(message)
+private function function_3d50e4d0(message)
 {
 	/#
 		if(getdvarint(#"hash_35bebcc5f50d2641", 0))

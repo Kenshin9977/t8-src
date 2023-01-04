@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hackable", &init, undefined, undefined);
 }
@@ -299,7 +299,7 @@ function continue_hacking_object(obj)
 		{
 			self thread watch_timeout(obj, obj.hackable_timeout);
 		}
-		amt = 1 / (20 * obj.hackable_hack_time);
+		amt = 1 / 20 * obj.hackable_hack_time;
 		obj.hackable_hacked_amount = obj.hackable_hacked_amount + amt;
 		if(obj.hackable_hacked_amount > 1)
 		{

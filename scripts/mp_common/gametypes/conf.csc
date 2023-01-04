@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_28a20e497bd69c36;
+hashed-2\script_28a20e497bd69c36.csc;
 #using scripts\core_common\util_shared.csc;
 
 #namespace conf;
@@ -17,7 +17,7 @@ event main(eventstruct)
 {
 	if(util::function_8570168d())
 	{
-		namespace_9096c917::init();
+		cschashed-2\script_28a20e497bd69c36::init();
 	}
 	forcestreamxmodel(#"hash_7a65efdf091dd1ab", 8, -1);
 	forcestreamxmodel(#"hash_38504bb508f6c76", 8, -1);

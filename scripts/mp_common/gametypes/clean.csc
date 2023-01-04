@@ -42,7 +42,7 @@ event main(eventstruct)
 	Parameters: 1
 	Flags: Private
 */
-function private on_localclient_connect(localclientnum)
+private function on_localclient_connect(localclientnum)
 {
 	function_d91ca1f1(localclientnum);
 }

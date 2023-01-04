@@ -4,25 +4,25 @@
 #using scripts\core_common\laststand_shared.gsc;
 #using scripts\core_common\system_shared.gsc;
 
-#namespace namespace_bb20e441;
+#namespace cschashed-1\script_3cb010e51e324a2;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0x44CE5592
 	Offset: 0x100
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"ray_gun_mk2y", &__init__, undefined, undefined);
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0x54A87F51
 	Offset: 0x148
 	Size: 0x1DC
@@ -44,7 +44,7 @@ function __init__()
 
 /*
 	Name: function_f77ced93
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0xAFFF13F5
 	Offset: 0x330
 	Size: 0x6E
@@ -65,7 +65,7 @@ function function_f77ced93(s_params)
 
 /*
 	Name: function_54922a21
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0x63909996
 	Offset: 0x3A8
 	Size: 0x180
@@ -74,7 +74,7 @@ function function_f77ced93(s_params)
 */
 function function_54922a21()
 {
-	self endoncallback(&function_a059fe7f, #"death", #"hash_414b2baf34e01af8");
+	self endon_callback(&function_a059fe7f, #"death", #"hash_414b2baf34e01af8");
 	w_current = self getcurrentweapon();
 	while(true)
 	{
@@ -103,7 +103,7 @@ function function_54922a21()
 
 /*
 	Name: function_a059fe7f
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0xAB4EF90D
 	Offset: 0x530
 	Size: 0x34
@@ -117,7 +117,7 @@ function function_a059fe7f(str_notify)
 
 /*
 	Name: function_5b0214e
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0xB334DD33
 	Offset: 0x570
 	Size: 0x3C
@@ -131,7 +131,7 @@ function function_5b0214e(weapon)
 
 /*
 	Name: function_60365a28
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0xF92C6688
 	Offset: 0x5B8
 	Size: 0xA4
@@ -149,7 +149,7 @@ function function_60365a28(weapon)
 
 /*
 	Name: function_8a977b42
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0x2B2E9F13
 	Offset: 0x668
 	Size: 0x34
@@ -163,7 +163,7 @@ function function_8a977b42(weapon)
 
 /*
 	Name: function_bfbef8cc
-	Namespace: namespace_bb20e441
+	Namespace: cschashed-1\script_3cb010e51e324a2
 	Checksum: 0x374AEE79
 	Offset: 0x6A8
 	Size: 0xDC
@@ -173,11 +173,11 @@ function function_8a977b42(weapon)
 function function_bfbef8cc(weapon)
 {
 	var_e4bacb96 = function_60365a28(weapon);
-	n_clip_ammo = self getweaponammoclip(var_e4bacb96);
-	if(n_clip_ammo < var_e4bacb96.clipsize)
+	var_6d9956e6 = self getweaponammoclip(var_e4bacb96);
+	if(var_6d9956e6 < var_e4bacb96.clipsize)
 	{
 		n_ammo_diff = var_e4bacb96.clipsize - n_clip_ammo;
-		n_stock_ammo = self getweaponammostock(var_e4bacb96);
+		var_69648877 = self getweaponammostock(var_e4bacb96);
 		self setweaponammostock(var_e4bacb96, n_stock_ammo - n_ammo_diff);
 		self setweaponammoclip(var_e4bacb96, var_e4bacb96.clipsize);
 	}

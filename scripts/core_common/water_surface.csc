@@ -15,7 +15,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"water_surface", &__init__, undefined, undefined);
 }
@@ -248,9 +248,9 @@ function startwatersheeting()
 	{
 		filter::set_filter_water_sheet_reveal(self, 1, i / 2);
 		filter::set_filter_water_sheet_speed(self, 1, i / 2);
-		rivulet1 = (i / 2) - 0.19;
-		rivulet2 = (i / 2) - 0.13;
-		rivulet3 = (i / 2) - 0.07;
+		rivulet1 = i / 2 - 0.19;
+		rivulet2 = i / 2 - 0.13;
+		rivulet3 = i / 2 - 0.07;
 		filter::set_filter_water_sheet_rivulet_reveal(self, 1, rivulet1, rivulet2, rivulet3);
 		wait(0.01);
 		i = i - 0.01;

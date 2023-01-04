@@ -1,10 +1,10 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_1611421ee9b880d3;
-#using script_4321c2f1193f3097;
-#using script_43808e214c232a5c;
-#using script_52f584056ffc5d28;
-#using script_5eca3e484e3a306f;
-#using script_709bf7c56eb65adf;
+hashed-3\script_1611421ee9b880d3.csc;
+hashed-3\script_4321c2f1193f3097.csc;
+hashed-3\script_43808e214c232a5c.csc;
+hashed-2\script_52f584056ffc5d28.csc;
+hashed-1\script_5eca3e484e3a306f.csc;
+hashed-2\script_709bf7c56eb65adf.csc;
 #using scripts\core_common\callbacks_shared.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\flag_shared.csc;
@@ -24,7 +24,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_weapons", &__init__, &__main__, undefined);
 }
@@ -76,7 +76,7 @@ function __main__()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private on_player_connect(localclientnum)
+private function on_player_connect(localclientnum)
 {
 	if(getmigrationstatus(localclientnum))
 	{
@@ -140,40 +140,31 @@ function compute_player_weapon_ammo_cost(weapon, cost, upgraded, n_base_non_wall
 	w_root = function_386dacbc(weapon);
 	if(upgraded)
 	{
-		if(zm_wallbuy::is_wallbuy(level.zombie_weapons_upgraded[w_root]))
+		if(cschashed-3\script_1611421ee9b880d3::is_wallbuy(level.zombie_weapons_upgraded[w_root]))
 		{
 			n_ammo_cost = 4000;
 		}
+		else if(is_wonder_weapon)
+		{
+			n_ammo_cost = 7500;
+		}
 		else
 		{
-			if(is_wonder_weapon)
-			{
-				n_ammo_cost = 7500;
-			}
-			else
-			{
-				n_ammo_cost = n_upgraded_non_wallbuy_cost;
-			}
+			n_ammo_cost = n_upgraded_non_wallbuy_cost;
 		}
+	}
+	else if(cschashed-3\script_1611421ee9b880d3::is_wallbuy(w_root))
+	{
+		n_ammo_cost = cost;
+		n_ammo_cost = zm_utility::halve_score(n_ammo_cost);
+	}
+	else if(is_wonder_weapon)
+	{
+		n_ammo_cost = 4000;
 	}
 	else
 	{
-		if(zm_wallbuy::is_wallbuy(w_root))
-		{
-			n_ammo_cost = cost;
-			n_ammo_cost = zm_utility::halve_score(n_ammo_cost);
-		}
-		else
-		{
-			if(is_wonder_weapon)
-			{
-				n_ammo_cost = 4000;
-			}
-			else
-			{
-				n_ammo_cost = n_base_non_wallbuy_cost;
-			}
-		}
+		n_ammo_cost = n_base_non_wallbuy_cost;
 	}
 	return n_ammo_cost;
 }
@@ -225,7 +216,7 @@ function include_weapon(weapon_name, display_in_box, cost, ammo_cost, upgraded =
 	if(!isdefined(weapon.worldmodel))
 	{
 		/#
-			thread util::error(("" + function_9e72a96(weapon_name)) + "");
+			thread util::error("" + function_9e72a96(weapon_name) + "");
 		#/
 		return;
 	}
@@ -275,9 +266,9 @@ function is_weapon_upgraded(weapon)
 	rootweapon = function_386dacbc(weapon);
 	if(isdefined(level.zombie_weapons_upgraded[rootweapon]))
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*

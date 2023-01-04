@@ -1,5 +1,5 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_50dc2248b1a1cde;
+hashed-2\script_50dc2248b1a1cde.csc;
 #using scripts\core_common\clientfield_shared.csc;
 #using scripts\core_common\struct.csc;
 #using scripts\core_common\system_shared.csc;
@@ -16,7 +16,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"zm_towers_challenges", &__init__, &__main__, undefined);
 }
@@ -61,19 +61,16 @@ function function_a45824f(localclientnum, oldval, newval, bnewent, binitialsnap,
 {
 	if(newval == 1)
 	{
-		forcestreamxmodel(#"wpn_t8_pistol_standard_world");
+		forcestreamxmodel(#"hash_3fcb04bef0e0034c");
+	}
+	else if(newval == 2)
+	{
+		forcestreamxmodel(#"hash_31af613fbbe465cf");
 	}
 	else
 	{
-		if(newval == 2)
-		{
-			forcestreamxmodel(#"hash_31af613fbbe465cf");
-		}
-		else
-		{
-			stopforcestreamingxmodel(#"wpn_t8_pistol_standard_world");
-			stopforcestreamingxmodel(#"hash_31af613fbbe465cf");
-		}
+		stopforcestreamingxmodel(#"hash_3fcb04bef0e0034c");
+		stopforcestreamingxmodel(#"hash_31af613fbbe465cf");
 	}
 }
 

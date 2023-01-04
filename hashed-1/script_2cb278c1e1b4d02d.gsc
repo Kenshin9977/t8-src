@@ -4,25 +4,25 @@
 #using scripts\zm_common\zm_bgb.gsc;
 #using scripts\zm_common\zm_stats.gsc;
 
-#namespace namespace_f828baee;
+#namespace cschashed-3\script_c2cccc1cfe3a8a1;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_f828baee
+	Namespace: cschashed-3\script_c2cccc1cfe3a8a1
 	Checksum: 0xE30BAA5D
 	Offset: 0xA0
 	Size: 0x3C
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_18932d2054c58cd0", &__init__, undefined, "bgb");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_f828baee
+	Namespace: cschashed-3\script_c2cccc1cfe3a8a1
 	Checksum: 0x72885549
 	Offset: 0xE8
 	Size: 0x74
@@ -40,7 +40,7 @@ function __init__()
 
 /*
 	Name: activation
-	Namespace: namespace_f828baee
+	Namespace: cschashed-3\script_c2cccc1cfe3a8a1
 	Checksum: 0x48E35A7B
 	Offset: 0x168
 	Size: 0x11C
@@ -49,10 +49,10 @@ function __init__()
 */
 function activation()
 {
-	var_ac6ee9a0 = self zm_loadout::get_player_lethal_grenade();
+	var_ac6ee9a0 = self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 	if(var_ac6ee9a0.isgadget)
 	{
-		n_slot = self gadgetgetslot(var_ac6ee9a0);
+		var_bcd1c2ff = self gadgetgetslot(var_ac6ee9a0);
 		if(var_ac6ee9a0 == getweapon(#"tomahawk_t8") || var_ac6ee9a0 == getweapon(#"tomahawk_t8_upgraded"))
 		{
 			self notify(#"hash_3d73720d4588203c");
@@ -68,7 +68,7 @@ function activation()
 
 /*
 	Name: validation
-	Namespace: namespace_f828baee
+	Namespace: cschashed-3\script_c2cccc1cfe3a8a1
 	Checksum: 0xBB5C41A1
 	Offset: 0x290
 	Size: 0x142
@@ -77,19 +77,19 @@ function activation()
 */
 function validation()
 {
-	var_ac6ee9a0 = self zm_loadout::get_player_lethal_grenade();
+	var_ac6ee9a0 = self cschashed-2\script_709bf7c56eb65adf::get_player_lethal_grenade();
 	n_stock_size = self getweaponammostock(var_ac6ee9a0);
 	n_clip_size = self function_f09c133d(var_ac6ee9a0);
-	n_slot = self gadgetgetslot(var_ac6ee9a0);
+	var_bcd1c2ff = self gadgetgetslot(var_ac6ee9a0);
 	n_power = self gadgetpowerget(n_slot);
 	if(var_ac6ee9a0 == getweapon(#"tomahawk_t8") || var_ac6ee9a0 == getweapon(#"tomahawk_t8_upgraded") && self function_36dfc05f(n_slot))
 	{
-		return false;
+		return 0;
 	}
 	if(n_stock_size < n_clip_size || n_power < 100)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 

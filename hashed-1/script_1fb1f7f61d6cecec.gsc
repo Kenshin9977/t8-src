@@ -13,25 +13,24 @@
 #using scripts\zm_common\zm_utility.gsc;
 #using scripts\zm_common\zm_weapons.gsc;
 
-#namespace namespace_1a2bd81f;
+#namespace cschashed-3\script_4037a3f62f3e1478;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x5E1F8766
 	Offset: 0x128
 	Size: 0x54
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
-	system::register(#"hash_d287d6d0be9f28c", &__init__, &__main__, #"zm_loadout");
-}
+	system::register(#"hash_d287d6d0be9f28c", &__init__, &__main__, #"zm_loadout");}
 
 /*
 	Name: __init__
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x56BE0873
 	Offset: 0x188
 	Size: 0xC4
@@ -44,13 +43,13 @@ function __init__()
 	{
 		clientfield::register("actor", "" + #"hash_59e8c30d5e28dad3", 14000, 1, "int");
 		clientfield::register("scriptmover", "" + #"hash_d260ef4191c5b3d", 14000, 1, "int");
-		zm_loadout::register_lethal_grenade_for_level(#"hash_2b3a2f2eeada34a8");
+		cschashed-2\script_709bf7c56eb65adf::register_lethal_grenade_for_level(#"hash_2b3a2f2eeada34a8");
 	}
 }
 
 /*
 	Name: __main__
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x8094419B
 	Offset: 0x258
 	Size: 0x1AC
@@ -59,7 +58,7 @@ function __init__()
 */
 function __main__()
 {
-	if(getdvarint(#"hash_d287d6d0be9f28c", 0) && zm_utility::is_classic() && (!(isdefined(level.var_aa2d5655) && level.var_aa2d5655)) && namespace_cb7cafc3::function_166646a6() == 2)
+	if(getdvarint(#"hash_d287d6d0be9f28c", 0) && zm_utility::is_classic() && (!(isdefined(level.var_aa2d5655) && level.var_aa2d5655)) && cschashed-2\script_18a9e529264a3d29::function_166646a6() == 2)
 	{
 		level.var_3b96ad73 = getweapon(#"hash_2b3a2f2eeada34a8");
 		if(!isdefined(level.var_fe96a4c4))
@@ -74,7 +73,7 @@ function __main__()
 		{
 			level.var_fe96a4c4[level.var_fe96a4c4.size] = level.var_3b96ad73;
 		}
-		zm_weapons::register_zombie_weapon_callback(level.var_3b96ad73, &namespace_bf5fee30::function_91b8863c);
+		zm_weapons::register_zombie_weapon_callback(level.var_3b96ad73, &cschashed-3\script_2630b7cb2596f8e4::function_91b8863c);
 		level thread function_e95f47c2();
 		/#
 			level thread devgui();
@@ -84,7 +83,7 @@ function __main__()
 
 /*
 	Name: function_e95f47c2
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x31934452
 	Offset: 0x410
 	Size: 0x6A
@@ -107,7 +106,7 @@ function function_e95f47c2()
 
 /*
 	Name: function_da29ac13
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0xA32A1F98
 	Offset: 0x488
 	Size: 0xCC
@@ -125,7 +124,7 @@ function function_da29ac13()
 
 /*
 	Name: function_e12bc077
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0xE5FF85BB
 	Offset: 0x560
 	Size: 0x132
@@ -141,7 +140,7 @@ function function_e12bc077()
 	if(randomint(100) < 100)
 	{
 		level.var_17bf15ba = self;
-		zm_transform::function_5db4f2f5(self, 1);
+		cschashed-2\script_260abbdf1ff0aa9a::function_5db4f2f5(self, 1);
 		while(isalive(self) && !self clientfield::get("zombie_eye_glow"))
 		{
 			wait(1);
@@ -159,7 +158,7 @@ function function_e12bc077()
 
 /*
 	Name: function_cfe06357
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x85BEFD5C
 	Offset: 0x6A0
 	Size: 0x10E
@@ -193,7 +192,7 @@ function function_cfe06357(attacker)
 
 /*
 	Name: function_a33a15c
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x8F5BA084
 	Offset: 0x7B8
 	Size: 0x10C
@@ -210,7 +209,7 @@ function function_a33a15c()
 	/#
 		if(isdefined(level.var_fa38e985) && level.var_fa38e985)
 		{
-			iprintlnbold((("" + level.var_d64e4374) + "") + 7);
+			iprintlnbold("" + level.var_d64e4374 + "" + 7);
 		}
 	#/
 	if(level.var_d64e4374 >= 7)
@@ -228,7 +227,7 @@ function function_a33a15c()
 
 /*
 	Name: function_23287dd
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x92F66B07
 	Offset: 0x8D0
 	Size: 0x40C
@@ -250,7 +249,7 @@ function function_23287dd()
 		if(ai_zombie.archetype === #"zombie" && ai_zombie !== level.var_17bf15ba)
 		{
 			n_move_time = 1.5;
-			zm_transform::function_5db4f2f5(ai_zombie, 1);
+			cschashed-2\script_260abbdf1ff0aa9a::function_5db4f2f5(ai_zombie, 1);
 			while(isalive(ai_zombie))
 			{
 				if(100 > distancesquared(ai_zombie.origin + vectorscale((0, 0, 1), 60), level.var_23d44713.origin))
@@ -301,7 +300,7 @@ function function_23287dd()
 
 /*
 	Name: function_1443aaa
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x69D76420
 	Offset: 0xCE8
 	Size: 0xFC
@@ -317,7 +316,7 @@ function function_1443aaa(b_success = 0)
 			{
 				level.var_d64e4374 = 0;
 			}
-			iprintlnbold(((("" + level.var_d64e4374) + "") + 7) + "");
+			iprintlnbold("" + level.var_d64e4374 + "" + 7 + "");
 		}
 	#/
 	level.var_17bf15ba = undefined;
@@ -332,7 +331,7 @@ function function_1443aaa(b_success = 0)
 
 /*
 	Name: function_ded808d5
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0xB0D11D83
 	Offset: 0xDF0
 	Size: 0x144
@@ -357,7 +356,7 @@ function function_ded808d5()
 
 /*
 	Name: function_4634a866
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x164B564B
 	Offset: 0xF40
 	Size: 0x15C
@@ -387,7 +386,7 @@ function function_4634a866()
 
 /*
 	Name: function_efe5c28
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x7A0D0D86
 	Offset: 0x10A8
 	Size: 0xE8
@@ -412,7 +411,7 @@ function function_efe5c28()
 
 /*
 	Name: function_55f8e11e
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0xB3FDD68F
 	Offset: 0x1198
 	Size: 0xC6
@@ -432,14 +431,14 @@ function function_55f8e11e(e_box)
 
 /*
 	Name: devgui
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x17BDE6F5
 	Offset: 0x1268
 	Size: 0x1C8
 	Parameters: 0
 	Flags: Private
 */
-function private devgui()
+private function devgui()
 {
 	/#
 		adddebugcommand("");
@@ -467,8 +466,7 @@ function private devgui()
 					level thread function_74441f15();
 					break;
 				}
-				case "toggle_debug":
-				{
+				case "toggle_debug":				{
 					if(!isdefined(level.var_fa38e985))
 					{
 						level.var_fa38e985 = 1;
@@ -491,7 +489,7 @@ function private devgui()
 
 /*
 	Name: function_705afbf2
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x30BA709A
 	Offset: 0x1438
 	Size: 0x148
@@ -522,7 +520,7 @@ function function_705afbf2()
 
 /*
 	Name: function_cf9e485
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0xCDAC62BF
 	Offset: 0x1588
 	Size: 0x2C
@@ -542,7 +540,7 @@ function function_cf9e485()
 
 /*
 	Name: function_74441f15
-	Namespace: namespace_1a2bd81f
+	Namespace: cschashed-3\script_4037a3f62f3e1478
 	Checksum: 0x3AEB2849
 	Offset: 0x15C0
 	Size: 0x98

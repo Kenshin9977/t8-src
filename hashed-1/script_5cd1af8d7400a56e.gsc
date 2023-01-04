@@ -4,25 +4,25 @@
 #using scripts\core_common\values_shared.gsc;
 #using scripts\zm_common\zm_bgb.gsc;
 
-#namespace namespace_522dc10;
+#namespace cschashed-1\script_7dc45b8d862e9eda;
 
 /*
 	Name: function_89f2df9
-	Namespace: namespace_522dc10
+	Namespace: cschashed-1\script_7dc45b8d862e9eda
 	Checksum: 0xE7C3A9DB
 	Offset: 0xB0
 	Size: 0x44
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_40ff20dc353ceb63", &__init__, undefined, #"bgb");
 }
 
 /*
 	Name: __init__
-	Namespace: namespace_522dc10
+	Namespace: cschashed-1\script_7dc45b8d862e9eda
 	Checksum: 0xDA4380B9
 	Offset: 0x100
 	Size: 0x94
@@ -41,7 +41,7 @@ function __init__()
 
 /*
 	Name: enable
-	Namespace: namespace_522dc10
+	Namespace: cschashed-1\script_7dc45b8d862e9eda
 	Checksum: 0x840DBDCD
 	Offset: 0x1A0
 	Size: 0x1C
@@ -55,7 +55,7 @@ function enable()
 
 /*
 	Name: disable
-	Namespace: namespace_522dc10
+	Namespace: cschashed-1\script_7dc45b8d862e9eda
 	Checksum: 0xB8DE61C6
 	Offset: 0x1C8
 	Size: 0x3C
@@ -70,7 +70,7 @@ function disable()
 
 /*
 	Name: function_c0c85fe
-	Namespace: namespace_522dc10
+	Namespace: cschashed-1\script_7dc45b8d862e9eda
 	Checksum: 0xDE4C0EA7
 	Offset: 0x210
 	Size: 0x146

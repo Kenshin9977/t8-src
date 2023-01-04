@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_3f27a7b2232674db;
-#using script_47fb62300ac0bd60;
+#using hashed-1\player_role.gsc;
+#using hashed-2\stats.gsc;
 #using script_788472602edbe3b9;
 #using scripts\core_common\array_shared.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
@@ -25,7 +25,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"draft", &__init__, undefined, undefined);
 }
@@ -248,10 +248,10 @@ function start_cooldown()
 	#/
 	player endon(#"disconnect", #"hash_7fa9c275efb510e2");
 	cooldowntime = getgametypesetting(#"hash_2b88c6ac064e9c59");
-	var_e5e81b59 = (cooldowntime * 1000) + gettime();
+	var_e5e81b59 = cooldowntime * 1000 + gettime();
 	while(gettime() < var_e5e81b59)
 	{
-		timeleft = (var_e5e81b59 - gettime()) / 1000;
+		timeleft = var_e5e81b59 - gettime() / 1000;
 		player clientfield::set_player_uimodel("PositionDraft.cooldown", int(timeleft));
 		player.var_7d68fce3 = timeleft;
 		wait(1);
@@ -294,17 +294,17 @@ function function_904deeb2()
 	player = self;
 	if(player function_2c7b2ff())
 	{
-		return false;
+		return 0;
 	}
 	if(level.draftstage == 0)
 	{
-		return true;
+		return 1;
 	}
 	if(level.draftstage == 3 && !player isready())
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -320,12 +320,12 @@ function can_select_character(characterindex)
 {
 	if(!function_904deeb2())
 	{
-		return false;
+		return 0;
 	}
 	maxuniqueroles = getgametypesetting(#"maxuniquerolesperteam", characterindex);
 	if(maxuniqueroles == 0)
 	{
-		return false;
+		return 0;
 	}
 	rolecount = 0;
 	foreach(player in level.players)
@@ -340,11 +340,11 @@ function can_select_character(characterindex)
 			rolecount++;
 			if(rolecount >= maxuniqueroles)
 			{
-				return false;
+				return 0;
 			}
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -360,14 +360,14 @@ function select_character(characterindex, forceselection, var_8a239568)
 {
 	if(!player_role::is_valid(characterindex))
 	{
-		return false;
+		return 0;
 	}
 	/#
 		assert(player_role::is_valid(characterindex));
 	#/
 	if(!(isdefined(forceselection) && forceselection) && !can_select_character(characterindex))
 	{
-		return false;
+		return 0;
 	}
 	if(self player_role::set(characterindex))
 	{
@@ -382,14 +382,14 @@ function select_character(characterindex, forceselection, var_8a239568)
 			var_891e514a = {#hash_b53f57e1:var_8a239568, #hash_6fa2fd60:game_time - level.var_9205f2e8, #game_time:game_time, #character_index:characterindex, #xuid:self getxuid()};
 			function_92d1707f(#"hash_3a95edd667fd3e7d", var_891e514a);
 		}
-		return true;
+		return 1;
 	}
 	if(!util::function_8570168d())
 	{
 		self player_role::clear();
 		self util::clientnotify("PositionDraft_Reject");
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -427,7 +427,7 @@ function function_9f408cf7(oldval, newval)
 {
 	player = self;
 	/#
-		function_95c03d66(("" + player.name) + "");
+		function_95c03d66("" + player.name + "");
 	#/
 	player function_4b8d2217(newval);
 }
@@ -483,9 +483,9 @@ function function_c5394b83(starttime, seconds)
 		/#
 			println("");
 		#/
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -503,21 +503,21 @@ function all_players_connected()
 	if(level.players.size < var_5c6783e9)
 	{
 		/#
-			function_95c03d66((("" + var_5c6783e9) + "") + level.players.size);
+			function_95c03d66("" + var_5c6783e9 + "" + level.players.size);
 		#/
-		return false;
+		return 0;
 	}
 	foreach(player in level.players)
 	{
 		if(!player function_9b95ed9f() && !isbot(player))
 		{
 			/#
-				function_95c03d66(("" + player.name) + "");
+				function_95c03d66("" + player.name + "");
 			#/
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -535,10 +535,10 @@ function function_d255fb3e()
 	{
 		if(player function_9b95ed9f())
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -555,7 +555,7 @@ function function_21f5a2c1()
 	var_e8cb777 = getgametypesetting(#"draftrequiredclients");
 	if(var_e8cb777 <= 0)
 	{
-		return true;
+		return 1;
 	}
 	foreach(team, _ in level.teams)
 	{
@@ -573,12 +573,12 @@ function function_21f5a2c1()
 		if(teamcount[team] < var_e8cb777)
 		{
 			/#
-				function_95c03d66((((("" + var_e8cb777) + "") + team) + "") + teamcount[team]);
+				function_95c03d66("" + var_e8cb777 + "" + team + "" + teamcount[team]);
 			#/
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -596,7 +596,7 @@ function wait_for_players()
 	{
 		wait(0.2);
 	}
-	level.var_b318d3d1 = (getgametypesetting(#"drafttime") + getgametypesetting(#"hash_4e4352bd1aaeedfe")) + 20;
+	level.var_b318d3d1 = getgametypesetting(#"drafttime") + getgametypesetting(#"hash_4e4352bd1aaeedfe") + 20;
 	function_ee80d2e8(int(max(0, level.var_b318d3d1)));
 	starttime = gettime();
 	while(!all_players_connected())
@@ -834,7 +834,7 @@ function assign_remaining_players(only_assign_player)
 			}
 		}
 	}
-	if((getdvarint(#"hash_595a93ece672a7da", -1)) == 1)
+	if(getdvarint(#"hash_595a93ece672a7da", -1) == 1)
 	{
 		foreach(player in level.players)
 		{
@@ -892,7 +892,7 @@ function assign_remaining_players(only_assign_player)
 			foreach(player in team)
 			{
 				characterindex = player player_role::get();
-				println((("" + player.name) + "") + characterindex);
+				println("" + player.name + "" + characterindex);
 			}
 		#/
 		foreach(player in team)
@@ -993,7 +993,7 @@ function assign_remaining_players(only_assign_player)
 				player.pers[#"class"] = undefined;
 			}
 			/#
-				println((("" + player.name) + "") + selectedcharacter);
+				println("" + player.name + "" + selectedcharacter);
 			#/
 			if(player select_character(selectedcharacter, 1, 1))
 			{
@@ -1075,7 +1075,7 @@ function draft_finalize()
 		if(player.sessionstate == "playing")
 		{
 			/#
-				println((((("" + player.name) + "") + player.curclass) + "") + player getspecialistindex());
+				println("" + player.name + "" + player.curclass + "" + player getspecialistindex());
 			#/
 			player loadout::give_loadout(player.team, player.curclass);
 			player.pers[#"lastcurclass"] = player.curclass;
@@ -1119,88 +1119,58 @@ function set_draft_stage(draftstage)
 		{
 			println("");
 		}
-		else
+		else if(draftstage == 1)
 		{
-			if(draftstage == 1)
-			{
-				println("");
-			}
-			else
-			{
-				if(draftstage == 2)
-				{
-					println("");
-				}
-				else
-				{
-					if(draftstage == 3)
-					{
-						println("");
-					}
-					else
-					{
-						if(draftstage == 5)
-						{
-							println("");
-						}
-						else
-						{
-							if(draftstage == 6)
-							{
-								println("");
-							}
-							else if(draftstage == 7)
-							{
-								println("");
-							}
-						}
-					}
-				}
-			}
+			println("");
+		}
+		else if(draftstage == 2)
+		{
+			println("");
+		}
+		else if(draftstage == 3)
+		{
+			println("");
+		}
+		else if(draftstage == 5)
+		{
+			println("");
+		}
+		else if(draftstage == 6)
+		{
+			println("");
+		}
+		else if(draftstage == 7)
+		{
+			println("");
 		}
 	#/
 	if(draftstage == 1)
 	{
 		draft_initialize();
 	}
-	else
+	else if(draftstage == 2)
 	{
-		if(draftstage == 2)
-		{
-			wait_for_players();
-		}
-		else
-		{
-			if(draftstage == 3)
-			{
-				draft_run();
-			}
-			else
-			{
-				if(draftstage == 4)
-				{
-					function_404f08f3();
-				}
-				else
-				{
-					if(draftstage == 5)
-					{
-						assign_remaining_players();
-					}
-					else
-					{
-						if(draftstage == 6)
-						{
-							game_start();
-						}
-						else if(draftstage == 7)
-						{
-							draft_finalize();
-						}
-					}
-				}
-			}
-		}
+		wait_for_players();
+	}
+	else if(draftstage == 3)
+	{
+		draft_run();
+	}
+	else if(draftstage == 4)
+	{
+		function_404f08f3();
+	}
+	else if(draftstage == 5)
+	{
+		assign_remaining_players();
+	}
+	else if(draftstage == 6)
+	{
+		game_start();
+	}
+	else if(draftstage == 7)
+	{
+		draft_finalize();
 	}
 }
 

@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_35598499769dbb3d;
-#using script_3f9e0dc8454d98e1;
+#using hashed-3\gib.gsc;
+#using hashed-1\zombie_utility.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\exploder_shared.gsc;
 #using scripts\core_common\struct.gsc;
@@ -212,7 +212,7 @@ function function_1008e277()
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_fcf197fa(targetname, b_show)
+private function function_fcf197fa(targetname, b_show)
 {
 	var_dc3827e3 = getentarray(targetname, "targetname");
 	if(isdefined(var_dc3827e3))
@@ -289,7 +289,7 @@ function function_afd37143(str_line)
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_9821b7f1(str_line)
+private function function_9821b7f1(str_line)
 {
 	self endon(#"disconnect");
 	while(isdefined(self.zmannouncertalking) && self.zmannouncertalking || (isdefined(self.isspeaking) && self.isspeaking) || (isdefined(self.var_5b6ebfd0) && self.var_5b6ebfd0))

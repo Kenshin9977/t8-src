@@ -24,7 +24,7 @@ event main(eventstruct)
 	{
 		case "zstandard":
 		{
-			namespace_2eb2d493::main();
+			cschashed-1\script_5d65ba89fe134c5c::main();
 			break;
 		}
 	}

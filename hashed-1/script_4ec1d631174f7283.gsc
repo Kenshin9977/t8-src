@@ -1,8 +1,8 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
-#using script_35598499769dbb3d;
-#using script_3aa0f32b70d4f7cb;
-#using script_3f9e0dc8454d98e1;
-#using script_57f7003580bb15e0;
+#using hashed-3\gib.gsc;
+#using hashed-1\behaviortreenetworkutility.gsc;
+#using hashed-1\zombie_utility.gsc;
+#using hashed-2\status_effect.gsc;
 #using scripts\core_common\callbacks_shared.gsc;
 #using scripts\core_common\clientfield_shared.gsc;
 #using scripts\core_common\spawner_shared.gsc;
@@ -21,7 +21,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_56850a719f90825a", &__init__, &__main__, undefined);
 }
@@ -72,7 +72,7 @@ function __main__()
 	Parameters: 0
 	Flags: Private
 */
-function private function_4d231aa()
+private function function_4d231aa()
 {
 	self endon(#"death");
 	while(true)
@@ -95,7 +95,7 @@ function private function_4d231aa()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_e5ba4473()
+private function function_e5ba4473()
 {
 	self.goalradius = 15;
 	self.pushable = 0;
@@ -105,21 +105,18 @@ function private function_e5ba4473()
 	{
 		self.is_pablo = 1;
 	}
+	else if(!isdefined(level.var_8a8728c6))
+	{
+		level.var_8a8728c6 = [];
+	}
+	level.var_8a8728c6[level.var_8a8728c6.size] = self;
+	if(self.aitype == "spawner_zm_samantha")
+	{
+		self setblackboardattribute("_stance", "stand");
+	}
 	else
 	{
-		if(!isdefined(level.var_8a8728c6))
-		{
-			level.var_8a8728c6 = [];
-		}
-		level.var_8a8728c6[level.var_8a8728c6.size] = self;
-		if(self.aitype == "spawner_zm_samantha")
-		{
-			self setblackboardattribute("_stance", "stand");
-		}
-		else
-		{
-			self setblackboardattribute("_stance", "crouch");
-		}
+		self setblackboardattribute("_stance", "crouch");
 	}
 	/#
 		self thread function_b7f08e2d();
@@ -144,8 +141,8 @@ function function_1c989dc4()
 		samantha.pushable = 0;
 		eddie.pushable = 0;
 		var_e625df22 = anglestoforward(samantha.angles);
-		samantha_right = vectorcross((0, 0, 1), var_e625df22) * -1;
-		eddie forceteleport(samantha.origin + (samantha_right * 25), samantha.angles);
+		var_3af1c728 = vectorcross((0, 0, 1), var_e625df22) * -1;
+		eddie forceteleport(samantha.origin + samantha_right * 25, samantha.angles);
 	}
 }
 
@@ -158,7 +155,7 @@ function function_1c989dc4()
 	Parameters: 0
 	Flags: Private
 */
-function private function_b7f08e2d()
+private function function_b7f08e2d()
 {
 	self endon(#"death");
 	while(true)
@@ -188,13 +185,13 @@ function private function_b7f08e2d()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_dca53f1f(player_index)
+private function function_dca53f1f(player_index)
 {
 	var_9a149315 = (0, 0, 0);
 	if(isdefined(level.var_8a8728c6))
 	{
 		samantha = level.var_8a8728c6[0];
-		var_b8e7e5da = (-100, -12.5, 0) + ((vectorscale((-1, 0, 0), 5)) * player_index);
+		var_b8e7e5da = (-100, -12.5, 0) + vectorscale((-1, 0, 0), 5) * player_index;
 		var_9a149315 = samantha.origin + rotatepointaroundaxis(var_b8e7e5da, (0, 0, 1), samantha.angles[1]);
 	}
 	return var_9a149315;
@@ -234,7 +231,7 @@ function function_303ab700()
 					player setplayerangles(samantha.angles);
 					waitframe(1);
 					/#
-						println(("" + player.name) + "");
+						println("" + player.name + "");
 					#/
 					function_8e56bb21(player, player.var_fa2d1151, var_16a2c824, samantha.angles);
 					wait(1);
@@ -290,7 +287,7 @@ function function_ddbe2dbb(distance)
 	foreach(npc in level.var_8a8728c6)
 	{
 		var_a04c5e3b = anglestoforward(npc.angles);
-		npc.var_9a149315 = npc.origin + (anglestoforward(npc.angles) * distance);
+		npc.var_9a149315 = npc.origin + anglestoforward(npc.angles) * distance;
 		npc setgoal(npc.var_9a149315);
 	}
 }
@@ -304,7 +301,7 @@ function function_ddbe2dbb(distance)
 	Parameters: 0
 	Flags: Private
 */
-function private function_ae4d6b1b()
+private function function_ae4d6b1b()
 {
 	players = getplayers();
 	foreach(player in players)
@@ -323,7 +320,7 @@ function private function_ae4d6b1b()
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_2165e851()
+private function function_2165e851()
 {
 	level endon(#"end_game");
 	while(true)
@@ -347,7 +344,7 @@ function private function_2165e851()
 				if(var_2e35e6c1)
 				{
 					var_a04c5e3b = anglestoforward(npc.angles);
-					npc.var_9a149315 = npc.origin + (anglestoforward(npc.angles) * 100);
+					npc.var_9a149315 = npc.origin + anglestoforward(npc.angles) * 100;
 					npc setgoal(npc.var_9a149315);
 					continue;
 				}
@@ -376,7 +373,7 @@ function private function_2165e851()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_b4b7cd20(entity)
+private function function_b4b7cd20(entity)
 {
 	result = 0;
 	if(isdefined(entity.is_pablo) && entity.is_pablo)

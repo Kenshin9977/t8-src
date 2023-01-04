@@ -12,7 +12,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"tweakables", &__init__, undefined, undefined);
 }
@@ -257,7 +257,7 @@ function gettweakablevalue(category, name)
 			break;
 		}
 	}
-	overridedvar = (((("scr_" + level.gametype) + "_") + category) + "_") + name;
+	overridedvar = "scr_" + level.gametype + "_" + category + "_" + name;
 	if(getdvarstring(overridedvar) != "")
 	{
 		return getdvarint(overridedvar, 0);
@@ -477,16 +477,13 @@ function registertweakable(category, name, dvar, value)
 			value = getdvarstring(dvar);
 		}
 	}
+	else if(getdvarstring(dvar) == "")
+	{
+		setdvar(dvar, value);
+	}
 	else
 	{
-		if(getdvarstring(dvar) == "")
-		{
-			setdvar(dvar, value);
-		}
-		else
-		{
-			value = getdvarint(dvar, 0);
-		}
+		value = getdvarint(dvar, 0);
 	}
 	switch(category)
 	{

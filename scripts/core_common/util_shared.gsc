@@ -24,7 +24,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"util_shared", &__init__, &__main__, undefined);
 }
@@ -44,7 +44,7 @@ function __init__()
 	function_73fab74d();
 	function_f9ce1d49();
 	register_clientfields();
-	namespace_1e38a8f6::init();
+	cschashed-2\script_72d4466ce2e2cc7b::init();
 }
 
 /*
@@ -276,7 +276,7 @@ function streamer_wait(n_stream_request_id, n_wait_frames = 0, n_timeout = 15, s
 	{
 		wait_network_frame(n_wait_frames);
 	}
-	timeout = gettime() + (int(n_timeout * 1000));
+	timeout = gettime() + int(n_timeout * 1000);
 	if(self == level)
 	{
 		n_num_streamers_ready = 0;
@@ -445,7 +445,7 @@ function debug_sphere(origin, radius, color, alpha, time)
 		{
 			color = (1, 1, 1);
 		}
-		sides = int(10 * (1 + (int(radius) % 100)));
+		sides = int(10 * 1 + int(radius) % 100);
 		sphere(origin, radius, color, alpha, 1, sides, time);
 	#/
 }
@@ -508,13 +508,13 @@ function draw_arrow_time(start, end, color, timer)
 		dist = distance(start, end);
 		arrow = [];
 		arrow[0] = start;
-		arrow[1] = (start + (vectorscale(right, dist * 0.1))) + (vectorscale(forward, dist * -0.1));
+		arrow[1] = start + vectorscale(right, dist * 0.1) + vectorscale(forward, dist * -0.1);
 		arrow[2] = end;
-		arrow[3] = (start + (vectorscale(right, dist * -1 * 0.1))) + (vectorscale(forward, dist * -0.1));
+		arrow[3] = start + vectorscale(right, dist * -1 * 0.1) + vectorscale(forward, dist * -0.1);
 		arrow[4] = start;
-		arrow[5] = (start + (vectorscale(up, dist * 0.1))) + (vectorscale(forward, dist * -0.1));
+		arrow[5] = start + vectorscale(up, dist * 0.1) + vectorscale(forward, dist * -0.1);
 		arrow[6] = end;
-		arrow[7] = (start + (vectorscale(up, dist * -1 * 0.1))) + (vectorscale(forward, dist * -0.1));
+		arrow[7] = start + vectorscale(up, dist * -1 * 0.1) + vectorscale(forward, dist * -0.1);
 		arrow[8] = start;
 		r = color[0];
 		g = color[1];
@@ -543,9 +543,9 @@ function draw_arrow(start, end, color)
 		dist = distance(start, end);
 		arrow = [];
 		arrow[0] = start;
-		arrow[1] = (start + (vectorscale(right, dist * 0.05))) + (vectorscale(forward, dist * -0.2));
+		arrow[1] = start + vectorscale(right, dist * 0.05) + vectorscale(forward, dist * -0.2);
 		arrow[2] = end;
-		arrow[3] = (start + (vectorscale(right, dist * -1 * 0.05))) + (vectorscale(forward, dist * -0.2));
+		arrow[3] = start + vectorscale(right, dist * -1 * 0.05) + vectorscale(forward, dist * -0.2);
 		for(p = 0; p < 4; p++)
 		{
 			nextpoint = p + 1;
@@ -581,8 +581,8 @@ function debugorigin()
 			left = vectorscale(right, -10);
 			right = vectorscale(right, 10);
 			line(self.origin, self.origin + forwardfar, (0.9, 0.7, 0.6), 0.9);
-			line(self.origin + forwardfar, (self.origin + forwardclose) + right, (0.9, 0.7, 0.6), 0.9);
-			line(self.origin + forwardfar, (self.origin + forwardclose) + left, (0.9, 0.7, 0.6), 0.9);
+			line(self.origin + forwardfar, self.origin + forwardclose + right, (0.9, 0.7, 0.6), 0.9);
+			line(self.origin + forwardfar, self.origin + forwardclose + left, (0.9, 0.7, 0.6), 0.9);
 			waitframe(1);
 		}
 	#/
@@ -600,7 +600,7 @@ function debugorigin()
 function draw_line_for_time(org1, org2, r, g, b, timer)
 {
 	/#
-		timer = gettime() + (timer * 1000);
+		timer = gettime() + timer * 1000;
 		while(gettime() < timer)
 		{
 			line(org1, org2, (r, g, b), 1);
@@ -635,7 +635,7 @@ function function_6844bea4(radius1, radius2, time, color, origin, normal)
 		angletoplayer = vectortoangles(normal);
 		for(i = 0; i < circleres; i++)
 		{
-			plotpoints[plotpoints.size] = origin + (vectorscale(anglestoforward(angletoplayer + (rad, 90, 0)), radius));
+			plotpoints[plotpoints.size] = origin + vectorscale(anglestoforward(angletoplayer + (rad, 90, 0)), radius);
 			rad = rad + circleinc;
 		}
 		plot_points(plotpoints, color[0], color[1], color[2], time);
@@ -1360,120 +1360,117 @@ function _single_thread(entity, func, arg1, arg2, a_vars)
 			}
 		}
 	}
-	else
+	else if(isdefined(arg1))
 	{
-		if(isdefined(arg1))
+		switch(a_vars.size)
 		{
-			switch(a_vars.size)
+			case 8:
 			{
-				case 8:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6], a_vars[7]);
-					break;
-				}
-				case 7:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6]);
-					break;
-				}
-				case 6:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5]);
-					break;
-				}
-				case 5:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4]);
-					break;
-				}
-				case 4:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3]);
-					break;
-				}
-				case 3:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2]);
-					break;
-				}
-				case 2:
-				{
-					entity thread [[func]](arg1, a_vars[0], a_vars[1]);
-					break;
-				}
-				case 1:
-				{
-					entity thread [[func]](arg1, a_vars[0]);
-					break;
-				}
-				case 0:
-				{
-					entity thread [[func]](arg1);
-					break;
-				}
-				default:
-				{
-					/#
-						assertmsg("");
-					#/
-				}
+				entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6], a_vars[7]);
+				break;
+			}
+			case 7:
+			{
+				entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6]);
+				break;
+			}
+			case 6:
+			{
+				entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5]);
+				break;
+			}
+			case 5:
+			{
+				entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4]);
+				break;
+			}
+			case 4:
+			{
+				entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2], a_vars[3]);
+				break;
+			}
+			case 3:
+			{
+				entity thread [[func]](arg1, a_vars[0], a_vars[1], a_vars[2]);
+				break;
+			}
+			case 2:
+			{
+				entity thread [[func]](arg1, a_vars[0], a_vars[1]);
+				break;
+			}
+			case 1:
+			{
+				entity thread [[func]](arg1, a_vars[0]);
+				break;
+			}
+			case 0:
+			{
+				entity thread [[func]](arg1);
+				break;
+			}
+			default:
+			{
+				/#
+					assertmsg("");
+				#/
 			}
 		}
-		else
+	}
+	else
+	{
+		switch(a_vars.size)
 		{
-			switch(a_vars.size)
+			case 8:
 			{
-				case 8:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6], a_vars[7]);
-					break;
-				}
-				case 7:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6]);
-					break;
-				}
-				case 6:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5]);
-					break;
-				}
-				case 5:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4]);
-					break;
-				}
-				case 4:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3]);
-					break;
-				}
-				case 3:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1], a_vars[2]);
-					break;
-				}
-				case 2:
-				{
-					entity thread [[func]](a_vars[0], a_vars[1]);
-					break;
-				}
-				case 1:
-				{
-					entity thread [[func]](a_vars[0]);
-					break;
-				}
-				case 0:
-				{
-					entity thread [[func]]();
-					break;
-				}
-				default:
-				{
-					/#
-						assertmsg("");
-					#/
-				}
+				entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6], a_vars[7]);
+				break;
+			}
+			case 7:
+			{
+				entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5], a_vars[6]);
+				break;
+			}
+			case 6:
+			{
+				entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4], a_vars[5]);
+				break;
+			}
+			case 5:
+			{
+				entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3], a_vars[4]);
+				break;
+			}
+			case 4:
+			{
+				entity thread [[func]](a_vars[0], a_vars[1], a_vars[2], a_vars[3]);
+				break;
+			}
+			case 3:
+			{
+				entity thread [[func]](a_vars[0], a_vars[1], a_vars[2]);
+				break;
+			}
+			case 2:
+			{
+				entity thread [[func]](a_vars[0], a_vars[1]);
+				break;
+			}
+			case 1:
+			{
+				entity thread [[func]](a_vars[0]);
+				break;
+			}
+			case 0:
+			{
+				entity thread [[func]]();
+				break;
+			}
+			default:
+			{
+				/#
+					assertmsg("");
+				#/
 			}
 		}
 	}
@@ -1599,7 +1596,7 @@ function fileprint_start(file)
 function fileprint_map_start(file)
 {
 	/#
-		file = ("" + file) + "";
+		file = "" + file + "";
 		fileprint_start(file);
 		level.fileprint_mapentcount = 0;
 		fileprint_map_header(1);
@@ -1672,7 +1669,7 @@ function fileprint_map_keypairprint(key1, key2)
 		/#
 			assert(isdefined(level.fileprint));
 		#/
-		fileprint_chk(level.fileprint, ((("" + key1) + "") + key2) + "");
+		fileprint_chk(level.fileprint, "" + key1 + "" + key2 + "");
 	#/
 }
 
@@ -1780,7 +1777,7 @@ function fileprint_end()
 function fileprint_radiant_vec(vector)
 {
 	/#
-		string = ((((("" + vector[0]) + "") + vector[1]) + "") + vector[2]) + "";
+		string = "" + vector[0] + "" + vector[1] + "" + vector[2] + "";
 		return string;
 	#/
 }
@@ -2197,7 +2194,7 @@ function getclientsysstate(ssysname)
 	{
 		/#
 			/#
-				assertmsg(("" + ssysname) + "");
+				assertmsg("" + ssysname + "");
 			#/
 		#/
 		return "";
@@ -2342,12 +2339,7 @@ function spawn_model(model_name, origin = (0, 0, 0), angles = (0, 0, 0), n_spawn
 		{
 			break;
 		}
-		else
-		{
-			/#
-				println(((((("" + "") + model_name) + "") + origin) + "") + angles);
-			#/
-		}
+		println("" + "" + model_name + "" + origin + "" + angles);
 		waitframe(1);
 	}
 	model setmodel(model_name);
@@ -2489,7 +2481,7 @@ function wait_endon(waittime, endonstring, endonstring2, endonstring3, endonstri
 		self endon(endonstring4);
 	}
 	wait(waittime);
-	return true;
+	return 1;
 }
 
 /*
@@ -2648,9 +2640,9 @@ function is_primary_damage(meansofdeath)
 {
 	if(meansofdeath == "MOD_RIFLE_BULLET" || meansofdeath == "MOD_PISTOL_BULLET")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2737,10 +2729,10 @@ function any_player_is_touching(ent, team)
 	{
 		if(isalive(player) && player istouching(ent))
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -2758,22 +2750,12 @@ function set_console_status()
 	{
 		level.console = getdvarstring(#"consolegame") == "true";
 	}
-	else
-	{
-		/#
-			assert(level.console == getdvarstring(#"consolegame") == "", "");
-		#/
-	}
+	assert(level.console == getdvarstring(#"consolegame") == "", "");
 	if(!isdefined(level.consolexenon))
 	{
 		level.xenon = getdvarstring(#"xenongame") == "true";
 	}
-	else
-	{
-		/#
-			assert(level.xenon == getdvarstring(#"xenongame") == "", "");
-		#/
-	}
+	assert(level.xenon == getdvarstring(#"xenongame") == "", "");
 }
 
 /*
@@ -3064,23 +3046,20 @@ function button_held_think(which_button)
 				self._holding_button[which_button] = 0;
 			}
 		}
-		else
+		else if(self [[level._button_funcs[which_button]]]())
 		{
-			if(self [[level._button_funcs[which_button]]]())
+			if(time_started == 0)
 			{
-				if(time_started == 0)
-				{
-					time_started = gettime();
-				}
-				if(gettime() - time_started > use_time)
-				{
-					self._holding_button[which_button] = 1;
-				}
+				time_started = gettime();
 			}
-			else if(time_started != 0)
+			if(gettime() - time_started > use_time)
 			{
-				time_started = 0;
+				self._holding_button[which_button] = 1;
 			}
+		}
+		else if(time_started != 0)
+		{
+			time_started = 0;
 		}
 		waitframe(1);
 	}
@@ -3471,17 +3450,17 @@ function function_fbce7263(team_a, team_b)
 {
 	if(team_a === team_b || function_9b7092ef(team_a, team_b))
 	{
-		return false;
+		return 0;
 	}
 	if(!isdefined(team_a) || !isdefined(team_b))
 	{
-		return true;
+		return 1;
 	}
 	if(function_b37afded(team_a, team_b))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -3625,7 +3604,7 @@ function note_elapsed_time(start_time, label = "unspecified")
 		{
 			elapsed_time = int(elapsed_time);
 		}
-		msg = ((label + "") + elapsed_time) + "";
+		msg = label + "" + elapsed_time + "";
 		profileprintln(msg);
 		iprintln(msg);
 	#/
@@ -3670,7 +3649,7 @@ function note_elapsed_times(elapsed_time_array, label = "unspecified")
 		{
 			return;
 		}
-		msg = (label + "") + elapsed_time_array.size;
+		msg = label + "" + elapsed_time_array.size;
 		profileprintln(msg);
 		if(elapsed_time_array.size == 0)
 		{
@@ -3695,16 +3674,16 @@ function note_elapsed_times(elapsed_time_array, label = "unspecified")
 			{
 				elapsed_time = int(elapsed_time);
 			}
-			msg = ((label + "") + elapsed_time) + "";
+			msg = label + "" + elapsed_time + "";
 			profileprintln(msg);
 		}
 		average_elapsed_time = total_elapsed_time / elapsed_time_array.size;
-		msg = ((label + "") + average_elapsed_time) + "";
+		msg = label + "" + average_elapsed_time + "";
 		profileprintln(msg);
 		iprintln(msg);
-		msg = ((label + "") + largest_elapsed_time) + "";
+		msg = label + "" + largest_elapsed_time + "";
 		profileprintln(msg);
-		msg = ((label + "") + smallest_elapsed_time) + "";
+		msg = label + "" + smallest_elapsed_time + "";
 		profileprintln(msg);
 	#/
 }
@@ -3744,7 +3723,7 @@ function get_elapsed_time(start_time, end_time = getmicrosecondsraw())
 function note_raw_time(label = "unspecified")
 {
 	now = getmicrosecondsraw();
-	msg = ("us = " + now) + (" -- ") + label;
+	msg = "us = " + now + " -- " + label;
 	profileprintln(msg);
 }
 
@@ -4027,7 +4006,7 @@ function waitfortimeandnetworkframe(time = 0)
 {
 	start_time_ms = gettime();
 	wait_network_frame();
-	elapsed_time = (gettime() - start_time_ms) * 0.001;
+	elapsed_time = gettime() - start_time_ms * 0.001;
 	remaining_time = time - elapsed_time;
 	if(remaining_time > 0)
 	{
@@ -4089,7 +4068,7 @@ function drawcylinder_think(pos, rad, height, seconds, stop_notify, color, alpha
 		{
 			level endon(stop_notify);
 		}
-		stop_time = gettime() + (int(seconds * 1000));
+		stop_time = gettime() + int(seconds * 1000);
 		currad = rad;
 		curheight = height;
 		if(!isdefined(color))
@@ -4108,8 +4087,8 @@ function drawcylinder_think(pos, rad, height, seconds, stop_notify, color, alpha
 			}
 			for(r = 0; r < 20; r++)
 			{
-				theta = (r / 20) * 360;
-				theta2 = ((r + 1) / 20) * 360;
+				theta = r / 20 * 360;
+				theta2 = r + 1 / 20 * 360;
 				line(pos + (cos(theta) * currad, sin(theta) * currad, 0), pos + (cos(theta2) * currad, sin(theta2) * currad, 0), color, alpha);
 				line(pos + (cos(theta) * currad, sin(theta) * currad, curheight), pos + (cos(theta2) * currad, sin(theta2) * currad, curheight), color, alpha);
 				line(pos + (cos(theta) * currad, sin(theta) * currad, 0), pos + (cos(theta) * currad, sin(theta) * currad, curheight), color, alpha);
@@ -4225,7 +4204,7 @@ function get_array_of_closest(org, array, excluders = [], max = array.size, maxd
 		change = 0;
 		for(i = 0; i < dist.size - 1; i++)
 		{
-			if(dist[i] <= (dist[i + 1]))
+			if(dist[i] <= dist[i + 1])
 			{
 				continue;
 			}
@@ -4285,19 +4264,11 @@ function set_lighting_state(n_state)
 				}
 			}
 		}
-		else
+		else if(isplayer(self))
 		{
-			if(isplayer(self))
-			{
-				self setlightingstate(self.lighting_state);
-			}
-			else
-			{
-				/#
-					assertmsg("");
-				#/
-			}
+			self setlightingstate(self.lighting_state);
 		}
+		assertmsg("");
 	}
 }
 
@@ -4332,19 +4303,11 @@ function set_sun_shadow_split_distance(f_distance)
 				}
 			}
 		}
-		else
+		else if(isplayer(self))
 		{
-			if(isplayer(self))
-			{
-				self setsunshadowsplitdistance(self.sun_shadow_split_distance);
-			}
-			else
-			{
-				/#
-					assertmsg("");
-				#/
-			}
+			self setsunshadowsplitdistance(self.sun_shadow_split_distance);
 		}
+		assertmsg("");
 	}
 }
 
@@ -4383,19 +4346,11 @@ function function_7f49ffb7(var_bf01552a)
 				}
 			}
 		}
-		else
+		else if(isplayer(self))
 		{
-			if(isplayer(self))
-			{
-				self function_61471b4a(self.var_bf01552a);
-			}
-			else
-			{
-				/#
-					assertmsg("");
-				#/
-			}
+			self function_61471b4a(self.var_bf01552a);
 		}
+		assertmsg("");
 	}
 }
 
@@ -4446,9 +4401,9 @@ function auto_delete(n_mode = 1, n_min_time_alive = 0, n_dist_horizontal = 0, n_
 	{
 		do
 		{
-			wait(randomfloatrange(n_think_time - (n_think_time / 3), n_think_time + (n_think_time / 3)));
+			wait(randomfloatrange(n_think_time - n_think_time / 3, n_think_time + n_think_time / 3));
 		}
-		while(isdefined(self.birthtime) && ((float(gettime() - self.birthtime)) / 1000) < n_min_time_alive);
+		while(isdefined(self.birthtime) && float(gettime() - self.birthtime) / 1000 < n_min_time_alive);
 		n_tests_passed = 0;
 		foreach(player in level.players)
 		{
@@ -4461,7 +4416,7 @@ function auto_delete(n_mode = 1, n_min_time_alive = 0, n_dist_horizontal = 0, n_
 			{
 				continue;
 			}
-			if(n_dist_vertical && (abs(self.origin[2] - player.origin[2])) < n_dist_vertical)
+			if(n_dist_vertical && abs(self.origin[2] - player.origin[2]) < n_dist_vertical)
 			{
 				continue;
 			}
@@ -4659,7 +4614,7 @@ function function_2146bd83(weapon)
 	{
 		if(!i)
 		{
-			var_2f3a032e = var_2f3a032e + ("+");
+			var_2f3a032e = var_2f3a032e + "+";
 		}
 		var_2f3a032e = var_2f3a032e + weapon.attachments[i];
 	}
@@ -4811,9 +4766,9 @@ function isoneround()
 {
 	if(level.roundlimit == 1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4829,9 +4784,9 @@ function isfirstround()
 {
 	if(game.roundsplayed == 0)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4845,11 +4800,11 @@ function isfirstround()
 */
 function islastround()
 {
-	if(level.roundlimit > 1 && game.roundsplayed >= (level.roundlimit - 1))
+	if(level.roundlimit > 1 && game.roundsplayed >= level.roundlimit - 1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4865,25 +4820,25 @@ function waslastround()
 {
 	if(level.forcedend)
 	{
-		return true;
+		return 1;
 	}
 	if(isdefined(level.nextroundisovertime))
 	{
 		if(level.nextroundisovertime)
 		{
 			level.nextroundisovertime = 1;
-			return false;
+			return 0;
 		}
 		if(isdefined(game.overtime_round) && game.overtime_round > 0)
 		{
-			return true;
+			return 1;
 		}
 	}
 	if(hitroundlimit() || hitscorelimit() || hitroundwinlimit())
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4919,10 +4874,10 @@ function anyteamhitroundwinlimit()
 	{
 		if(getroundswon(team) >= level.roundwinlimit)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4939,12 +4894,12 @@ function anyteamhitroundlimitwithdraws()
 	tie_wins = game.stat[#"roundswon"][#"tie"];
 	foreach(team, _ in level.teams)
 	{
-		if((getroundswon(team) + tie_wins) >= level.roundwinlimit)
+		if(getroundswon(team) + tie_wins >= level.roundwinlimit)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -4969,10 +4924,10 @@ function function_385658da()
 		}
 		if(wins != count)
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -4988,20 +4943,20 @@ function hitroundwinlimit()
 {
 	if(!isdefined(level.roundwinlimit) || level.roundwinlimit <= 0)
 	{
-		return false;
+		return 0;
 	}
 	if(anyteamhitroundwinlimit())
 	{
-		return true;
+		return 1;
 	}
 	if(anyteamhitroundlimitwithdraws())
 	{
 		if(!function_385658da())
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5019,10 +4974,10 @@ function any_team_hit_score_limit()
 	{
 		if(game.stat[#"teamscores"][team] >= level.scorelimit)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5038,17 +4993,17 @@ function hitscorelimit()
 {
 	if(level.scoreroundwinbased)
 	{
-		return false;
+		return 0;
 	}
 	if(level.scorelimit <= 0)
 	{
-		return false;
+		return 0;
 	}
 	if(level.teambased)
 	{
 		if(any_team_hit_score_limit())
 		{
-			return true;
+			return 1;
 		}
 	}
 	else
@@ -5058,11 +5013,11 @@ function hitscorelimit()
 			player = level.players[i];
 			if(isdefined(player.pointstowin) && player.pointstowin >= level.scorelimit)
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5076,7 +5031,7 @@ function hitscorelimit()
 */
 function get_current_round_score_limit()
 {
-	return level.roundscorelimit * (game.roundsplayed + 1);
+	return level.roundscorelimit * game.roundsplayed + 1;
 }
 
 /*
@@ -5095,10 +5050,10 @@ function any_team_hit_round_score_limit()
 	{
 		if(game.stat[#"teamscores"][team] >= round_score_limit)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5114,13 +5069,13 @@ function hitroundscorelimit()
 {
 	if(level.roundscorelimit <= 0)
 	{
-		return false;
+		return 0;
 	}
 	if(level.teambased)
 	{
 		if(any_team_hit_round_score_limit())
 		{
-			return true;
+			return 1;
 		}
 	}
 	else
@@ -5131,11 +5086,11 @@ function hitroundscorelimit()
 			player = level.players[i];
 			if(isdefined(player.pointstowin) && player.pointstowin >= roundscorelimit)
 			{
-				return true;
+				return 1;
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5208,9 +5163,9 @@ function isroundbased()
 {
 	if(level.roundlimit != 1 && level.roundwinlimit != 1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -5243,7 +5198,7 @@ function getcurrentgamemode()
 function function_97cf7eb0(v_start, n_max_dist = 5000, n_ground_offset = 0, e_ignore, b_ignore_water = 0, b_ignore_glass = 0)
 {
 	v_trace_start = v_start + (0, 0, 5);
-	v_trace_end = v_trace_start + (0, 0, (n_max_dist + 5) * -1);
+	v_trace_end = v_trace_start + (0, 0, n_max_dist + 5 * -1);
 	a_trace = groundtrace(v_trace_start, v_trace_end, 0, e_ignore, b_ignore_water, b_ignore_glass);
 	if(a_trace[#"surfacetype"] != "none")
 	{
@@ -5317,7 +5272,7 @@ function delayed_delete(f_delay_seconds)
 function is_safehouse()
 {
 	mapname = function_53bbf9d2();
-	return false;
+	return 0;
 }
 
 /*
@@ -5336,7 +5291,7 @@ function is_new_cp_map()
 	{
 		default:
 		{
-			return false;
+			return 0;
 		}
 	}
 }
@@ -5404,7 +5359,7 @@ function queued_debug_commands()
 				trickle = 1;
 				var_1085858 = 12;
 			}
-			while(!trickle || var_1085858 > 0 && canadddebugcommand() && level.dbg_cmd_queue.size > 0)
+			while(!var_1b824fd2 || var_1085858 > 0 && canadddebugcommand() && level.dbg_cmd_queue.size > 0)
 			{
 				cmd = array::pop_front(level.dbg_cmd_queue, 0);
 				adddebugcommand(cmd);
@@ -5716,7 +5671,7 @@ function trackwallrunningdistance()
 		self.movementtracking.wallrunning.count++;
 		self waittill(#"wallrun_end");
 		self.movementtracking.wallrunning.distance = self.movementtracking.wallrunning.distance + distance(startpos, self.origin);
-		self.movementtracking.wallrunning.time = self.movementtracking.wallrunning.time + (gettime() - starttime);
+		self.movementtracking.wallrunning.time = self.movementtracking.wallrunning.time + gettime() - starttime;
 	}
 }
 
@@ -5744,7 +5699,7 @@ function tracksprintdistance()
 		self.movementtracking.sprinting.count++;
 		self waittill(#"sprint_end");
 		self.movementtracking.sprinting.distance = self.movementtracking.sprinting.distance + distance(startpos, self.origin);
-		self.movementtracking.sprinting.time = self.movementtracking.sprinting.time + (gettime() - starttime);
+		self.movementtracking.sprinting.time = self.movementtracking.sprinting.time + gettime() - starttime;
 	}
 }
 
@@ -5772,7 +5727,7 @@ function trackdoublejumpdistance()
 		self.movementtracking.doublejump.count++;
 		self waittill(#"doublejump_end");
 		self.movementtracking.doublejump.distance = self.movementtracking.doublejump.distance + distance(startpos, self.origin);
-		self.movementtracking.doublejump.time = self.movementtracking.doublejump.time + (gettime() - starttime);
+		self.movementtracking.doublejump.time = self.movementtracking.doublejump.time + gettime() - starttime;
 	}
 }
 
@@ -5937,7 +5892,7 @@ function get_players(team = #"any")
 		return arraycopy(level.players);
 	}
 	/#
-		assert(isdefined(level.teams[team]), ("" + function_9e72a96(team)) + "");
+		assert(isdefined(level.teams[team]), "" + function_9e72a96(team) + "");
 	#/
 	players = [];
 	foreach(player in level.players)
@@ -5969,7 +5924,7 @@ function get_active_players(team = #"any")
 		if(team != #"any")
 		{
 			/#
-				assert(isdefined(level.teams[team]), ("" + function_9e72a96(team)) + "");
+				assert(isdefined(level.teams[team]), "" + function_9e72a96(team) + "");
 			#/
 		}
 	#/
@@ -6006,7 +5961,7 @@ function function_81ccf6d3(team = #"any")
 		return players;
 	}
 	/#
-		assert(isdefined(level.teams[team]), ("" + function_9e72a96(team)) + "");
+		assert(isdefined(level.teams[team]), "" + function_9e72a96(team) + "");
 	#/
 	enemies = [];
 	foreach(player in players)
@@ -6150,7 +6105,7 @@ function function_cda17472(team)
 */
 function timesince(starttimeinmilliseconds)
 {
-	return (gettime() - starttimeinmilliseconds) * 0.001;
+	return gettime() - starttimeinmilliseconds * 0.001;
 }
 
 /*
@@ -6182,7 +6137,7 @@ function cooldowninit()
 function cooldown(name, time_seconds)
 {
 	cooldowninit();
-	self._cooldown[name] = gettime() + (int(time_seconds * 1000));
+	self._cooldown[name] = gettime() + int(time_seconds * 1000);
 }
 
 /*
@@ -6216,7 +6171,7 @@ function getcooldowntimeraw(name)
 function getcooldownleft(name)
 {
 	cooldowninit();
-	return (getcooldowntimeraw(name) - gettime()) * 0.001;
+	return getcooldowntimeraw(name) - gettime() * 0.001;
 }
 
 /*
@@ -6236,7 +6191,7 @@ function iscooldownready(name, timeforward_seconds)
 		timeforward_seconds = 0;
 	}
 	cooldownreadytime = self._cooldown[name];
-	return !isdefined(cooldownreadytime) || (gettime() + (int(timeforward_seconds * 1000))) > cooldownreadytime;
+	return !isdefined(cooldownreadytime) || gettime() + int(timeforward_seconds * 1000) > cooldownreadytime;
 }
 
 /*
@@ -6266,7 +6221,7 @@ function clearcooldown(name)
 function addcooldowntime(name, time_seconds)
 {
 	cooldowninit();
-	self._cooldown[name] = getcooldowntimeraw(name) + (int(time_seconds * 1000));
+	self._cooldown[name] = getcooldowntimeraw(name) + int(time_seconds * 1000);
 }
 
 /*
@@ -6298,7 +6253,7 @@ function clearallcooldowns()
 	Parameters: 1
 	Flags: Linked, Private
 */
-function private function_4627b63d(alias)
+private function function_4627b63d(alias)
 {
 	/#
 		assert(isdefined(level.var_3c691677));
@@ -6318,7 +6273,7 @@ function private function_4627b63d(alias)
 	Parameters: 0
 	Flags: Linked, Private
 */
-function private function_3cb7a62d()
+private function function_3cb7a62d()
 {
 	/#
 		assert(isdefined(level.team_mapping));
@@ -6429,7 +6384,7 @@ function function_9b7092ef(team1, team2, team3, team4)
 {
 	if(!isdefined(team1) || !isdefined(team2))
 	{
-		return false;
+		return 0;
 	}
 	foreach(var_ef54b214 in level.var_fdf974de)
 	{
@@ -6441,13 +6396,13 @@ function function_9b7092ef(team1, team2, team3, team4)
 				{
 					if(!isdefined(team4) || array::contains(var_ef54b214, team4))
 					{
-						return true;
+						return 1;
 					}
 				}
 			}
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -6683,7 +6638,7 @@ function function_3f165ee8()
 function function_e2e9d901(menu_path, commands)
 {
 	/#
-		add_queued_debug_command(((("" + menu_path) + "") + commands) + "");
+		add_queued_debug_command("" + menu_path + "" + commands + "");
 	#/
 }
 
@@ -6699,7 +6654,7 @@ function function_e2e9d901(menu_path, commands)
 function function_d84da933(menu_path)
 {
 	/#
-		add_queued_debug_command(("" + menu_path) + "");
+		add_queued_debug_command("" + menu_path + "");
 	#/
 }
 
@@ -6715,7 +6670,7 @@ function function_d84da933(menu_path)
 function function_3f749abc(menu_path, commands)
 {
 	/#
-		function_345e5b9a(((("" + menu_path) + "") + commands) + "");
+		function_345e5b9a("" + menu_path + "" + commands + "");
 	#/
 }
 
@@ -6731,7 +6686,7 @@ function function_3f749abc(menu_path, commands)
 function function_85c62761(menu_path)
 {
 	/#
-		function_345e5b9a(("" + menu_path) + "");
+		function_345e5b9a("" + menu_path + "");
 	#/
 }
 
@@ -6772,16 +6727,16 @@ function function_72cbea07(player, weapon)
 {
 	if(!isdefined(player.var_9c4683a0))
 	{
-		return false;
+		return 0;
 	}
 	foreach(var_e64f4a4a in player.var_9c4683a0)
 	{
 		if(var_e64f4a4a == weapon)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -6923,7 +6878,7 @@ function show_hit_marker(var_554cb812 = 0, var_1ed250ec = 0)
 	Parameters: 2
 	Flags: Linked, Private
 */
-function private function_6e97119b(var_554cb812, var_1ed250ec)
+private function function_6e97119b(var_554cb812, var_1ed250ec)
 {
 	self endon(#"death");
 	if(!isdefined(self.var_9a94bf1))
@@ -7014,11 +6969,11 @@ function is_party_gamemode()
 		case "shrp":
 		case "gun":
 		{
-			return true;
+			return 1;
 			break;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -7268,9 +7223,9 @@ function is_spectating()
 {
 	if(self.sessionstate == #"spectator")
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -7287,7 +7242,7 @@ function function_8570168d()
 	/#
 		if(getdvar(#"hash_49e94b7aefac4f49", 0))
 		{
-			return true;
+			return 1;
 		}
 	#/
 	if(sessionmodeismultiplayergame())
@@ -7295,10 +7250,10 @@ function function_8570168d()
 		mode = function_bea73b01();
 		if(mode == 4)
 		{
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 
 /*
@@ -7490,16 +7445,13 @@ function function_d608a743()
 		{
 			util::single_thread_argarray(self, s_callback.func, s_callback.params);
 		}
+		else if(isdefined(s_result.params))
+		{
+			util::single_thread_argarray(self, s_callback.func, s_result.params);
+		}
 		else
 		{
-			if(isdefined(s_result.params))
-			{
-				util::single_thread_argarray(self, s_callback.func, s_result.params);
-			}
-			else
-			{
-				util::single_thread_argarray(self, s_callback.func);
-			}
+			util::single_thread_argarray(self, s_callback.func);
 		}
 	}
 }

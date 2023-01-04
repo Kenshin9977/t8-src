@@ -13,7 +13,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"mission", &__init__, undefined, undefined);
 }
@@ -50,9 +50,9 @@ function mission_active_changed(localclientnum, oldval, newval, bnewent, binitia
 	for(i = 0; i < 8; i++)
 	{
 		changedflags = level.mission_active_flags ^ newval;
-		if((changedflags & (1 << i)) != 0)
+		if(changedflags & 1 << i != 0)
 		{
-			if((level.mission_active_flags & (1 << i)) != 0)
+			if(level.mission_active_flags & 1 << i != 0)
 			{
 				stopmission(i);
 			}
@@ -61,9 +61,9 @@ function mission_active_changed(localclientnum, oldval, newval, bnewent, binitia
 	for(i = 0; i < 8; i++)
 	{
 		changedflags = level.mission_active_flags ^ newval;
-		if((changedflags & (1 << i)) != 0)
+		if(changedflags & 1 << i != 0)
 		{
-			if((level.mission_active_flags & (1 << i)) == 0)
+			if(level.mission_active_flags & 1 << i == 0)
 			{
 				startmission(i);
 			}

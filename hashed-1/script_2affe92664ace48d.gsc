@@ -1,6 +1,6 @@
 // Decompiled by Serious. Credits to Scoba for his original tool, Cerberus, which I heavily upgraded to support remaining features, other games, and other platforms.
 #using script_319f949ff1a59d26;
-#using script_3f9e0dc8454d98e1;
+#using hashed-1\zombie_utility.gsc;
 #using script_4aeb3279b6b23a91;
 #using script_58c342edd81589fb;
 #using script_7e59d7bba853fe4b;
@@ -26,7 +26,7 @@
 	Parameters: 0
 	Flags: AutoExec
 */
-function autoexec function_89f2df9()
+autoexec function function_89f2df9()
 {
 	system::register(#"hash_2a747ac7e33453cc", &__init__, &__main__, #"hash_6c20d49019c685c7");
 }
@@ -80,7 +80,7 @@ function __main__()
 function function_fe4c8547()
 {
 	self thread function_94c9b195();
-	var_1751372a = namespace_e0710ee6::function_8d44707e(0);
+	var_1751372a = cschashed-1\script_5a012bbb9342dbdf::function_8d44707e(0);
 	var_1751372a = var_1751372a * (isdefined(level.var_1eb98fb1) ? level.var_1eb98fb1 : 1);
 	var_1751372a = int(var_1751372a);
 	self.health = var_1751372a;
@@ -97,7 +97,7 @@ function function_fe4c8547()
 	Parameters: 2
 	Flags: Linked
 */
-function spawn_single(b_force_spawn = 0, var_eb3a8721)
+function function_6249817(b_force_spawn = 0, var_eb3a8721)
 {
 	if(!b_force_spawn && !function_66cfd7d())
 	{
@@ -108,16 +108,13 @@ function spawn_single(b_force_spawn = 0, var_eb3a8721)
 	{
 		s_spawn_loc = var_eb3a8721;
 	}
-	else
+	else if(isdefined(level.var_fcde6b4))
 	{
-		if(isdefined(level.var_fcde6b4))
-		{
-			s_spawn_loc = [[level.var_fcde6b4]]();
-		}
-		else if(level.zm_loc_types[#"tiger_location"].size > 0)
-		{
-			s_spawn_loc = array::random(level.zm_loc_types[#"tiger_location"]);
-		}
+		s_spawn_loc = [[level.var_fcde6b4]]();
+	}
+	else if(level.zm_loc_types[#"tiger_location"].size > 0)
+	{
+		s_spawn_loc = array::random(level.zm_loc_types[#"tiger_location"]);
 	}
 	if(!isdefined(s_spawn_loc))
 	{
@@ -154,9 +151,9 @@ function function_66cfd7d()
 	var_b3c0e90e = function_cbfb0da4();
 	if(var_6ecc1639 >= var_b3c0e90e || !level flag::get("spawn_zombies") || (isdefined(level.var_5e45f817) && level.var_5e45f817))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 /*
@@ -315,8 +312,8 @@ function round_spawn()
 	if(isdefined(ai))
 	{
 		level.zombie_total--;
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
